@@ -1,0 +1,12 @@
+# Build directories
+/out/
+/target/
+
+# IDE
+/.idea/
+/.vscode/
+/*.iml
+
+# OS
+.DS_Store
+Thumbs.db
