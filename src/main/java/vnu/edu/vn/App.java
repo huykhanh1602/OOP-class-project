@@ -8,7 +8,7 @@ import vnu.edu.vn.game.GameScene;
 
 public class App extends Application {
     //WINDOW SETTING
-    public final int widthScreen = 800;             //WIDTH SCREEN
+    public final int widthScreen = 600;             //WIDTH SCREEN
     public final int heightScreen = 600;            //HEIGHT SCREEN
     private final String title = "Arknoid";
 
