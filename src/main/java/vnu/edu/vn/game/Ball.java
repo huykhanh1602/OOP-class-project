@@ -26,10 +26,8 @@ public class Ball extends GameObject {
         y += dy;
 
         // Bounce off walls
-        if (x <= 0 || x + width >= boundaryWidth) dx *= -1;
-        if (y <= 0) dy *= -1;
-        if (x >= boundaryWidth) dx *= -1;
-        if (y >= boundaryHeight) dy *= -1;
+        if (x <= 10 || x + width >= boundaryWidth) dx *= -1;
+        if (y <= 15) dy *= -1;
     }
 
     @Override

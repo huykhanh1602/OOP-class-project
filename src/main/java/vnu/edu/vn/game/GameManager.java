@@ -20,9 +20,9 @@ public class GameManager {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
 
-        paddle = new Paddle(widthScreen / 4, heightScreen*5/6 - 40, widthScreen/2);
-        ball = new Ball(widthScreen / 4, heightScreen / 2 - 40, widthScreen/2, heightScreen*5/6);
-        background = new Background(widthScreen/2, heightScreen*5/6);
+        paddle = new Paddle(widthScreen / 4, heightScreen*4/5 - 20, widthScreen*3/4);
+        ball = new Ball(widthScreen / 4, heightScreen / 2 - 40, widthScreen*3/4, heightScreen*5/6);
+        background = new Background(widthScreen*3/4, heightScreen-70);
 
 
         // Create some bricks

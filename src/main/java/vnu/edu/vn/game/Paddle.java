@@ -26,7 +26,7 @@ public class Paddle extends GameObject {
     /// MOVEMENT
     @Override
     public void update() {
-        if (moveLeft && x > 0) x -= speed;
+        if (moveLeft && x > 10) x -= speed;
         if (moveRight && x < boundaryPaddle - widthPaddle) x += speed;
     }
 
