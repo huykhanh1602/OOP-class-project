@@ -1,8 +1,19 @@
 package vnu.edu.vn.game;
 
-import javafx.scene.Scene;
+
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
+import vnu.edu.vn.App;
+import vnu.edu.vn.game.ball.Ball;
+import vnu.edu.vn.game.Paddle;
+import vnu.edu.vn.game.bricks.BrickLoader;
+import vnu.edu.vn.game.bricks.Bricks;
+import vnu.edu.vn.game.score.Score;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -11,56 +22,100 @@ import java.util.List;
 public class GameManager {
     private int widthScreen, heightScreen;
 
+    /// Ball, Paddle, Brick
     private Paddle paddle;
     private Ball ball;
-    private List<Bricks> bricks = new ArrayList<>();
-    private Background background;
+    private List<Bricks> bricks;
+    private Score scorePlayer = new Score();
+    private boolean gameOver;
+    private final App app;
 
-    public GameManager(int widthScreen, int heightScreen) {
+
+    public GameManager(int widthScreen, int heightScreen,  App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
+        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
+        this.app = app;
+        reset();
+    }
 
-        paddle = new Paddle(widthScreen / 4, heightScreen*4/5 - 20, widthScreen*3/4);
-        ball = new Ball(widthScreen / 4, heightScreen / 2 - 40, widthScreen*3/4, heightScreen*5/6);
-        background = new Background(widthScreen*3/4, heightScreen-70);
+    private void checkCollision() {
+        if (ball.getX() <= 10 || ball.getX() + ball.getRadius() * 2 >= widthScreen*3/4) ball.bounceX();
+        if (ball.getY() <= 20) ball.bounceY();
 
 
-        // Create some bricks
-        int i = 0;
-        while (i * 30 + 10 < widthScreen/2 - 40) {
-            i++;
-            bricks.add(new Bricks(30 * i, 50));
+        for (Iterator<Bricks> iterator = bricks.iterator(); iterator.hasNext();) {
+            Bricks brick = iterator.next();
+
+            if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
+                brick.hit();
+                ball.bounceY();
+                if (brick.isBroken()) {
+                    iterator.remove();
+                    scorePlayer.addScore(brick.getAmount());
+                }
+                break; // tránh va chạm nhiều brick 1 frame
+            }
+        }
+
+        // Game over
+        if (ball.getY() > heightScreen*5/6+40) {
+            app.switchToGameOver(scorePlayer.getScore());
         }
     }
 
+
+
+
+
+    public void reset() {
+        paddle = new Paddle(widthScreen/2, heightScreen*7/8-30);
+        ball = new Ball(widthScreen/2, heightScreen*7/8-45);
+        gameOver = false;
+    }
+
+
     public void update() {
+        if (gameOver) return;
+
+        if (ball.collides(paddle)) {
+            ball.bounce();
+        }
+
+
         paddle.update();
         ball.update();
+        checkCollision();
 
-        // Collision with paddle
-        if (ball.Collusion(paddle)) {
-            ball.bounceY();
-        }
-
-        // Collision with bricks
-        for (Bricks brick : bricks) {
-            if (!brick.isDestroyed() && ball.Collusion(brick)) {
-                brick.destroy();
-                ball.bounceY();
-            }
-        }
+//        if (ball.isOutOfBounds()) {
+//            gameOver = true;
+//            app.switchToGameOver(scorePlayer.getScore());
+//        }
     }
 
     public void render(GraphicsContext gc) {
-        gc.clearRect(0, 0, widthScreen, heightScreen);
-        background.render(gc);
+        gc.setFill(Color.GRAY);
+        gc.fillRect(10, 20, widthScreen*3/4-10, heightScreen*8/9);
+
         paddle.render(gc);
         ball.render(gc);
-        bricks.forEach(brick -> brick.render(gc));
+        if(bricks == null) {
+            System.out.println("bricks is null");
+        }
+        for (Bricks brick : bricks) {
+            brick.render(gc);
+        }
+
+        gc.setFill(Color.DARKGRAY);
+        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen*3/4+60, heightScreen*1/8);
     }
 
-    public void handleInput(Scene scene) {
-        scene.setOnKeyPressed(e -> paddle.onKeyPressed(e.getCode()));
-        scene.setOnKeyReleased(e -> paddle.onKeyReleased(e.getCode()));
+    /// HANDLE KEY EVENT
+    public void handleKeyPress(KeyEvent e) {
+        paddle.handleKeyPressed(e);
+    }
+
+    public void handleKeyRelease(KeyEvent e) {
+        paddle.handleKeyReleased(e);
     }
 }

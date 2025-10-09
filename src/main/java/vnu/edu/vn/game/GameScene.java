@@ -1,48 +1,60 @@
 package vnu.edu.vn.game;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.animation.AnimationTimer;
+
+import javafx.scene.paint.Color;
+import vnu.edu.vn.App;
 
 
 /// Setup game loop
 
-public class GameScene {
+public class GameScene extends StackPane {
 
-    private Scene scene;
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager gameManager;
-    private AnimationTimer timer;
 
-    public GameScene(int widthScreen, int heightScreen) {
+    public GameScene(int widthScreen, int heightScreen, App app) {
+        this.canvas = new Canvas(widthScreen, heightScreen);
+        this.getChildren().add(canvas);
 
-        canvas = new Canvas(widthScreen, heightScreen);
-        gc = canvas.getGraphicsContext2D();
+        this.gc = canvas.getGraphicsContext2D();
+        this.gameManager = new GameManager(widthScreen, heightScreen, app);
 
-        gameManager = new GameManager(widthScreen, heightScreen);
+        setupInput();
+        startGameLoop();
+    }
 
-        scene = new Scene(new StackPane(canvas));
+    private void setupInput() {
+        canvas.setFocusTraversable(true);
 
-        gameManager.handleInput(scene);
+        canvas.setOnKeyPressed(e -> gameManager.handleKeyPress(e));
+        canvas.setOnKeyReleased(e -> gameManager.handleKeyRelease(e));
+    }
 
-        timer = new AnimationTimer() {
+
+    public void startGameLoop() {
+        new AnimationTimer() {
             @Override
             public void handle(long now) {
                 gameManager.update();
-                gameManager.render(gc);
+                render();
             }
-        };
+        }.start();
     }
 
-
-    public Scene getScene() {
-        return scene;
+    private void render() {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gameManager.render(gc);
     }
 
-    public void start() {
-        timer.start();
+    public void resetGame() {
+        gameManager.reset();
     }
+
 }

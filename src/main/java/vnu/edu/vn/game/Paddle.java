@@ -1,30 +1,33 @@
 package vnu.edu.vn.game;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 
 /// Just Paddle
 
-public class Paddle extends GameObject {
-    //SIZE PADDLE - will be change how work later
-    private static int widthPaddle = 60;
-    private static int heightPaddle = 15;
-
+public class Paddle {
+    ///ELEMENT PADDLE
+    private double x, y;
+    private int widthPaddle = 120;
+    private int heightPaddle = 15;
     private double speed = 5;               //SPEED PADDLE
-    private boolean moveLeft, moveRight;    //MOVEMENT
 
-    private int boundaryPaddle;
+    private final double boundaryPaddle =  600*3/4;
 
-    public Paddle(double x, double y, int boundaryPaddle) {
-        super(x, y, widthPaddle, heightPaddle);
-        this.boundaryPaddle = boundaryPaddle;
+    private boolean moveLeft = false;
+    private boolean moveRight = false;    //MOVEMENT
+
+    public Paddle(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
 
     /// MOVEMENT
-    @Override
     public void update() {
         if (moveLeft && x > 10) x -= speed;
         if (moveRight && x < boundaryPaddle - widthPaddle) x += speed;
@@ -32,7 +35,6 @@ public class Paddle extends GameObject {
 
 
     /// RENDER
-    @Override
     public void render(GraphicsContext gc) {
         gc.setFill(Color.BLUE);
         gc.fillRect(x, y, widthPaddle, heightPaddle);
@@ -40,13 +42,29 @@ public class Paddle extends GameObject {
 
 
     /// CHECK KEY
-    public void onKeyPressed(KeyCode key) {
-        if (key == KeyCode.LEFT) moveLeft = true;
-        if (key == KeyCode.RIGHT) moveRight = true;
+    public void handleKeyPressed(KeyEvent key) {
+        if (key.getCode() == KeyCode.LEFT) moveLeft = true;
+        if (key.getCode() == KeyCode.RIGHT) moveRight = true;
     }
 
-    public void onKeyReleased(KeyCode key) {
-        if (key == KeyCode.LEFT) moveLeft = false;
-        if (key == KeyCode.RIGHT) moveRight = false;
+    public void handleKeyReleased(KeyEvent key) {
+        if (key.getCode() == KeyCode.LEFT) moveLeft = false;
+        if (key.getCode() == KeyCode.RIGHT) moveRight = false;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public int getWidthPaddle() {
+        return widthPaddle;
+    }
+
+    public int getHeightPaddle() {
+        return heightPaddle;
     }
 }
