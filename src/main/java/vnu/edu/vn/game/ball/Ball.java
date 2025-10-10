@@ -25,7 +25,7 @@ public class Ball{
         this.x = x+getRadius();
         this.y = y+getRadius();
 
-        double angle = Math.toRadians(Math.random()*180);
+        double angle = Math.toRadians(Math.random()*360);
         double sin = Math.sin(angle);
         double cos = Math.cos(angle);
         dx = speedball*cos;

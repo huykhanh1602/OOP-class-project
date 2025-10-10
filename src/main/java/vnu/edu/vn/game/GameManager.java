@@ -1,7 +1,6 @@
 package vnu.edu.vn.game;
 
 
-import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -24,7 +23,7 @@ public class GameManager {
 
     /// Ball, Paddle, Brick
     private Paddle paddle;
-    private Ball ball;
+    private List<Ball> balls;
     private List<Bricks> bricks;
     private Score scorePlayer = new Score();
     private boolean gameOver;
@@ -40,37 +39,40 @@ public class GameManager {
     }
 
     private void checkCollision() {
-        if (ball.getX() <= 10 || ball.getX() + ball.getRadius() * 2 >= widthScreen*3/4) ball.bounceX();
-        if (ball.getY() <= 20) ball.bounceY();
+        for(Ball ball: balls) {
+
+            if (ball.getX() <= 10 || ball.getX() + ball.getRadius() * 2 >= widthScreen * 3 / 4) ball.bounceX();
+            if (ball.getY() <= 20) ball.bounceY();
 
 
-        for (Iterator<Bricks> iterator = bricks.iterator(); iterator.hasNext();) {
-            Bricks brick = iterator.next();
+            for (Iterator<Bricks> iterator = bricks.iterator(); iterator.hasNext(); ) {
+                Bricks brick = iterator.next();
 
-            if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                brick.hit();
-                ball.bounceY();
-                if (brick.isBroken()) {
-                    iterator.remove();
-                    scorePlayer.addScore(brick.getAmount());
+                if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
+                    brick.hit();
+                    ball.bounceY();
+                    if (brick.isBroken()) {
+                        iterator.remove();
+                        scorePlayer.addScore(brick.getAmount());
+                    }
+                    break; // tránh va chạm nhiều brick 1 frame
                 }
-                break; // tránh va chạm nhiều brick 1 frame
             }
         }
+//            // Game over
+//            if (ball.getY() > heightScreen*5/6+40) {
+//                app.switchToGameOver(scorePlayer.getScore());
+//            }
 
-        // Game over
-        if (ball.getY() > heightScreen*5/6+40) {
-            app.switchToGameOver(scorePlayer.getScore());
-        }
     }
-
-
-
 
 
     public void reset() {
         paddle = new Paddle(widthScreen/2, heightScreen*7/8-30);
-        ball = new Ball(paddle.getX() + paddle.getWidthPaddle()/2, paddle.getY()-paddle.getHeightPaddle());
+        balls = new ArrayList<Ball>();
+        for(int i = 0; i < 5; i++) {
+            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
+        }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         gameOver = false;
     }
@@ -79,13 +81,16 @@ public class GameManager {
     public void update() {
         if (gameOver) return;
 
-        if (ball.collides(paddle)) {
-            ball.bounce();
+        for(Ball ball : balls) {
+            if (ball.collides(paddle)) {
+                ball.bounce();
+            }
         }
 
-
         paddle.update();
-        ball.update();
+        for (Ball ball : balls) {
+            ball.update();
+        }
         checkCollision();
 
 //        if (ball.isOutOfBounds()) {
@@ -99,7 +104,11 @@ public class GameManager {
         gc.fillRect(10, 20, widthScreen*3/4-10, heightScreen*8/9);
 
         paddle.render(gc);
-        ball.render(gc);
+
+        for(Ball ball : balls) {
+            ball.render(gc);
+        }
+
         if(bricks == null) {
             System.out.println("bricks is null");
         }
