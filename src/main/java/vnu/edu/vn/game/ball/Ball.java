@@ -11,7 +11,7 @@ import vnu.edu.vn.game.Paddle;
 public class Ball{
     /// ELEMENT BALL
     private double x, y;
-    private double radius = 10;                 //Size ball
+    private double radius = 7.5;                 //Size ball
     private double dx = 2, dy = -2;             //Vector speed
 
 //    private int boundaryWidth =  600*3/4;

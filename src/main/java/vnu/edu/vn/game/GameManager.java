@@ -34,7 +34,7 @@ public class GameManager {
     public GameManager(int widthScreen, int heightScreen,  App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
-        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
+//        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
         reset();
     }
@@ -71,6 +71,7 @@ public class GameManager {
     public void reset() {
         paddle = new Paddle(widthScreen/2, heightScreen*7/8-30);
         ball = new Ball(widthScreen/2, heightScreen*7/8-45);
+        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         gameOver = false;
     }
 
