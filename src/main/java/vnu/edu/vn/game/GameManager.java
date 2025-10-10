@@ -70,7 +70,7 @@ public class GameManager {
 
     public void reset() {
         paddle = new Paddle(widthScreen/2, heightScreen*7/8-30);
-        ball = new Ball(widthScreen/2, heightScreen*7/8-45);
+        ball = new Ball(paddle.getX() + paddle.getWidthPaddle()/2, paddle.getY()-paddle.getHeightPaddle());
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         gameOver = false;
     }
