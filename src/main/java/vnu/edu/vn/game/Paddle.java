@@ -43,13 +43,13 @@ public class Paddle {
 
     /// CHECK KEY
     public void handleKeyPressed(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT) moveLeft = true;
-        if (key.getCode() == KeyCode.RIGHT) moveRight = true;
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = true;
+        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = true;
     }
 
     public void handleKeyReleased(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT) moveLeft = false;
-        if (key.getCode() == KeyCode.RIGHT) moveRight = false;
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = false;
+        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = false;
     }
 
     public double getX() {

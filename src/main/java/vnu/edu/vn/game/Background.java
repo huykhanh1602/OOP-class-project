@@ -27,10 +27,10 @@ public class Background {
 
     public void render(GraphicsContext gc) {
         if (!backgrounds.isEmpty()) {
-            gc.drawImage(backgrounds.get(currentIndex), 10, 15, widthMap, heightMap);
+            gc.drawImage(backgrounds.get(currentIndex), 10, 20, widthMap, heightMap);
         } else {
             gc.setFill(Color.LIGHTGRAY);
-            gc.fillRect(10, 15, widthMap, heightMap);
+            gc.fillRect(10, 20, widthMap, heightMap);
         }
     }
 

@@ -7,22 +7,43 @@ import vnu.edu.vn.game.GameObject;
 
 /// Like this name
 
-public class Bricks extends GameObject {
+public class Bricks {
 
+    private double x,y;
     private int typeBrick;
     private boolean broken = false;
     private int amount;
     private double widthBrick = 50;
-    private double heightBrick = 30;
+    private double heightBrick = 50;
 
     public Bricks(double x, double y, int typeBrick, int amount) {
-        super(x, y);
+        this.x = x;
+        this.y = y;
         this.typeBrick = typeBrick;
         this.amount = amount;
     }
 
+
+    public int getAmount() {                                    //Điểm
+        return amount;
+    }
+
+
+    //ERASE BRICK
+    public boolean isBroken() {                                 //Kiểm tra đã vỡ chưa
+        return typeBrick <= 0;
+    }
+
+    public void hit() {                                         //Giảm độ bền
+            typeBrick--;
+    }
+
+    public Rectangle2D getRectBrick() {                             //Trả về thuộc tính để kiểm tra va chạm
+        return new Rectangle2D(x, y, widthBrick, heightBrick);
+    }
+
     public void update() {
-    // Maybe change later
+        // Maybe change later
     }
 
     public void render(GraphicsContext gc) {
@@ -30,7 +51,7 @@ public class Bricks extends GameObject {
             return;
         }
 
-        switch (typeBrick) {
+        switch (typeBrick) {                                    //Vẽ dựa theo độ bền brick
             case 1:
                 Color c1 =  Color.RED;
                 gc.setFill(c1);
@@ -52,24 +73,6 @@ public class Bricks extends GameObject {
 
     }
 
-    public int getAmount() {
-        return amount;
-    }
-
-
-    //ERASE BRICK
-    public boolean isBroken() {
-        return typeBrick <= 0;
-    }
-
-    public void hit() {
-            typeBrick--;
-    }
-
-    public Rectangle2D getRectBrick() {
-        return new Rectangle2D(x, y, widthBrick, heightBrick);
-    }
-
     public int getTypeBrick() {
         return typeBrick;
     }
@@ -80,5 +83,29 @@ public class Bricks extends GameObject {
 
     public double getHeightBrick() {
         return heightBrick;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setWidthBrick(double widthBrick) {
+        this.widthBrick = widthBrick;
+    }
+
+    public void setHeightBrick(double heightBrick) {
+        this.heightBrick = heightBrick;
     }
 }
