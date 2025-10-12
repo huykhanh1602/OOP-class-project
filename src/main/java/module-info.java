@@ -5,6 +5,7 @@ module vnu.edu.vn {
     requires java.compiler;
 
 
+    opens vnu.edu.vn.game.home to javafx.fxml;
     opens vnu.edu.vn.game.gameOver to javafx.fxml;
     opens vnu.edu.vn to javafx.fxml;
     exports vnu.edu.vn.game.gameOver;

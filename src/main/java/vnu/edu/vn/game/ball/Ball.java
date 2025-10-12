@@ -19,9 +19,11 @@ public class Ball{
     private static double radius = 7.5;                 //Size ball
     private double dx, dy;                              //Vector speed
     private double speedball = 2;
-    private boolean isRunning = false;
+    public boolean isRunning;
 
-    private double fixBug = 2;                          //GIẢM KHOẢNG CÁCH VA CHẠM
+    private double friction = 0.2;                      //Ma sát
+
+    private double fixBug = 5;                          //KHOẢNG CÁCH VA CHẠM
 
 
 //    private int boundaryWidth =  600*3/4;
@@ -30,15 +32,11 @@ public class Ball{
     public Ball(double x, double y) {
         this.x = x + radius;                                        //POSITION
         this.y = y + radius;
+        this.isRunning = false;
 
-        double angle = Math.toRadians(Math.random()*120+30);        //RANDOM ANGLE
-        double sin = Math.sin(angle);
-        double cos = Math.cos(angle);
-        dx = speedball*cos;
-        dy = -abs(speedball*sin);
     }
 
-    public void bounceX() { dx = -dx; }                             //RIGHT & LEFT
+    public void bounceX() { dx = -dx;}                             //RIGHT & LEFT
     public void bounceY() { dy = -dy; }                             //UP & DOWN
 
     public Rectangle2D getRect() {
@@ -56,9 +54,18 @@ public class Ball{
                 y + radius > paddle.getY() &&
                         y + radius < paddle.getY() + speedball * 1.5
         ) {
+            y = paddle.getY() - radius;
             bounceY();
+
+            //Ma sát với paddle
+            double paddleMoment = paddle.getSpeed();
+            dx += paddleMoment * friction;
+
+            double maxSpeedX = Math.abs(dy) * 1.2;
+            if (dx >  maxSpeedX) dx =  maxSpeedX;
+            if (dx < -maxSpeedX) dx = -maxSpeedX;
         }
-         if (y + radius > paddle.getY() &&                                      //FLAT
+         if (y + radius > paddle.getY() &&                                      //SIDE
                  y - radius < paddle.getY() + paddle.getHeightPaddle() &&
                  ((x + radius > paddle.getX() &&
                          x + radius < paddle.getX() + speedball * 1.5) ||
@@ -75,54 +82,130 @@ public class Ball{
         if (y <= 20 + radius) bounceY();                                        //FLOOR
     }
 
-    public void collides(Bricks brick) {                        //Va chạm với brick
+//    public void collides(Bricks brick) {                        //Va chạm với brick
+//
+//        if (x + radius > brick.getX()&&                             //UP
+//            x - radius < (brick.getX() + brick.getWidthBrick()) &&
+//                y + radius > brick.getY() &&
+//                y + radius < brick.getY() + dy * fixBug) {
+//            y = brick.getY() - radius;
+//            bounceY();
+//            System.out.println("Bounce Y Up");
+//        }
+//
+//        if ((x + radius > brick.getX()&&                            //DOWN
+//             x - radius < (brick.getX() + brick.getWidthBrick())) &&
+//                y - radius < brick.getY() + brick.getHeightBrick() &&
+//                y - radius > brick.getY() + brick.getHeightBrick() - abs(dy) * fixBug) {
+//            y = brick.getY() + brick.getHeightBrick() + radius;
+//            bounceY();
+//            System.out.println("Bounce Y Down");
+//        }
+//
+//        if (y + radius > brick.getY() &&                            //Left
+//            y - radius < (brick.getY() + brick.getHeightBrick()) &&
+//                x + radius > brick.getX() &&
+//                x + radius < brick.getX() + dx * fixBug) {
+//            x = brick.getX() - radius;
+//            bounceX();
+//            System.out.println("Bounce X Left");
+//        }
+//
+//        if (y + radius > brick.getY() &&                            //Right
+//            y - radius < (brick.getY() + brick.getHeightBrick()) &&
+//                x - radius < brick.getX() +  brick.getWidthBrick() &&
+//                x - radius > brick.getX() + brick.getWidthBrick() + abs(dx) * fixBug) {
+//            x = brick.getX() + brick.getWidthBrick() + radius;
+//            bounceX();
+//            System.out.println("Bounce X Right");
+//        }
+//    }
 
-        if ((x + radius > brick.getX()&&
-                x - radius < (brick.getX() + brick.getWidthBrick())) &&
-                ((y + radius > brick.getY() &&
-                y + radius < brick.getY() + speedball * 3) ||                                           //UP
-                        (y - radius < brick.getY() + brick.getHeightBrick() &&
-                                y - radius > brick.getY() + brick.getHeightBrick() - speedball * 3))    //DOWN
-        ) {
-            bounceY();
-            System.out.println("Bounce Y");
-        }
-        if (y + radius > brick.getY() &&
-                y - radius < (brick.getY() + brick.getHeightBrick()) &&
-                ((x + radius > brick.getX() &&
-                        x + radius < brick.getX() + speedball * 3) ||                                   //LEFT
-                        (x - radius < brick.getX() +  brick.getWidthBrick() &&
-                                x - radius > brick.getX() + brick.getWidthBrick() - speedball * 3))     //RIGHT
-        ) {
-            bounceX();
+    public void collides(Bricks brick) {
+        // Tọa độ tâm của quả bóng
+        double ballCenterX = x;
+        double ballCenterY = y;
+
+        // Tọa độ tâm của viên gạch
+        double brickCenterX = brick.getX() + brick.getWidthBrick() / 2.0f;
+        double brickCenterY = brick.getY() + brick.getHeightBrick() / 2.0f;
+
+        // Tính khoảng cách giữa tâm của bóng và tâm của gạch trên mỗi trục
+        double diffX = ballCenterX - brickCenterX;
+        double diffY = ballCenterY - brickCenterY;
+
+        // Tính tổng một nửa chiều rộng/cao của gạch và bán kính của bóng
+        // Đây là khoảng cách tối thiểu giữa các tâm để chúng không va chạm
+        double combinedHalfWidths = radius + brick.getWidthBrick() / 2.0f;
+        double combinedHalfHeights = radius + brick.getHeightBrick() / 2.0f;
+
+        // Kiểm tra xem có va chạm hay không
+        if (Math.abs(diffX) < combinedHalfWidths && Math.abs(diffY) < combinedHalfHeights) {
+            // Có va chạm, giờ cần xác định hướng va chạm
+
+            // Tính toán độ chồng lấn trên mỗi trục
+            double overlapX = combinedHalfWidths - Math.abs(diffX);
+            double overlapY = combinedHalfHeights - Math.abs(diffY);
+
+            // Hướng có độ chồng lấn ÍT HƠN chính là hướng va chạm chính
+            if (overlapX < overlapY) {
+                // Va chạm xảy ra theo chiều ngang (trái hoặc phải)
+                bounceX();
+                // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
+                if (diffX > 0) { // Bóng ở bên phải gạch
+                    x = brick.getX() + brick.getWidthBrick() + radius;
+                    System.out.println("Bounce X Right");
+                } else { // Bóng ở bên trái gạch
+                    x = brick.getX() - radius;
+                    System.out.println("Bounce X Left");
+                }
+            } else {
+                // Va chạm xảy ra theo chiều dọc (trên hoặc dưới)
+                bounceY();
+                // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
+                if (diffY > 0) { // Bóng ở bên dưới gạch
+                    y = brick.getY() + brick.getHeightBrick() + radius;
+                    System.out.println("Bounce Y Down");
+                } else { // Bóng ở bên trên gạch
+                    y = brick.getY() - radius;
+                    System.out.println("Bounce Y Up");
+                }
+            }
         }
     }
 
     public void normalizeVelocity() {                           //Chuẩn hóa vector
 
-        double lengthvector = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        double lengthvector = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
         dx = dx/lengthvector*speedball;
         dy = dy/lengthvector*speedball;
     }
 
-    public void handleKeyPressed(KeyEvent key) {
-        if (key.getCode() == KeyCode.W)  setRunning(true);
+    public void launchBall() {
+        if(!isRunning){
+            isRunning = true;
+
+            double angle = Math.toRadians(Math.random()*120+30);        //RANDOM ANGLE
+            double sin = Math.sin(angle);
+            double cos = Math.cos(angle);
+            dx = speedball*cos;
+            dy = -abs(speedball*sin);
+        }
     }
 
-    public void handleKeyReleased(KeyEvent key) {
-        if (key.getCode() == KeyCode.W)  setRunning(false);
-    }
 
 
 
 
-
-    public void update() {
+    public void update(Paddle paddle) {
         if(isRunning) {
             x += dx;
             y += dy;
+        } else{
+            this.x = paddle.getX() + paddle.getWidthPaddle() / 2;
+            this.y = paddle.getY() - radius - 2;
         }
-
+        normalizeVelocity();
 //        // Bounce off walls
 //        if (x - radius <= 10 || x + radius >= boundaryWidth) dx *= -1;
 //        if (y <= 20 + radius) dy *= -1;
@@ -173,5 +256,9 @@ public class Ball{
 
     public void setRunning(boolean running) {
         isRunning = running;
+    }
+
+    public boolean isRunning() {
+        return isRunning;
     }
 }

@@ -5,17 +5,24 @@ package vnu.edu.vn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import vnu.edu.vn.game.GameScene;
 import vnu.edu.vn.game.gameOver.GameOverController;
+import vnu.edu.vn.game.home.HomeController;
 
 public class App extends Application {
 
     private Stage stage;
+
     private Scene scene;
+    private GameScene gameScene;
+
     private Scene gameOverScene;
     private GameOverController gameOverController;
-    private GameScene gameScene;
+
+    private Scene homeScene;
+    private HomeController homeController;
 
     //WINDOW SETTING
     public final int widthScreen = 600;             //WIDTH SCREEN
@@ -25,20 +32,32 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         this.stage = stage;
 
+        //Game Scene
         gameScene = new GameScene(widthScreen, heightScreen, this);
         scene = new Scene(gameScene, widthScreen, heightScreen);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/gameOver/GameOverScene.fxml"));
-
-        gameOverScene = new Scene(loader.load(), widthScreen, heightScreen);
-        gameOverController = loader.getController();
+        //GameOver Scene
+        FXMLLoader endLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/gameOver/GameOverScene.fxml"));
+        gameOverScene = new Scene(endLoader.load(), widthScreen, heightScreen);
+        gameOverController = endLoader.getController();
         gameOverController.setOnRestart(() -> switchToGame());
+        gameOverController.setOnHome(() -> switchToHome());
+
+        //Home Scene
+        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/home/HomeScene.fxml"));
+        homeController = homeLoader.getController();
+        homeScene = new Scene(homeLoader.load(), widthScreen, heightScreen);
+        homeScene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.SPACE) {
+                switchToGame();
+            }
+        });
 
 
         stage.setTitle(title);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -51,6 +70,11 @@ public class App extends Application {
     public void switchToGame() {
         gameScene.resetGame();
         stage.setScene(scene);
+    }
+
+    public void switchToHome() {
+        stage.setScene(scene);
+        homeController.getRootPane().requestFocus();
     }
 
 

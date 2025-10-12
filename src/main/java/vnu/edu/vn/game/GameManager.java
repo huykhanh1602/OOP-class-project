@@ -2,11 +2,12 @@ package vnu.edu.vn.game;
 
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import vnu.edu.vn.App;
+import vnu.edu.vn.game.background.Background;
 import vnu.edu.vn.game.ball.Ball;
-import vnu.edu.vn.game.Paddle;
 import vnu.edu.vn.game.bricks.BrickLoader;
 import vnu.edu.vn.game.bricks.Bricks;
 import vnu.edu.vn.game.score.Score;
@@ -19,7 +20,8 @@ import java.util.List;
 ///  Manager
 
 public class GameManager {
-    private int widthScreen, heightScreen;
+    private int widthScreen, heightScreen;              //600 * 600
+    //x:10 y:20 width:600*3/4 height:600*9/10 khu vực va chạm bóng
 
     /// Ball, Paddle, Brick,...
     private Paddle paddle;
@@ -64,7 +66,7 @@ public class GameManager {
             }
 
             /// Game over
-            if (ball.getY() > heightScreen*5/6+40) {
+            if (ball.getY() > heightScreen) {
                 BALL.remove();
                 if(balls.size() == 0) {
                     app.switchToGameOver(scorePlayer.getScore());
@@ -77,11 +79,11 @@ public class GameManager {
     public void reset() {                                                       //Khởi tạo lại game
         paddle = new Paddle(widthScreen/4, heightScreen*7/8-30);
         balls = new ArrayList<Ball>();
-        for(int i = 0; i < 5; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()-1));
+        for(int i = 0; i < 10; i++) {
+            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()-3));
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
-        background = new Background(600 * 3 / 4, heightScreen*8/9);
+        background = new Background(widthScreen * 3 / 4, heightScreen*9/10);
 
         gameOver = false;
     }
@@ -93,13 +95,16 @@ public class GameManager {
         paddle.update();
 
         for (Ball ball : balls) {
-            ball.update();
+            ball.update(paddle);
         }
 
         checkCollision();
     }
 
     public void render(GraphicsContext gc) {
+        gc.setFill(Color.LIGHTGRAY);
+        gc.fillRect(0, 0, widthScreen, heightScreen);
+
         background.render(gc);                          //Vị trí chơi chính
 
         paddle.render(gc);
@@ -113,19 +118,34 @@ public class GameManager {
             brick.render(gc);
         }
 
+        gc.setFill(Color.LIGHTGRAY);                        //Che phần bóng rơi
+        gc.fillRect(0, heightScreen*9/10+20, widthScreen*3/4, heightScreen-heightScreen*9/10-20);
+
         gc.setFill(Color.DARKGRAY);
-        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen*3/4+60, heightScreen*1/8);              //DRAW SCORE
+        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen*3/4+60, heightScreen*1/8);//DRAW SCORE
     }
 
     /// HANDLE KEY EVENT
     public void handleKeyPress(KeyEvent key) {
-        paddle.handleKeyPressed(key);
-        for(Ball ball : balls) {
-            ball.handleKeyPressed(key);
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
+            paddle.moveLeft();
+        } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
+            paddle.moveRight();
+        } else if (key.getCode() == KeyCode.SPACE) {
+            for (Ball ball : balls) {
+                if (!ball.isRunning()) {
+                    ball.launchBall();
+                    break;
+                }
+            }
         }
     }
 
     public void handleKeyRelease(KeyEvent key) {
-        paddle.handleKeyReleased(key);
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
+            paddle.moveLeft();
+        } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
+            paddle.moveRight();
+        }
     }
 }

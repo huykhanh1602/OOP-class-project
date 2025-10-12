@@ -1,4 +1,4 @@
-package vnu.edu.vn.game;
+package vnu.edu.vn.game.background;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,9 +17,7 @@ public class Background {
         this.heightMap = heightMap;
 
         try {
-            backgrounds.add(new Image(getClass().getResourceAsStream("/images/bg1.png")));
-            backgrounds.add(new Image(getClass().getResourceAsStream("/images/bg2.png")));
-            backgrounds.add(new Image(getClass().getResourceAsStream("/images/bg3.png")));
+            backgrounds.add(new Image(getClass().getResourceAsStream("/vnu/edu/vn/game/backgrounds/hill.png")));
         } catch (Exception e) {
             System.out.println("Don't find any images");
         }
@@ -29,7 +27,7 @@ public class Background {
         if (!backgrounds.isEmpty()) {
             gc.drawImage(backgrounds.get(currentIndex), 10, 20, widthMap, heightMap);
         } else {
-            gc.setFill(Color.LIGHTGRAY);
+            gc.setFill(Color.DARKGRAY   );
             gc.fillRect(10, 20, widthMap, heightMap);
         }
     }

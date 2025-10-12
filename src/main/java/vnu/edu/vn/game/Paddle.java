@@ -30,7 +30,7 @@ public class Paddle {
     /// MOVEMENT
     public void update() {
         if (moveLeft && x > 10) x -= speed;
-        if (moveRight && x < boundaryPaddle - widthPaddle) x += speed;
+        if (moveRight && x < boundaryPaddle - widthPaddle + 10) x += speed;
     }
 
 
@@ -42,15 +42,23 @@ public class Paddle {
 
 
     /// CHECK KEY
-    public void handleKeyPressed(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = true;
-        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = true;
+    public void moveLeft() {
+        moveLeft = moveLeft ? false :  true;
     }
 
-    public void handleKeyReleased(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = false;
-        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = false;
+    public void moveRight() {
+        moveRight = moveRight ? false : true;
     }
+
+//    public void handleKeyPressed(KeyEvent key) {
+//        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = true;
+//        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = true;
+//    }
+//
+//    public void handleKeyReleased(KeyEvent key) {
+//        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = false;
+//        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = false;
+//    }
 
     public double getX() {
         return x;
@@ -66,5 +74,9 @@ public class Paddle {
 
     public int getHeightPaddle() {
         return heightPaddle;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 }

@@ -11,8 +11,11 @@ public class GameOverController {
 
     @FXML
     private Button restartButton;
+    @FXML
+    private Button homeButton;
 
     private Runnable onRestart;
+    private Runnable onHome;
 
     public void setScore(int score) {
         if (scoreLabel != null) {
@@ -26,6 +29,18 @@ public class GameOverController {
             restartButton.setOnAction(e -> {
                 if (this.onRestart != null) {
                     this.onRestart.run();
+                }
+            });
+        }
+    }
+
+    @FXML
+    public void setOnHome(Runnable onHome) {
+        this.onHome = onHome;
+        if (homeButton != null) {
+            homeButton.setOnAction(e -> {
+                if (this.onHome != null) {
+                    this.onHome.run();
                 }
             });
         }

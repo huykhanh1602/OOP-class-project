@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 public class Score {
     private int score = 0;
     private int highScore = 0;
-    private final String path = "main\\java\\vnu.edu.vn\\score.txt";
+    private final String path = "\\vnu\\edu\\vn\\game\\score\\score.txt";
 
 
     public Score() {
