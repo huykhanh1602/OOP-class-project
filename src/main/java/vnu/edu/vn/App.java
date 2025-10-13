@@ -1,84 +1,48 @@
 package vnu.edu.vn;
 
-/// Launcher game
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import vnu.edu.vn.game.GameScene;
-import vnu.edu.vn.game.gameOver.GameOverController;
-import vnu.edu.vn.game.home.HomeController;
+import vnu.edu.vn.game.scenes.GameSceneController;
+
+import java.io.IOException;
 
 public class App extends Application {
 
-    private Stage stage;
-
-    private Scene scene;
-    private GameScene gameScene;
-
-    private Scene gameOverScene;
-    private GameOverController gameOverController;
-
-    private Scene homeScene;
-    private HomeController homeController;
-
-    //WINDOW SETTING
-    public final int widthScreen = 600;             //WIDTH SCREEN
-    public final int heightScreen = 600;            //HEIGHT SCREEN
-    private final String title = "Arknoid";
-
+    private Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
-
-        //Game Scene
-        gameScene = new GameScene(widthScreen, heightScreen, this);
-        scene = new Scene(gameScene, widthScreen, heightScreen);
-
-        //GameOver Scene
-        FXMLLoader endLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/gameOver/GameOverScene.fxml"));
-        gameOverScene = new Scene(endLoader.load(), widthScreen, heightScreen);
-        gameOverController = endLoader.getController();
-        gameOverController.setOnRestart(() -> switchToGame());
-        gameOverController.setOnHome(() -> switchToHome());
-
-        //Home Scene
-        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/home/HomeScene.fxml"));
-        homeController = homeLoader.getController();
-        homeScene = new Scene(homeLoader.load(), widthScreen, heightScreen);
-        homeScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.SPACE) {
-                switchToGame();
-            }
-        });
-
-
-        stage.setTitle(title);
-
-        stage.setScene(scene);
+    public void start(Stage stage) throws IOException {
+        this.primaryStage = stage;
+        switchToGameScene(); // Chuyển đến màn hình game khi bắt đầu
+        stage.setTitle("Arkanoid");
         stage.show();
     }
 
-    public void switchToGameOver(int score) {
-        gameOverController.setScore(score);
-        stage.setScene(gameOverScene);
+    public void switchToGameScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/scenes/GameScene.fxml"));
+            Parent root = loader.load();
+
+            // Lấy controller và truyền tham chiếu 'App' vào
+            GameSceneController controller = loader.getController();
+            controller.setup(this);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void switchToGame() {
-        gameScene.resetGame();
-        stage.setScene(scene);
+    public void switchToGameOver(int finalScore) {
+        // Logic chuyển sang màn hình GameOver (bạn có thể tạo GameOver.fxml tương tự)
+        System.out.println("Game Over! Final Score: " + finalScore);
     }
 
-    public void switchToHome() {
-        stage.setScene(scene);
-        homeController.getRootPane().requestFocus();
-    }
-
-
-    //LAUNCH GAME
     public static void main(String[] args) {
         launch(args);
     }

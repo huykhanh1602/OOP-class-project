@@ -1,6 +1,5 @@
 package vnu.edu.vn.game;
 
-
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -16,12 +15,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 ///  Manager
 
 public class GameManager {
-    private int widthScreen, heightScreen;              //600 * 600
-    //x:10 y:20 width:600*3/4 height:600*9/10 khu vực va chạm bóng
+    private int widthScreen, heightScreen; // 600 * 600
+    // x:10 y:20 width:600*3/4 height:600*9/10 khu vực va chạm bóng
 
     /// Ball, Paddle, Brick,...
     private Paddle paddle;
@@ -29,28 +27,27 @@ public class GameManager {
     private List<Bricks> bricks;
     private Background background;
 
-    ///Thông số game
+    /// Thông số game
     private Score scorePlayer = new Score();
     private boolean gameOver;
     private final App app;
 
-
-    public GameManager(int widthScreen, int heightScreen,  App app) {
+    public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
-//        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
+        // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
-        reset();                    //Khởi tạo game
+        reset(); // Khởi tạo game
     }
 
-    private void checkCollision() {                                         //Kiểm tra va chạm
-        for(Iterator<Ball> BALL = balls.iterator(); BALL.hasNext(); ) {
+    private void checkCollision() { // Kiểm tra va chạm
+        for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
 
             ball.collides(ball);
             ball.collides(paddle);
 
-            for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext(); ) {
+            for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
 
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
@@ -68,29 +65,29 @@ public class GameManager {
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-                if(balls.size() == 0) {
+                if (balls.size() == 0) {
                     app.switchToGameOver(scorePlayer.getScore());
                 }
             }
         }
     }
 
-
-    public void reset() {                                                       //Khởi tạo lại game
-        paddle = new Paddle(widthScreen/4, heightScreen*7/8-30);
+    public void reset() { // Khởi tạo lại game
+        paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
-        for(int i = 0; i < 10; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()-3));
+        for (int i = 0; i < 10; i++) {
+            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2,
+                    paddle.getY() - paddle.getHeightPaddle() - 3));
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
-        background = new Background(widthScreen * 3 / 4, heightScreen*9/10);
+        background = new Background(widthScreen * 3 / 4, heightScreen * 9 / 10);
 
         gameOver = false;
     }
 
-
     public void update() {
-        if (gameOver) return;
+        if (gameOver)
+            return;
 
         paddle.update();
 
@@ -105,24 +102,24 @@ public class GameManager {
         gc.setFill(Color.LIGHTGRAY);
         gc.fillRect(0, 0, widthScreen, heightScreen);
 
-        background.render(gc);                          //Vị trí chơi chính
+        background.render(gc); // Vị trí chơi chính
 
         paddle.render(gc);
-        for(Ball ball : balls) {
+        for (Ball ball : balls) {
             ball.render(gc);
         }
-        if(bricks == null) {
+        if (bricks == null) {
             System.out.println("bricks is null");
         }
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
 
-        gc.setFill(Color.LIGHTGRAY);                        //Che phần bóng rơi
-        gc.fillRect(0, heightScreen*9/10+20, widthScreen*3/4, heightScreen-heightScreen*9/10-20);
+        gc.setFill(Color.LIGHTGRAY); // Che phần bóng rơi
+        gc.fillRect(0, heightScreen * 9 / 10 + 20, widthScreen * 3 / 4, heightScreen - heightScreen * 9 / 10 - 20);
 
         gc.setFill(Color.DARKGRAY);
-        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen*3/4+60, heightScreen*1/8);//DRAW SCORE
+        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen * 3 / 4 + 60, heightScreen * 1 / 8);// DRAW SCORE
     }
 
     /// HANDLE KEY EVENT
@@ -147,5 +144,9 @@ public class GameManager {
         } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
             paddle.moveRight();
         }
+    }
+
+    public int getScore() {
+        return scorePlayer.getScore();
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" styleClass="background-pane" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vnu.edu.vn.game.scenes.GameSceneController">
+   <children>
+      <Canvas fx:id="gameCanvas" height="540.0" layoutY="14.0" width="450.0" />
+      <StackPane layoutX="459.0" layoutY="60.0" prefHeight="80.0" prefWidth="130.0" styleClass="label-container" stylesheets="@../images/GameStyle.css">
+         <children>
+            <Label fx:id="scoreLabel" prefHeight="35.0" prefWidth="120.0" styleClass="score-label" stylesheets="@../../../../../GameStyle.css" text="Score:" />
+         </children>
+      </StackPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../../../../GameStyle.css" />
+      <URL value="@../images/GameStyle.css" />
+   </stylesheets>
+</AnchorPane>

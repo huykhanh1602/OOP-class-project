@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Minecraft'; /* Đặt một cái tên bất kỳ cho font của bạn */
+    src: url('Minecraft.ttf'); /* Đường dẫn đến tệp font */
+}
+
+.background-pane {
+    -fx-background-image: url("background.png");
+
+    /* THÊM CÁC DÒNG NÀY VÀO: */
+    -fx-background-repeat: no-repeat;  /* Ngăn không cho ảnh lặp lại */
+    -fx-background-size: cover;        /* Phóng to hoặc thu nhỏ ảnh để lấp đầy 
+                                          toàn bộ không gian mà không làm méo ảnh */
+}
+.score-label {
+    -fx-font-family: "Minecraft"; /* Font chữ */
+    -fx-font-size: 22px;
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
+    
+}
+.label-container {
+    /* Tạo màu nền cho khối */
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Màu đen mờ 50% */
+
+    /* Bo tròn các góc để trông mềm mại hơn */
+    -fx-background-radius: 10px; /* Bán kính bo góc là 10px */
+
+    /* Tạo đường viền */
+    -fx-border-color: #FFFFFF; /* Đường viền màu trắng */
+    -fx-border-width: 2px; /* Độ dày đường viền là 2px */
+    -fx-border-radius: 10px; /* Bo tròn góc của đường viền */
+
+    /* Tạo khoảng đệm để chữ không bị dính sát vào viền */
+    -fx-padding: 10px 20px 10px 20px; /* Trên Phải Dưới Trái */
+}

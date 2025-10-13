@@ -27,8 +27,8 @@ public class Background {
         if (!backgrounds.isEmpty()) {
             gc.drawImage(backgrounds.get(currentIndex), 10, 20, widthMap, heightMap);
         } else {
-            gc.setFill(Color.DARKGRAY   );
-            gc.fillRect(10, 20, widthMap, heightMap);
+            gc.setFill(Color.DARKGRAY);
+            gc.fillRect(0, 0, 600, 600);
         }
     }
 
@@ -42,4 +42,3 @@ public class Background {
         }
     }
 }
-
