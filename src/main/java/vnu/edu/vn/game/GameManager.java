@@ -25,7 +25,6 @@ public class GameManager {
     private Paddle paddle;
     private List<Ball> balls;
     private List<Bricks> bricks;
-    private Background background;
 
     /// Thông số game
     private Score scorePlayer = new Score();
@@ -80,7 +79,6 @@ public class GameManager {
                     paddle.getY() - paddle.getHeightPaddle() - 3));
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
-        background = new Background(widthScreen * 3 / 4, heightScreen * 9 / 10);
 
         gameOver = false;
     }
@@ -99,10 +97,7 @@ public class GameManager {
     }
 
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.LIGHTGRAY);
-        gc.fillRect(0, 0, widthScreen, heightScreen);
-
-        background.render(gc); // Vị trí chơi chính
+        gc.clearRect(0, 0, widthScreen, heightScreen);
 
         paddle.render(gc);
         for (Ball ball : balls) {
@@ -114,12 +109,6 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
-
-        gc.setFill(Color.LIGHTGRAY); // Che phần bóng rơi
-        gc.fillRect(0, heightScreen * 9 / 10 + 20, widthScreen * 3 / 4, heightScreen - heightScreen * 9 / 10 - 20);
-
-        gc.setFill(Color.DARKGRAY);
-        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen * 3 / 4 + 60, heightScreen * 1 / 8);// DRAW SCORE
     }
 
     /// HANDLE KEY EVENT

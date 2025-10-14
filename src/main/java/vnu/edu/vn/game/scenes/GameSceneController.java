@@ -53,7 +53,7 @@ public class GameSceneController {
                 gameManager.update();
 
                 // Cập nhật điểm số trên Label
-                scoreLabel.setText("Score: " + gameManager.getScore());
+                scoreLabel.setText("Score:\n" + gameManager.getScore());
 
                 // Vẽ game lên canvas
                 gameManager.render(gc);

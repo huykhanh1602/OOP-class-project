@@ -15,12 +15,6 @@ public class Background {
     public Background(int widthMap, int heightMap) {
         this.widthMap = widthMap;
         this.heightMap = heightMap;
-
-        try {
-            backgrounds.add(new Image(getClass().getResourceAsStream("/vnu/edu/vn/game/backgrounds/hill.png")));
-        } catch (Exception e) {
-            System.out.println("Don't find any images");
-        }
     }
 
     public void render(GraphicsContext gc) {
