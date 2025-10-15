@@ -8,6 +8,7 @@ import vnu.edu.vn.game.ball.Ball;
 import vnu.edu.vn.game.bricks.BrickLoader;
 import vnu.edu.vn.game.bricks.Bricks;
 import vnu.edu.vn.game.objects.Paddle;
+import vnu.edu.vn.game.particle.ParticleManager;
 import vnu.edu.vn.game.score.ScoreManager;
 
 import java.util.ArrayList;
@@ -29,6 +30,19 @@ public class GameManager {
     private ScoreManager scorePlayer = new ScoreManager();
     private boolean gameOver;
     private final App app;
+
+    // Hiệu ứng va chạm
+    private long lastUpdateTime = 0;
+
+    private double calculateDeltaTime() {
+        long currentTime = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = currentTime;
+        }
+        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
+        lastUpdateTime = currentTime;
+        return dt;
+    }
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -54,6 +68,11 @@ public class GameManager {
                     if (brick.isBroken()) {
                         BRICK.remove();
                         scorePlayer.addScore(brick.getPoint());
+
+                        // Break particle
+                        double brickCenterX = brick.getX() + brick.getWidthBrick() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeightBrick() / 2;
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
                     }
 
                     break; // tránh va chạm nhiều brick 1 frame
@@ -79,7 +98,11 @@ public class GameManager {
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
 
+        ParticleManager.getInstance().clear();// clear particles when reset game
+
         gameOver = false;
+
+        lastUpdateTime = 0; // reset particale time
     }
 
     public void update() {
@@ -95,6 +118,9 @@ public class GameManager {
 
         checkCollision();
 
+        double deltaTime = calculateDeltaTime();
+        ParticleManager.getInstance().update(deltaTime);
+        // update particles
     }
 
     public void render(GraphicsContext gc) {
@@ -110,6 +136,8 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
+
+        ParticleManager.getInstance().render(gc);
     }
 
     /// HANDLE KEY EVENT

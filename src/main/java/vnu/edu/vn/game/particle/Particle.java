@@ -1,7 +1,8 @@
-package vnu.edu.vn.game.objects;
+package vnu.edu.vn.game.particle;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import vnu.edu.vn.game.objects.GameObject;
 
 import java.util.Random;
 
@@ -15,11 +16,11 @@ public class Particle extends GameObject {
     private double velocityY;
     private double lifeSpan; // Thời gian tồn tại của hạt (tính bằng giây)
     private Color color;
-    private static final double GRAVITY = 0.1; // Lực hấp dẫn mô phỏng kéo hạt đi xuống
+    private static final double GRAVITY = 0.05; // Lực hấp dẫn mô phỏng kéo hạt đi xuống
 
     public Particle(double x, double y) {
         // Khởi tạo hạt tại vị trí (x, y) với kích thước 2x2 pixels
-        super(x, y, 2, 2);
+        super(x, y, 5, 5);
 
         Random rand = new Random();
         // Tạo một tốc độ ngẫu nhiên ban đầu để các hạt bay ra theo nhiều hướng
