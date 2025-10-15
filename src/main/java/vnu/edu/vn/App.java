@@ -25,8 +25,8 @@ public class App extends Application {
     private HomeController homeController;
 
     //WINDOW SETTING
-    public final int widthScreen = 600;             //WIDTH SCREEN
-    public final int heightScreen = 600;            //HEIGHT SCREEN
+    public final static int widthScreen = 1280;             //WIDTH SCREEN
+    public final static int heightScreen = 600;            //HEIGHT SCREEN
     private final String title = "Arknoid";
 
 
@@ -58,7 +58,7 @@ public class App extends Application {
 
         stage.setTitle(title);
 
-        stage.setScene(scene);
+        stage.setScene(homeScene);
         stage.show();
     }
 
@@ -73,8 +73,8 @@ public class App extends Application {
     }
 
     public void switchToHome() {
-        stage.setScene(scene);
-        homeController.getRootPane().requestFocus();
+        stage.setScene(homeScene);
+        //homeController.getRootPane().requestFocus();
     }
 
 

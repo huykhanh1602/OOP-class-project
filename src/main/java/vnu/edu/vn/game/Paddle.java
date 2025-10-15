@@ -6,6 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
+import static vnu.edu.vn.App.widthScreen;
+
 
 /// Just Paddle
 
@@ -16,7 +18,7 @@ public class Paddle {
     private int heightPaddle = 15;
     private double speed = 5;               //SPEED PADDLE
 
-    private final double boundaryPaddle =  600*3/4;
+    private final double boundaryPaddle =  widthScreen*3/4;
 
     private boolean moveLeft = false;
     private boolean moveRight = false;    //MOVEMENT
@@ -42,23 +44,23 @@ public class Paddle {
 
 
     /// CHECK KEY
-    public void moveLeft() {
-        moveLeft = moveLeft ? false :  true;
-    }
-
-    public void moveRight() {
-        moveRight = moveRight ? false : true;
-    }
-
-//    public void handleKeyPressed(KeyEvent key) {
-//        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = true;
-//        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = true;
+//    public void moveLeft() {
+//        moveLeft = moveLeft ? false :  true;
 //    }
 //
-//    public void handleKeyReleased(KeyEvent key) {
-//        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = false;
-//        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = false;
+//    public void moveRight() {
+//        moveRight = moveRight ? false : true;
 //    }
+//
+    public void handleKeyPressed(KeyEvent key) {
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = true;
+        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = true;
+    }
+
+    public void handleKeyReleased(KeyEvent key) {
+        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) moveLeft = false;
+        if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) moveRight = false;
+    }
 
     public double getX() {
         return x;

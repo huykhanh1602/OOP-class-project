@@ -5,11 +5,17 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import vnu.edu.vn.game.GameManager;
 import vnu.edu.vn.game.GameObject;
 import vnu.edu.vn.game.Paddle;
 import vnu.edu.vn.game.bricks.Bricks;
 
+import java.sql.Time;
+import java.util.Random;
+
 import static java.lang.Math.abs;
+import static java.lang.Math.floor;
+import static vnu.edu.vn.App.widthScreen;
 
 ///  Ball movement
 
@@ -19,7 +25,7 @@ public class Ball{
     private static double radius = 7.5;                 //Size ball
     private double dx, dy;                              //Vector speed
     private double speedball = 2;
-    public boolean isRunning;
+    public boolean isRunning = false;
 
     private double friction = 0.2;                      //Ma sát
 
@@ -32,8 +38,6 @@ public class Ball{
     public Ball(double x, double y) {
         this.x = x + radius;                                        //POSITION
         this.y = y + radius;
-        this.isRunning = false;
-
     }
 
     public void bounceX() { dx = -dx;}                             //RIGHT & LEFT
@@ -78,7 +82,7 @@ public class Ball{
 
     public void collides(Ball ball) {                           //Va chạm với tường
 
-        if (x <= 10 + radius || x + radius * 2 >= 600 * 3 / 4) bounceX();       //WALL
+        if (x <= 10 + radius || x + radius * 2 >= widthScreen * 3 / 4) bounceX();       //WALL
         if (y <= 20 + radius) bounceY();                                        //FLOOR
     }
 
@@ -154,10 +158,10 @@ public class Ball{
                 // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
                 if (diffX > 0) { // Bóng ở bên phải gạch
                     x = brick.getX() + brick.getWidthBrick() + radius;
-                    System.out.println("Bounce X Right");
+//                    System.out.println("Bounce X Right");
                 } else { // Bóng ở bên trái gạch
                     x = brick.getX() - radius;
-                    System.out.println("Bounce X Left");
+//                    System.out.println("Bounce X Left");
                 }
             } else {
                 // Va chạm xảy ra theo chiều dọc (trên hoặc dưới)
@@ -165,10 +169,10 @@ public class Ball{
                 // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
                 if (diffY > 0) { // Bóng ở bên dưới gạch
                     y = brick.getY() + brick.getHeightBrick() + radius;
-                    System.out.println("Bounce Y Down");
+//                    System.out.println("Bounce Y Down");
                 } else { // Bóng ở bên trên gạch
                     y = brick.getY() - radius;
-                    System.out.println("Bounce Y Up");
+//                    System.out.println("Bounce Y Up");
                 }
             }
         }
@@ -181,17 +185,14 @@ public class Ball{
         dy = dy/lengthvector*speedball;
     }
 
-    public void launchBall() {
+    public void launchBall(double dx, double dy) {
         if(!isRunning){
             isRunning = true;
-
-            double angle = Math.toRadians(Math.random()*120+30);        //RANDOM ANGLE
-            double sin = Math.sin(angle);
-            double cos = Math.cos(angle);
-            dx = speedball*cos;
-            dy = -abs(speedball*sin);
+            this.dx = dx;
+            this.dy = dy;
         }
     }
+
 
 
 
@@ -203,7 +204,7 @@ public class Ball{
             y += dy;
         } else{
             this.x = paddle.getX() + paddle.getWidthPaddle() / 2;
-            this.y = paddle.getY() - radius - 2;
+            this.y = paddle.getY() - radius;
         }
         normalizeVelocity();
 //        // Bounce off walls
@@ -215,6 +216,7 @@ public class Ball{
     public void render(GraphicsContext gc) {
         gc.setFill(Color.RED);
         gc.fillOval(x - radius, y - radius, radius * 2, radius * 2);
+
     }
 
 

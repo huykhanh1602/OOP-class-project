@@ -3,6 +3,7 @@ module vnu.edu.vn {
     requires javafx.fxml;
     requires java.desktop;
     requires java.compiler;
+    requires java.sql;
 
 
     opens vnu.edu.vn.game.home to javafx.fxml;

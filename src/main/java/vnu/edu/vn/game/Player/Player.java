@@ -1,5 +1,6 @@
 package vnu.edu.vn.game.Player;
 import vnu.edu.vn.game.bricks.Bricks;
+import vnu.edu.vn.game.score.Score;
 
 import java.io.Serializable;
 import java.util.*;
@@ -19,13 +20,14 @@ public class Player implements Serializable {
     // Dùng Set đảm bảo mỗi Powerup chỉ được lưu một lần
     private final Set<String> purchasedPowerups;
     private final Map<String,Integer> powerupLevels;
+    private Score score;
 
     public Player(int initialLives, Map<String, Integer> powerpuLevels){
         this.lives = initialLives;
         this.coins = 0;
-        this.currentScore = 0;
         this.purchasedPowerups = new HashSet<>();
         this.powerupLevels = new HashMap<>();
+        score = new Score();
     }
     // --- Phương thức quản lý Cấp độ Powerup ---
 

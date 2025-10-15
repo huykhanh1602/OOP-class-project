@@ -17,6 +17,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button fx:id="restartButton" layoutX="240.0" layoutY="408.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Play Again" />
+      <Button fx:id="restartButton" layoutX="115.0" layoutY="414.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Play Again" />
+      <Button fx:id="homeButton" layoutX="356.0" layoutY="414.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Home" />
    </children>
 </AnchorPane>

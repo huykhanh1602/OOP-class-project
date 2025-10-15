@@ -34,6 +34,15 @@ public class GameManager {
     private boolean gameOver;
     private final App app;
 
+    ///Aiming Arc
+    private boolean isAiming = false;
+    private double aimAngle = 30;
+    private boolean aimIncrease = true;
+    private final double aimSpeed = 0.3;
+    private final double ainMin = 30;
+    private final double ainMax = 150;
+
+
 
     public GameManager(int widthScreen, int heightScreen,  App app) {
         this.widthScreen = widthScreen;
@@ -80,7 +89,7 @@ public class GameManager {
         paddle = new Paddle(widthScreen/4, heightScreen*7/8-30);
         balls = new ArrayList<Ball>();
         for(int i = 0; i < 10; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()-3));
+            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         background = new Background(widthScreen * 3 / 4, heightScreen*9/10);
@@ -89,13 +98,41 @@ public class GameManager {
     }
 
 
+    private void shootBall() {
+        if (isAiming || balls.isEmpty()) return;
+        double rad = Math.toRadians(aimAngle);
+        double dx = Math.cos(rad);
+        double dy = -Math.sin(rad);
+
+        if (!balls.isEmpty()) {
+            Ball ball = balls.get(0);
+            ball.launchBall(dx, dy);
+            ball.setRunning(true);
+            aimAngle = ainMin;
+        }
+    }
+
     public void update() {
         if (gameOver) return;
 
         paddle.update();
-
         for (Ball ball : balls) {
             ball.update(paddle);
+        }
+        if (isAiming) {
+            if (aimIncrease) {
+                aimAngle += aimSpeed;
+            } else {
+                aimAngle -= aimSpeed;
+            }
+
+            if (aimAngle > ainMax) {
+                aimAngle = ainMax;
+                aimIncrease = false;
+            } else if (aimAngle < ainMin) {
+                aimAngle = ainMin;
+                aimIncrease = true;
+            }
         }
 
         checkCollision();
@@ -108,6 +145,19 @@ public class GameManager {
         background.render(gc);                          //Vị trí chơi chính
 
         paddle.render(gc);
+
+        if(balls.stream().noneMatch(Ball::isRunning) && isAiming) {
+            double startX = paddle.getX() + paddle.getWidthPaddle() / 2;
+            double startY = paddle.getY() - 7.5;
+            double length = 100;
+
+            double endX = startX + Math.cos(Math.toRadians(aimAngle)) * length;
+            double endY = startY - Math.sin(Math.toRadians(aimAngle)) * length;
+
+            gc.setStroke(Color.YELLOW);
+            gc.setLineWidth(2);
+            gc.strokeLine(startX, startY, endX, endY);
+        }
         for(Ball ball : balls) {
             ball.render(gc);
         }
@@ -123,29 +173,23 @@ public class GameManager {
 
         gc.setFill(Color.DARKGRAY);
         gc.fillText("Score: " + scorePlayer.getScore(), widthScreen*3/4+60, heightScreen*1/8);//DRAW SCORE
+
     }
 
     /// HANDLE KEY EVENT
     public void handleKeyPress(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
-            paddle.moveLeft();
-        } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
-            paddle.moveRight();
-        } else if (key.getCode() == KeyCode.SPACE) {
-            for (Ball ball : balls) {
-                if (!ball.isRunning()) {
-                    ball.launchBall();
-                    break;
-                }
-            }
+        paddle.handleKeyPressed(key);
+
+        if (key.getCode() == KeyCode.SPACE && !isAiming) {
+            isAiming = true;
         }
     }
 
     public void handleKeyRelease(KeyEvent key) {
-        if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A) {
-            paddle.moveLeft();
-        } else if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D) {
-            paddle.moveRight();
+        paddle.handleKeyReleased(key);
+        if(key.getCode() == KeyCode.SPACE && isAiming) {
+            isAiming = false;
+            shootBall();
         }
     }
 }

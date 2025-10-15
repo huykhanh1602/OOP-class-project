@@ -46,12 +46,4 @@ public class GameOverController {
         }
     }
 
-    @FXML
-    private void initialize() {
-        restartButton.setOnAction(e -> {
-            if (onRestart != null) {
-                onRestart.run();
-            }
-        });
-    }
 }
