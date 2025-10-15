@@ -1,4 +1,4 @@
-package vnu.edu.vn.game;
+package vnu.edu.vn.game.objects;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;

@@ -7,6 +7,7 @@ import vnu.edu.vn.App;
 import vnu.edu.vn.game.ball.Ball;
 import vnu.edu.vn.game.bricks.BrickLoader;
 import vnu.edu.vn.game.bricks.Bricks;
+import vnu.edu.vn.game.objects.Paddle;
 import vnu.edu.vn.game.score.ScoreManager;
 
 import java.util.ArrayList;
@@ -82,8 +83,9 @@ public class GameManager {
     }
 
     public void update() {
-        if (gameOver)
+        if (gameOver) {
             return;
+        }
 
         paddle.update();
 
@@ -92,6 +94,7 @@ public class GameManager {
         }
 
         checkCollision();
+
     }
 
     public void render(GraphicsContext gc) {

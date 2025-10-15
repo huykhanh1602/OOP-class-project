@@ -6,9 +6,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import vnu.edu.vn.game.GameObject;
-import vnu.edu.vn.game.Paddle;
 import vnu.edu.vn.game.bricks.Bricks;
+import vnu.edu.vn.game.objects.GameObject;
+import vnu.edu.vn.game.objects.Paddle;
 
 import static java.lang.Math.abs;
 

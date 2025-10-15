@@ -1,6 +1,7 @@
-package vnu.edu.vn;
+package vnu.edu.vn.game;
 
 import javafx.scene.media.AudioClip;
+
 import java.util.HashMap;
 import java.util.Map;
 

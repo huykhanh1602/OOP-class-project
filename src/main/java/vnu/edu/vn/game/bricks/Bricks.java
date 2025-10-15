@@ -4,7 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import vnu.edu.vn.game.Constant;
-import vnu.edu.vn.game.GameObject;
+import vnu.edu.vn.game.objects.GameObject;
 
 /// Like this name
 

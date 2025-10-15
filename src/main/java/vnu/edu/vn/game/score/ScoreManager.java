@@ -35,6 +35,10 @@ public class ScoreManager {
         return highScore;
     }
 
+    public void setHighScore(int highScore) {
+        this.highScore = highScore;
+    }
+
     private void loadHighScore() {
         try {
             Path p = Paths.get(path);

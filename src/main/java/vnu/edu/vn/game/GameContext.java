@@ -1,6 +1,4 @@
-package vnu.edu.vn;
-
-import vnu.edu.vn.game.Constant;
+package vnu.edu.vn.game;
 
 public class GameContext {
     private static final GameContext instance = new GameContext();
