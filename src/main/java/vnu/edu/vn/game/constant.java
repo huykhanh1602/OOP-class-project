@@ -1,6 +1,6 @@
 package vnu.edu.vn.game;
 
-public class constant {
+public class Constant {
     // Screen settings
     public static final int WIDTH_SCREEN = 800;
     public static final int HEIGHT_SCREEN = 600;
@@ -20,6 +20,13 @@ public class constant {
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
 
-    //path
-    public static final
+    // scene path
+    public static final String GameOverScenePath = "/vnu/edu/vn/game/scenes/GameOverScene.fxml";
+    public static final String GameScenePath = "/vnu/edu/vn/game/scenes/GameScene.fxml";
+    public static final String HomeScenePath = "/vnu/edu/vn/game/scenes/HomeScene.fxml";
+    public static final String IconPath = "/vnu/edu/vn/game/images/icon.png";
+
+    // game info
+    public static final String GameName = "Thanh hoa Kingdom";
+
 }

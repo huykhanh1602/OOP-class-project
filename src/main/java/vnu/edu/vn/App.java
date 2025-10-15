@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import vnu.edu.vn.game.scenes.GameSceneController;
 import vnu.edu.vn.game.scenes.HomeSceneController;
 import vnu.edu.vn.game.scenes.GameOverController;
+import vnu.edu.vn.game.Constant;
 
 import java.io.IOException;
 
@@ -20,14 +21,14 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Image icon = new Image(getClass().getResourceAsStream("/vnu/edu/vn/game/images/icon.png"));
+        Image icon = new Image(getClass().getResourceAsStream(Constant.IconPath));
         stage.getIcons().add(icon);
         if (icon == null)
             System.out.println("cant find icon");
 
         this.primaryStage = stage;
         switchtoHomeScene(); // Chuyển đến màn hình game khi bắt đầu
-        stage.setTitle("Arkanoid");
+        stage.setTitle(Constant.GameName);
         stage.show();
 
         // Image icon = new
@@ -39,7 +40,7 @@ public class App extends Application {
     public void switchtoHomeScene() {
         try {
             // Tải file FXML của màn hình chính (Lưu ý: tên file có thể là Home.fxml)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/scenes/HomeScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HomeScenePath));
             Parent root = loader.load();
 
             // LẤY RA ĐÚNG CONTROLLER CỦA NÓ: HomeController
@@ -58,7 +59,7 @@ public class App extends Application {
 
     public void switchToGameScene() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/scenes/GameScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GameScenePath));
             Parent root = loader.load();
 
             // Lấy controller và truyền tham chiếu 'App' vào
@@ -77,7 +78,7 @@ public class App extends Application {
         // Logic chuyển sang màn hình GameOver (bạn có thể tạo GameOver.fxml tương tự)
         System.out.println("Game Over! Final Score: " + finalScore);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/scenes/GameOverScene.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GameOverScenePath));
             Parent root = loader.load();
 
             GameOverController controller = loader.getController();
