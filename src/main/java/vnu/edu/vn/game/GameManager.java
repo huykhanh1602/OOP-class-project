@@ -3,9 +3,7 @@ package vnu.edu.vn.game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import vnu.edu.vn.App;
-import vnu.edu.vn.game.background.Background;
 import vnu.edu.vn.game.ball.Ball;
 import vnu.edu.vn.game.bricks.BrickLoader;
 import vnu.edu.vn.game.bricks.Bricks;
@@ -54,7 +52,7 @@ public class GameManager {
                     ball.collides(brick);
                     if (brick.isBroken()) {
                         BRICK.remove();
-                        scorePlayer.addScore(brick.getAmount());
+                        scorePlayer.addScore(brick.getPoint());
                     }
 
                     break; // tránh va chạm nhiều brick 1 frame
@@ -65,7 +63,7 @@ public class GameManager {
             if (ball.getY() > heightScreen) {
                 BALL.remove();
                 if (balls.size() == 0) {
-                    app.switchToGameOver(scorePlayer.getScore());
+                    app.switchToGameOverScene(scorePlayer.getScore());
                 }
             }
         }
