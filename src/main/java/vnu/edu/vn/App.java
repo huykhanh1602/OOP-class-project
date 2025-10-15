@@ -1,6 +1,5 @@
 package vnu.edu.vn;
 
-import java.io.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,8 +22,6 @@ public class App extends Application {
 
         Image icon = new Image(getClass().getResourceAsStream(Constant.IconPath));
         stage.getIcons().add(icon);
-        if (icon == null)
-            System.out.println("cant find icon");
 
         this.primaryStage = stage;
         switchtoHomeScene(); // Chuyển đến màn hình game khi bắt đầu

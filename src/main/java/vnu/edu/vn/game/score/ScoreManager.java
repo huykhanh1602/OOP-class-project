@@ -6,20 +6,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
-public class Score {
+public class ScoreManager {
     private int score = 0;
     private int highScore = 0;
     private final String path = "\\vnu\\edu\\vn\\game\\score\\score.txt";
 
-
-    public Score() {
+    public ScoreManager() {
         loadHighScore();
     }
 
     public void addScore(int amount) {
         score += amount;
-        if(score > highScore) {
+        if (score > highScore) {
             highScore = score;
             loadHighScore();
         }
@@ -43,10 +41,10 @@ public class Score {
             if (Files.exists(p)) {
                 String content = Files.readString(p).trim();
                 highScore = Integer.parseInt(content);
-            }else{
+            } else {
                 highScore = 0;
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             highScore = 0;
             System.out.println("Error loading high score");
         }
@@ -56,7 +54,7 @@ public class Score {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.write(String.valueOf(highScore));
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Error saving high score");
         }
     }

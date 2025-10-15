@@ -12,11 +12,11 @@ public class BrickLoader {
         List<Bricks> bricks = new ArrayList<Bricks>();
 
         try {
-            InputStream is = BrickLoader.class.getClassLoader().getResourceAsStream(path);
+            InputStream is = BrickLoader.class.getResourceAsStream(path);
             if (is == null) {
                 System.out.println("Couldn't find resource " + path);
-                bricks.add(new Bricks(120, 90 , 2, 100));
-                bricks.add(new Bricks(180 , 90 , 1, 50));
+                bricks.add(new Bricks(120, 90, 2, 100));
+                bricks.add(new Bricks(180, 90, 1, 50));
                 return bricks;
             }
 
@@ -32,7 +32,7 @@ public class BrickLoader {
                     int type = Integer.parseInt(lineArray[col]);
                     double x = col * brickWidth + 10;
                     double y = col * brickHeight + 40;
-                    bricks.add(new Bricks(x, y, type, type*50));
+                    bricks.add(new Bricks(x, y, type, type * 50));
                 }
                 row++;
             }

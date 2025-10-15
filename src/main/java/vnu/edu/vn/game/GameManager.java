@@ -7,7 +7,7 @@ import vnu.edu.vn.App;
 import vnu.edu.vn.game.ball.Ball;
 import vnu.edu.vn.game.bricks.BrickLoader;
 import vnu.edu.vn.game.bricks.Bricks;
-import vnu.edu.vn.game.score.Score;
+import vnu.edu.vn.game.score.ScoreManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +25,7 @@ public class GameManager {
     private List<Bricks> bricks;
 
     /// Thông số game
-    private Score scorePlayer = new Score();
+    private ScoreManager scorePlayer = new ScoreManager();
     private boolean gameOver;
     private final App app;
 

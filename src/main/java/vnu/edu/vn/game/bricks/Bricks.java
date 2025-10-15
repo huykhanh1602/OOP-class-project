@@ -3,6 +3,7 @@ package vnu.edu.vn.game.bricks;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import vnu.edu.vn.game.Constant;
 import vnu.edu.vn.game.GameObject;
 
 /// Like this name
@@ -12,13 +13,13 @@ public class Bricks {
     private double x, y;
     private int durability;
     private int point;
-    private double widthBrick = 50;
-    private double heightBrick = 50;
+    private double widthBrick = Constant.BRICK_WIDTH;
+    private double heightBrick = Constant.BRICK_HEIGHT;
 
-    public Bricks(double x, double y, int typeBrick, int amount) {
+    public Bricks(double x, double y, int durability, int amount) {
         this.x = x;
         this.y = y;
-        this.durability = typeBrick;
+        this.durability = durability;
         this.point = amount;
     }
 
