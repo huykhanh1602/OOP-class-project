@@ -100,7 +100,7 @@ public class Ball {
     // public void collides(Bricks brick) { //Va chạm với brick
     //
     // if (x + radius > brick.getX()&& //UP
-    // x - radius < (brick.getX() + brick.getWidthBrick()) &&
+    // x - radius < (brick.getX() + brick.getWidth()) &&
     // y + radius > brick.getY() &&
     // y + radius < brick.getY() + dy * fixBug) {
     // y = brick.getY() - radius;
@@ -109,16 +109,16 @@ public class Ball {
     // }
     //
     // if ((x + radius > brick.getX()&& //DOWN
-    // x - radius < (brick.getX() + brick.getWidthBrick())) &&
-    // y - radius < brick.getY() + brick.getHeightBrick() &&
-    // y - radius > brick.getY() + brick.getHeightBrick() - abs(dy) * fixBug) {
-    // y = brick.getY() + brick.getHeightBrick() + radius;
+    // x - radius < (brick.getX() + brick.getWidth())) &&
+    // y - radius < brick.getY() + brick.getHeight() &&
+    // y - radius > brick.getY() + brick.getHeight() - abs(dy) * fixBug) {
+    // y = brick.getY() + brick.getHeight() + radius;
     // bounceY();
     // System.out.println("Bounce Y Down");
     // }
     //
     // if (y + radius > brick.getY() && //Left
-    // y - radius < (brick.getY() + brick.getHeightBrick()) &&
+    // y - radius < (brick.getY() + brick.getHeight()) &&
     // x + radius > brick.getX() &&
     // x + radius < brick.getX() + dx * fixBug) {
     // x = brick.getX() - radius;
@@ -127,10 +127,10 @@ public class Ball {
     // }
     //
     // if (y + radius > brick.getY() && //Right
-    // y - radius < (brick.getY() + brick.getHeightBrick()) &&
-    // x - radius < brick.getX() + brick.getWidthBrick() &&
-    // x - radius > brick.getX() + brick.getWidthBrick() + abs(dx) * fixBug) {
-    // x = brick.getX() + brick.getWidthBrick() + radius;
+    // y - radius < (brick.getY() + brick.getHeight()) &&
+    // x - radius < brick.getX() + brick.getWidth() &&
+    // x - radius > brick.getX() + brick.getWidth() + abs(dx) * fixBug) {
+    // x = brick.getX() + brick.getWidth() + radius;
     // bounceX();
     // System.out.println("Bounce X Right");
     // }
@@ -142,8 +142,8 @@ public class Ball {
         double ballCenterY = y;
 
         // Tọa độ tâm của viên gạch
-        double brickCenterX = brick.getX() + brick.getWidthBrick() / 2.0f;
-        double brickCenterY = brick.getY() + brick.getHeightBrick() / 2.0f;
+        double brickCenterX = brick.getX() + brick.getWidth() / 2.0f;
+        double brickCenterY = brick.getY() + brick.getHeight() / 2.0f;
 
         // Tính khoảng cách giữa tâm của bóng và tâm của gạch trên mỗi trục
         double diffX = ballCenterX - brickCenterX;
@@ -151,8 +151,8 @@ public class Ball {
 
         // Tính tổng một nửa chiều rộng/cao của gạch và bán kính của bóng
         // Đây là khoảng cách tối thiểu giữa các tâm để chúng không va chạm
-        double combinedHalfWidths = radius + brick.getWidthBrick() / 2.0f;
-        double combinedHalfHeights = radius + brick.getHeightBrick() / 2.0f;
+        double combinedHalfWidths = radius + brick.getWidth() / 2.0f;
+        double combinedHalfHeights = radius + brick.getHeight() / 2.0f;
 
         // Kiểm tra xem có va chạm hay không
         if (Math.abs(diffX) < combinedHalfWidths && Math.abs(diffY) < combinedHalfHeights) {
@@ -168,7 +168,7 @@ public class Ball {
                 bounceX();
                 // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
                 if (diffX > 0) { // Bóng ở bên phải gạch
-                    x = brick.getX() + brick.getWidthBrick() + radius;
+                    x = brick.getX() + brick.getWidth() + radius;
                     System.out.println("Bounce X Right");
                 } else { // Bóng ở bên trái gạch
                     x = brick.getX() - radius;
@@ -179,7 +179,7 @@ public class Ball {
                 bounceY();
                 // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
                 if (diffY > 0) { // Bóng ở bên dưới gạch
-                    y = brick.getY() + brick.getHeightBrick() + radius;
+                    y = brick.getY() + brick.getHeight() + radius;
                     System.out.println("Bounce Y Down");
                 } else { // Bóng ở bên trên gạch
                     y = brick.getY() - radius;

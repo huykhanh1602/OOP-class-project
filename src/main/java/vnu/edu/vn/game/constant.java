@@ -19,6 +19,8 @@ public class Constant {
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
+    public static final String StoneBrickImagePath = "/vnu/edu/vn/game/images/stone_brick.png";
+    public static final String BedrockBrickImagePath = "/vnu/edu/vn/game/images/bedrock_brick.png";
 
     // scene path
     public static final String GameOverScenePath = "/vnu/edu/vn/game/scenes/GameOverScene.fxml";

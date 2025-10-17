@@ -24,7 +24,7 @@ public class App extends Application {
         stage.getIcons().add(icon);
 
         this.primaryStage = stage;
-        switchtoHomeScene(); // Chuyển đến màn hình game khi bắt đầu
+        switchtoHomeScene();
         stage.setTitle(Constant.GameName);
         stage.show();
 
@@ -34,17 +34,17 @@ public class App extends Application {
 
     }
 
+    /**
+     * Chuyển sang màn hình game lobby.
+     */
     public void switchtoHomeScene() {
         try {
-            // Tải file FXML của màn hình chính (Lưu ý: tên file có thể là Home.fxml)
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HomeScenePath));
             Parent root = loader.load();
 
-            // LẤY RA ĐÚNG CONTROLLER CỦA NÓ: HomeController
             HomeSceneController controller = loader.getController();
 
-            // Truyền tham chiếu App cho HomeController
-            controller.setup(this); // Giả sử bạn có phương thức setApp(this) trong HomeController
+            controller.setup(this);
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
@@ -54,6 +54,9 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Chuyển sang màn hình màn chơi.
+     */
     public void switchToGameScene() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GameScenePath));
@@ -71,8 +74,11 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Chuyển sang màn hình game over.
+     */
     public void switchToGameOverScene(int finalScore) {
-        // Logic chuyển sang màn hình GameOver (bạn có thể tạo GameOver.fxml tương tự)
+
         System.out.println("Game Over! Final Score: " + finalScore);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GameOverScenePath));

@@ -31,9 +31,10 @@ public class GameManager {
     private boolean gameOver;
     private final App app;
 
-    // Hiệu ứng va chạm
+    // Hệ thời gian của hiệu ứng va chạm
     private long lastUpdateTime = 0;
 
+    // Tính toán thời gian trôi qua giữa các khung hình
     private double calculateDeltaTime() {
         long currentTime = System.nanoTime();
         if (lastUpdateTime == 0) {
@@ -66,13 +67,16 @@ public class GameManager {
                     brick.hit();
                     ball.collides(brick);
                     if (brick.isBroken()) {
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
+
+                        System.out.println("break brick");
                         BRICK.remove();
                         scorePlayer.addScore(brick.getPoint());
 
                         // Break particle
-                        double brickCenterX = brick.getX() + brick.getWidthBrick() / 2;
-                        double brickCenterY = brick.getY() + brick.getHeightBrick() / 2;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
+
                     }
 
                     break; // tránh va chạm nhiều brick 1 frame
