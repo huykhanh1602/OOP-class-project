@@ -2,13 +2,24 @@ package game.scenes;
 
 import game.GameManager;
 import javafx.animation.AnimationTimer;
+import javafx.beans.binding.Binding;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import game.App;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
-public class GameSceneController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import game.App;
+import game.Constant;
+
+public class GameSceneController implements Initializable {
 
     @FXML
     private Canvas gameCanvas;
@@ -16,24 +27,35 @@ public class GameSceneController {
     @FXML
     private Label scoreLabel;
 
+    @FXML
+    private StackPane rootContainer;
+
+    @FXML
+    private AnchorPane gamePane;
+
     private GraphicsContext gc;
     private GameManager gameManager;
     private App app;
 
     // Phương thức này sẽ được gọi tự động sau khi tệp FXML được tải
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
+        DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
+
+        // Lấy tỷ lệ nào nhỏ hơn (để giữ tỷ lệ 16:9 và không bị cắt)
+        Binding<Number> scale = Bindings.min(widthScale, heightScale);
+
+        // Áp dụng tỷ lệ đó cho gamePane
+        gamePane.scaleXProperty().bind(scale);
+        gamePane.scaleYProperty().bind(scale);
+
         // Lấy GraphicsContext từ Canvas
         gc = gameCanvas.getGraphicsContext2D();
-
-        // Di chuyển logic xử lý input vào đây
-        setupInputHandlers();
-
-        // Bắt đầu vòng lặp game
-        startGameLoop();
+        setupInputHandlers();// Di chuyển logic xử lý input vào đây
+        startGameLoop();// Bắt đầu vòng lặp game
     }
 
-    // Phương thức này được dùng để App truyền tham chiếu vào
     public void setup(App app) {
         this.app = app;
         // Khởi tạo GameManager sau khi đã có tham chiếu App

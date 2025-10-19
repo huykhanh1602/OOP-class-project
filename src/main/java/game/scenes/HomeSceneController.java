@@ -23,7 +23,7 @@ public class HomeSceneController implements Initializable {
     private StackPane rootContainer;
 
     @FXML
-    private AnchorPane gamePane; // Hoặc Pane
+    private AnchorPane gamePane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
