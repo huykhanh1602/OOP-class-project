@@ -24,8 +24,8 @@ public class App extends Application {
         stage.getIcons().add(icon);
 
         this.primaryStage = stage;
-        // switchToHomeScene();
-        switchToGameOverScene(0);
+        switchToHomeScene();
+        // switchToGameOverScene(0); //testing
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
