@@ -1,12 +1,21 @@
-package vnu.edu.vn.game;
+package vnu.edu.vn.game.objects;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public abstract class GameObject {
-    public double x;
-    public double y;
-    public double width;
-    public double height;
+    protected Image image;
+    protected double x;
+    protected double y;
+    protected double width;
+    protected double height;
+
+    public GameObject(double x, double y, double width, double height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
     public double getX() {
         return x;

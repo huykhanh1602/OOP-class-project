@@ -3,43 +3,39 @@ package vnu.edu.vn.game.bricks;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import vnu.edu.vn.game.GameObject;
+import vnu.edu.vn.game.Constant;
+import vnu.edu.vn.game.objects.GameObject;
 
 /// Like this name
 
-public class Bricks {
+public class Bricks extends GameObject {
+    protected int durability;
+    protected int point;
+    protected boolean destroyable = true;
 
-    private double x,y;
-    private int typeBrick;
-    private boolean broken = false;
-    private int amount;
-    private double widthBrick = 50;
-    private double heightBrick = 50;
-
-    public Bricks(double x, double y, int typeBrick, int amount) {
-        this.x = x;
-        this.y = y;
-        this.typeBrick = typeBrick;
-        this.amount = amount;
+    public Bricks(double x, double y, int durability, int amount) {
+        super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        this.durability = durability;
+        this.point = amount;
+        if (durability <= -1) {
+            destroyable = false;
+        }
     }
 
-
-    public int getAmount() {                                    //Điểm
-        return amount;
+    // ERASE BRICK
+    public boolean isBroken() { // Kiểm tra đã vỡ chưa
+        return durability <= 0;
     }
 
-
-    //ERASE BRICK
-    public boolean isBroken() {                                 //Kiểm tra đã vỡ chưa
-        return typeBrick <= 0;
+    public void hit() { // Giảm độ bền
+        if (destroyable == false) {
+            return;
+        }
+        durability--;
     }
 
-    public void hit() {                                         //Giảm độ bền
-            typeBrick--;
-    }
-
-    public Rectangle2D getRectBrick() {                             //Trả về thuộc tính để kiểm tra va chạm
-        return new Rectangle2D(x, y, widthBrick, heightBrick);
+    public Rectangle2D getRectBrick() { // Trả về thuộc tính để kiểm tra va chạm
+        return new Rectangle2D(x, y, width, height);
     }
 
     public void update() {
@@ -47,65 +43,46 @@ public class Bricks {
     }
 
     public void render(GraphicsContext gc) {
-        if (typeBrick == 0) {
+        if (durability == 0) {
             return;
         }
-
-        switch (typeBrick) {                                    //Vẽ dựa theo độ bền brick
+        gc.drawImage(image, width, height);
+        switch (durability) {
             case 1:
-                Color c1 =  Color.RED;
+                Color c1 = Color.RED;
                 gc.setFill(c1);
-                gc.fillRect(x, y, widthBrick, heightBrick);
+                gc.fillRect(x, y, width, height);
                 break;
             case 2:
-                Color c2 =  Color.YELLOW;
+                Color c2 = Color.YELLOW;
                 gc.setFill(c2);
-                gc.fillRect(x, y, widthBrick, heightBrick);
+                gc.fillRect(x, y, width, height);
                 break;
             case 3:
-                Color c3 =  Color.GREEN;
+                Color c3 = Color.GREEN;
                 gc.setFill(c3);
-                gc.fillRect(x, y, widthBrick, heightBrick);
+                gc.fillRect(x, y, width, height);
                 break;
         }
         gc.setStroke(Color.BLACK);
-        gc.strokeRect(x, y, widthBrick, heightBrick);
+        gc.strokeRect(x, y, width, height);
 
     }
 
-    public int getTypeBrick() {
-        return typeBrick;
-    }
-
-    public double getWidthBrick() {
-        return widthBrick;
-    }
-
-    public double getHeightBrick() {
-        return heightBrick;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
+    // getters and setters
+    public int getDurability() {
+        return durability;
     }
 
     public void setWidthBrick(double widthBrick) {
-        this.widthBrick = widthBrick;
+        this.width = widthBrick;
     }
 
     public void setHeightBrick(double heightBrick) {
-        this.heightBrick = heightBrick;
+        this.height = heightBrick;
+    }
+
+    public int getPoint() {
+        return point;
     }
 }

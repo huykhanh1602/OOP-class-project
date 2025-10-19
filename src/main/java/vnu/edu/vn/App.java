@@ -1,84 +1,93 @@
 package vnu.edu.vn;
 
-/// Launcher game
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import vnu.edu.vn.game.GameScene;
-import vnu.edu.vn.game.gameOver.GameOverController;
-import vnu.edu.vn.game.home.HomeController;
+import vnu.edu.vn.game.scenes.GameSceneController;
+import vnu.edu.vn.game.scenes.HomeSceneController;
+import vnu.edu.vn.game.scenes.GameOverController;
+import vnu.edu.vn.game.Constant;
+
+import java.io.IOException;
 
 public class App extends Application {
 
-    private Stage stage;
-
-    private Scene scene;
-    private GameScene gameScene;
-
-    private Scene gameOverScene;
-    private GameOverController gameOverController;
-
-    private Scene homeScene;
-    private HomeController homeController;
-
-    //WINDOW SETTING
-    public final static int widthScreen = 1280;             //WIDTH SCREEN
-    public final static int heightScreen = 600;            //HEIGHT SCREEN
-    private final String title = "Arknoid";
-
+    private Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        this.stage = stage;
+    public void start(Stage stage) throws IOException {
 
-        //Game Scene
-        gameScene = new GameScene(widthScreen, heightScreen, this);
-        scene = new Scene(gameScene, widthScreen, heightScreen);
+        Image icon = new Image(getClass().getResourceAsStream(Constant.ICON_PATH));
+        stage.getIcons().add(icon);
 
-        //GameOver Scene
-        FXMLLoader endLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/gameOver/GameOverScene.fxml"));
-        gameOverScene = new Scene(endLoader.load(), widthScreen, heightScreen);
-        gameOverController = endLoader.getController();
-        gameOverController.setOnRestart(() -> switchToGame());
-        gameOverController.setOnHome(() -> switchToHome());
-
-        //Home Scene
-        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/vnu/edu/vn/game/home/HomeScene.fxml"));
-        homeController = homeLoader.getController();
-        homeScene = new Scene(homeLoader.load(), widthScreen, heightScreen);
-        homeScene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.SPACE) {
-                switchToGame();
-            }
-        });
-
-
-        stage.setTitle(title);
-
-        stage.setScene(homeScene);
+        this.primaryStage = stage;
+        // switchToHomeScene();
+        switchToGameOverScene(0);
+        stage.setTitle(Constant.GAME_NAME);
+        stage.setMaximized(true);
         stage.show();
     }
 
-    public void switchToGameOver(int score) {
-        gameOverController.setScore(score);
-        stage.setScene(gameOverScene);
+    // Switch to Home Scene
+    public void switchToHomeScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HOME_SCENE_PATH));
+            Parent root = loader.load();
+
+            HomeSceneController controller = loader.getController();
+
+            controller.setup(this);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+        }
     }
 
-    public void switchToGame() {
-        gameScene.resetGame();
-        stage.setScene(scene);
+    // Switch to Game Scene
+    public void switchToGameScene() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GAME_SCENE_PATH));
+            Parent root = loader.load();
+
+            // Lấy controller và truyền tham chiếu 'App' vào
+            GameSceneController controller = loader.getController();
+            controller.setup(this);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+        }
     }
 
-    public void switchToHome() {
-        stage.setScene(homeScene);
-        //homeController.getRootPane().requestFocus();
+    // Switch to Game Over Scene
+    public void switchToGameOverScene(int finalScore) {
+
+        System.out.println("Game Over! Final Score: " + finalScore);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GAME_OVER_SCENE_PATH));
+            Parent root = loader.load();
+
+            GameOverController controller = loader.getController();
+            controller.setup(this);
+            controller.setScore(finalScore);
+
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+        }
+
     }
 
-
-    //LAUNCH GAME
+    // LAUNCH GAME
     public static void main(String[] args) {
         launch(args);
     }

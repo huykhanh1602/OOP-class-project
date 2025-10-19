@@ -1,6 +1,7 @@
 package vnu.edu.vn.game.Player;
+
 import vnu.edu.vn.game.bricks.Bricks;
-import vnu.edu.vn.game.score.Score;
+import vnu.edu.vn.game.score.ScoreManager;
 
 import java.io.Serializable;
 import java.util.*;
@@ -19,15 +20,15 @@ public class Player implements Serializable {
     // Set (Tập hợp) dùng để lưu trữ TÊN (String) của các Powerup VĨNH VIỄN đã mua
     // Dùng Set đảm bảo mỗi Powerup chỉ được lưu một lần
     private final Set<String> purchasedPowerups;
-    private final Map<String,Integer> powerupLevels;
-    private Score score;
+    private final Map<String, Integer> powerupLevels;
+    private ScoreManager score;
 
-    public Player(int initialLives, Map<String, Integer> powerpuLevels){
+    public Player(int initialLives, Map<String, Integer> powerpuLevels) {
         this.lives = initialLives;
         this.coins = 0;
         this.purchasedPowerups = new HashSet<>();
         this.powerupLevels = new HashMap<>();
-        score = new Score();
+        score = new ScoreManager();
     }
     // --- Phương thức quản lý Cấp độ Powerup ---
 
@@ -35,21 +36,24 @@ public class Player implements Serializable {
      * Tăng cấp độ của một Powerup thêm 1 và trả về cấp độ mới.
      * Phương thức này được gọi khi người chơi mua Powerup.
      * Thêm một Powerup vào danh sách sở hữu của người chơi.
+     * 
      * @param powerupName Tên duy nhất của Powerup (ví dụ: "Speed Boost I")
      */
-    //public void addPurchasedPowerup(String powerupName){
-    //    this.purchasedPowerups.add(powerupName);
-    //}
+    // public void addPurchasedPowerup(String powerupName){
+    // this.purchasedPowerups.add(powerupName);
+    // }
     /**
      * Kiểm tra xem người chơi đã sở hữu Powerup này chưa.
      * Đây là phương thức mà hàm isPurchased() cần dùng.
      * powerupName Tên Powerup cần kiểm tra
+     * 
      * @return true nếu đã mua, false nếu chưa.
      */
-    public boolean hasPowerup(String powerupName){
+    public boolean hasPowerup(String powerupName) {
         return this.purchasedPowerups.contains(powerupName);
     }
-    public int increasePowerupLevel(String  powerupName){
+
+    public int increasePowerupLevel(String powerupName) {
         // Lấy cấp độ hiện tại (mặc định là 0 nếu chưa mua)
         int currentLevel = this.powerupLevels.getOrDefault(powerupName, 0);
         int newLevel = currentLevel + 1;
@@ -57,10 +61,11 @@ public class Player implements Serializable {
         this.powerupLevels.put(powerupName, newLevel);
         return newLevel;
     }
+
     /**
      * Lấy cấp độ hiện tại của một Powerup.
      */
-    public int getPowerupLevel(String  powerupName){
+    public int getPowerupLevel(String powerupName) {
         return this.powerupLevels.getOrDefault(powerupName, 0);
     }
 }
