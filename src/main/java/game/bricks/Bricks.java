@@ -23,18 +23,18 @@ public class Bricks extends GameObject {
     }
 
     // ERASE BRICK
-    public boolean isBroken() { // Kiểm tra đã vỡ chưa
+    public boolean isBroken() { // Check if brick is broken
         return durability <= 0;
     }
 
-    public void hit() { // Giảm độ bền
+    public void hit() { // Decrease durability
         if (destroyable == false) {
             return;
         }
         durability--;
     }
 
-    public Rectangle2D getRectBrick() { // Trả về thuộc tính để kiểm tra va chạm
+    public Rectangle2D getRectBrick() { // Return the rectangle for collision detection
         return new Rectangle2D(x, y, width, height);
     }
 

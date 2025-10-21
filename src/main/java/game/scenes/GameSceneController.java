@@ -1,5 +1,10 @@
 package game.scenes;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import game.App;
+import game.Constant;
 import game.GameManager;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Binding;
@@ -12,12 +17,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import game.App;
-import game.Constant;
 
 public class GameSceneController implements Initializable {
 
@@ -37,28 +36,28 @@ public class GameSceneController implements Initializable {
     private GameManager gameManager;
     private App app;
 
-    // Phương thức này sẽ được gọi tự động sau khi tệp FXML được tải
+    // This method is automatically called after initializing the FXML file
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
-        // Lấy tỷ lệ nào nhỏ hơn (để giữ tỷ lệ 16:9 và không bị cắt)
+        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without cropping)
         Binding<Number> scale = Bindings.min(widthScale, heightScale);
 
-        // Áp dụng tỷ lệ đó cho gamePane
+        // Apply the scale to the gamePane
         gamePane.scaleXProperty().bind(scale);
         gamePane.scaleYProperty().bind(scale);
 
-        // Lấy GraphicsContext từ Canvas
+        // Get the GraphicsContext from the Canvas
         gc = gameCanvas.getGraphicsContext2D();
-        setupInputHandlers();// Di chuyển logic xử lý input vào đây
-        startGameLoop();// Bắt đầu vòng lặp game
+        setupInputHandlers();// Move input handling logic here
+        startGameLoop();// Start the game loop
     }
 
     public void setup(App app) {
         this.app = app;
-        // Khởi tạo GameManager sau khi đã có tham chiếu App
+        // Initialize GameManager after obtaining App reference
         this.gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
     }
 
@@ -74,10 +73,10 @@ public class GameSceneController implements Initializable {
             public void handle(long now) {
                 gameManager.update();
 
-                // Cập nhật điểm số trên Label
+                // Update score label
                 scoreLabel.setText("Score:\n" + gameManager.getScore());
 
-                // Vẽ game lên canvas
+                // Render game on canvas
                 gameManager.render(gc);
             }
         }.start();
