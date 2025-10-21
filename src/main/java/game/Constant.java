@@ -23,7 +23,7 @@ public class Constant {
     public static final String BEDROCK_BBRICK_IMAGE_PATH = "/game/images/bedrock_brick.png";
 
     // scene path
-    public static final String GAME_OVER_SCENE_PATH = "/vgame/scenes/GameOverScene.fxml";
+    public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";

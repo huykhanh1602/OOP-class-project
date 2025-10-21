@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="rootContainer" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.GameOverController">
+<StackPane fx:id="rootContainer" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.GameOverController">
    <children>
-      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;">
+      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="1280.0" prefWidth="720.0" style="-fx-background-color: gray;">
          <children>
             <Label fx:id="scoreLabel" alignment="CENTER" layoutX="576.0" layoutY="266.0" prefHeight="85.0" prefWidth="129.0" style="-fx-font-size: 20;" styleClass="score-label" stylesheets="@../fonts/GameStyle.css" text="Score: 0">
                <font>

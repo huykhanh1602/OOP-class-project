@@ -1,6 +1,7 @@
 package game;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,8 +25,8 @@ public class App extends Application {
         stage.getIcons().add(icon);
 
         this.primaryStage = stage;
-        switchToHomeScene();
-        // switchToGameOverScene(0); //testing
+        // switchToHomeScene();
+        switchToGameOverScene(0); // testing
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
@@ -41,7 +42,7 @@ public class App extends Application {
 
             controller.setup(this);
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
             primaryStage.setScene(scene);
 
         } catch (IOException e) {
@@ -59,9 +60,8 @@ public class App extends Application {
             GameSceneController controller = loader.getController();
             controller.setup(this);
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
             primaryStage.setScene(scene);
-
         } catch (IOException e) {
             throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
         }
@@ -79,7 +79,7 @@ public class App extends Application {
             controller.setup(this);
             controller.setScore(finalScore);
 
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
             primaryStage.setScene(scene);
         } catch (IOException e) {
             throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
