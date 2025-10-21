@@ -25,7 +25,7 @@ public class GameManager {
     private List<Ball> balls;
     private List<Bricks> bricks;
 
-    /// Thông số game
+    /// Game statistics
     private ScoreManager scorePlayer = new ScoreManager();
     private boolean gameOver;
     private final App app;
@@ -43,10 +43,10 @@ public class GameManager {
         this.heightScreen = heightScreen;
         // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
-        reset(); // Khởi tạo game
+        reset(); // Initialize game state
     }
 
-    private void checkCollision() { // Kiểm tra va chạm
+    private void checkCollision() { // Check collisions
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
 

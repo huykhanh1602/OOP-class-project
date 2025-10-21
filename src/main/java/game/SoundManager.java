@@ -1,9 +1,9 @@
 package game;
 
-import javafx.scene.media.AudioClip;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.scene.media.AudioClip;
 
 public class SoundManager {
     // 1. Singleton Pattern
@@ -16,20 +16,20 @@ public class SoundManager {
         return instance;
     }
 
-    // 2. Một nơi để lưu trữ các file âm thanh đã được tải
+    // 2. A place to store loaded sound files
     private Map<String, AudioClip> soundCache = new HashMap<>();
     private AudioClip backgroundMusic;
 
-    // 3. Phương thức để tải trước các âm thanh
+    // 3. Method to preload sounds
     public void loadSounds() {
         try {
             // Load Sounds
-            loadSound("bounce", "/sounds/bounce.wav"); // Giả sử bạn có file này
+            loadSound("bounce", "/sounds/bounce.wav"); // Assuming you have this file
             loadSound("brick_break", "/sounds/break.wav");
 
             // Load Background Music
             backgroundMusic = new AudioClip(getClass().getResource("/sounds/music.mp3").toExternalForm());
-            backgroundMusic.setCycleCount(AudioClip.INDEFINITE); // Lặp lại vô hạn
+            backgroundMusic.setCycleCount(AudioClip.INDEFINITE); // Loop indefinitely
 
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());
@@ -41,11 +41,11 @@ public class SoundManager {
         soundCache.put(name, sound);
     }
 
-    // 4. Các phương thức để các nơi khác có thể gọi
+    // 4. Methods for other places to call
     public void playSound(String name) {
         AudioClip sound = soundCache.get(name);
         if (sound != null) {
-            // Đọc âm lượng từ GameContext để điều chỉnh
+            // Read volume from GameContext to adjust
             sound.setVolume(GameContext.getInstance().getSoundVolume());
             sound.play();
         }

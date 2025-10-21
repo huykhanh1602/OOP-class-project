@@ -1,17 +1,16 @@
 package game;
 
+import java.io.IOException;
+
+import game.scenes.GameOverController;
+import game.scenes.GameSceneController;
+import game.scenes.HomeSceneController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
-import game.scenes.GameOverController;
-import game.scenes.GameSceneController;
-import game.scenes.HomeSceneController;
 
 public class App extends Application {
 
@@ -55,7 +54,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GAME_SCENE_PATH));
             Parent root = loader.load();
 
-            // Lấy controller và truyền tham chiếu 'App' vào
+            // Get the controller and pass the 'App' reference to it
             GameSceneController controller = loader.getController();
             controller.setup(this);
 
