@@ -1,11 +1,5 @@
 package game;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import game.App;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,6 +10,10 @@ import game.bricks.Bricks;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
 import game.score.ScoreManager;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 ///  Manager
 
@@ -27,7 +25,7 @@ public class GameManager {
     private List<Ball> balls;
     private List<Bricks> bricks;
 
-    /// Thông số game
+    /// Game statistics
     private ScoreManager scorePlayer = new ScoreManager();
     private boolean gameOver;
     private final App app;
@@ -45,10 +43,10 @@ public class GameManager {
         this.heightScreen = heightScreen;
         // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
-        reset(); // Khởi tạo game
+        reset(); // Initialize game state
     }
 
-    private void checkCollision() { // Kiểm tra va chạm
+    private void checkCollision() { // Check collisions
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
 
@@ -91,7 +89,7 @@ public class GameManager {
     public void reset() { // Khởi tạo lại game
         paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");

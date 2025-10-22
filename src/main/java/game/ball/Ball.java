@@ -1,23 +1,12 @@
 package game.ball;
 
+import game.Constant;
+import game.bricks.Bricks;
+import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-
-import java.sql.Time;
-import java.util.Random;
-
-import game.Constant;
-import game.GameManager;
-import game.bricks.BrickLoader;
-import game.bricks.Bricks;
-import game.objects.Paddle;
-
-import static java.lang.Math.abs;
-import static java.lang.Math.floor;
 
 ///  Ball movement
 
@@ -33,7 +22,7 @@ public class Ball {
 
     private double friction = 0.2; // Ma sát
 
-    private double fixBug = 5; // KHOẢNG CÁCH VA CHẠM
+    private double fixBug = 5; // colliding distance
 
     // private int boundaryWidth = 600*3/4;
     // private int boundaryHeight = 600*5/6;
@@ -62,11 +51,11 @@ public class Ball {
         return new Rectangle2D(x, y, radius * 2, radius * 2);
     }
 
-    public boolean intersects(Rectangle2D rect) { // Trả về thuộc tính để kiểm tra va chạm
+    public boolean intersects(Rectangle2D rect) { // Return attribute for collision detection
         return rect.intersects(getRect());
     }
 
-    public void collides(Paddle paddle) { // Va chạm với Paddle
+    public void collides(Paddle paddle) { // paddle collision
 
         if (x + radius > paddle.getX() && // EDGE
                 x - radius < paddle.getX() + paddle.getWidthPaddle() &&
@@ -75,7 +64,7 @@ public class Ball {
             y = paddle.getY() - radius;
             bounceY();
 
-            // Ma sát với paddle
+            // Paddle friction
             double paddleMoment = paddle.getSpeed();
             dx += paddleMoment * friction;
 
@@ -95,7 +84,7 @@ public class Ball {
         }
     }
 
-    public void collides(Ball ball) { // Va chạm với tường
+    public void collides(Ball ball) { // wall collision
 
         if (x <= 10 + radius || x + radius * 2 >= Constant.WIDTH_SCREEN * 3 / 4)
             bounceX(); // WALL
@@ -143,51 +132,50 @@ public class Ball {
     // }
 
     public void collides(Bricks brick) {
-        // Tọa độ tâm của quả bóng
+        // Ball center coordinates
         double ballCenterX = x;
         double ballCenterY = y;
 
-        // Tọa độ tâm của viên gạch
+        // Brick center coordinates
         double brickCenterX = brick.getX() + brick.getWidth() / 2.0f;
         double brickCenterY = brick.getY() + brick.getHeight() / 2.0f;
 
-        // Tính khoảng cách giữa tâm của bóng và tâm của gạch trên mỗi trục
+        // Calculate the distance between the centers of the ball and the brick on each axis
         double diffX = ballCenterX - brickCenterX;
         double diffY = ballCenterY - brickCenterY;
 
-        // Tính tổng một nửa chiều rộng/cao của gạch và bán kính của bóng
-        // Đây là khoảng cách tối thiểu giữa các tâm để chúng không va chạm
+        // Calculate the combined half-widths and half-heights
         double combinedHalfWidths = radius + brick.getWidth() / 2.0f;
         double combinedHalfHeights = radius + brick.getHeight() / 2.0f;
 
-        // Kiểm tra xem có va chạm hay không
+        // Check for collision
         if (Math.abs(diffX) < combinedHalfWidths && Math.abs(diffY) < combinedHalfHeights) {
-            // Có va chạm, giờ cần xác định hướng va chạm
+            // Collision detected, now determine the collision direction
 
-            // Tính toán độ chồng lấn trên mỗi trục
+            // Calculate the overlap on each axis
             double overlapX = combinedHalfWidths - Math.abs(diffX);
             double overlapY = combinedHalfHeights - Math.abs(diffY);
 
-            // Hướng có độ chồng lấn ÍT HƠN chính là hướng va chạm chính
+            // The direction with the LESS overlap is the main collision direction
             if (overlapX < overlapY) {
-                // Va chạm xảy ra theo chiều ngang (trái hoặc phải)
+                // Collision occurs horizontally (left or right)
                 bounceX();
-                // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
-                if (diffX > 0) { // Bóng ở bên phải gạch
+                // Push the ball out of the brick to avoid sticking
+                if (diffX > 0) { // Ball is to the right of the brick
                     x = brick.getX() + brick.getWidth() + radius;
                     // System.out.println("Bounce X Right");
-                } else { // Bóng ở bên trái gạch
+                } else { // Ball is to the left of the brick
                     x = brick.getX() - radius;
                     // System.out.println("Bounce X Left");
                 }
             } else {
-                // Va chạm xảy ra theo chiều dọc (trên hoặc dưới)
+                // Collision occurs vertically (top or bottom)
                 bounceY();
-                // Đẩy quả bóng ra khỏi gạch để tránh bị kẹt
-                if (diffY > 0) { // Bóng ở bên dưới gạch
+                // Push the ball out of the brick to avoid sticking
+                if (diffY > 0) { // Ball is below the brick
                     y = brick.getY() + brick.getHeight() + radius;
                     // System.out.println("Bounce Y Down");
-                } else { // Bóng ở bên trên gạch
+                } else { // Ball is above the brick
                     y = brick.getY() - radius;
                     // System.out.println("Bounce Y Up");
                 }
@@ -195,7 +183,7 @@ public class Ball {
         }
     }
 
-    public void normalizeVelocity() { // Chuẩn hóa vector
+    public void normalizeVelocity() { // Normalize vector
 
         double lengthvector = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
         dx = dx / lengthvector * speedball;
@@ -226,10 +214,10 @@ public class Ball {
 
     public void render(GraphicsContext gc) {
         if (ballImage != null) {
-            // DÙNG LỆNH VẼ ẢNH THAY VÌ VẼ HÌNH OVAL
+            // use drawImage method instead of fillOval
             gc.drawImage(ballImage, x - radius, y - radius, radius * 2, radius * 2);
         } else {
-            // Nếu không có ảnh, vẽ hình oval màu đỏ như cũ để dự phòng
+            // If no image, draw a red oval as a fallback
             gc.setFill(Color.RED);
             gc.fillOval(x - radius, y - radius, radius * 2, radius * 2);
         }

@@ -3,6 +3,7 @@ package game.scenes;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import game.App;
 import game.Constant;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
@@ -14,7 +15,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import game.App;
 
 public class GameOverController implements Initializable {
     private App app;
@@ -28,14 +28,14 @@ public class GameOverController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Tạo binding tính tỷ lệ theo chiều rộng
+        // Create binding for width scale and height scale
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
-        // Lấy tỷ lệ nào nhỏ hơn (để giữ tỷ lệ 16:9 và không bị cắt)
+        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without cropping)
         Binding<Number> scale = Bindings.min(widthScale, heightScale);
 
-        // Áp dụng tỷ lệ đó cho gamePane
+        // Apply the scale to the gamePane
         gamePane.scaleXProperty().bind(scale);
         gamePane.scaleYProperty().bind(scale);
     }
@@ -57,7 +57,7 @@ public class GameOverController implements Initializable {
         if (app != null) {
             app.switchToGameScene();
         } else {
-            System.out.println("Lỗi: Tham chiếu App chưa được thiết lập!");
+            System.out.println("Error: App reference is null");
         }
     }
 
@@ -67,7 +67,7 @@ public class GameOverController implements Initializable {
         if (app != null) {
             app.switchToHomeScene();
         } else {
-            System.out.println("Lỗi: Tham chiếu App chưa được thiết lập!");
+            System.out.println("Error: App reference is null");
         }
     }
 
@@ -77,7 +77,7 @@ public class GameOverController implements Initializable {
         if (app != null) {
             Platform.exit();
         } else {
-            System.out.println("Lỗi: Tham chiếu App chưa được thiết lập!");
+            System.out.println("Error: App reference is null");
         }
     }
 
