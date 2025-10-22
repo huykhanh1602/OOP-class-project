@@ -5,6 +5,9 @@ public class Constant {
     public static final int WIDTH_SCREEN = 1280;
     public static final int HEIGHT_SCREEN = 720;
 
+    // Collision settings
+    // public static final int WALL_W
+
     // paddle settings
     // public static int PADDLE_SPEED = 10;
     // public static int PADDLE_WIDTH = 100;
@@ -27,6 +30,9 @@ public class Constant {
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
+
+    // paddle image path
+    public static final String PADDLE_IMAGE_PATH = "/game/images/nem_chua_green.png";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";
