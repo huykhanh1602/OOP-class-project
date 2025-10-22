@@ -59,7 +59,7 @@ public class Bricks extends GameObject {
         if (durability == 0) {
             return;
         }
-        // gc.drawImage(image, x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
+        gc.drawImage(image, x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
 
         switch (durability) {
             case 1:
