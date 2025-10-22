@@ -2,8 +2,10 @@ package game.bricks;
 
 import game.Constant;
 import game.objects.GameObject;
+import game.Constant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /// Like this name
@@ -15,6 +17,16 @@ public class Bricks extends GameObject {
 
     public Bricks(double x, double y, int durability, int amount) {
         super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        this.durability = durability;
+        this.point = amount;
+        if (durability <= -1) {
+
+            destroyable = false;
+        }
+    }
+
+    public Bricks(double x, double y, int durability, int amount, String imagePath) {
+        super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT, imagePath);
         this.durability = durability;
         this.point = amount;
         if (durability <= -1) {
@@ -47,12 +59,10 @@ public class Bricks extends GameObject {
         if (durability == 0) {
             return;
         }
-        gc.drawImage(image, width, height);
+        // gc.drawImage(image, x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
+
         switch (durability) {
             case 1:
-                Color c1 = Color.RED;
-                gc.setFill(c1);
-                gc.fillRect(x, y, width, height);
                 break;
             case 2:
                 Color c2 = Color.YELLOW;

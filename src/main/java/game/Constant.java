@@ -19,7 +19,7 @@ public class Constant {
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
-    public static final String STONE_BBRICK_IMAGE_PATH = "/game/images/stone_brick.png";
+    public static final String STONE_BBRICK_IMAGE_PATH = "/game/images/bricks/stone_brick.png";
     public static final String BEDROCK_BBRICK_IMAGE_PATH = "/game/images/bedrock_brick.png";
 
     // scene path
@@ -27,6 +27,9 @@ public class Constant {
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
+
+    // Destroy Stage image path
+    public static final String DESTROY_STAGE_1 = "/game/images/destroyStage/destroy_stage_1.png";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";

@@ -65,14 +65,7 @@ public class Ball {
             bounceY();
 
             // Paddle friction
-            double paddleMoment = paddle.getSpeed();
-            dx += paddleMoment * friction;
 
-            double maxSpeedX = Math.abs(dy) * 1.2;
-            if (dx > maxSpeedX)
-                dx = maxSpeedX;
-            if (dx < -maxSpeedX)
-                dx = -maxSpeedX;
         }
         if (y + radius > paddle.getY() && // SIDE
                 y - radius < paddle.getY() + paddle.getHeightPaddle() &&
@@ -140,7 +133,8 @@ public class Ball {
         double brickCenterX = brick.getX() + brick.getWidth() / 2.0f;
         double brickCenterY = brick.getY() + brick.getHeight() / 2.0f;
 
-        // Calculate the distance between the centers of the ball and the brick on each axis
+        // Calculate the distance between the centers of the ball and the brick on each
+        // axis
         double diffX = ballCenterX - brickCenterX;
         double diffY = ballCenterY - brickCenterY;
 

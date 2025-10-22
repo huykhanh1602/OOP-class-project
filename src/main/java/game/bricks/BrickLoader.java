@@ -14,15 +14,14 @@ public class BrickLoader {
 
     public static List<Bricks> loadBricks(String path) {
         List<Bricks> bricks = new ArrayList<Bricks>();
-
         try {
-            for (int row = 1; row <= rowS; row++) {
-                for (int col = 1; col <= colS; col++) {
+            for (int row = 7; row < rowS; row++) {
+                for (int col = 19; col < colS; col++) {
 
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;
 
-                    bricks.add(new Bricks(x, y, 0, 0));
+                    bricks.add(new Bricks(x, y, 1, 0, Constant.STONE_BBRICK_IMAGE_PATH));
                 }
             }
         } catch (Exception e) {
@@ -33,6 +32,8 @@ public class BrickLoader {
                 bricks.add(new Bricks(120, 90, 2, 100));
                 bricks.add(new Bricks(180, 90, 1, 50));
             }
+        } finally {
+            System.out.println("Bricks loaded: " + bricks.size());
         }
 
         return bricks;

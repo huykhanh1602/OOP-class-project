@@ -17,6 +17,16 @@ public abstract class GameObject {
         this.height = height;
     }
 
+    public GameObject(double x, double y, double width, double height, String imagePath) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        if (imagePath != null) {
+            this.image = new Image(getClass().getResourceAsStream(imagePath));
+        }
+    }
+
     public double getX() {
         return x;
     }
