@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
-    private int widthPaddle = 120;
+    private int widthPaddle = 1000;
     private int heightPaddle = 15;
     private double speed = 5; // SPEED PADDLE
 

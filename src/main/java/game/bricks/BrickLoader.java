@@ -15,8 +15,8 @@ public class BrickLoader {
     public static List<Bricks> loadBricks(String path) {
         List<Bricks> bricks = new ArrayList<Bricks>();
         try {
-            for (int row = 7; row < rowS; row++) {
-                for (int col = 19; col < colS; col++) {
+            for (int row = 0; row < rowS; row++) {
+                for (int col = 0; col < colS; col++) {
 
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;

@@ -210,6 +210,7 @@ public class Ball {
             this.x = paddle.getX() + paddle.getWidthPaddle() / 2;
             this.y = paddle.getY() - radius;
         }
+        System.out.println("speedball: " + (dx * dx + dy * dy));
         normalizeVelocity();
         // // Bounce off walls
         // if (x - radius <= 10 || x + radius >= boundaryWidth) dx *= -1;
