@@ -18,6 +18,7 @@ public class Bricks extends GameObject {
         this.durability = durability;
         this.point = amount;
         if (durability <= -1) {
+
             destroyable = false;
         }
     }
