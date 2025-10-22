@@ -74,4 +74,14 @@ public class Paddle {
     public double getSpeed() {
         return speed;
     }
+
+    public boolean getMoveRight() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMoveRight'");
+    }
+
+    public boolean getMoveLeft() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getMoveLeft'");
+    }
 }

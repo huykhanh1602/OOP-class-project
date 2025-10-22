@@ -1,5 +1,7 @@
 package game;
 
+import java.io.IOException;
+
 import static game.Constant.WIDTH_SCREEN;
 
 import game.Constant;
@@ -8,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
 
 /// Just Paddle
 
@@ -23,6 +26,8 @@ public class Paddle {
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
 
+    private Image paddleImage;
+
     public Paddle(double x, double y) {
         this.x = x;
         this.y = y;
@@ -30,16 +35,22 @@ public class Paddle {
 
     /// MOVEMENT
     public void update() {
-        if (moveLeft && x > 10)
+        if (moveLeft && x > 0)
             x -= speed;
-        if (moveRight && x < boundaryPaddle - widthPaddle + 10)
+        if (moveRight && x < boundaryPaddle - widthPaddle)
             x += speed;
     }
 
     /// RENDER
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.BLUE);
-        gc.fillRect(x, y, widthPaddle, heightPaddle);
+        try {
+            paddleImage = new Image(getClass().getResourceAsStream(Constant.PADDLE_IMAGE_PATH));
+            gc.drawImage(paddleImage, x, y, widthPaddle, heightPaddle);
+        } catch (Exception e) {
+            System.out.println("Cant load paddle image");
+            gc.setFill(Color.BLUE);
+            gc.fillRect(x, y, widthPaddle, heightPaddle);
+        }
     }
 
     /// CHECK KEY
@@ -84,4 +95,12 @@ public class Paddle {
     public double getSpeed() {
         return speed;
     }
+
+    public boolean getMoveLeft() {
+        return moveLeft;
+    }
+
+    public boolean getMoveRight() {
+        return moveRight;
+    }  
 }

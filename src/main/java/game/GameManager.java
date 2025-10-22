@@ -168,11 +168,11 @@ public class GameManager {
             brick.render(gc);
         }
 
-        gc.setFill(Color.LIGHTGRAY); // Che phần bóng rơi
-        gc.fillRect(0, heightScreen * 9 / 10 + 20, widthScreen * 3 / 4, heightScreen - heightScreen * 9 / 10 - 20);
+        // gc.setFill(Color.LIGHTGRAY); // Che phần bóng rơi
+        // gc.fillRect(0, heightScreen * 9 / 10 + 20, widthScreen * 3 / 4, heightScreen - heightScreen * 9 / 10 - 20);
 
-        gc.setFill(Color.DARKGRAY);
-        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen * 3 / 4 + 60, heightScreen * 1 / 8);// DRAW SCORE
+        // gc.setFill(Color.DARKGRAY);
+        // gc.fillText("Score: " + scorePlayer.getScore(), widthScreen * 3 / 4 + 60, heightScreen * 1 / 8);// DRAW SCORE
 
     }
 

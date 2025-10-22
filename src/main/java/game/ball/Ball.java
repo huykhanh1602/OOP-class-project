@@ -65,7 +65,17 @@ public class Ball {
             bounceY();
 
             // Paddle friction
+            double paddleMoment = paddle.getSpeed();
+            if (paddle.getMoveLeft())
+                dx -= paddleMoment * friction;
+            if (paddle.getMoveRight())
+                dx += paddleMoment * friction;
 
+            double maxSpeedX = Math.abs(dy) * 1.2;
+            if (dx > maxSpeedX)
+                dx = maxSpeedX;
+            if (dx < -maxSpeedX)
+                dx = -maxSpeedX;
         }
         if (y + radius > paddle.getY() && // SIDE
                 y - radius < paddle.getY() + paddle.getHeightPaddle() &&
@@ -79,7 +89,7 @@ public class Ball {
 
     public void collides(Ball ball) { // wall collision
 
-        if (x <= 10 + radius || x + radius * 2 >= Constant.WIDTH_SCREEN * 3 / 4)
+        if (x <= 10 + radius || x + radius * 2 >= 1000)
             bounceX(); // WALL
         if (y <= 20 + radius)
             bounceY(); // FLOOR
