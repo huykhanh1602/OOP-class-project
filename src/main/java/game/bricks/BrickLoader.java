@@ -4,86 +4,38 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
+import game.Constant;
+
 public class BrickLoader {
+    private static final int colS = 20;
+    private static final int rowS = 8;
 
     public static List<Bricks> loadBricks(String path) {
         List<Bricks> bricks = new ArrayList<Bricks>();
 
         try {
-            InputStream is = BrickLoader.class.getResourceAsStream(path);
-<<<<<<< Updated upstream
-            if (is == null) {
-                System.out.println("Couldn't find resource " + path);
-                bricks.add(new Bricks(120, 90, 2, 100));
-                bricks.add(new Bricks(180, 90, 1, 50));
-                return bricks;
-=======
+            for (int row = 1; row <= rowS; row++) {
+                for (int col = 1; col <= colS; col++) {
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String line;
-            int row = 0;
-
-            while ((line = br.readLine()) != null) {
-                String[] lineArray = line.trim().split("\\s+");
-                for (int col = 0; col < lineArray.length; col++) {
-                    int type = Integer.parseInt(lineArray[col]);
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;
-                    if(type != 0) bricks.add(new Bricks(x, y, type, type * 50));
-                    System.out.print(type + " ");
+
+                    bricks.add(new Bricks(x, y, 0, 0));
                 }
-                System.out.println();
-                row++;
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error loading brick layout from file: " + e.getMessage());
 
             if (bricks.isEmpty()) {
-                for (int row = 0; row < rowS; row++) {
-                for (int col = 0; col < colS; col++) {
-
-                    double x = col * Constant.BRICK_WIDTH;
-                    double y = row * Constant.BRICK_HEIGHT;
-
-                    bricks.add(new Bricks(x, y, 1, 0));
-                    }
-                }
->>>>>>> Stashed changes
+                bricks.add(new Bricks(120, 90, 2, 100));
+                bricks.add(new Bricks(180, 90, 1, 50));
             }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String line;
-            int row = 0;
-            double brickWidth = 60;
-            double brickHeight = 30;
-
-            while ((line = br.readLine()) != null) {
-                String[] lineArray = line.trim().split("\\s+");
-                for (int col = 0; col < lineArray.length; col++) {
-                    int type = Integer.parseInt(lineArray[col]);
-                    double x = col * brickWidth + 10;
-                    double y = row * brickHeight + 40;
-                    bricks.add(new Bricks(x, y, type, type * 50));
-                }
-                row++;
-            }
-            br.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Couldn't load bricks from " + path);
         }
 
         return bricks;
     }
 
-    private static void eraseBrick(List<Bricks> bricks) {
-        for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
-                Bricks brick = BRICK.next();    
-                if(brick.isBroken()) BRICK.remove();
-        }
-    }
 }
