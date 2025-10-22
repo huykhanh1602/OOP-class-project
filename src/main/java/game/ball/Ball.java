@@ -1,8 +1,5 @@
 package game.ball;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
-
 import game.Constant;
 import game.bricks.Bricks;
 import game.objects.Paddle;
@@ -10,7 +7,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 ///  Ball movement
 
@@ -19,19 +15,17 @@ public class Ball {
     private Image ballImage;
     /// ELEMENT BALL
     private double x, y;
-<<<<<<< Updated upstream
     private static double radius = 7.5; // Size ball
     private double dx, dy; // Vector speed
     private double speedball = 2;
-=======
-    private static double radius = 10
-    ; // Size ball
-    private double dx, dy; // Vector speed
-    private double speedball = 5; // Ball speed
->>>>>>> Stashed changes
     public boolean isRunning = false;
 
-    private double friction = 0.1; // Ma sát
+    private double friction = 0.2; // Ma sát
+
+    private double fixBug = 5; // colliding distance
+
+    // private int boundaryWidth = 600*3/4;
+    // private int boundaryHeight = 600*5/6;
 
     public Ball(double x, double y) {
         this.x = x + radius; // POSITION
@@ -62,7 +56,6 @@ public class Ball {
     }
 
     public void collides(Paddle paddle) { // paddle collision
-<<<<<<< Updated upstream
 
         if (x + radius > paddle.getX() && // EDGE
                 x - radius < paddle.getX() + paddle.getWidthPaddle() &&
@@ -72,17 +65,7 @@ public class Ball {
             bounceY();
 
             // Paddle friction
-            double paddleMoment = paddle.getSpeed();
-                if(paddle.getMoveLeft())
-                    dx -= paddleMoment * friction;
-                if(paddle.getMoveRight())
-                    dx += paddleMoment * friction;
 
-            // double maxSpeedX = Math.abs(dy) * 1.2;
-            // if (dx > maxSpeedX)
-            //     dx = maxSpeedX;
-            // if (dx < -maxSpeedX)
-            //     dx = -maxSpeedX;
         }
         if (y + radius > paddle.getY() && // SIDE
                 y - radius < paddle.getY() + paddle.getHeightPaddle() &&
@@ -96,7 +79,7 @@ public class Ball {
 
     public void collides(Ball ball) { // wall collision
 
-        if (x <= 10 + radius || x + radius * 2 >= 1000)
+        if (x <= 10 + radius || x + radius * 2 >= Constant.WIDTH_SCREEN * 3 / 4)
             bounceX(); // WALL
         if (y <= 20 + radius)
             bounceY(); // FLOOR
@@ -143,115 +126,84 @@ public class Ball {
 
     public void collides(Bricks brick) {
         // Ball center coordinates
-=======
-        // Tâm bóng
->>>>>>> Stashed changes
         double ballCenterX = x;
         double ballCenterY = y;
 
-        // Tìm điểm gần nhất trên paddle so với tâm bóng
-        double closestX = clamp(ballCenterX, paddle.getX(), paddle.getX() + paddle.getWidth());
-        double closestY = clamp(ballCenterY, paddle.getY(), paddle.getY() + paddle.getHeight());
+        // Brick center coordinates
+        double brickCenterX = brick.getX() + brick.getWidth() / 2.0f;
+        double brickCenterY = brick.getY() + brick.getHeight() / 2.0f;
 
-<<<<<<< Updated upstream
-        // Calculate the distance between the centers of the ball and the brick on each axis
+        // Calculate the distance between the centers of the ball and the brick on each
+        // axis
         double diffX = ballCenterX - brickCenterX;
         double diffY = ballCenterY - brickCenterY;
-=======
-        // Tính khoảng cách từ tâm bóng đến điểm gần nhất
-        double distanceX = ballCenterX - closestX;
-        double distanceY = ballCenterY - closestY;
->>>>>>> Stashed changes
 
-        double distanceSquared = distanceX * distanceX + distanceY * distanceY;
+        // Calculate the combined half-widths and half-heights
+        double combinedHalfWidths = radius + brick.getWidth() / 2.0f;
+        double combinedHalfHeights = radius + brick.getHeight() / 2.0f;
 
-        // Nếu khoảng cách nhỏ hơn bán kính bình phương => va chạm
-        if (distanceSquared < radius * radius) {
-            // Xác định hướng va chạm chính
-            if (Math.abs(distanceX) > Math.abs(distanceY)) {
+        // Check for collision
+        if (Math.abs(diffX) < combinedHalfWidths && Math.abs(diffY) < combinedHalfHeights) {
+            // Collision detected, now determine the collision direction
+
+            // Calculate the overlap on each axis
+            double overlapX = combinedHalfWidths - Math.abs(diffX);
+            double overlapY = combinedHalfHeights - Math.abs(diffY);
+
+            // The direction with the LESS overlap is the main collision direction
+            if (overlapX < overlapY) {
+                // Collision occurs horizontally (left or right)
                 bounceX();
-                if (distanceX > 0) {
-                    x = closestX + radius;
-                } else {
-                    x = closestX - radius;
+                // Push the ball out of the brick to avoid sticking
+                if (diffX > 0) { // Ball is to the right of the brick
+                    x = brick.getX() + brick.getWidth() + radius;
+                    // System.out.println("Bounce X Right");
+                } else { // Ball is to the left of the brick
+                    x = brick.getX() - radius;
+                    // System.out.println("Bounce X Left");
                 }
             } else {
+                // Collision occurs vertically (top or bottom)
                 bounceY();
-                if (distanceY > 0) {
-                    y = closestY + radius;
-                } else {
-                    y = closestY - radius;
-                }
-                double paddleMoment = paddle.getSpeed();
-                if (paddle.getMoveLeft()) {
-                    dx -= paddleMoment * friction;
-                }
-                if (paddle.getMoveRight()) {
-                    dx += paddleMoment * friction;
+                // Push the ball out of the brick to avoid sticking
+                if (diffY > 0) { // Ball is below the brick
+                    y = brick.getY() + brick.getHeight() + radius;
+                    // System.out.println("Bounce Y Down");
+                } else { // Ball is above the brick
+                    y = brick.getY() - radius;
+                    // System.out.println("Bounce Y Up");
                 }
             }
         }
     }
 
-    public void collides(Ball ball) { // wall collision
-        if (x <= 10 + radius || x + radius * 2 >= 1000) {
-            bounceX(); // WALL
-        }
-        if (y <= 20 - radius) {
-            bounceY(); // FLOOR
-        }
-        
+    public void normalizeVelocity() { // Normalize vector
+
+        double lengthvector = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        dx = dx / lengthvector * speedball;
+        dy = dy / lengthvector * speedball;
     }
 
-    public void collides(Bricks brick) {
-        double brickCenterX = brick.getX() + brick.getWidth()/2.0f;
-        double brickCenterY = brick.getY() + brick.getHeight()/2.0f;
-
-        double closestX = Math.abs(x - brickCenterX);
-        double closestY = Math.abs(y - brickCenterY);
-
-        if (closestX == closestY) {
-            bounceX();
-            bounceY();
-        } else if (closestX < closestY) {
-            bounceY();
-        } else {
-            bounceX();
-        }
-    }
-
-    // Hàm clamp để giới hạn giá trị trong khoảng min-max
-    private double clamp(double value, double min, double max) {
-        return Math.max(min, Math.min(max, value));
-    }
-
-    public void launchBall(double vx, double vy) {
+    public void launchBall(double dx, double dy) {
         if (!isRunning) {
             isRunning = true;
-            this.dx = vx*speedball;
-            this.dy = vy*speedball;
+            this.dx = dx;
+            this.dy = dy;
         }
     }
 
     public void update(Paddle paddle) {
-        if (dx/dy == 1) {dy += 0.01;}
-        normalizeVelocity();
-        if (dx > speedball) dx = speedball;
-        if (dx < -speedball) dx = -speedball;
         if (isRunning) {
             x += dx;
             y += dy;
         } else {
-            this.x = paddle.getX() + paddle.getWidth() / 2;
+            this.x = paddle.getX() + paddle.getWidthPaddle() / 2;
             this.y = paddle.getY() - radius;
         }
-<<<<<<< Updated upstream
         normalizeVelocity();
         // // Bounce off walls
         // if (x - radius <= 10 || x + radius >= boundaryWidth) dx *= -1;
         // if (y <= 20 + radius) dy *= -1;
-=======
->>>>>>> Stashed changes
     }
 
     public void render(GraphicsContext gc) {
@@ -266,13 +218,9 @@ public class Ball {
 
     }
 
-    public void normalizeVelocity() {
-        double length = sqrt(dx * dx + dy * dy);
-        if (length != 0) {
-            dx = dx / length * speedball;
-            dy = dy / length * speedball;
-        }
-    }  
+    // public boolean isOutOfBounds() {
+    // return y - radius > boundaryHeight + 40;
+    // }
 
     public double getX() {
         return x;
