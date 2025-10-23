@@ -15,12 +15,14 @@ public class Constant {
     // public static int INITIAL_BALL_SPEED = 5;
     // public static final int BRICK_ROWS = 9;
     // public static final int BRICK_COLUMNS = 10;
+    public static final String BALL_PATH = "/game/images/ball.png";
 
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
-    public static final String STONE_BBRICK_IMAGE_PATH = "/game/images/bricks/stone_brick.png";
-    public static final String BEDROCK_BBRICK_IMAGE_PATH = "/game/images/bedrock_brick.png";
+
+    public static final String STONE_BBRICK_PATH = "/game/images/bricks/stone_brick.png";
+    public static final String BEDROCK_BBRICK_PATH = "/game/images/bedrock_brick.png";
 
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
@@ -30,6 +32,14 @@ public class Constant {
 
     // Destroy Stage image path
     public static final String DESTROY_STAGE_1 = "/game/images/destroyStage/destroy_stage_1.png";
+    public static final String DESTROY_STAGE_2 = "/game/images/destroyStage/destroy_stage_2.png";
+    public static final String DESTROY_STAGE_3 = "/game/images/destroyStage/destroy_stage_3.png";
+    public static final String DESTROY_STAGE_4 = "/game/images/destroyStage/destroy_stage_4.png";
+    public static final String DESTROY_STAGE_5 = "/game/images/destroyStage/destroy_stage_5.png";
+    public static final String DESTROY_STAGE_6 = "/game/images/destroyStage/destroy_stage_6.png";
+    public static final String DESTROY_STAGE_7 = "/game/images/destroyStage/destroy_stage_7.png";
+    public static final String DESTROY_STAGE_8 = "/game/images/destroyStage/destroy_stage_8.png";
+    public static final String DESTROY_STAGE_9 = "/game/images/destroyStage/destroy_stage_9.png";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";

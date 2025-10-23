@@ -7,10 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AssetManager {
-    // level
-    private static Map<String, String> level = new HashMap<>();
-
-
     // images
     private static Map<String, Image> images = new HashMap<>();
 
@@ -21,25 +17,14 @@ public class AssetManager {
     private static Map<String, Media> musics = new HashMap<>();
 
     public static void loadAssets() {
-        try {
-            level.put("level1", Constant.LEVEL_1);
-            level.put("level2", Constant.LEVEL_2);
-            level.put("level3", Constant.LEVEL_3);
-            level.put("level4", Constant.LEVEL_4);
-            level.put("level5", Constant.LEVEL_5);
-        } catch (Exception e) {
-        }
-
-
         // load images
         try {
             images.put("icon", new Image(AssetManager.class.getResourceAsStream(Constant.ICON_PATH)));
 
             images.put("ball", new Image(AssetManager.class.getResourceAsStream(Constant.BALL_PATH)));
 
-            images.put("stone_brick",new Image(AssetManager.class.getResourceAsStream(Constant.STONE_BBRICK_PATH)));
-
-            images.put("bedrock_brick", new Image(AssetManager.class.getResourceAsStream(Constant.BEDROCK_BBRICK_PATH)));
+            images.put("stone_brick",
+                    new Image(AssetManager.class.getResourceAsStream(Constant.STONE_BBRICK_PATH)));
 
             images.put("destroy_stage_1", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_1)));
             images.put("destroy_stage_2", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_2)));
@@ -72,10 +57,6 @@ public class AssetManager {
         } catch (Exception e) {
             System.err.println("Error loading music: " + e.getMessage());
         }
-    }
-
-    public static String getLevel(String key) {
-        return level.get(key);
     }
 
     public static Image getImage(String key) {
