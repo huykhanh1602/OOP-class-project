@@ -2,10 +2,10 @@ package game.bricks;
 
 import game.Constant;
 import game.objects.GameObject;
+import game.AssetManager;
 import game.Constant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /// Like this name
@@ -17,16 +17,6 @@ public class Bricks extends GameObject {
 
     public Bricks(double x, double y, int durability, int amount) {
         super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
-        this.durability = durability;
-        this.point = amount;
-        if (durability <= -1) {
-
-            destroyable = false;
-        }
-    }
-
-    public Bricks(double x, double y, int durability, int amount, String imagePath) {
-        super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT, imagePath);
         this.durability = durability;
         this.point = amount;
         if (durability <= -1) {
@@ -59,20 +49,44 @@ public class Bricks extends GameObject {
         if (durability == 0) {
             return;
         }
-        gc.drawImage(image, x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
+        gc.drawImage(AssetManager.getImage("stone_brick"), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
 
         switch (durability) {
-            case 1:
+            case 9:
+                gc.drawImage(AssetManager.getImage("destroy_stage_1"), x, y, Constant.BRICK_HEIGHT,
+                        Constant.BRICK_HEIGHT);
                 break;
-            case 2:
-                Color c2 = Color.YELLOW;
-                gc.setFill(c2);
-                gc.fillRect(x, y, width, height);
+            case 8:
+                gc.drawImage(AssetManager.getImage("destroy_stage_2"), x, y, Constant.BRICK_HEIGHT,
+                        Constant.BRICK_HEIGHT);
+                break;
+            case 7:
+                gc.drawImage(AssetManager.getImage("destroy_stage_3"), x, y, Constant.BRICK_HEIGHT,
+                        Constant.BRICK_HEIGHT);
+                break;
+            case 6:
+                gc.drawImage(AssetManager.getImage("destroy_stage_4"), x, y, Constant.BRICK_HEIGHT,
+                        Constant.BRICK_HEIGHT);
+                break;
+            case 5:
+                gc.drawImage(AssetManager.getImage("destroy_stage_5"), x, y,
+                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
+                break;
+            case 4:
+                gc.drawImage(AssetManager.getImage("destroy_stage_6"), x, y,
+                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
             case 3:
-                Color c3 = Color.GREEN;
-                gc.setFill(c3);
-                gc.fillRect(x, y, width, height);
+                gc.drawImage(AssetManager.getImage("destroy_stage_7"), x, y,
+                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
+                break;
+            case 2:
+                gc.drawImage(AssetManager.getImage("destroy_stage_8"), x, y,
+                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
+                break;
+            case 1:
+                gc.drawImage(AssetManager.getImage("destroy_stage_9"), x, y,
+                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
         }
         gc.setStroke(Color.BLACK);
