@@ -1,6 +1,7 @@
 package game.ball;
 
 import game.Constant;
+import game.AssetManager;
 import game.bricks.Bricks;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
@@ -11,13 +12,11 @@ import javafx.scene.paint.Color;
 ///  Ball movement
 
 public class Ball {
-
-    private Image ballImage;
     /// ELEMENT BALL
     private double x, y;
-    private static double radius = 7.5; // Size ball
+    private static double radius = 15; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 2;
+    private double speedball = 10;
     public boolean isRunning = false;
 
     private double friction = 0.2; // Ma sát
@@ -30,12 +29,6 @@ public class Ball {
     public Ball(double x, double y) {
         this.x = x + radius; // POSITION
         this.y = y + radius;
-        try {
-            ballImage = new Image(getClass().getResourceAsStream("/vnu/edu/vn/game/images/ball.png"));
-        } catch (Exception e) {
-            System.out.println("Cant load ball image");
-            ballImage = null;
-        }
 
     }
 
@@ -218,9 +211,9 @@ public class Ball {
     }
 
     public void render(GraphicsContext gc) {
-        if (ballImage != null) {
+        if (AssetManager.getImage("ball") != null) {
             // use drawImage method instead of fillOval
-            gc.drawImage(ballImage, x - radius, y - radius, radius * 2, radius * 2);
+            gc.drawImage(AssetManager.getImage("ball"), x - radius, y - radius, radius * 2, radius * 2);
         } else {
             // If no image, draw a red oval as a fallback
             gc.setFill(Color.RED);
