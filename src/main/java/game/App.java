@@ -5,28 +5,34 @@ import java.io.IOException;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+import game.AssetManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
     private Stage primaryStage;
 
+    private MediaPlayer backgroundMusicPlayer;
+
     @Override
     public void start(Stage stage) throws IOException {
 
-        Image icon = new Image(getClass().getResourceAsStream(Constant.ICON_PATH));
-        stage.getIcons().add(icon);
+        AssetManager.loadAssets();
+        stage.getIcons().add(AssetManager.getImage("icon"));
 
         this.primaryStage = stage;
         // switchToHomeScene();
         switchToGameOverScene(0); // testing
         stage.setTitle(Constant.GAME_NAME);
+
         stage.setMaximized(true);
         stage.show();
     }
@@ -42,7 +48,10 @@ public class App extends Application {
             controller.setup(this);
 
             Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+            scene.setRoot(root);
             primaryStage.setScene(scene);
+
+            startBackgroundMusic("home_background_music");
 
         } catch (IOException e) {
             throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
@@ -61,6 +70,7 @@ public class App extends Application {
 
             Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
             primaryStage.setScene(scene);
+
         } catch (IOException e) {
             throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
         }
@@ -84,6 +94,25 @@ public class App extends Application {
             throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
         }
 
+    }
+
+    // Music control
+    public void startBackgroundMusic(String musicKey) {
+        Media backgroundMusic = AssetManager.getMusic(musicKey);
+        if (backgroundMusic != null) {
+            backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
+            backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusicPlayer.play();
+            backgroundMusicPlayer.setVolume(1); // Set volume (0.0 to 1.0)
+        } else {
+            System.err.println("Background music not found: " + musicKey);
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+        }
     }
 
     // LAUNCH GAME
