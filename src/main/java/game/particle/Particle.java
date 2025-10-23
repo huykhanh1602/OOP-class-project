@@ -21,7 +21,7 @@ public class Particle extends GameObject {
 
     public Particle(double x, double y) {
         // Khởi tạo hạt tại vị trí (x, y) với kích thước 2x2 pixels
-        super(x, y, 5, 5, null);
+        super(x, y, 5, 5);
 
         Random rand = new Random();
         // Tạo một tốc độ ngẫu nhiên ban đầu để các hạt bay ra theo nhiều hướng
