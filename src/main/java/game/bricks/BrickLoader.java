@@ -21,7 +21,7 @@ public class BrickLoader {
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;
 
-                    bricks.add(new Bricks(x, y, 1, 0, Constant.STONE_BBRICK_IMAGE_PATH));
+                    bricks.add(new Bricks(x, y, 10, 0));
                 }
             }
         } catch (Exception e) {
