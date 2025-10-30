@@ -4,7 +4,7 @@
 }
 
 
-.score-label {
+.text-label {
     -fx-font-family: "Minecraft"; /* Font chữ */
     -fx-text-fill: #FFFFFF;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
@@ -12,7 +12,7 @@
 }
 .label-container {
     /* Tạo màu nền cho khối */
-    -fx-background-color: rgba(0, 0, 0, 0.3); /* Màu đen mờ 50% */
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Màu đen mờ 50% */
 
     /* Bo tròn các góc để trông mềm mại hơn */
     -fx-background-radius: 10px; /* Bán kính bo góc là 10px */
@@ -26,12 +26,9 @@
     -fx-padding: 10px 20px 10px 20px; /* Trên Phải Dưới Trái */
 }
 
-.coin-label {
-    -fx-font-family: "Minecraft";
-    -fx-text-fill: #FFD700;
-}
-
-.coin-label-container {
-    -fx-padding: 10px 20px 10px 20px;
-
+.game-button:hover {
+    -fx-cursor: hand;
+    
+    /* Tạo một vầng sáng trắng mờ xung quanh nút */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.7), 15, 0.0, 0, 0);
 }
