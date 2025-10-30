@@ -24,21 +24,24 @@
                     </image>
                 </ImageView>
                 <Button layoutX="459.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Start">
-                    <styleClass>
-                        <String fx:value="score-label" />
-                        <String fx:value="label-container" />
-                    </styleClass>
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass>
                 </Button>
                 <Button layoutX="459.0" layoutY="520.0" mnemonicParsing="false" onAction="#Quit" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Quit">
-                    <styleClass>
-                        <String fx:value="score-label" />
-                        <String fx:value="label-container" />
-                    </styleClass>
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass>
                 </Button>
                 <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
                     <styleClass>
-                        <String fx:value="score-label" />
+                        <String fx:value="text-label" />
                         <String fx:value="label-container" />
+                  <String fx:value="game-button" />
                     </styleClass>
                 </Button>
             </children>

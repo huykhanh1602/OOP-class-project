@@ -6,19 +6,17 @@ import java.util.ResourceBundle;
 import game.App;
 import game.Constant;
 import game.GameManager;
+import game.abstraction.GameScene;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 
-public class GameSceneController implements Initializable {
+public class GameSceneController extends GameScene {
 
     @FXML
     private Canvas gameCanvas;
@@ -26,15 +24,8 @@ public class GameSceneController implements Initializable {
     @FXML
     private Label scoreLabel;
 
-    @FXML
-    private StackPane rootContainer;
-
-    @FXML
-    private AnchorPane gamePane;
-
     private GraphicsContext gc;
     private GameManager gameManager;
-    private App app;
 
     // This method is automatically called after initializing the FXML file
     @Override
@@ -42,7 +33,8 @@ public class GameSceneController implements Initializable {
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
-        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without cropping)
+        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
+        // cropping)
         Binding<Number> scale = Bindings.min(widthScale, heightScale);
 
         // Apply the scale to the gamePane
@@ -55,6 +47,7 @@ public class GameSceneController implements Initializable {
         startGameLoop();// Start the game loop
     }
 
+    @Override
     public void setup(App app) {
         this.app = app;
         // Initialize GameManager after obtaining App reference
