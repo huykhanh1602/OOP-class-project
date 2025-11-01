@@ -51,4 +51,7 @@ public class Constant {
     public static final String GAME_NAME = "Raumania: rise of kingdoms";
     public static final int FIRST_DIFFICULTY = 1;
 
+    // Home scene music
+    public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/home_background_music.mp3";
+
 }

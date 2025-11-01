@@ -19,6 +19,7 @@ public class AssetManager {
         try {
             imageInput("icon", Constant.ICON_PATH);
             imageInput("ball", Constant.BALL_PATH);
+            imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
             imageInput("stone_brick", Constant.STONE_BBRICK_PATH);
 
             imageInput("destroy_stage_1", Constant.DESTROY_STAGE_1);

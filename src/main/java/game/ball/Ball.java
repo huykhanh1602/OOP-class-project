@@ -1,12 +1,10 @@
 package game.ball;
 
-import game.Constant;
 import game.AssetManager;
 import game.bricks.Bricks;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 ///  Ball movement
@@ -16,12 +14,12 @@ public class Ball {
     private double x, y;
     private static double radius = 15; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 10;
+    private double speedball = 1;
     public boolean isRunning = false;
 
     private double friction = 0.2; // Ma sát
 
-    private double fixBug = 5; // colliding distance
+    // private double fixBug = 5; // colliding distance
 
     // private int boundaryWidth = 600*3/4;
     // private int boundaryHeight = 600*5/6;
@@ -203,7 +201,6 @@ public class Ball {
             this.x = paddle.getX() + paddle.getWidthPaddle() / 2;
             this.y = paddle.getY() - radius;
         }
-        System.out.println("speedball: " + (dx * dx + dy * dy));
         normalizeVelocity();
         // // Bounce off walls
         // if (x - radius <= 10 || x + radius >= boundaryWidth) dx *= -1;
