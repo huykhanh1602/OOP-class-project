@@ -5,7 +5,6 @@ import game.objects.GameObject;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /// Like this name
 
@@ -15,6 +14,8 @@ public abstract class Bricks extends GameObject {
     protected int durability;
     protected int point;
     protected boolean destroyable = true;
+
+    protected int stage = 10;
 
     public Bricks(String type, double x, double y, int originalDurability, int amount) {
         super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
@@ -52,9 +53,9 @@ public abstract class Bricks extends GameObject {
         if (durability == 0) {
             return;
         }
-        gc.drawImage(AssetManager.getImage("stone_brick"), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
-
-        switch (durability) {
+        gc.drawImage(AssetManager.getImage(type), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
+        stage = (int) Math.floor((durability * 10) / originalDurability);
+        switch (stage) {
             case 9:
                 gc.drawImage(AssetManager.getImage("destroy_stage_1"), x, y, Constant.BRICK_HEIGHT,
                         Constant.BRICK_HEIGHT);
@@ -92,8 +93,8 @@ public abstract class Bricks extends GameObject {
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
         }
-        gc.setStroke(Color.BLACK);
-        gc.strokeRect(x, y, width, height);
+        // gc.setStroke(Color.BLACK);
+        // gc.strokeRect(x, y, width, height);
 
     }
 

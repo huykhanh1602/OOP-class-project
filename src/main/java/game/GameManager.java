@@ -72,7 +72,7 @@ public class GameManager {
                 Bricks brick = BRICK.next();
 
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    brick.hit(1);
+                    brick.hit(5);
                     ball.collides(brick);
                     if (brick.isBroken()) {
                         System.out.println("break brick");

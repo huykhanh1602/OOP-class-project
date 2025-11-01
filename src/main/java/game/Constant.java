@@ -25,7 +25,7 @@ public class Constant {
     public static final int BRICK_HEIGHT = 50;
 
     public static final String STONE_BBRICK_PATH = "/game/images/bricks/stone_brick.png";
-    public static final String BEDROCK_BBRICK_PATH = "/game/images/bedrock_brick.png";
+    public static final String IRON_BRICK_PATH = "/game/images/bricks/iron_brick.png";
 
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";

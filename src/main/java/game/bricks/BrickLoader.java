@@ -22,7 +22,7 @@ public class BrickLoader {
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;
 
-                    bricks.add(new StoneBrick(x, y));
+                    bricks.add(new IronBrick(x, y));
                 }
             }
         } catch (Exception e) {

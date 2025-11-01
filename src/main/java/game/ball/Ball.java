@@ -14,7 +14,7 @@ public class Ball {
     private double x, y;
     private static double radius = 15; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 1;
+    private double speedball = 10;
     public boolean isRunning = false;
 
     private double friction = 0.2; // Ma sát
