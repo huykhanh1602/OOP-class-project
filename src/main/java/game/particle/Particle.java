@@ -17,7 +17,7 @@ public class Particle extends GameObject {
     private double velocityY;
     private double lifeSpan; // Thời gian tồn tại của hạt (tính bằng giây)
     private Color color;
-    private static final double GRAVITY = 0.05; // Lực hấp dẫn mô phỏng kéo hạt đi xuống
+    private static final double GRAVITY = 0.02; // Lực hấp dẫn mô phỏng kéo hạt đi xuống
 
     public Particle(double x, double y) {
         // Khởi tạo hạt tại vị trí (x, y) với kích thước 2x2 pixels
@@ -25,8 +25,8 @@ public class Particle extends GameObject {
 
         Random rand = new Random();
         // Tạo một tốc độ ngẫu nhiên ban đầu để các hạt bay ra theo nhiều hướng
-        this.velocityX = (rand.nextDouble() - 0.5) * 4; // Tốc độ ngang ngẫu nhiên
-        this.velocityY = (rand.nextDouble() - 0.5) * 4; // Tốc độ dọc ngẫu nhiên
+        this.velocityX = (rand.nextDouble() - 0.5) * 2; // Tốc độ ngang ngẫu nhiên
+        this.velocityY = (rand.nextDouble() - 0.5) * 2; // Tốc độ dọc ngẫu nhiên
 
         // Thời gian tồn tại ngẫu nhiên từ 1 đến 2 giây
         this.lifeSpan = rand.nextDouble() + 1.0;
