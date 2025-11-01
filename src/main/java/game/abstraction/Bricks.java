@@ -1,4 +1,4 @@
-package game.bricks;
+package game.abstraction;
 
 import game.Constant;
 import game.objects.GameObject;

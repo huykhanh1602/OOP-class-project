@@ -1,7 +1,7 @@
 package game.ball;
 
 import game.AssetManager;
-import game.bricks.Bricks;
+import game.abstraction.Bricks;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;

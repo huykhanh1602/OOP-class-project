@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.bricks.BrickLoader;
-import game.bricks.Bricks;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
 import game.score.ScoreManager;
