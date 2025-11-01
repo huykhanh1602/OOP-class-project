@@ -3,6 +3,8 @@ package game;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
+
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,9 @@ public class AssetManager {
             imageInput("icon", Constant.ICON_PATH);
             imageInput("ball", Constant.BALL_PATH);
             imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
-            imageInput("stone_brick", Constant.STONE_BBRICK_PATH);
+
+            imageInput("STONE_BRICK", Constant.STONE_BBRICK_PATH);
+            imageInput("IRON_BRICK", Constant.IRON_BRICK_PATH);
 
             imageInput("destroy_stage_1", Constant.DESTROY_STAGE_1);
             imageInput("destroy_stage_2", Constant.DESTROY_STAGE_2);
@@ -68,7 +72,15 @@ public class AssetManager {
     }
 
     public static void imageInput(String key, String path) {
-        images.put(key, new Image(AssetManager.class.getResourceAsStream(path)));
+        try (InputStream inputStream = AssetManager.class.getResourceAsStream(path)) {
+            if (inputStream == null) {
+                System.err.println("Image resource not found: " + path);
+                return;
+            }
+            images.put(key, new Image(inputStream));
+        } catch (Exception e) {
+            System.err.println("Failed to load image " + path + ": " + e.getMessage());
+        }
     }
 
 }
