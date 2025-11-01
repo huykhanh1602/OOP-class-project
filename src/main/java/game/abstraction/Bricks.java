@@ -56,39 +56,39 @@ public abstract class Bricks extends GameObject {
         gc.drawImage(AssetManager.getImage(type), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
         stage = (int) Math.floor((durability * 10) / originalDurability);
         switch (stage) {
-            case 9:
+            case 8:
                 gc.drawImage(AssetManager.getImage("destroy_stage_1"), x, y, Constant.BRICK_HEIGHT,
                         Constant.BRICK_HEIGHT);
                 break;
-            case 8:
+            case 7:
                 gc.drawImage(AssetManager.getImage("destroy_stage_2"), x, y, Constant.BRICK_HEIGHT,
                         Constant.BRICK_HEIGHT);
                 break;
-            case 7:
+            case 6:
                 gc.drawImage(AssetManager.getImage("destroy_stage_3"), x, y, Constant.BRICK_HEIGHT,
                         Constant.BRICK_HEIGHT);
                 break;
-            case 6:
+            case 5:
                 gc.drawImage(AssetManager.getImage("destroy_stage_4"), x, y, Constant.BRICK_HEIGHT,
                         Constant.BRICK_HEIGHT);
                 break;
-            case 5:
+            case 4:
                 gc.drawImage(AssetManager.getImage("destroy_stage_5"), x, y,
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
-            case 4:
+            case 3:
                 gc.drawImage(AssetManager.getImage("destroy_stage_6"), x, y,
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
-            case 3:
+            case 2:
                 gc.drawImage(AssetManager.getImage("destroy_stage_7"), x, y,
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
-            case 2:
+            case 1:
                 gc.drawImage(AssetManager.getImage("destroy_stage_8"), x, y,
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
-            case 1:
+            case 0:
                 gc.drawImage(AssetManager.getImage("destroy_stage_9"), x, y,
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;

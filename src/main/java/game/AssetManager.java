@@ -23,8 +23,12 @@ public class AssetManager {
             imageInput("ball", Constant.BALL_PATH);
             imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
 
-            imageInput("STONE_BRICK", Constant.STONE_BBRICK_PATH);
-            imageInput("IRON_BRICK", Constant.IRON_BRICK_PATH);
+            imageInput("STONE_BRICK", Constant.STONE_BRICK_IMAGE);
+            imageInput("IRON_BRICK", Constant.IRON_BRICK_IMAGE);
+            imageInput("GOLD_BRICK", Constant.GOLD_BRICK_IMAGE);
+            imageInput("DIAMOND_BRICK", Constant.DIAMOND_BRICK_IMAGE);
+            imageInput("NETHERITE_BRICK", Constant.NETHERITE_BRICK_IMAGE);
+            imageInput("BED_ROCK", Constant.BED_ROCK_IMAGE);
 
             imageInput("destroy_stage_1", Constant.DESTROY_STAGE_1);
             imageInput("destroy_stage_2", Constant.DESTROY_STAGE_2);

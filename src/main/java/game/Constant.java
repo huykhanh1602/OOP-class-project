@@ -24,8 +24,12 @@ public class Constant {
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
 
-    public static final String STONE_BBRICK_PATH = "/game/images/bricks/stone_brick.png";
-    public static final String IRON_BRICK_PATH = "/game/images/bricks/iron_brick.png";
+    public static final String STONE_BRICK_IMAGE = "/game/images/bricks/stone_brick.png";
+    public static final String IRON_BRICK_IMAGE = "/game/images/bricks/iron_brick.png";
+    public static final String GOLD_BRICK_IMAGE = "/game/images/bricks/gold_brick.png";
+    public static final String DIAMOND_BRICK_IMAGE = "/game/images/bricks/diamond_brick.png";
+    public static final String NETHERITE_BRICK_IMAGE = "/game/images/bricks/netherite_brick.png";
+    public static final String BED_ROCK_IMAGE = "/game/images/bricks/bedrock.png";
 
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
