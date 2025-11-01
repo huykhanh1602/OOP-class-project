@@ -8,6 +8,7 @@ module vnu.edu.vn {
 
     opens game.scenes to javafx.fxml;
     opens game to javafx.fxml;
+    opens game.abstraction to javafx.fxml;
 
     exports game;
 }

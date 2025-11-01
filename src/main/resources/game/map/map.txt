@@ -1,0 +1,2 @@
+stone_brick 1 1
+iron_brick 1 2

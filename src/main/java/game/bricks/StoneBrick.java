@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 
 public class StoneBrick extends Bricks {
     public StoneBrick(double x, double y) {
-        super(x, y, 1, 0);
+        super("Stone_brick", x, y, 10, 0);
 
     }
 }

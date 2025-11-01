@@ -1,8 +1,5 @@
 package game.objects;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-
 public abstract class GameObject {
     protected double x;
     protected double y;

@@ -1,7 +1,8 @@
 package game.objects;
 
-import game.Constant;
-import javafx.geometry.Rectangle2D;
+import static game.Constant.WIDTH_SCREEN;
+
+import game.AssetManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -12,11 +13,11 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
-    private int widthPaddle = 1000;
-    private int heightPaddle = 15;
+    private int widthPaddle = 120;
+    private int heightPaddle = 50;
     private double speed = 5; // SPEED PADDLE
 
-    private final double boundaryPaddle = Constant.WIDTH_SCREEN * 3 / 4;
+    private final double boundaryPaddle = WIDTH_SCREEN * 3 / 4;
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
@@ -28,19 +29,33 @@ public class Paddle {
 
     /// MOVEMENT
     public void update() {
-        if (moveLeft && x > 10)
+        if (moveLeft && x > 0)
             x -= speed;
-        if (moveRight && x < boundaryPaddle - widthPaddle + 10)
+        if (moveRight && x < boundaryPaddle - widthPaddle)
             x += speed;
     }
 
     /// RENDER
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.BLUE);
-        gc.fillRect(x, y, widthPaddle, heightPaddle);
+
+        try {
+            gc.drawImage(AssetManager.getImage("paddle"), x, y, widthPaddle, heightPaddle);
+        } catch (Exception e) {
+            System.out.println("Cant load paddle image");
+            gc.setFill(Color.BLUE);
+            gc.fillRect(x, y, widthPaddle, heightPaddle);
+        }
     }
 
     /// CHECK KEY
+    // public void moveLeft() {
+    // moveLeft = moveLeft ? false : true;
+    // }
+    //
+    // public void moveRight() {
+    // moveRight = moveRight ? false : true;
+    // }
+    //
     public void handleKeyPressed(KeyEvent key) {
         if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A)
             moveLeft = true;
@@ -75,13 +90,11 @@ public class Paddle {
         return speed;
     }
 
-    public boolean getMoveRight() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMoveRight'");
+    public boolean getMoveLeft() {
+        return moveLeft;
     }
 
-    public boolean getMoveLeft() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMoveLeft'");
+    public boolean getMoveRight() {
+        return moveRight;
     }
 }

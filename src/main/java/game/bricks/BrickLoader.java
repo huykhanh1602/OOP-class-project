@@ -21,7 +21,7 @@ public class BrickLoader {
                     double x = col * Constant.BRICK_WIDTH;
                     double y = row * Constant.BRICK_HEIGHT;
 
-                    bricks.add(new Bricks(x, y, 10, 0));
+                    bricks.add(new StoneBrick(x, y));
                 }
             }
         } catch (Exception e) {
@@ -29,8 +29,8 @@ public class BrickLoader {
             System.out.println("Error loading brick layout from file: " + e.getMessage());
 
             if (bricks.isEmpty()) {
-                bricks.add(new Bricks(120, 90, 2, 100));
-                bricks.add(new Bricks(180, 90, 1, 50));
+                bricks.add(new StoneBrick(120, 90));
+                bricks.add(new StoneBrick(180, 90));
             }
         } finally {
             System.out.println("Bricks loaded: " + bricks.size());

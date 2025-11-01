@@ -14,7 +14,7 @@ public class GameContext {
     private int currentDifficulty = 1;
     private int highScore = 0;
     private double soundVolume = 0.8;
-    private double backgroundMusic = 0.8;
+    // private double backgroundMusic = 0.8;
 
     // Getter and Setter
     public int getCurrentDifficulty() {

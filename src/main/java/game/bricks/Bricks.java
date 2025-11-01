@@ -3,21 +3,24 @@ package game.bricks;
 import game.Constant;
 import game.objects.GameObject;
 import game.AssetManager;
-import game.Constant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /// Like this name
 
-public class Bricks extends GameObject {
+public abstract class Bricks extends GameObject {
+    protected String type;
+    protected int originalDurability;
     protected int durability;
     protected int point;
     protected boolean destroyable = true;
 
-    public Bricks(double x, double y, int durability, int amount) {
+    public Bricks(String type, double x, double y, int originalDurability, int amount) {
         super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
-        this.durability = durability;
+        this.type = type;
+        this.originalDurability = originalDurability;
+        this.durability = originalDurability;
         this.point = amount;
         if (durability <= -1) {
 
@@ -30,11 +33,11 @@ public class Bricks extends GameObject {
         return durability <= 0;
     }
 
-    public void hit() { // Decrease durability
+    public void hit(int damage) { // Decrease durability
         if (destroyable == false) {
             return;
         }
-        durability--;
+        durability -= damage;
     }
 
     public Rectangle2D getRectBrick() { // Return the rectangle for collision detection

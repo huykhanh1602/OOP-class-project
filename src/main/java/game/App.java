@@ -5,13 +5,10 @@ import java.io.IOException;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
-import game.AssetManager;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -98,7 +95,7 @@ public class App extends Application {
 
     // Music control
     public void startBackgroundMusic(String musicKey) {
-        Media backgroundMusic = AssetManager.getMusic(musicKey);
+        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
         if (backgroundMusic != null) {
             backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
             backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
