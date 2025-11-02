@@ -27,7 +27,8 @@ public class GameSceneController extends GameScene {
     private GraphicsContext gc;
     private GameManager gameManager;
 
-    // This method is automatically called after initializing the FXML file
+    private AnimationTimer gameLoop;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
@@ -43,15 +44,17 @@ public class GameSceneController extends GameScene {
 
         // Get the GraphicsContext from the Canvas
         gc = gameCanvas.getGraphicsContext2D();
-        setupInputHandlers();// Move input handling logic here
-        startGameLoop();// Start the game loop
+        setupInputHandlers();
+
+        createGameLoop();
     }
 
     @Override
     public void setup(App app) {
         this.app = app;
-        // Initialize GameManager after obtaining App reference
         this.gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
+
+        resetGame();
     }
 
     private void setupInputHandlers() {
@@ -60,24 +63,45 @@ public class GameSceneController extends GameScene {
         gameCanvas.setOnKeyReleased(e -> gameManager.handleKeyRelease(e));
     }
 
-    private void startGameLoop() {
-        new AnimationTimer() {
+    private void createGameLoop() {
+        this.gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                gameManager.update();
-
-                // Update score label
-                scoreLabel.setText("Score:\n" + gameManager.getScore());
-
-                // Render game on canvas
-                gameManager.render(gc);
+                if (gameManager != null) {
+                    gameManager.update();
+                    scoreLabel.setText("Score:\n" + gameManager.getScore());
+                    gameManager.render(gc);
+                } else {
+                    System.out.println("GameManager is not initialized!");
+                }
             }
-        }.start();
+        };
     }
 
+    private void startGameLoop() {
+        if (gameLoop != null) {
+            gameLoop.start();
+        }
+    }
+
+    public void stopGameLoop() {
+        if (gameLoop != null) {
+            gameLoop.stop();
+            gameLoop = null;
+        }
+    }
+
+    @FXML
     public void resetGame() {
         if (gameManager != null) {
             gameManager.reset();
+        }
+
+        if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {
+            startGameLoop();
+        } else if (gameLoop == null) {
+            createGameLoop();
+            startGameLoop();
         }
     }
 }

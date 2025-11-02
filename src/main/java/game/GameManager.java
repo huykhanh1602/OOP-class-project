@@ -57,6 +57,12 @@ public class GameManager {
         }
         double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
         lastUpdateTime = currentTime;
+
+        // Clamp giá trị dt để tránh outlier
+        if (dt < 0.001 || dt > 0.05) {
+            dt = 0.016; // khoảng 60 FPS
+        }
+        System.out.println(dt);
         return dt;
     }
 
@@ -82,6 +88,7 @@ public class GameManager {
                         // Break particle
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
+
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
                     }
 
