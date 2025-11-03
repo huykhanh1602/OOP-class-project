@@ -19,11 +19,24 @@ public class Constant {
     // public static final int BRICK_ROWS = 9;
     // public static final int BRICK_COLUMNS = 10;
 
+    // level
+    public static final String LEVEL_1 = "/game/bricks/level1.txt";
+    public static final String LEVEL_2 = "/game/bricks/level2.txt";
+    public static final String LEVEL_3 = "/game/bricks/level3.txt";
+    public static final String LEVEL_4 = "/game/bricks/level4.txt";
+    public static final String LEVEL_5 = "/game/bricks/level5.txt";
+
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
+<<<<<<< Updated upstream
     public static final String STONE_BBRICK_IMAGE_PATH = "/game/images/stone_brick.png";
     public static final String BEDROCK_BBRICK_IMAGE_PATH = "/game/images/bedrock_brick.png";
+=======
+
+    public static final String STONE_BBRICK_PATH = "/game/images/bricks/stone_brick.png";
+    public static final String BEDROCK_BBRICK_PATH = "/game/images/bricks/bedrock_brick.png";
+>>>>>>> Stashed changes
 
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";

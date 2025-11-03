@@ -34,16 +34,23 @@ public class GameManager {
     private boolean isAiming = false;
     private double aimAngle = 30;
     private boolean aimIncrease = true;
-    private final double aimSpeed = 0.3;
+    private final double aimSpeed = 1;
     private final double ainMin = 30;
     private final double ainMax = 150;
 
+<<<<<<< Updated upstream
+=======
+    /// Time tracking for particle updates
+    private long lastUpdateTime = 0;
+
+    private int level = 1;
+
+>>>>>>> Stashed changes
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
-        // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
-        reset(); // Initialize game state
+        reset(AssetManager.getLevel("level"+level)); // Initialize game state
     }
 
     private void checkCollision() { // Check collisions
@@ -56,23 +63,33 @@ public class GameManager {
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
 
-                if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    brick.hit();
+                if (ball.intersects(brick.getRectBrick())) {
                     ball.collides(brick);
+                    brick.hit();
                     if (brick.isBroken()) {
+<<<<<<< Updated upstream
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
 
                         System.out.println("break brick");
+=======
+>>>>>>> Stashed changes
                         BRICK.remove();
                         scorePlayer.addScore(brick.getPoint());
 
                         // Break particle
+<<<<<<< Updated upstream
 
                     }
+=======
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
+>>>>>>> Stashed changes
 
-                    break; // tránh va chạm nhiều brick 1 frame
+                        break;
+                    }
                 }
             }
 
@@ -80,19 +97,35 @@ public class GameManager {
             if (ball.getY() > heightScreen) {
                 BALL.remove();
                 if (balls.size() == 0) {
+                    level = 1;
                     app.switchToGameOverScene(scorePlayer.getScore());
                 }
+            }
+
+            if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
+                level++;
+                reset(AssetManager.getLevel("level"+level));
             }
         }
     }
 
+<<<<<<< Updated upstream
     public void reset() { // Khởi tạo lại game
+=======
+    // Khởi tạo lại game
+    public void reset(String path) {
+>>>>>>> Stashed changes
         paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 1; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
+            balls.add(new Ball(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
+<<<<<<< Updated upstream
         bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
+=======
+        bricks = BrickLoader.loadBricks(path);
+        ParticleManager.getInstance().clear();// clear particles when reset game
+>>>>>>> Stashed changes
         gameOver = false;
 
     }
@@ -101,12 +134,12 @@ public class GameManager {
         if (isAiming || balls.isEmpty())
             return;
         double rad = Math.toRadians(aimAngle);
-        double dx = Math.cos(rad);
-        double dy = -Math.sin(rad);
+        double vx = Math.cos(rad);
+        double vy = -Math.sin(rad);
 
         if (!balls.isEmpty()) {
             Ball ball = balls.get(0);
-            ball.launchBall(dx, dy);
+            ball.launchBall(vx, vy);
             ball.setRunning(true);
             aimAngle = ainMin;
         }
@@ -147,7 +180,7 @@ public class GameManager {
         paddle.render(gc);
 
         if (balls.stream().noneMatch(Ball::isRunning) && isAiming) {
-            double startX = paddle.getX() + paddle.getWidthPaddle() / 2;
+            double startX = paddle.getX() + paddle.getWidth() / 2;
             double startY = paddle.getY() - 7.5;
             double length = 100;
 
@@ -182,6 +215,11 @@ public class GameManager {
 
         if (key.getCode() == KeyCode.SPACE && !isAiming) {
             isAiming = true;
+        }
+
+        if (key.getCode() == KeyCode.R) {
+            level = 1;
+            reset(AssetManager.getLevel("level"+level));
         }
     }
 

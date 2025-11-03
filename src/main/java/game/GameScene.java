@@ -50,9 +50,4 @@ public class GameScene extends StackPane {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gameManager.render(gc);
     }
-
-    public void resetGame() {
-        gameManager.reset();
-    }
-
 }

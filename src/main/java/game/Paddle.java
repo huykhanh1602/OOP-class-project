@@ -1,11 +1,12 @@
 package game;
 
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 import static game.Constant.WIDTH_SCREEN;
 
 import game.Constant;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -53,15 +54,6 @@ public class Paddle {
         }
     }
 
-    /// CHECK KEY
-    // public void moveLeft() {
-    // moveLeft = moveLeft ? false : true;
-    // }
-    //
-    // public void moveRight() {
-    // moveRight = moveRight ? false : true;
-    // }
-    //
     public void handleKeyPressed(KeyEvent key) {
         if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A)
             moveLeft = true;

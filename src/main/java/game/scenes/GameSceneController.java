@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
+import game.AssetManager;
 import game.Constant;
 import game.GameManager;
 import javafx.animation.AnimationTimer;
@@ -84,7 +85,7 @@ public class GameSceneController implements Initializable {
 
     public void resetGame() {
         if (gameManager != null) {
-            gameManager.reset();
+            gameManager.reset(AssetManager.getLevel("level1"));
         }
     }
 }

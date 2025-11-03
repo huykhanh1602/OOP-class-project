@@ -12,8 +12,13 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
+<<<<<<< Updated upstream
     private int widthPaddle = 120;
     private int heightPaddle = 15;
+=======
+    private int width = 1000;
+    private int height = 15;
+>>>>>>> Stashed changes
     private double speed = 5; // SPEED PADDLE
 
     private final double boundaryPaddle = Constant.WIDTH_SCREEN * 3 / 4;
@@ -30,14 +35,14 @@ public class Paddle {
     public void update() {
         if (moveLeft && x > 10)
             x -= speed;
-        if (moveRight && x < boundaryPaddle - widthPaddle + 10)
+        if (moveRight && x < boundaryPaddle - width + 10)
             x += speed;
     }
 
     /// RENDER
     public void render(GraphicsContext gc) {
         gc.setFill(Color.BLUE);
-        gc.fillRect(x, y, widthPaddle, heightPaddle);
+        gc.fillRect(x, y, width, height);
     }
 
     /// CHECK KEY
@@ -63,12 +68,12 @@ public class Paddle {
         return y;
     }
 
-    public int getWidthPaddle() {
-        return widthPaddle;
+    public int getWidth() {
+        return width;
     }
 
-    public int getHeightPaddle() {
-        return heightPaddle;
+    public int getHeight() {
+        return height;
     }
 
     public double getSpeed() {
@@ -77,11 +82,11 @@ public class Paddle {
 
     public boolean getMoveRight() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMoveRight'");
+        return moveRight;
     }
 
     public boolean getMoveLeft() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getMoveLeft'");
+        return moveLeft;
     }
 }
