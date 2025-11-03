@@ -1,4 +1,4 @@
-package game;
+package game.abstraction;
 
 import javafx.scene.canvas.GraphicsContext;
 

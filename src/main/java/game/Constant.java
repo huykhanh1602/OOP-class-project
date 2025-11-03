@@ -5,8 +5,13 @@ public class Constant {
     public static final int WIDTH_SCREEN = 1280;
     public static final int HEIGHT_SCREEN = 720;
 
+    // game settings
+    public static final int MAX_LEVEL = 5;
+    public static final long LEVEL_TRANSITION_DELAY = 3_000_000_000L; // in milliseconds
+
     // Collision settings
-    // public static final int WALL_W
+    // public static final int WALL_WIDTH = 10;
+    // public static final int WALL_HEIGHT = 10;
 
     // paddle settings
     // public static int PADDLE_SPEED = 10;

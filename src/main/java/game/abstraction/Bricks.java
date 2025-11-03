@@ -27,7 +27,7 @@ public abstract class Bricks extends GameObject {
         this.point = amount;
         this.color = color;
         if (durability <= -1) {
-
+            durability = Integer.MAX_VALUE;
             destroyable = false;
         }
     }

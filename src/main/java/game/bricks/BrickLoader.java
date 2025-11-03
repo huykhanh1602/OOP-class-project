@@ -9,19 +9,20 @@ import java.util.List;
 
 import game.Constant;
 import game.abstraction.Bricks;
+import game.GameContext;
 
 public class BrickLoader {
     private static final int colS = 20;
     private static final int rowS = 8;
 
-    public static List<Bricks> loadBricks(String path) {
-        System.out.println("loaded");
+    public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
+        String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
         BufferedReader reader = null;
         String line;
 
         try {
-            InputStream is = BrickLoader.class.getResourceAsStream("/game/map/level1.txt");
+            InputStream is = BrickLoader.class.getResourceAsStream(path);
             if (is == null) {
                 throw new IOException("File not found: " + path);
             }
@@ -39,6 +40,7 @@ public class BrickLoader {
                     }
                 }
             }
+            System.out.println("loaded");
 
         } catch (Exception e) {
             System.err.println("Error loading brick layout: " + e.getMessage());

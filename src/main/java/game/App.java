@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +33,23 @@ public class App extends Application {
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
+    }
+
+    /**
+     * start a new game from level 1.
+     */
+    public void startNewGame() {
+        GameContext.getInstance().startNewGame();
+
+        switchToGameScene();
+    }
+
+    /**
+     * increase to next level.
+     */
+    public void nextLevel() {
+        GameContext.getInstance().nextLevel();
+        switchToGameScene();
     }
 
     /**
