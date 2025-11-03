@@ -5,6 +5,7 @@ import game.objects.GameObject;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /// Like this name
 
@@ -14,15 +15,17 @@ public abstract class Bricks extends GameObject {
     protected int durability;
     protected int point;
     protected boolean destroyable = true;
+    protected Color color;
 
     protected int stage = 10;
 
-    public Bricks(String type, double x, double y, int originalDurability, int amount) {
+    public Bricks(String type, double x, double y, int originalDurability, int amount, Color color) {
         super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         this.type = type;
         this.originalDurability = originalDurability;
         this.durability = originalDurability;
         this.point = amount;
+        this.color = color;
         if (durability <= -1) {
 
             destroyable = false;
@@ -115,4 +118,9 @@ public abstract class Bricks extends GameObject {
     public int getPoint() {
         return point;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
 }

@@ -1,6 +1,7 @@
 package game.particle;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,9 +37,9 @@ public class ParticleManager {
         }
     }
 
-    public void createBrickBreakEffect(double x, double y, int count) {
+    public void createBrickBreakEffect(double x, double y, int count, Color color) {
         for (int i = 0; i < count; i++) {
-            particles.add(new Particle(x, y));
+            particles.add(new Particle(x, y, color));
         }
     }
 
