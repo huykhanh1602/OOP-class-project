@@ -35,12 +35,11 @@ public class App extends Application {
     }
 
     /**
-     * MỚI: Phương thức chung để tải và chuyển đổi Scene
+     * Changes the current scene to the one specified by fxmlPath.
      * 
-     * @param fxmlPath   Đường dẫn đến file .fxml
-     * @param setupLogic Một hàm lambda để thực thi logic setup riêng cho từng
-     *                   controller
-     * @param <T>        Kiểu của Controller
+     * @param fxmlPath   fxmxlPath
+     * @param setupLogic setup logic for controller
+     * @param <T>        Controller type
      */
     private <T> void switchScene(String fxmlPath, Consumer<T> setupLogic) {
         // 1. Dừng game loop (logic chung)
@@ -79,16 +78,16 @@ public class App extends Application {
     public void switchToHomeScene() {
         switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
             controller.setup(this);
-            playBackgroundMusic("home_background_music"); // Gợi ý: dùng tên key nhạc
+            // playBackgroundMusic("home_background_music");
         });
     }
 
     // Switch to Game Scene
     public void switchToGameScene() {
         switchScene(Constant.GAME_SCENE_PATH, (GameSceneController controller) -> {
-            this.currentGameController = controller; // Logic riêng của GameScene
+            this.currentGameController = controller;
             controller.setup(this);
-            playBackgroundMusic("game_background_music"); // Gợi ý: Phát nhạc game
+            // playBackgroundMusic("game_background_music");
         });
     }
 
@@ -97,14 +96,14 @@ public class App extends Application {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
             controller.setScore(finalScore); // Logic riêng của GameOverScene
-            playBackgroundMusic("game_over_music"); // Gợi ý: Phát nhạc game over
+            // playBackgroundMusic("game_over_music");
         });
     }
 
     /**
-     * MỚI: Phương thức này sẽ dừng nhạc cũ và phát nhạc mới.
+     * play the background music.
      * 
-     * @param musicKey Key của bản nhạc trong AssetManager
+     * @param musicKey the key of the music to play
      */
     public void playBackgroundMusic(String musicKey) {
         // Dừng nhạc hiện tại trước

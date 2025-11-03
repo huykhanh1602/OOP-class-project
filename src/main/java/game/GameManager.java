@@ -89,7 +89,8 @@ public class GameManager {
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
 
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
+                                brick.getColor());
                     }
 
                     break; // tránh va chạm nhiều brick 1 frame

@@ -28,6 +28,12 @@ public class Constant {
     public static final String NETHERITE_BRICK_IMAGE = "/game/images/bricks/netherite_brick.png";
     public static final String BED_ROCK_IMAGE = "/game/images/bricks/bedrock.png";
 
+    public static final int STONE_DURABILITY = 10;
+    public static final int IRON_DURABILITY = 20;
+    public static final int GOLD_DURABILITY = 30;
+    public static final int DIAMOND_DURABILITY = 40;
+    public static final int NETHERITE_DURABILITY = 50;
+    public static final int BEDROCK_DURABILITY = -1;
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
