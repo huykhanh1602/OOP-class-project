@@ -45,11 +45,12 @@ public abstract class GameScene implements Initializable {
         this.app = app;
     }
 
+    // event handlers
     @FXML
     protected void handleStartButtonAction(ActionEvent e) {
         System.out.println("Start button pressed");
         if (app != null) {
-            app.switchToGameScene();
+            app.startNewGame();
         } else {
             System.out.println("Error: App reference is null");
         }
@@ -65,4 +66,13 @@ public abstract class GameScene implements Initializable {
         }
     }
 
+    @FXML
+    protected void returnToHome(ActionEvent e) {
+        System.out.println("Return to home button pressed");
+        if (app != null) {
+            app.switchToHomeScene();
+        } else {
+            System.out.println("Error: App reference is null");
+        }
+    }
 }

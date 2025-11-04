@@ -9,7 +9,6 @@ import game.ball.Ball;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
-import game.score.ScoreManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -27,12 +26,9 @@ public class GameManager {
 
     /// Game statistics
     private final App app;
-    private ScoreManager scorePlayer = new ScoreManager();
     private boolean gameOver;
     private boolean gamePaused = false;
-    private long levelCompleteTime = 0;
     private int currentLevel;
-    private boolean levelCompleted = false;
 
     /// Aiming Arc
     private boolean isAiming = false;
@@ -85,7 +81,7 @@ public class GameManager {
                     if (brick.isBroken()) {
                         System.out.println("break brick");
                         BRICK.remove();
-                        scorePlayer.addScore(brick.getPoint());
+                        GameContext.getInstance().addScore(brick.getPoint());
 
                         // Break particle
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
@@ -102,9 +98,7 @@ public class GameManager {
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-                if (balls.size() == 0) {
-                    app.switchToGameOverScene(scorePlayer.getScore());
-                }
+
             }
         }
     }
@@ -126,8 +120,6 @@ public class GameManager {
 
         gameOver = false;
         gamePaused = false;
-        levelCompleted = false;
-        levelCompleteTime = 0;
         lastUpdateTime = 0;// reset particle time for particle updates
     }
 
@@ -153,22 +145,18 @@ public class GameManager {
         }
         // check game over
         if (gameOver == true) {
-            if (levelCompleted == true) {
-                if (System.nanoTime() - levelCompleteTime >= Constant.LEVEL_TRANSITION_DELAY) {
-                    app.nextLevel();
-                }
-            }
             return;
         }
 
         // check level complete
         if (bricks.isEmpty() == true) {
             gameOver = true;
-            levelCompleted = true;
-            levelCompleteTime = System.nanoTime();
-
-            app.nextLevel();
+            app.levelWon();
             return;
+        }
+
+        if (balls.isEmpty() == true) {
+            app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
         }
 
         // update game objects
@@ -247,6 +235,6 @@ public class GameManager {
     }
 
     public int getScore() {
-        return scorePlayer.getScore();
+        return GameContext.getInstance().getCurrentScore();
     }
 }

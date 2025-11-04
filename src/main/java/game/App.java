@@ -35,21 +35,27 @@ public class App extends Application {
         stage.show();
     }
 
-    /**
-     * start a new game from level 1.
-     */
+    // call when start a new game
     public void startNewGame() {
-        GameContext.getInstance().startNewGame();
-
+        GameContext.getInstance().resetLevel();
+        GameContext.getInstance().setCurrentScore(0);
         switchToGameScene();
     }
 
-    /**
-     * increase to next level.
-     */
+    // call when player win a level
+    public void levelWon() {
+        // add shop scene here later
+        nextLevel();
+    }
+
+    // proceed to next level
     public void nextLevel() {
         GameContext.getInstance().nextLevel();
         switchToGameScene();
+    }
+
+    public void gameOver() {
+        switchToGameOverScene(0);
     }
 
     /**
@@ -60,7 +66,7 @@ public class App extends Application {
      * @param <T>        Controller type
      */
     private <T> void switchScene(String fxmlPath, Consumer<T> setupLogic) {
-        // 1. Dừng game loop (logic chung)
+        // Stop game loop if switching from Game Scene
         if (this.currentGameController != null) {
             this.currentGameController.stopGameLoop();
             this.currentGameController = null;

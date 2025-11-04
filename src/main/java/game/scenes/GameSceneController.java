@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import game.App;
 import game.Constant;
+import game.GameContext;
 import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.animation.AnimationTimer;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class GameSceneController extends GameScene {
 
@@ -57,12 +59,19 @@ public class GameSceneController extends GameScene {
         resetGame();
     }
 
+    private void bindLabel() {
+        var scoreProperty = GameContext.getInstance().currentScore;
+        scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
+    }
+
+    // Set up input handlers for key presses and releases
     private void setupInputHandlers() {
         gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnKeyPressed(e -> gameManager.handleKeyPress(e));
         gameCanvas.setOnKeyReleased(e -> gameManager.handleKeyRelease(e));
     }
 
+    // Create the game loop using AnimationTimer
     private void createGameLoop() {
         this.gameLoop = new AnimationTimer() {
             @Override
@@ -78,12 +87,14 @@ public class GameSceneController extends GameScene {
         };
     }
 
+    // Start the game loop
     private void startGameLoop() {
         if (gameLoop != null) {
             gameLoop.start();
         }
     }
 
+    // Stop the game loop
     public void stopGameLoop() {
         if (gameLoop != null) {
             gameLoop.stop();
