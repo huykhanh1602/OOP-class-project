@@ -1,28 +1,25 @@
 package game.ball;
 
-import game.Constant;
-import game.bricks.Bricks;
+import game.AssetManager;
+import game.abstraction.Bricks;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 ///  Ball movement
 
 public class Ball {
-
-    private Image ballImage;
     /// ELEMENT BALL
     private double x, y;
-    private static double radius = 7.5; // Size ball
+    private static double radius = 15; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 2;
+    private double speedball = 5;
     public boolean isRunning = false;
 
     private double friction = 0.2; // Ma sát
 
-    private double fixBug = 5; // colliding distance
+    // private double fixBug = 5; // colliding distance
 
     // private int boundaryWidth = 600*3/4;
     // private int boundaryHeight = 600*5/6;
@@ -30,12 +27,6 @@ public class Ball {
     public Ball(double x, double y) {
         this.x = x + radius; // POSITION
         this.y = y + radius;
-        try {
-            ballImage = new Image(getClass().getResourceAsStream("/vnu/edu/vn/game/images/ball.png"));
-        } catch (Exception e) {
-            System.out.println("Cant load ball image");
-            ballImage = null;
-        }
 
     }
 
@@ -66,7 +57,10 @@ public class Ball {
 
             // Paddle friction
             double paddleMoment = paddle.getSpeed();
-            dx += paddleMoment * friction;
+            if (paddle.getMoveLeft())
+                dx -= paddleMoment * friction;
+            if (paddle.getMoveRight())
+                dx += paddleMoment * friction;
 
             double maxSpeedX = Math.abs(dy) * 1.2;
             if (dx > maxSpeedX)
@@ -86,7 +80,7 @@ public class Ball {
 
     public void collides(Ball ball) { // wall collision
 
-        if (x <= 10 + radius || x + radius * 2 >= Constant.WIDTH_SCREEN * 3 / 4)
+        if (x <= 10 + radius || x + radius * 2 >= 1000)
             bounceX(); // WALL
         if (y <= 20 + radius)
             bounceY(); // FLOOR
@@ -140,7 +134,8 @@ public class Ball {
         double brickCenterX = brick.getX() + brick.getWidth() / 2.0f;
         double brickCenterY = brick.getY() + brick.getHeight() / 2.0f;
 
-        // Calculate the distance between the centers of the ball and the brick on each axis
+        // Calculate the distance between the centers of the ball and the brick on each
+        // axis
         double diffX = ballCenterX - brickCenterX;
         double diffY = ballCenterY - brickCenterY;
 
@@ -213,9 +208,9 @@ public class Ball {
     }
 
     public void render(GraphicsContext gc) {
-        if (ballImage != null) {
+        if (AssetManager.getImage("ball") != null) {
             // use drawImage method instead of fillOval
-            gc.drawImage(ballImage, x - radius, y - radius, radius * 2, radius * 2);
+            gc.drawImage(AssetManager.getImage("ball"), x - radius, y - radius, radius * 2, radius * 2);
         } else {
             // If no image, draw a red oval as a fallback
             gc.setFill(Color.RED);

@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.bricks.BrickLoader;
-import game.bricks.Bricks;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
-import game.score.ScoreManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -18,7 +17,7 @@ import javafx.scene.paint.Color;
 ///  Manager
 
 public class GameManager {
-    private int widthScreen, heightScreen; // 600 * 600
+    private int widthScreen, heightScreen;
 
     /// Ball, Paddle, Brick,...
     private Paddle paddle;
@@ -26,9 +25,10 @@ public class GameManager {
     private List<Bricks> bricks;
 
     /// Game statistics
-    private ScoreManager scorePlayer = new ScoreManager();
-    private boolean gameOver;
     private final App app;
+    private boolean gameOver;
+    private boolean gamePaused = false;
+    private int currentLevel;
 
     /// Aiming Arc
     private boolean isAiming = false;
@@ -38,15 +38,34 @@ public class GameManager {
     private final double ainMin = 30;
     private final double ainMax = 150;
 
+    /// Time tracking for particle updates
+    private long lastUpdateTime = 0;
+
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
         // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
-        reset(); // Initialize game state
     }
 
-    private void checkCollision() { // Check collisions
+    // Calculate delta time for particle update
+    private double calculateDeltaTime() {
+        long currentTime = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = currentTime;
+        }
+        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
+        lastUpdateTime = currentTime;
+
+        //
+        if (dt < 0.001 || dt > 0.05) {
+            dt = 0.016;
+        }
+        return dt;
+    }
+
+    // Check collisions
+    private void checkCollision() {
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
 
@@ -57,19 +76,19 @@ public class GameManager {
                 Bricks brick = BRICK.next();
 
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    brick.hit();
+                    brick.hit(10);
                     ball.collides(brick);
                     if (brick.isBroken()) {
-                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6);
-
                         System.out.println("break brick");
                         BRICK.remove();
-                        scorePlayer.addScore(brick.getPoint());
+                        GameContext.getInstance().addScore(brick.getPoint());
 
                         // Break particle
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
 
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
+                                brick.getColor());
                     }
 
                     break; // tránh va chạm nhiều brick 1 frame
@@ -79,22 +98,29 @@ public class GameManager {
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-                if (balls.size() == 0) {
-                    app.switchToGameOverScene(scorePlayer.getScore());
-                }
+
             }
         }
     }
 
-    public void reset() { // Khởi tạo lại game
+    // Khởi tạo lại game
+    public void reset() {
+        this.currentLevel = GameContext.getInstance().getCurrentLevel();
+
         paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 1; i++) {
             balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
-        bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
-        gameOver = false;
 
+        bricks = BrickLoader.loadBricks();
+
+        // clear particles when reset game
+        ParticleManager.getInstance().clear();
+
+        gameOver = false;
+        gamePaused = false;
+        lastUpdateTime = 0;// reset particle time for particle updates
     }
 
     private void shootBall() {
@@ -113,10 +139,27 @@ public class GameManager {
     }
 
     public void update() {
-        if (gameOver) {
+
+        if (gamePaused == true) {
+            return;
+        }
+        // check game over
+        if (gameOver == true) {
             return;
         }
 
+        // check level complete
+        if (bricks.isEmpty() == true) {
+            gameOver = true;
+            app.levelWon();
+            return;
+        }
+
+        if (balls.isEmpty() == true) {
+            app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
+        }
+
+        // update game objects
         paddle.update();
         for (Ball ball : balls) {
             ball.update(paddle);
@@ -138,6 +181,9 @@ public class GameManager {
         }
 
         checkCollision();
+
+        double deltaTime = calculateDeltaTime();
+        ParticleManager.getInstance().update(deltaTime);
         // update particles
     }
 
@@ -167,12 +213,7 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
-
-        gc.setFill(Color.LIGHTGRAY); // Che phần bóng rơi
-        gc.fillRect(0, heightScreen * 9 / 10 + 20, widthScreen * 3 / 4, heightScreen - heightScreen * 9 / 10 - 20);
-
-        gc.setFill(Color.DARKGRAY);
-        gc.fillText("Score: " + scorePlayer.getScore(), widthScreen * 3 / 4 + 60, heightScreen * 1 / 8);// DRAW SCORE
+        ParticleManager.getInstance().render(gc);
 
     }
 
@@ -194,6 +235,6 @@ public class GameManager {
     }
 
     public int getScore() {
-        return scorePlayer.getScore();
+        return GameContext.getInstance().getCurrentScore();
     }
 }

@@ -3,46 +3,86 @@ package game.bricks;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrickLoader {
+import game.Constant;
+import game.abstraction.Bricks;
+import game.GameContext;
 
-    public static List<Bricks> loadBricks(String path) {
+public class BrickLoader {
+    private static final int colS = 20;
+    private static final int rowS = 8;
+
+    public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
+        String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
+        BufferedReader reader = null;
+        String line;
 
         try {
             InputStream is = BrickLoader.class.getResourceAsStream(path);
             if (is == null) {
-                System.out.println("Couldn't find resource " + path);
-                bricks.add(new Bricks(120, 90, 2, 100));
-                bricks.add(new Bricks(180, 90, 1, 50));
-                return bricks;
+                throw new IOException("File not found: " + path);
             }
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            String line;
-            int row = 0;
-            double brickWidth = 60;
-            double brickHeight = 30;
+            reader = new BufferedReader(new InputStreamReader(is));
 
-            while ((line = br.readLine()) != null) {
-                String[] lineArray = line.trim().split("\\s+");
-                for (int col = 0; col < lineArray.length; col++) {
-                    int type = Integer.parseInt(lineArray[col]);
-                    double x = col * brickWidth + 10;
-                    double y = row * brickHeight + 40;
-                    bricks.add(new Bricks(x, y, type, type * 50));
+            for (int i = 0; i < rowS; i++) {
+                line = reader.readLine();
+                String[] values = line.split(" ");
+                for (int j = 0; j < colS; j++) {
+                    String type = values[j];
+                    Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
+                    if (brick != null) {
+                        bricks.add(brick);
+                    }
                 }
-                row++;
             }
-            br.close();
+            System.out.println("loaded");
+
         } catch (Exception e) {
+            System.err.println("Error loading brick layout: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Couldn't load bricks from " + path);
+
+            if (bricks.isEmpty()) {
+                bricks.add(new StoneBrick(100, 100));
+                bricks.add(new IronBrick(150, 100));
+                bricks.add(new GoldBrick(200, 100));
+                bricks.add(new DiamondBrick(250, 100));
+                bricks.add(new NetheriteBrick(300, 100));
+                bricks.add(new Bedrock(350, 100));
+            }
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Error closing reader: " + e.getMessage());
+            }
         }
 
         return bricks;
     }
 
+    public static Bricks createBricks(String type, double x, double y) {
+        switch (type) {
+            case "s":
+                return new StoneBrick(x, y);
+            case "i":
+                return new IronBrick(x, y);
+            case "g":
+                return new GoldBrick(x, y);
+            case "d":
+                return new DiamondBrick(x, y);
+            case "n":
+                return new NetheriteBrick(x, y);
+            case "b":
+                return new Bedrock(x, y);
+            default:
+                return null;
+        }
+    }
 }

@@ -18,14 +18,14 @@
                   <Image url="@../images/game_background.png" />
                </image>
             </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="10.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
             <Canvas fx:id="gameCanvas" height="680.0" layoutX="10.0" layoutY="20.0" width="1000.0" />
             <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1102.0" layoutY="84.0" prefHeight="96.0" prefWidth="101.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
                <styleClass>
-                  <String fx:value="score-label" />
+                  <String fx:value="text-label" />
                   <String fx:value="label-container" />
                </styleClass>
             </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="10.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
          </children>
       </AnchorPane>
    </children>

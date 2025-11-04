@@ -1,89 +1,168 @@
 package game;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+import game.scenes.InstructionController;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
     private Stage primaryStage;
+    private MediaPlayer backgroundMusicPlayer;
+    private GameSceneController currentGameController;
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        Image icon = new Image(getClass().getResourceAsStream(Constant.ICON_PATH));
-        stage.getIcons().add(icon);
+        AssetManager.loadAssets();
+        stage.getIcons().add(AssetManager.getImage("icon"));
 
         this.primaryStage = stage;
-        // switchToHomeScene();
-        switchToGameOverScene(0); // testing
+
+        switchToHomeScene();
+
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
     }
 
-    // Switch to Home Scene
-    public void switchToHomeScene() {
+    // call when start a new game
+    public void startNewGame() {
+        GameContext.getInstance().resetLevel();
+        GameContext.getInstance().setCurrentScore(0);
+        switchToGameScene();
+    }
+
+    // call when player win a level
+    public void levelWon() {
+        // add shop scene here later
+        nextLevel();
+    }
+
+    // proceed to next level
+    public void nextLevel() {
+        GameContext.getInstance().nextLevel();
+        switchToGameScene();
+    }
+
+    public void gameOver() {
+        switchToGameOverScene(0);
+    }
+
+    /**
+     * Changes the current scene to the one specified by fxmlPath.
+     * 
+     * @param fxmlPath   fxmxlPath
+     * @param setupLogic setup logic for controller
+     * @param <T>        Controller type
+     */
+    private <T> void switchScene(String fxmlPath, Consumer<T> setupLogic) {
+        // Stop game loop if switching from Game Scene
+        if (this.currentGameController != null) {
+            this.currentGameController.stopGameLoop();
+            this.currentGameController = null;
+        }
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HOME_SCENE_PATH));
+            // load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
-            HomeSceneController controller = loader.getController();
+            // get controller
+            T controller = loader.getController();
+            if (setupLogic != null) {
+                setupLogic.accept(controller);
+            }
 
-            controller.setup(this);
+            // set and load scene
+            Scene scene;
+            if (primaryStage.getScene() != null) {
+                scene = new Scene(root, primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+            } else {
+                scene = new Scene(root);
+            }
 
-            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
             primaryStage.setScene(scene);
 
         } catch (IOException e) {
-            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+            throw new RuntimeException("Cant load: " + fxmlPath, e);
         }
+    }
+
+    // Switch to Home Scene
+    public void switchToHomeScene() {
+        switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
+            controller.setup(this);
+            // playBackgroundMusic("home_background_music");
+        });
     }
 
     // Switch to Game Scene
     public void switchToGameScene() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GAME_SCENE_PATH));
-            Parent root = loader.load();
-
-            // Get the controller and pass the 'App' reference to it
-            GameSceneController controller = loader.getController();
+        switchScene(Constant.GAME_SCENE_PATH, (GameSceneController controller) -> {
+            this.currentGameController = controller;
             controller.setup(this);
+            // playBackgroundMusic("game_background_music");
+        });
+    }
 
-            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
-        }
+    public void switchToInstructionScene() {
+        switchScene(Constant.INSTRUCTION_SCENE_PATH, (InstructionController controller) -> {
+            controller.setup(this);
+            // playBackgroundMusic("instruction_background_music");
+        });
     }
 
     // Switch to Game Over Scene
     public void switchToGameOverScene(int finalScore) {
-
-        System.out.println("Game Over! Final Score: " + finalScore);
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.GAME_OVER_SCENE_PATH));
-            Parent root = loader.load();
-
-            GameOverController controller = loader.getController();
+        switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
-            controller.setScore(finalScore);
+            controller.setScore(finalScore); // Logic riêng của GameOverScene
+            // playBackgroundMusic("game_over_music");
+        });
+    }
 
-            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+    /**
+     * play the background music.
+     * 
+     * @param musicKey the key of the music to play
+     */
+    public void playBackgroundMusic(String musicKey) {
+        // Dừng nhạc hiện tại trước
+        stopBackgroundMusic();
+
+        if (musicKey == null || musicKey.isEmpty()) {
+            return; // Không phát gì nếu key là null hoặc rỗng
         }
 
+        // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
+        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
+
+        if (backgroundMusic != null) {
+            backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
+            backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusicPlayer.setVolume(1.0); // Rõ ràng hơn khi dùng 1.0
+            backgroundMusicPlayer.play();
+        } else {
+            System.err.println("Cant find: " + musicKey);
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+            backgroundMusicPlayer.dispose();
+            backgroundMusicPlayer = null;
+        }
     }
 
     // LAUNCH GAME

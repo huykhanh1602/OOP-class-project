@@ -1,16 +1,12 @@
 package game.bricks;
 
+import game.abstraction.Bricks;
 import game.Constant;
-import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class StoneBrick extends Bricks {
     public StoneBrick(double x, double y) {
-        super(x, y, 1, 0);
-        try {
-            image = new Image(getClass().getResourceAsStream(Constant.STONE_BBRICK_IMAGE_PATH));
-        } catch (Exception e) {
-            System.out.println("Cant load stone brick image");
-            image = null;
-        }
+        super("STONE_BRICK", x, y, Constant.STONE_DURABILITY, 50, Color.GRAY);
+
     }
 }
