@@ -46,6 +46,7 @@ public class Constant {
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
+    public static final String INSTRUCTION_SCENE_PATH = "/game/scenes/InstructionScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path

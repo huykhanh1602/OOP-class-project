@@ -67,6 +67,16 @@ public abstract class GameScene implements Initializable {
     }
 
     @FXML
+    protected void handleInstructionButton(ActionEvent e) {
+        System.out.println("Instruction button pressed");
+        if (app != null) {
+            app.switchToInstructionScene();
+        } else {
+            System.out.println("Error: App reference is null");
+        }
+    }
+
+    @FXML
     protected void returnToHome(ActionEvent e) {
         System.out.println("Return to home button pressed");
         if (app != null) {

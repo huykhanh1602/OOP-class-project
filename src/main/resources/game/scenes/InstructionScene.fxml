@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="rootContainer" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.InstructionController">
+   <children>
+      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
+         <children>
+            <ImageView fitHeight="720.0" fitWidth="1280.0">
+               <image>
+                  <Image url="@../images/instruction.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="76.0" layoutY="90.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text=" * Control&#10; - Hold SPACE to adjust the angle, then release SPACE to fire&#10; - Press A/D or LEFT/RIGHT ARROW to move the paddle left/right&#10; * Gameplay&#10; - Destroy all bricks to pass a level&#10;" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="text-label" />
+                  <String fx:value="label-container" />
+               </styleClass>
+            </Label>
+            <Button fx:id="instructionLabel" layoutX="7.0" layoutY="641.0" mnemonicParsing="false" onAction="#returnToHome" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Back to Home">
+               <styleClass>
+                  <String fx:value="game-button" />
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+               </styleClass>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

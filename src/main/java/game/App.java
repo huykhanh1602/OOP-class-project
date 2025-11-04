@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
-
+import game.scenes.InstructionController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -112,6 +112,13 @@ public class App extends Application {
             this.currentGameController = controller;
             controller.setup(this);
             // playBackgroundMusic("game_background_music");
+        });
+    }
+
+    public void switchToInstructionScene() {
+        switchScene(Constant.INSTRUCTION_SCENE_PATH, (InstructionController controller) -> {
+            controller.setup(this);
+            // playBackgroundMusic("instruction_background_music");
         });
     }
 
