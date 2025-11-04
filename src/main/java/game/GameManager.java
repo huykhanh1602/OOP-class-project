@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 ///  Manager
 
 public class GameManager {
-    private int widthScreen, heightScreen;
+    private final int widthScreen, heightScreen;
 
     /// Ball, Paddle, Brick,...
     private Paddle paddle;

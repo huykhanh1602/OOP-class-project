@@ -115,6 +115,7 @@ public class App extends Application {
         });
     }
 
+    // Switch to Instruction Scene
     public void switchToInstructionScene() {
         switchScene(Constant.INSTRUCTION_SCENE_PATH, (InstructionController controller) -> {
             controller.setup(this);

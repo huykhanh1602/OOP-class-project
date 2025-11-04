@@ -1,20 +1,20 @@
 package game;
 
-import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+
 public class AssetManager {
     // images
-    private static Map<String, Image> images = new HashMap<>();
+    private static final Map<String, Image> images = new HashMap<>();
     // sounds
-    private static Map<String, AudioClip> sounds = new HashMap<>();
+    private static final Map<String, AudioClip> sounds = new HashMap<>();
     // music
-    private static Map<String, Map<String, Media>> musics = new HashMap<>();
+    private static final Map<String, Map<String, Media>> musics = new HashMap<>();
 
     public static void loadAssets() {
         // load images

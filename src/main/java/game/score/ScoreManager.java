@@ -1,7 +1,5 @@
 package game.score;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,15 +49,6 @@ public class ScoreManager {
         } catch (Exception e) {
             highScore = 0;
             System.out.println("Error loading high score");
-        }
-    }
-
-    private void saveHighScore() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            bw.write(String.valueOf(highScore));
-
-        } catch (Exception e) {
-            System.out.println("Error saving high score");
         }
     }
 }

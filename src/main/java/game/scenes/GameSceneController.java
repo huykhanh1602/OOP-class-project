@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import game.App;
 import game.Constant;
-import game.GameContext;
 import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.animation.AnimationTimer;
@@ -16,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.beans.property.SimpleIntegerProperty;
 
 public class GameSceneController extends GameScene {
 
@@ -57,11 +55,6 @@ public class GameSceneController extends GameScene {
         this.gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
 
         resetGame();
-    }
-
-    private void bindLabel() {
-        var scoreProperty = GameContext.getInstance().currentScore;
-        scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
     }
 
     // Set up input handlers for key presses and releases

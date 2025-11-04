@@ -21,7 +21,7 @@ public class GameContext {
 
     // Game level management
     private int currentLevel = 1;
-    private int maxLevel = Constant.MAX_LEVEL;
+    private final int maxLevel = Constant.MAX_LEVEL;
 
     public int getCurrentLevel() {
         return this.currentLevel;
