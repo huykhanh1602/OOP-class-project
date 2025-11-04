@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <StackPane fx:id="rootContainer" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.GameSceneController">
    <children>
@@ -20,17 +21,23 @@
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="10.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
             <Canvas fx:id="gameCanvas" height="680.0" layoutX="10.0" layoutY="20.0" width="1000.0" />
-            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1102.0" layoutY="84.0" prefHeight="96.0" prefWidth="101.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
+            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1068.0" layoutY="70.0" prefHeight="127.0" prefWidth="166.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
                <styleClass>
                   <String fx:value="text-label" />
                   <String fx:value="label-container" />
                </styleClass>
+               <font>
+                  <Font size="16.0" />
+               </font>
             </Label>
-            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1093.0" layoutY="527.0" prefHeight="111.0" prefWidth="118.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
+            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1084.0" layoutY="440.0" prefHeight="102.0" prefWidth="134.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
                <styleClass>
                   <String fx:value="coin-label" />
-                  <String fx:value="coin-label-container" />
+                  <String fx:value="label-container" />
                </styleClass>
+               <font>
+                  <Font size="15.0" />
+               </font>
             </Label>
          </children>
       </AnchorPane>
