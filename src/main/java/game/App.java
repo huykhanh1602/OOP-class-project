@@ -114,7 +114,7 @@ public class App extends Application {
         }
 
         // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
-        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
+        Media backgroundMusic = AssetManager.getMusic("home_background_music");
 
         if (backgroundMusic != null) {
             backgroundMusicPlayer = new MediaPlayer(backgroundMusic);

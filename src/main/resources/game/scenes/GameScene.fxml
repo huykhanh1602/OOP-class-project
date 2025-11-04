@@ -26,6 +26,12 @@
                   <String fx:value="label-container" />
                </styleClass>
             </Label>
+            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1093.0" layoutY="527.0" prefHeight="111.0" prefWidth="118.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
+               <styleClass>
+                  <String fx:value="coin-label" />
+                  <String fx:value="coin-label-container" />
+               </styleClass>
+            </Label>
          </children>
       </AnchorPane>
    </children>

@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
-import game.AssetManager;
 import game.Constant;
 import game.GameManager;
 import game.abstraction.GameScene;
@@ -95,7 +94,7 @@ public class GameSceneController extends GameScene {
     @FXML
     public void resetGame() {
         if (gameManager != null) {
-            gameManager.reset(AssetManager.getLevel("level1"));
+            gameManager.reset("level1");
         }
 
         if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {

@@ -1,8 +1,11 @@
 package game.objects;
 
+import static game.Constant.BRICK_WIDTH;
+import static game.Constant.HEIGHT_SCREEN;
 import static game.Constant.WIDTH_SCREEN;
 
 import game.AssetManager;
+import game.Constant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,25 +16,24 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
-    private int widthPaddle = 120;
-    private int heightPaddle = 50;
+    private int width = 1000;
+    // private int width = Constant.BRICK_WIDTH * 5;
+    private int height = Constant.BRICK_HEIGHT;
     private double speed = 5; // SPEED PADDLE
-
-    private final double boundaryPaddle = WIDTH_SCREEN * 3 / 4;
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
 
-    public Paddle(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Paddle() {
+        this.x = 1000/2 - width/2;
+        this.y = HEIGHT_SCREEN - 75 - height;
     }
 
     /// MOVEMENT
     public void update() {
         if (moveLeft && x > 0)
             x -= speed;
-        if (moveRight && x < boundaryPaddle - widthPaddle)
+        if (moveRight && x < 1000 - width)
             x += speed;
     }
 
@@ -39,23 +41,18 @@ public class Paddle {
     public void render(GraphicsContext gc) {
 
         try {
-            gc.drawImage(AssetManager.getImage("paddle"), x, y, widthPaddle, heightPaddle);
+            int i = 0;
+            while (i != width/Constant.BRICK_WIDTH) {
+            gc.drawImage(AssetManager.getImage("stone_brick"), x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+            i++;
+            }
         } catch (Exception e) {
             System.out.println("Cant load paddle image");
             gc.setFill(Color.BLUE);
-            gc.fillRect(x, y, widthPaddle, heightPaddle);
+            gc.fillRect(x, y, width, height);
         }
     }
 
-    /// CHECK KEY
-    // public void moveLeft() {
-    // moveLeft = moveLeft ? false : true;
-    // }
-    //
-    // public void moveRight() {
-    // moveRight = moveRight ? false : true;
-    // }
-    //
     public void handleKeyPressed(KeyEvent key) {
         if (key.getCode() == KeyCode.LEFT || key.getCode() == KeyCode.A)
             moveLeft = true;
@@ -78,12 +75,12 @@ public class Paddle {
         return y;
     }
 
-    public int getWidthPaddle() {
-        return widthPaddle;
+    public int getWidth() {
+        return width;
     }
 
-    public int getHeightPaddle() {
-        return heightPaddle;
+    public int getHeight() {
+        return height;
     }
 
     public double getSpeed() {

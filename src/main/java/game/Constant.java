@@ -5,6 +5,9 @@ public class Constant {
     public static final int WIDTH_SCREEN = 1280;
     public static final int HEIGHT_SCREEN = 720;
 
+    // Collision settings
+    // public static final int WALL_W
+
     // paddle settings
     // public static int PADDLE_SPEED = 10;
     // public static int PADDLE_WIDTH = 100;
@@ -16,6 +19,14 @@ public class Constant {
     // public static final int BRICK_ROWS = 9;
     // public static final int BRICK_COLUMNS = 10;
     public static final String BALL_PATH = "/game/images/ball.png";
+
+    // level
+    public static final String LEVEL_1 = "/game/map/level1.txt";
+    public static final String LEVEL_2 = "/game/map/level2.txt";
+    public static final String LEVEL_3 = "/game/map/level3.txt";
+    public static final String LEVEL_4 = "/game/map/level4.txt";
+    public static final String LEVEL_5 = "/game/map/level5.txt";
+    public static final String TEST = "/game/map/test.txt";
 
     // brick settings
     public static final int BRICK_WIDTH = 50;
@@ -40,6 +51,9 @@ public class Constant {
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
 
+    // paddle image path
+    public static final String PADDLE_IMAGE_PATH = "/game/images/nem_chua_green.png";
+
     // Destroy Stage image path
     public static final String DESTROY_STAGE_1 = "/game/images/destroyStage/destroy_stage_1.png";
     public static final String DESTROY_STAGE_2 = "/game/images/destroyStage/destroy_stage_2.png";
@@ -56,6 +70,6 @@ public class Constant {
     public static final int FIRST_DIFFICULTY = 1;
 
     // Home scene music
-    public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/home_background_music.mp3";
+    public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/Home_background_music.mp3";
 
 }

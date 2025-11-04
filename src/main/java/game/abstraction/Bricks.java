@@ -27,14 +27,13 @@ public abstract class Bricks extends GameObject {
         this.point = amount;
         this.color = color;
         if (durability <= -1) {
-
             destroyable = false;
         }
     }
 
     // ERASE BRICK
     public boolean isBroken() { // Check if brick is broken
-        return durability <= 0;
+        return durability == 0;
     }
 
     // Decrease durability
@@ -42,7 +41,11 @@ public abstract class Bricks extends GameObject {
         if (destroyable == false) {
             return;
         }
+        if (durability > damage) {
         durability -= damage;
+        } else {
+            durability = 0;
+        }
     }
 
     public Rectangle2D getRectBrick() { // Return the rectangle for collision detection
@@ -121,6 +124,10 @@ public abstract class Bricks extends GameObject {
 
     public Color getColor() {
         return color;
+    }
+
+    public boolean isDestroyable() {
+        return destroyable;
     }
 
 }

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import game.Constant;
@@ -12,34 +13,30 @@ import game.abstraction.Bricks;
 
 public class BrickLoader {
     private static final int colS = 20;
-    private static final int rowS = 8;
+    private static final int rowS = 10;
 
     public static List<Bricks> loadBricks(String path) {
-        System.out.println("loaded");
         List<Bricks> bricks = new ArrayList<Bricks>();
         BufferedReader reader = null;
-        String line;
-
         try {
-            InputStream is = BrickLoader.class.getResourceAsStream("/game/map/level1.txt");
-            if (is == null) {
-                throw new IOException("File not found: " + path);
-            }
-
+            InputStream is = BrickLoader.class.getResourceAsStream(path);
+            String line;
             reader = new BufferedReader(new InputStreamReader(is));
 
             for (int i = 0; i < rowS; i++) {
                 line = reader.readLine();
-                String[] values = line.split(" ");
+                if (line != null) {String[] values = line.split("\\s+");
                 for (int j = 0; j < colS; j++) {
                     String type = values[j];
-                    Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
-                    if (brick != null) {
-                        bricks.add(brick);
+                    if (type != "0") {
+                        Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
+                            if (brick != null) {
+                            bricks.add(brick);
+                        }
                     }
                 }
+                }
             }
-
         } catch (Exception e) {
             System.err.println("Error loading brick layout: " + e.getMessage());
             e.printStackTrace();

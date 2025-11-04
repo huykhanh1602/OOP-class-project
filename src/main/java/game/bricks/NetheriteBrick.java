@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class NetheriteBrick extends Bricks {
     public NetheriteBrick(double x, double y) {
-        super("NETHERITE_BRICK", x, y, Constant.NETHERITE_DURABILITY, 120, Color.BROWN);
+        super("netherite_brick", x, y, Constant.NETHERITE_DURABILITY, 120, Color.BROWN);
     }
 
 }
