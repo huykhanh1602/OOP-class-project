@@ -78,6 +78,7 @@ public class Constant {
     // sound paths
     public static final String BALL_COLLIDE = "/game/sounds/sfx/ball/ball_collide_";
     public static final String BRICK_BREAK = "/game/sounds/sfx/brick/brick_break_";
+    public static final String BASE_SOUND = "/game/sounds/sfx/";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";

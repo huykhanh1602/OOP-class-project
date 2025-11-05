@@ -55,6 +55,8 @@ public class AssetManager {
         // load sounds
         sounds.put("ball_collide", new ArrayList<>());
         sounds.put("brick_break", new ArrayList<>());
+        sounds.put("click", new ArrayList<>());
+        sounds.put("run_game", new ArrayList<>());
         try {
             for (int i = 1; i <= 5; i++) {
                 String key = "ball_collide_" + i;
@@ -67,6 +69,10 @@ public class AssetManager {
                 String path = Constant.BRICK_BREAK + i + ".wav";
                 soundInput("brick_break", key, path);
             }
+
+            soundInput("click", "click_sound", Constant.BASE_SOUND + "click.wav");
+            soundInput("run_game", "run_game_sound", Constant.BASE_SOUND + "run_game.wav");
+
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());
         }
