@@ -6,7 +6,7 @@ import game.Constant;
 
 public class Bedrock extends Bricks {
     public Bedrock(double x, double y) {
-        super("bedrock_brick", x, y, Constant.BEDROCK_DURABILITY, 0, Color.BLACK);
+        super("BED_ROCK", x, y, Constant.BEDROCK_DURABILITY, 0, Color.BLACK);
     }
 
 }

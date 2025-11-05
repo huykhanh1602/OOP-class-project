@@ -31,7 +31,7 @@ public class BrickLoader {
 
             for (int i = 0; i < rowS; i++) {
                 line = reader.readLine();
-                String[] values = line.split(" ");
+                String[] values = line.split("\\s+");
                 for (int j = 0; j < colS; j++) {
                     String type = values[j];
                     Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
@@ -40,7 +40,6 @@ public class BrickLoader {
                     }
                 }
             }
-            System.out.println("loaded");
 
         } catch (Exception e) {
             System.err.println("Error loading brick layout: " + e.getMessage());

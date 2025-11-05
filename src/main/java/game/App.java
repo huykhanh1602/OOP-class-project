@@ -35,10 +35,22 @@ public class App extends Application {
         stage.show();
     }
 
-    // Switch to Home Scene
-    public void switchToHomeScene() {
+    /**
+     * Changes the current scene to the one specified by fxmlPath.
+     * 
+     * @param fxmlPath   fxmxlPath
+     * @param setupLogic setup logic for controller
+     * @param <T>        Controller type
+     */
+    private <T> void switchScene(String fxmlPath, Consumer<T> setupLogic) {
+        if (this.currentGameController != null) {
+            this.currentGameController.stopGameLoop();
+            this.currentGameController = null;
+        }
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HOME_SCENE_PATH));
+            // load FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
             // get controller
@@ -83,14 +95,43 @@ public class App extends Application {
     public void switchToGameOverScene(int finalScore) {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
-            controller.setScore(finalScore);
+            controller.setScore(finalScore); // Logic riêng của GameOverScene
+            // playBackgroundMusic("game_over_music");
+        });
+    }
 
-            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
+    /**
+     * play the background music.
+     * 
+     * @param musicKey the key of the music to play
+     */
+    public void playBackgroundMusic(String musicKey) {
+        // Dừng nhạc hiện tại trước
+        stopBackgroundMusic();
+
+        if (musicKey == null || musicKey.isEmpty()) {
+            return; // Không phát gì nếu key là null hoặc rỗng
         }
 
+        // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
+        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
+
+        if (backgroundMusic != null) {
+            backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
+            backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            backgroundMusicPlayer.setVolume(1.0); // Rõ ràng hơn khi dùng 1.0
+            backgroundMusicPlayer.play();
+        } else {
+            System.err.println("Cant find: " + musicKey);
+        }
+    }
+
+    public void stopBackgroundMusic() {
+        if (backgroundMusicPlayer != null) {
+            backgroundMusicPlayer.stop();
+            backgroundMusicPlayer.dispose();
+            backgroundMusicPlayer = null;
+        }
     }
 
     // LAUNCH GAME

@@ -43,7 +43,7 @@ public class Paddle {
         try {
             int i = 0;
             while (i != width/Constant.BRICK_WIDTH) {
-            paddleImage = AssetManager.getImage("stone_brick");
+            paddleImage = AssetManager.getImage("STONE_BRICK");
             gc.drawImage(paddleImage, x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
             i++;
             }

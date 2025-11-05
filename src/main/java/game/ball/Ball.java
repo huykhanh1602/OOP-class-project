@@ -9,6 +9,7 @@ import game.abstraction.Bricks;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -23,16 +24,17 @@ public class Ball {
     public boolean isRunning = false;
     
     /// Aiming Arc
-    private double aimAngle = 30;
+    private double aimAngle = 30 ;
     private boolean aimIncrease = true;
     private final double aimSpeed = 1;
-    private final double ainMin = 30;
-    private final double ainMax = 150;
+    private final double ainMin = 30 ;
+    private final double ainMax = 150 ;
     private boolean isPlayerAiming;
 
     private double friction = 0.1; // Ma sát
 
     Image ballImage;
+    Image diretion;
 
     private static final int TRAIL_SIZE = 15;
     private final double[][] trail = new double[TRAIL_SIZE][2];
@@ -42,6 +44,8 @@ public class Ball {
         this.x = x + radius;
         this.y = y + radius;
         ballImage = AssetManager.getImage("ball");
+        diretion = AssetManager.getImage("diretion");
+
     }
 
     public void collides(Paddle paddle) { 
@@ -190,10 +194,22 @@ public class Ball {
 
             double endX = startX + Math.cos(Math.toRadians(aimAngle)) * length;
             double endY = startY - Math.sin(Math.toRadians(aimAngle)) * length;
+            try {
+                double w = diretion.getWidth();
+                double h = diretion.getHeight();
+                double scale = 0.5;
 
-            gc.setStroke(Color.YELLOW);
-            gc.setLineWidth(2);
-            gc.strokeLine(startX, startY, endX, endY);
+                gc.save();
+                gc.translate(startX, startY);
+                gc.rotate(-(aimAngle + 90));
+                gc.drawImage(diretion, -w/2 + w * scale / 2, 0, w * scale, h * scale);
+                gc.restore();
+
+            } catch (Exception e) {
+                gc.setStroke(Color.YELLOW);
+                gc.setLineWidth(2);
+                gc.strokeLine(startX, startY, endX, endY);
+            }
         }
         if (ballImage != null) {
             gc.drawImage( ballImage, x - radius, y - radius, radius * 2, radius * 2);

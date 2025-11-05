@@ -8,8 +8,14 @@
     -fx-font-family: "Minecraft"; /* Font chữ */
     -fx-text-fill: #FFFFFF;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
-    
 }
+
+.score-label {
+    -fx-font-family: "Minecraft"; /* Font chữ */
+    -fx-text-fill: #000000;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
+}
+
 .label-container {
     /* Tạo màu nền cho khối */
     -fx-background-color: rgba(0, 0, 0, 0.5); /* Màu đen mờ 50% */
@@ -28,7 +34,6 @@
 
 .game-button:hover {
     -fx-cursor: hand;
-    
     /* Tạo một vầng sáng trắng mờ xung quanh nút */
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.7), 15, 0.0, 0, 0);
 }
@@ -36,5 +41,13 @@
 .coin-label {
     -fx-font-family: "Minecraft"; /* Font chữ */
     -fx-text-fill: #ffd700;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
+}
+
+.coin-label-container {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 2, 3);
+    -fx-background-image: url("../images/sign.png"); /* Đường dẫn tương đối đến file ảnh */
+    -fx-background-repeat: no-repeat; /* Không lặp lại ảnh */
+    -fx-background-size: contain; /* Điều chỉnh kích thước ảnh cho vừa Label */
+    -fx-background-position: center; /* Đặt ảnh vào giữa Label */
+    -fx-padding: 10px 10px 10px 40px;
 }

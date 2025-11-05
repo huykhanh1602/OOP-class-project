@@ -69,7 +69,7 @@ public class GameSceneController extends GameScene {
     }
 
     private void bindLabel() {
-        var scoreProperty = GameContext.getInstance().currentScore;
+        var scoreProperty = GameContext.getInstance().getCurrentScore();
         scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
     }
 
@@ -111,7 +111,7 @@ public class GameSceneController extends GameScene {
     @FXML
     public void resetGame() {
         if (gameManager != null) {
-            gameManager.reset("level1");
+            gameManager.reset();
         }
 
         if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {

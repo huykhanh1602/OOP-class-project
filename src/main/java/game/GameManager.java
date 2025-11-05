@@ -33,11 +33,6 @@ public class GameManager {
 
     private boolean isAiming = false;
 
-    private int level = 1;
-
-    /// Time tracking for particle updates
-    private long lastUpdateTime = 0;
-
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
@@ -63,7 +58,7 @@ public class GameManager {
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6, brick.getColor());
                         BRICK.remove();
-                        scorePlayer.addScore(brick.getPoint());
+                        GameContext.getInstance().addScore(brick.getPoint());
                     }
                         break;
                 }
@@ -73,29 +68,34 @@ public class GameManager {
             if (ball.getY() > heightScreen) {
                 BALL.remove();
                 if (balls.size() == 0) {
-                    level = 1;
-                    app.switchToGameOverScene(scorePlayer.getScore());
+                    GameContext.getInstance().resetLevel();
+                    gameOver = true;
+                    app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
                 }
             }
 
             if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
-                level++;
-                reset("level"+level);
+                GameContext.getInstance().nextLevel();
+                reset();
             }
         }
     }
 
 
-    public void reset(String path) {
+    public void reset() {
+        this.currentLevel = GameContext.getInstance().getCurrentLevel();
+
         paddle = new Paddle();
         balls = new ArrayList<Ball>();
-        for (int i = 0; i < 2; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidth() / 2.0f, paddle.getY() - paddle.getHeight()));
+        for (int i = 0; i < 3; i++) {
+            balls.add(new Ball(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
-        bricks = BrickLoader.loadBricks(AssetManager.getLevel(path));
-        ParticleManager.getInstance().clear();// clear particles when reset game
+
+        bricks = BrickLoader.loadBricks();
+
+        ParticleManager.getInstance().clear();
         gameOver = false;
-        // reset particle time for particle updates
+        gamePaused = false;
         ParticleManager.setLastUpdateTime();
     }
 
@@ -153,11 +153,6 @@ public class GameManager {
 
         if (key.getCode() == KeyCode.SPACE && !isAiming) {
             this.isAiming = true;
-        }
-
-        if (key.getCode() == KeyCode.R) {
-            level = 1;
-            reset("test");
         }
     }
 

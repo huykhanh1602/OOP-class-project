@@ -4,9 +4,12 @@ import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 
+import java.util.List;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class AssetManager {
     // level
@@ -16,79 +19,66 @@ public class AssetManager {
     private static Map<String, Image> images = new HashMap<>();
 
     // sounds
-    private static Map<String, AudioClip> sounds = new HashMap<>();
+    private static Map<String, ArrayList<AudioClip>> sounds = new HashMap<>();
 
     // music
-    private static Map<String, Media> musics = new HashMap<>();
+    private static Map<String, Map<String, Media>> musics = new HashMap<>();
+
+    private static Random random = new Random();
+
 
     public static void loadAssets() {
         try {
-            level.put("level1", Constant.LEVEL_1);
-            level.put("level2", Constant.LEVEL_2);
-            level.put("level3", Constant.LEVEL_3);
-            level.put("level4", Constant.LEVEL_4);
-            level.put("level5", Constant.LEVEL_5);
-            level.put("test", Constant.TEST);
-        } catch (Exception e) {
-            System.out.println("Error to load level");
-        }
+            imageInput("icon", Constant.ICON_PATH);
+            imageInput("ball", Constant.BALL_PATH);
+            imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
+            imageInput("diretion", Constant.DIRETION);
 
+            imageInput("STONE_BRICK", Constant.STONE_BRICK_IMAGE);
+            imageInput("IRON_BRICK", Constant.IRON_BRICK_IMAGE);
+            imageInput("GOLD_BRICK", Constant.GOLD_BRICK_IMAGE);
+            imageInput("DIAMOND_BRICK", Constant.DIAMOND_BRICK_IMAGE);
+            imageInput("NETHERITE_BRICK", Constant.NETHERITE_BRICK_IMAGE);
+            imageInput("BED_ROCK", Constant.BED_ROCK_IMAGE);
 
-        // load images
-        try {
-            images.put("icon", new Image(AssetManager.class.getResourceAsStream(Constant.ICON_PATH)));
-            images.put("ball", new Image(AssetManager.class.getResourceAsStream(Constant.BALL_PATH)));
-            images.put("paddle", new Image(AssetManager.class.getResourceAsStream(Constant.PADDLE_IMAGE_PATH)));
+            // load destroy stage images
+            for (int i = 1; i <= 9; i++) {
+                String key = "destroy_stage_" + i;
+                String path = Constant.DESTROY_STAGE + i + ".png";
+                imageInput(key, path);
+            }
 
-            images.put("stone_brick",new Image(AssetManager.class.getResourceAsStream(Constant.STONE_BRICK_IMAGE)));
-            images.put("iron_brick",new Image(AssetManager.class.getResourceAsStream(Constant.IRON_BRICK_IMAGE)));
-            images.put("gold_brick",new Image(AssetManager.class.getResourceAsStream(Constant.GOLD_BRICK_IMAGE)));
-            images.put("diamond_brick",new Image(AssetManager.class.getResourceAsStream(Constant.DIAMOND_BRICK_IMAGE)));
-            images.put("netherite_brick",new Image(AssetManager.class.getResourceAsStream(Constant.NETHERITE_BRICK_IMAGE)));
-            images.put("bedrock_brick", new Image(AssetManager.class.getResourceAsStream(Constant.BED_ROCK_IMAGE)));
-
-            images.put("destroy_stage_1", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_1)));
-            images.put("destroy_stage_2", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_2)));
-            images.put("destroy_stage_3", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_3)));
-            images.put("destroy_stage_4", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_4)));
-            images.put("destroy_stage_5", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_5)));
-            images.put("destroy_stage_6", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_6)));
-            images.put("destroy_stage_7", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_7)));
-            images.put("destroy_stage_8", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_8)));
-            images.put("destroy_stage_9", new Image(AssetManager.class.getResourceAsStream(Constant.DESTROY_STAGE_9)));
         } catch (Exception e) {
             System.err.println("Error loading images: " + e.getMessage());
         }
+
         // load sounds
+        sounds.put("ball_collide", new ArrayList<>());
+        sounds.put("brick_break", new ArrayList<>());
         try {
-            sounds.put("brick_hit",
-                    new AudioClip(AssetManager.class.getResource("/game/sounds/brick_hit.wav").toString()));
-            sounds.put("paddle_hit",
-                    new AudioClip(AssetManager.class.getResource("/game/sounds/paddle_hit.wav").toString()));
+            for (int i = 1; i <= 5; i++) {
+                String key = "ball_collide_" + i;
+                String path = Constant.BALL_COLLIDE + i + ".wav";
+                soundInput("ball_collide", key, path);
+            }
+
+            for (int i = 1; i <= 4; i++) {
+                String key = "brick_break_" + i;
+                String path = Constant.BRICK_BREAK + i + ".wav";
+                soundInput("brick_break", key, path);
+            }
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());
         }
 
         // load music
+        musics.put("Home_Background", new HashMap<>());
         try {
             musics.get("Home_Background").put("home_background_music",
                     new Media(AssetManager.class.getResource(Constant.HOME_BACKGROUND_MUSIC).toString()));
         } catch (Exception e) {
             System.err.println("Error loading music: " + e.getMessage());
         }
-    }
-
-    // getter methods
-    public static String getLevel(String key) {
-        return level.get(key);
-    }
-
-    public static Image getImage(String key) {
-        return images.get(key);
-    }
-
-    public static Media getMusic(String category, String key) {
-        return musics.get(category).get(key);
     }
 
     public static void playSound(String key) {
@@ -130,4 +120,16 @@ public class AssetManager {
         }
     }
 
+    // getter methods
+    public static Image getImage(String key) {
+        return images.get(key);
+    }
+
+    public static Media getMusic(String category, String key) {
+        return musics.get(category).get(key);
+    }
+
+    public static String getLevel(String key) {
+        return level.get(key);
+    }
 }

@@ -21,50 +21,45 @@
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="10.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
             <Canvas fx:id="gameCanvas" height="680.0" layoutX="10.0" layoutY="20.0" width="1000.0" />
-            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1065.0" layoutY="141.0" prefHeight="127.0" prefWidth="188.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
+            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1061.0" layoutY="484.0" prefHeight="127.0" prefWidth="188.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
                <styleClass>
-                  <String fx:value="text-label" />
-                  <String fx:value="label-container" />
+                  <String fx:value="score-label" />
+                  <String fx:value="coin-label-container" />
                </styleClass>
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1089.0" layoutY="448.0" prefHeight="115.0" prefWidth="142.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
+            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1072.0" layoutY="160.0" prefHeight="109.0" prefWidth="166.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
+               <font>
+                  <Font size="19.0" />
+               </font>
                <styleClass>
                   <String fx:value="coin-label" />
                   <String fx:value="label-container" />
                </styleClass>
-               <font>
-                  <Font size="15.0" />
-               </font>
             </Label>
-            <ImageView fx:id="creeperImage" fitHeight="183.0" fitWidth="174.0" layoutX="1084.0" layoutY="20.0" onKeyPressed="#startDrawImage" onKeyReleased="#startDrawImage" onMouseExited="#startDrawImage" onMousePressed="#startDrawImage" onMouseReleased="#startDrawImage" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="creeperImage" fitHeight="183.0" fitWidth="174.0" layoutX="1084.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/creeper.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="25.0" fitWidth="16.0" layoutX="1208.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/coin.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="51.0" layoutX="1079.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" rotate="6.8">
+            <ImageView fitHeight="60.0" fitWidth="51.0" layoutX="1093.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" rotate="21.5">
                <image>
                   <Image url="@../images/items/diamond.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="74.0" fitWidth="50.0" layoutX="1040.0" layoutY="227.0" pickOnBounds="true" preserveRatio="true" rotate="-61.3">
+            <ImageView fitHeight="74.0" fitWidth="50.0" layoutX="1042.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" rotate="-25.3">
                <image>
                   <Image url="@../images/items/emarld.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="1054.0" layoutY="247.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="1061.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/compass.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="176.0" fitWidth="131.0" layoutX="1195.0" layoutY="144.0" pickOnBounds="true" preserveRatio="true" rotate="-19.8">
+            <ImageView fitHeight="204.0" fitWidth="149.0" layoutX="1191.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true" rotate="-19.8">
                <image>
                   <Image url="@../images/torch.gif" />
                </image>
