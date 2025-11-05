@@ -11,6 +11,7 @@ import game.objects.Paddle;
 import game.particle.ParticleManager;
 import game.score.ScoreManager;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -135,8 +136,6 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
-
-        ParticleManager.getInstance().render(gc);
     }
 
 

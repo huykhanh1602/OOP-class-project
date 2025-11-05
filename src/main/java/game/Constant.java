@@ -16,8 +16,8 @@ public class Constant {
     // // ball settings
     // public static int BALL_RADIUS = 10;
     // public static int INITIAL_BALL_SPEED = 5;
-    // public static final int BRICK_ROWS = 9;
-    // public static final int BRICK_COLUMNS = 10;
+    // public static final int BRICK_ROWS = 10;
+    // public static final int BRICK_COLUMNS = 20;
     public static final String BALL_PATH = "/game/images/ball.png";
 
     // level
@@ -27,6 +27,18 @@ public class Constant {
     public static final String LEVEL_4 = "/game/map/level4.txt";
     public static final String LEVEL_5 = "/game/map/level5.txt";
     public static final String TEST = "/game/map/test.txt";
+
+    // element
+    public static final String HEART = "game/images/element/heart.png";
+    public static final String COIN = "game/images/element/coin.png";
+
+    //power up
+    public static final String DIAMOND = "game/images/items/diamond.png";
+    public static final String EMARLD = "game/images/items/emarld.png";
+    public static final String EXPPOTION = "game/images/items/expPotion.png";
+    public static final String EYEOFDRAGON = "game/images/items/eyeOfDragon.png";
+    public static final String GOLDEN_APPLE = "game/images/items/golden_apple.png";
+
 
     // brick settings
     public static final int BRICK_WIDTH = 50;

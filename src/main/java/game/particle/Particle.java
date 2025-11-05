@@ -56,9 +56,6 @@ public class Particle extends GameObject {
 
     public boolean isAlive() {
         if (lifeSpan <= 0) {
-            // System.out.println(
-            // "Particle life " + (System.nanoTime() - creationTime) /
-            // 1_000_000_000.0 + " seconds");
         }
         return lifeSpan > 0;
     }

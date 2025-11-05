@@ -25,6 +25,8 @@ public abstract class GameScene implements Initializable {
     @FXML
     protected AnchorPane gamePane;
 
+    private Binding<Number> scale;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -34,11 +36,15 @@ public abstract class GameScene implements Initializable {
 
         // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
         // cropping)
-        Binding<Number> scale = Bindings.min(widthScale, heightScale);
+        scale = Bindings.min(widthScale, heightScale);
 
         // Apply the scale to the gamePane
         gamePane.scaleXProperty().bind(scale);
         gamePane.scaleYProperty().bind(scale);
+    }
+
+    public Binding<Number> getScale() {
+        return scale;
     }
 
     public void setup(App app) {
@@ -64,5 +70,4 @@ public abstract class GameScene implements Initializable {
             System.out.println("Error: App reference is null");
         }
     }
-
 }

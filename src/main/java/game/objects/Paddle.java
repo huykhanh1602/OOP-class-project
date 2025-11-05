@@ -7,6 +7,7 @@ import static game.Constant.WIDTH_SCREEN;
 import game.AssetManager;
 import game.Constant;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -23,6 +24,8 @@ public class Paddle {
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
+
+    Image paddleImage;
 
     public Paddle() {
         this.x = 1000/2 - width/2;
@@ -43,7 +46,8 @@ public class Paddle {
         try {
             int i = 0;
             while (i != width/Constant.BRICK_WIDTH) {
-            gc.drawImage(AssetManager.getImage("stone_brick"), x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+            paddleImage = AssetManager.getImage("stone_brick");
+            gc.drawImage(paddleImage, x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
             i++;
             }
         } catch (Exception e) {

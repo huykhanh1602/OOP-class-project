@@ -37,9 +37,7 @@ public class AssetManager {
         // load images
         try {
             images.put("icon", new Image(AssetManager.class.getResourceAsStream(Constant.ICON_PATH)));
-
             images.put("ball", new Image(AssetManager.class.getResourceAsStream(Constant.BALL_PATH)));
-
             images.put("paddle", new Image(AssetManager.class.getResourceAsStream(Constant.PADDLE_IMAGE_PATH)));
 
             images.put("stone_brick",new Image(AssetManager.class.getResourceAsStream(Constant.STONE_BRICK_IMAGE)));
