@@ -13,14 +13,4 @@ public class GameOverController extends GameScene {
         scoreLabel.setText("Score: " + finalScore);
     }
 
-    @FXML
-    protected void setToHome(ActionEvent e) {
-        System.out.println("home button pressed");
-        if (app != null) {
-            app.switchToHomeScene();
-        } else {
-            System.out.println("Error: App reference is null");
-        }
-    }
-
 }
