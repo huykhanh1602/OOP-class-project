@@ -6,6 +6,7 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
+import game.ball.NormalBall;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
@@ -74,9 +75,9 @@ public class GameManager {
 
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
-
+                double dame = ball.getDamge();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    brick.hit(10);
+                    brick.hit(dame);
                     ball.collides(brick);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
@@ -110,8 +111,8 @@ public class GameManager {
 
         paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
-        for (int i = 0; i < 1; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
+        for (int i = 0; i < 3; i++) {
+            balls.add(new NormalBall(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
 
         bricks = BrickLoader.loadBricks();

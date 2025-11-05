@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 ///  Ball movement
 
-public class Ball {
+public abstract class Ball {
     /// ELEMENT BALL
     private double x, y;
     private static double radius = 15; // Size ball
