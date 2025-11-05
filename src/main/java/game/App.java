@@ -33,6 +33,8 @@ public class App extends Application {
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
+
+        AssetManager.playSound("run_game");
     }
 
     // call when start a new game

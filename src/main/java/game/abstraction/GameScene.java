@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
+import game.AssetManager;
 import game.Constant;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
@@ -48,6 +49,7 @@ public abstract class GameScene implements Initializable {
     // event handlers
     @FXML
     protected void handleStartButtonAction(ActionEvent e) {
+        AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
             app.startNewGame();
@@ -58,6 +60,7 @@ public abstract class GameScene implements Initializable {
 
     @FXML
     protected void Quit(ActionEvent e) {
+        AssetManager.playSound("click");
         System.out.println("quit button pressed");
         if (app != null) {
             Platform.exit();
@@ -68,6 +71,7 @@ public abstract class GameScene implements Initializable {
 
     @FXML
     protected void returnToHome(ActionEvent e) {
+        AssetManager.playSound("click");
         System.out.println("Return to home button pressed");
         if (app != null) {
             app.switchToHomeScene();
