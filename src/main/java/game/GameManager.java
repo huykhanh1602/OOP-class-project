@@ -180,7 +180,6 @@ public class GameManager {
                 aimIncrease = true;
             }
         }
-
         checkCollision();
 
         double deltaTime = calculateDeltaTime();

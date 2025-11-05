@@ -16,6 +16,8 @@ public class Ball {
     private double dx, dy; // Vector speed
     private double speedball = 5;
     public boolean isRunning = false;
+    private double damege;
+    private double Maxcollision;
 
     private double friction = 0.2; // Ma sát
 
@@ -27,7 +29,6 @@ public class Ball {
     public Ball(double x, double y) {
         this.x = x + radius; // POSITION
         this.y = y + radius;
-
     }
 
     public void bounceX() {
@@ -268,5 +269,18 @@ public class Ball {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    public double getDamge() {
+        return damege;
+    }
+    public void setDamege(double damge) {
+        this.damege = damge;
+    }
+    public double getMaxcollision() {
+        return Maxcollision;
+    }
+    public void setMaxcollision(double maxcollision) {
+        Maxcollision = maxcollision;
     }
 }
