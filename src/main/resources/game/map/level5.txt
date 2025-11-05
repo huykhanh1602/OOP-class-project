@@ -1,0 +1,8 @@
+b b b b b b b b b b b b b b b b b b b b
+b n n n n n n n n n n n n n n n n n n b
+b n d d d d d d d d d d d d d d d n n b
+b n d 0 d 0 d 0 d 0 d 0 d 0 d 0 d n n b
+b n d 0 g 0 g 0 g 0 g 0 g 0 g 0 d n n b
+b n d 0 g 0 i 0 i 0 i 0 i 0 g 0 d n n b
+b n d 0 g 0 i 0 s 0 s 0 i 0 g 0 d n n b
+b n d 0 g 0 i 0 s s s s 0 i 0 g 0 d n b

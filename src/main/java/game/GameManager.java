@@ -9,7 +9,6 @@ import game.ball.Ball;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
-import game.score.ScoreManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -27,13 +26,17 @@ public class GameManager {
     private List<Bricks> bricks;
 
     /// Game statistics
-    private ScoreManager scorePlayer = new ScoreManager();
-    private boolean gameOver;
     private final App app;
+    private boolean gameOver;
+    private boolean gamePaused = false;
+    private int currentLevel;
 
     private boolean isAiming = false;
 
     private int level = 1;
+
+    /// Time tracking for particle updates
+    private long lastUpdateTime = 0;
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -113,7 +116,12 @@ public class GameManager {
     }
 
     public void update() {
-        if (gameOver) {
+
+        if (gamePaused == true) {
+            return;
+        }
+        // check game over
+        if (gameOver == true) {
             return;
         }
         paddle.update();
@@ -162,6 +170,6 @@ public class GameManager {
     }
 
     public int getScore() {
-        return scorePlayer.getScore();
+        return GameContext.getInstance().getCurrentScore();
     }
 }

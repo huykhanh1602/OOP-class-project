@@ -52,10 +52,6 @@ public abstract class Bricks extends GameObject {
         return new Rectangle2D(x, y, width, height);
     }
 
-    public void update() {
-        // Maybe change later
-    }
-
     public void render(GraphicsContext gc) {
         if (durability == 0) {
             return;
@@ -129,5 +125,4 @@ public abstract class Bricks extends GameObject {
     public boolean isDestroyable() {
         return destroyable;
     }
-
 }

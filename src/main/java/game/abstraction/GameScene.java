@@ -37,9 +37,6 @@ public abstract class GameScene implements Initializable {
         // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
         // cropping)
         scale = Bindings.min(widthScale, heightScale);
-
-        // Apply the scale to the gamePane
-        gamePane.scaleXProperty().bind(scale);
         gamePane.scaleYProperty().bind(scale);
     }
 

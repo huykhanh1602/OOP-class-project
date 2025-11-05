@@ -2,8 +2,6 @@ package game.objects;
 
 import static game.Constant.BRICK_WIDTH;
 import static game.Constant.HEIGHT_SCREEN;
-import static game.Constant.WIDTH_SCREEN;
-
 import game.AssetManager;
 import game.Constant;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,7 +16,6 @@ public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
     private int width = 1000;
-    // private int width = Constant.BRICK_WIDTH * 5;
     private int height = Constant.BRICK_HEIGHT;
     private double speed = 5; // SPEED PADDLE
 

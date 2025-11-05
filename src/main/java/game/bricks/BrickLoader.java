@@ -5,38 +5,43 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import game.Constant;
 import game.abstraction.Bricks;
+import game.GameContext;
 
 public class BrickLoader {
     private static final int colS = 20;
-    private static final int rowS = 10;
+    private static final int rowS = 8;
 
-    public static List<Bricks> loadBricks(String path) {
+    public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
+        String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
         BufferedReader reader = null;
+        String line;
+
         try {
             InputStream is = BrickLoader.class.getResourceAsStream(path);
-            String line;
+            if (is == null) {
+                throw new IOException("File not found: " + path);
+            }
+
             reader = new BufferedReader(new InputStreamReader(is));
 
             for (int i = 0; i < rowS; i++) {
                 line = reader.readLine();
-                if (line != null) {String[] values = line.split("\\s+");
+                String[] values = line.split(" ");
                 for (int j = 0; j < colS; j++) {
                     String type = values[j];
-                    if (type != "0") {
-                        Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
-                            if (brick != null) {
-                            bricks.add(brick);
-                        }
+                    Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
+                    if (brick != null) {
+                        bricks.add(brick);
                     }
                 }
-                }
             }
+            System.out.println("loaded");
+
         } catch (Exception e) {
             System.err.println("Error loading brick layout: " + e.getMessage());
             e.printStackTrace();

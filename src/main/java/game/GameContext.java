@@ -1,6 +1,11 @@
 package game;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 public class GameContext {
+    private int highScore;
+    private int currentScore;
+
     private static final GameContext instance = new GameContext();
 
     private GameContext() {
@@ -10,9 +15,7 @@ public class GameContext {
         return instance;
     }
 
-    // Storage of virable
     private int currentDifficulty = 1;
-    private int highScore = 0;
     private double soundVolume = 0.8;
     // private double backgroundMusic = 0.8;
 
@@ -38,6 +41,21 @@ public class GameContext {
     }
 
     public void setHighScore(int score) {
-        this.highScore = score;
+        if (score > this.highScore) {
+            this.highScore = score;
+        }
+    }
+
+    public int getCurrentScore() {
+        return currentScore.get();
+    }
+
+    public void setCurrentScore(int score) {
+        this.currentScore.set(score);
+    }
+
+    public void addScore(int score) {
+        this.currentScore.set(this.currentScore.get() + score);
+
     }
 }

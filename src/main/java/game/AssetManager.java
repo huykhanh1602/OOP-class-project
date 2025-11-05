@@ -71,26 +71,63 @@ public class AssetManager {
 
         // load music
         try {
-            musics.put("home_background_music",
-                    new Media(
-                            AssetManager.class.getResource("/game/sounds/music/Home_background_music.mp3").toString()));
+            musics.get("Home_Background").put("home_background_music",
+                    new Media(AssetManager.class.getResource(Constant.HOME_BACKGROUND_MUSIC).toString()));
         } catch (Exception e) {
             System.err.println("Error loading music: " + e.getMessage());
         }
     }
 
+    // getter methods
     public static String getLevel(String key) {
         return level.get(key);
-    }
-
-    public static AudioClip getSound(String key) {
-        return sounds.get(key);
-    }
-    public static Media getMusic(String key) {
-        return musics.get(key);
     }
 
     public static Image getImage(String key) {
         return images.get(key);
     }
+
+    public static Media getMusic(String category, String key) {
+        return musics.get(category).get(key);
+    }
+
+    public static void playSound(String key) {
+        List<AudioClip> soundList = sounds.get(key);
+
+        // Kiểm tra xem gói âm thanh có tồn tại và có âm thanh không
+        if (soundList == null || soundList.isEmpty()) {
+            System.err.println("Sound pack not found or empty: " + key);
+            return;
+        }
+
+        // Chọn ngẫu nhiên một AudioClip từ List
+        int index = random.nextInt(soundList.size());
+        AudioClip clipToPlay = soundList.get(index);
+
+        // Phát âm thanh
+        clipToPlay.play();
+    }
+
+    // helper methods to load assets
+    public static void imageInput(String key, String path) {
+        try (InputStream inputStream = AssetManager.class.getResourceAsStream(path)) {
+            if (inputStream == null) {
+                System.err.println("Image resource not found: " + path);
+                return;
+            }
+            images.put(key, new Image(inputStream));
+        } catch (Exception e) {
+            System.err.println("Failed to load image " + path + ": " + e.getMessage());
+        }
+    }
+
+    public static void soundInput(String category, String key, String path) {
+        try {
+            AudioClip audioClip = new AudioClip(AssetManager.class.getResource(path).toString());
+            sounds.get(category).add(audioClip);
+        } catch (Exception e) {
+            System.err.println("Failed to load sound " + path + ": " + e.getMessage());
+        }
+    }
+
 }

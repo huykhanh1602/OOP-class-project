@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import game.App;
 import game.Constant;
+import game.GameContext;
 import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.animation.AnimationTimer;
@@ -67,6 +68,12 @@ public class GameSceneController extends GameScene {
         resetGame();
     }
 
+    private void bindLabel() {
+        var scoreProperty = GameContext.getInstance().currentScore;
+        scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
+    }
+
+    // Set up input handlers for key presses and releases
     private void setupInputHandlers() {
         gameCanvas.setFocusTraversable(true);
         gameCanvas.setOnKeyPressed(e -> gameManager.handleKeyPress(e));
@@ -105,6 +112,13 @@ public class GameSceneController extends GameScene {
     public void resetGame() {
         if (gameManager != null) {
             gameManager.reset("level1");
+        }
+
+        if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {
+            startGameLoop();
+        } else if (gameLoop == null) {
+            createGameLoop();
+            startGameLoop();
         }
 
         if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {

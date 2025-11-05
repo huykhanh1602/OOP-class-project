@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,23 +35,10 @@ public class App extends Application {
         stage.show();
     }
 
-    /**
-     * Changes the current scene to the one specified by fxmlPath.
-     * 
-     * @param fxmlPath   fxmxlPath
-     * @param setupLogic setup logic for controller
-     * @param <T>        Controller type
-     */
-    private <T> void switchScene(String fxmlPath, Consumer<T> setupLogic) {
-        // 1. Dừng game loop (logic chung)
-        if (this.currentGameController != null) {
-            this.currentGameController.stopGameLoop();
-            this.currentGameController = null;
-        }
-
+    // Switch to Home Scene
+    public void switchToHomeScene() {
         try {
-            // load FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Constant.HOME_SCENE_PATH));
             Parent root = loader.load();
 
             // get controller
@@ -95,43 +83,14 @@ public class App extends Application {
     public void switchToGameOverScene(int finalScore) {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
-            controller.setScore(finalScore); // Logic riêng của GameOverScene
-            // playBackgroundMusic("game_over_music");
-        });
-    }
+            controller.setScore(finalScore);
 
-    /**
-     * play the background music.
-     * 
-     * @param musicKey the key of the music to play
-     */
-    public void playBackgroundMusic(String musicKey) {
-        // Dừng nhạc hiện tại trước
-        stopBackgroundMusic();
-
-        if (musicKey == null || musicKey.isEmpty()) {
-            return; // Không phát gì nếu key là null hoặc rỗng
+            Scene scene = new Scene(root, primaryStage.getWidth(), primaryStage.getHeight());
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            throw new RuntimeException("Cant load FXML: " + Constant.HOME_SCENE_PATH, e);
         }
 
-        // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
-        Media backgroundMusic = AssetManager.getMusic("home_background_music");
-
-        if (backgroundMusic != null) {
-            backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
-            backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            backgroundMusicPlayer.setVolume(1.0); // Rõ ràng hơn khi dùng 1.0
-            backgroundMusicPlayer.play();
-        } else {
-            System.err.println("Cant find: " + musicKey);
-        }
-    }
-
-    public void stopBackgroundMusic() {
-        if (backgroundMusicPlayer != null) {
-            backgroundMusicPlayer.stop();
-            backgroundMusicPlayer.dispose();
-            backgroundMusicPlayer = null;
-        }
     }
 
     // LAUNCH GAME

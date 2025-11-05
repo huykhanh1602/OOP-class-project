@@ -1,7 +1,7 @@
 package game.bricks;
 
-import game.abstraction.Bricks;
 import game.Constant;
+import game.abstraction.Bricks;
 import javafx.scene.paint.Color;
 
 public class StoneBrick extends Bricks {
