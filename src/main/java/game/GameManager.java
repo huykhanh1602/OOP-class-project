@@ -80,6 +80,7 @@ public class GameManager {
                     ball.collides(brick);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
+                        AssetManager.playSound("brick_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
 

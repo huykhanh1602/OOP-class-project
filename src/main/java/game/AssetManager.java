@@ -5,18 +5,26 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 public class AssetManager {
     // images
     private static Map<String, Image> images = new HashMap<>();
     // sounds
-    private static Map<String, AudioClip> sounds = new HashMap<>();
+    private static Map<String, ArrayList<AudioClip>> sounds = new HashMap<>();
     // music
     private static Map<String, Map<String, Media>> musics = new HashMap<>();
 
+    // random generator
+    private static Random random = new Random();
+
     public static void loadAssets() {
+
         // load images
         try {
             imageInput("icon", Constant.ICON_PATH);
@@ -30,25 +38,32 @@ public class AssetManager {
             imageInput("NETHERITE_BRICK", Constant.NETHERITE_BRICK_IMAGE);
             imageInput("BED_ROCK", Constant.BED_ROCK_IMAGE);
 
-            imageInput("destroy_stage_1", Constant.DESTROY_STAGE_1);
-            imageInput("destroy_stage_2", Constant.DESTROY_STAGE_2);
-            imageInput("destroy_stage_3", Constant.DESTROY_STAGE_3);
-            imageInput("destroy_stage_4", Constant.DESTROY_STAGE_4);
-            imageInput("destroy_stage_5", Constant.DESTROY_STAGE_5);
-            imageInput("destroy_stage_6", Constant.DESTROY_STAGE_6);
-            imageInput("destroy_stage_7", Constant.DESTROY_STAGE_7);
-            imageInput("destroy_stage_8", Constant.DESTROY_STAGE_8);
-            imageInput("destroy_stage_9", Constant.DESTROY_STAGE_9);
+            // load destroy stage images
+            for (int i = 1; i <= 9; i++) {
+                String key = "destroy_stage_" + i;
+                String path = Constant.DESTROY_STAGE + i + ".png";
+                imageInput(key, path);
+            }
+
         } catch (Exception e) {
             System.err.println("Error loading images: " + e.getMessage());
         }
 
         // load sounds
+        sounds.put("ball_collide", new ArrayList<>());
+        sounds.put("brick_break", new ArrayList<>());
         try {
-            sounds.put("brick_hit",
-                    new AudioClip(AssetManager.class.getResource("/game/sounds/brick_hit.wav").toString()));
-            sounds.put("paddle_hit",
-                    new AudioClip(AssetManager.class.getResource("/game/sounds/paddle_hit.wav").toString()));
+            for (int i = 1; i <= 5; i++) {
+                String key = "ball_collide_" + i;
+                String path = Constant.BALL_COLLIDE + i + ".wav";
+                soundInput("ball_collide", key, path);
+            }
+
+            for (int i = 1; i <= 4; i++) {
+                String key = "brick_break_" + i;
+                String path = Constant.BRICK_BREAK + i + ".wav";
+                soundInput("brick_break", key, path);
+            }
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());
         }
@@ -63,18 +78,33 @@ public class AssetManager {
         }
     }
 
+    // getter methods
     public static Image getImage(String key) {
         return images.get(key);
-    }
-
-    public static AudioClip getSound(String key) {
-        return sounds.get(key);
     }
 
     public static Media getMusic(String category, String key) {
         return musics.get(category).get(key);
     }
 
+    public static void playSound(String key) {
+        List<AudioClip> soundList = sounds.get(key);
+
+        // Kiểm tra xem gói âm thanh có tồn tại và có âm thanh không
+        if (soundList == null || soundList.isEmpty()) {
+            System.err.println("Sound pack not found or empty: " + key);
+            return;
+        }
+
+        // Chọn ngẫu nhiên một AudioClip từ List
+        int index = random.nextInt(soundList.size());
+        AudioClip clipToPlay = soundList.get(index);
+
+        // Phát âm thanh
+        clipToPlay.play();
+    }
+
+    // helper methods to load assets
     public static void imageInput(String key, String path) {
         try (InputStream inputStream = AssetManager.class.getResourceAsStream(path)) {
             if (inputStream == null) {
@@ -84,6 +114,15 @@ public class AssetManager {
             images.put(key, new Image(inputStream));
         } catch (Exception e) {
             System.err.println("Failed to load image " + path + ": " + e.getMessage());
+        }
+    }
+
+    public static void soundInput(String category, String key, String path) {
+        try {
+            AudioClip audioClip = new AudioClip(AssetManager.class.getResource(path).toString());
+            sounds.get(category).add(audioClip);
+        } catch (Exception e) {
+            System.err.println("Failed to load sound " + path + ": " + e.getMessage());
         }
     }
 

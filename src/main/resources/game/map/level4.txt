@@ -1,0 +1,8 @@
+b 0 0 0 b 0 0 0 b 0 0 0 b 0 0 0 b 0 0 0
+d d d d d d d d d d d d d d d d d d d d
+0 i 0 i 0 i 0 i 0 i 0 i 0 i 0 i 0 i 0 i
+i i i i i i i i i i i i i i i i i i i i
+0 g 0 g 0 g 0 g 0 g 0 g 0 g 0 g 0 g 0 g
+g g g g g g g g g g g g g g g g g g g g
+s s s s s s s s s s s s s s s s s s s s
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

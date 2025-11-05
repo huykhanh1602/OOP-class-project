@@ -54,6 +54,7 @@ public class Ball {
                 y + radius < paddle.getY() + speedball * 1.5) {
             y = paddle.getY() - radius;
             bounceY();
+            AssetManager.playSound("ball_collide");
 
             // Paddle friction
             double paddleMoment = paddle.getSpeed();
@@ -75,15 +76,21 @@ public class Ball {
                         (x - radius < paddle.getX() + paddle.getWidthPaddle() &&
                                 x - radius > paddle.getX() + paddle.getWidthPaddle() - speedball * 1.5))) {
             bounceX();
+            AssetManager.playSound("ball_collide");
         }
     }
 
     public void collides(Ball ball) { // wall collision
 
-        if (x <= 10 + radius || x + radius * 2 >= 1000)
+        if (x <= 10 + radius || x + radius * 2 >= 1000) {
             bounceX(); // WALL
-        if (y <= 20 + radius)
+            AssetManager.playSound("ball_collide");
+        }
+
+        if (y <= 20 + radius) {
             bounceY(); // FLOOR
+            AssetManager.playSound("ball_collide");
+        }
     }
 
     // public void collides(Bricks brick) { //Va chạm với brick

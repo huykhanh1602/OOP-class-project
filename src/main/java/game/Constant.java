@@ -51,16 +51,12 @@ public class Constant {
     // paddle image path
     public static final String PADDLE_IMAGE_PATH = "/game/images/nem_chua_green.png";
 
-    // Destroy Stage image path
-    public static final String DESTROY_STAGE_1 = "/game/images/destroyStage/destroy_stage_1.png";
-    public static final String DESTROY_STAGE_2 = "/game/images/destroyStage/destroy_stage_2.png";
-    public static final String DESTROY_STAGE_3 = "/game/images/destroyStage/destroy_stage_3.png";
-    public static final String DESTROY_STAGE_4 = "/game/images/destroyStage/destroy_stage_4.png";
-    public static final String DESTROY_STAGE_5 = "/game/images/destroyStage/destroy_stage_5.png";
-    public static final String DESTROY_STAGE_6 = "/game/images/destroyStage/destroy_stage_6.png";
-    public static final String DESTROY_STAGE_7 = "/game/images/destroyStage/destroy_stage_7.png";
-    public static final String DESTROY_STAGE_8 = "/game/images/destroyStage/destroy_stage_8.png";
-    public static final String DESTROY_STAGE_9 = "/game/images/destroyStage/destroy_stage_9.png";
+    // images path
+    public static final String DESTROY_STAGE = "/game/images/destroyStage/destroy_stage_";
+
+    // sound paths
+    public static final String BALL_COLLIDE = "/game/sounds/sfx/ball/ball_collide_";
+    public static final String BRICK_BREAK = "/game/sounds/sfx/brick/brick_break_";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";
