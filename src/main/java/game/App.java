@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+import game.scenes.SettingSceneController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -80,7 +81,7 @@ public class App extends Application {
     public void switchToHomeScene() {
         switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
             controller.setup(this);
-            // playBackgroundMusic("home_background_music");
+            playBackgroundMusic("home_background_music");
         });
     }
 
@@ -93,12 +94,18 @@ public class App extends Application {
         });
     }
 
+    public void switchtoSettingScene() {
+        switchScene(Constant.SETTING_SCENE_PATH, (SettingSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
     // Switch to Game Over Scene
     public void switchToGameOverScene(int finalScore) {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
             controller.setScore(finalScore); // Logic riêng của GameOverScene
-            // playBackgroundMusic("game_over_music");
+            //playBackgroundMusic("game_over_music");
         });
     }
 
@@ -121,7 +128,7 @@ public class App extends Application {
         if (backgroundMusic != null) {
             backgroundMusicPlayer = new MediaPlayer(backgroundMusic);
             backgroundMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-            backgroundMusicPlayer.setVolume(1.0); // Rõ ràng hơn khi dùng 1.0
+            backgroundMusicPlayer.setVolume(GameContext.getInstance().getBackgroundMusic()); // Rõ ràng hơn khi dùng 1.0
             backgroundMusicPlayer.play();
         } else {
             System.err.println("Cant find: " + musicKey);

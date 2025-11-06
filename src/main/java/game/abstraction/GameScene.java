@@ -1,5 +1,6 @@
 package game.abstraction;
 
+import java.awt.Desktop;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,6 +61,16 @@ public abstract class GameScene implements Initializable {
     }
 
     @FXML
+    protected void Setting(ActionEvent e) {
+        AssetManager.playSound("click");
+        if (app != null) {
+            app.switchtoSettingScene();
+        } else {
+            System.out.println("error setting scene");
+        }
+    }
+
+    @FXML
     protected void Quit(ActionEvent e) {
         AssetManager.playSound("click");
         System.out.println("quit button pressed");
@@ -67,6 +78,14 @@ public abstract class GameScene implements Initializable {
             Platform.exit();
         } else {
             System.out.println("Error: App reference is null");
+        }
+    }
+
+    @FXML
+    protected void returnHomeScene(ActionEvent e) {
+        AssetManager.playSound("click");
+        if (app != null) {
+            app.switchToHomeScene();
         }
     }
 }

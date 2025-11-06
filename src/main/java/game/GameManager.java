@@ -52,8 +52,10 @@ public class GameManager {
 
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     ball.collides(brick);
+                    AssetManager.playSound("brick_break");
                     brick.hit(10);
                     if (brick.isBroken()) {
+                        AssetManager.playSound("ball_collide");
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6, brick.getColor());
@@ -144,6 +146,7 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
+        ParticleManager.getInstance().render(gc);
     }
 
 

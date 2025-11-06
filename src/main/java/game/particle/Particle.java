@@ -15,7 +15,7 @@ public class Particle extends GameObject {
     private Color color;
 
     // Đơn vị: pixels / giây^2 (pixels per second squared)
-    private static final double GRAVITY = 98.0;
+    private static final double GRAVITY = 500.0;
 
     public Particle(double x, double y, Color color) {
         super(x, y, 5, 5);

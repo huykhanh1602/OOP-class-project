@@ -14,7 +14,8 @@ public class GameContext {
 
     private int currentDifficulty = 1;
     private double soundVolume = 0.8;
-    // private double backgroundMusic = 0.8;
+    private double backgroundMusic = 0.8;
+    private double masterVolume = 1;
 
     private int highScore = 0;
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
@@ -55,7 +56,7 @@ public class GameContext {
     }
 
     public double getSoundVolume() {
-        return soundVolume;
+        return soundVolume * masterVolume;
     }
 
     public void setSoundVolume(double volume) {
@@ -84,4 +85,21 @@ public class GameContext {
         this.currentScore.set(this.currentScore.get() + score);
 
     }
+
+    public double getBackgroundMusic() {
+        return backgroundMusic * masterVolume;
+    }
+
+    public void setBackgroundMusic(double backgroundMusic) {
+        this.backgroundMusic = backgroundMusic;
+    }
+
+    public double getMasterVolume() {
+        return masterVolume;
+    }
+
+    public void setMasterVolume(double masterVolume) {
+        this.masterVolume = masterVolume;
+    }
+    
 }

@@ -67,6 +67,7 @@ public class Constant {
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
     public static final String HOME_SCENE_PATH = "/game/scenes/HomeScene.fxml";
+    public static final String SETTING_SCENE_PATH = "/game/scenes/SettingScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path
@@ -85,6 +86,6 @@ public class Constant {
     public static final int FIRST_DIFFICULTY = 1;
 
     // Home scene music
-    public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/Home_background_music.mp3";
+    public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/music/Home_background_music.mp3";
 
 }

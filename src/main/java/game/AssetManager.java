@@ -99,6 +99,7 @@ public class AssetManager {
         // Chọn ngẫu nhiên một AudioClip từ List
         int index = random.nextInt(soundList.size());
         AudioClip clipToPlay = soundList.get(index);
+        clipToPlay.setVolume(GameContext.getInstance().getSoundVolume());
 
         // Phát âm thanh
         clipToPlay.play();

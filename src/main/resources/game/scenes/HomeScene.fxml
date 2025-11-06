@@ -37,7 +37,7 @@
                   <String fx:value="game-button" />
                </styleClass>
                 </Button>
-                <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
+                <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" onAction="#Setting" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
                     <styleClass>
                         <String fx:value="text-label" />
                         <String fx:value="label-container" />
