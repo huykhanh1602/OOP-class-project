@@ -1,5 +1,7 @@
 package game.ball;
 
+import game.abstraction.Bricks;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,17 +15,17 @@ public class ItemsADNBall extends ItemsForBall {
     private static final double SHATTER_DAMAGE = 1.0;
 
     public ItemsADNBall() {
-        super("Bóng ADN", "Va chạm gạch có 50% sẽ tạo ra 2 bóng con trong", 10, 20);
+        super("Bóng ADN", "Va chạm gạch sẽ tạo ra 2 bóng con trong", 10, 20);
     }
     @Override
-    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls) {
-        if (collidingBall.isClone() || Math.random() <= 0.50) {
+    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+        if (collidingBall.isClone()) {
             return;
         }
         // Tạo ra các bóng con
         List<Ball> newBalls = this.shatter(collidingBall);
         // Thêm chúng trực tiếp vào danh sách bóng chính của GameManager
-        allBalls.addAll(newBalls);
+        pendingBalls.addAll(newBalls);
     }
 
     /**

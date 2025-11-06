@@ -52,12 +52,13 @@ public abstract class ItemsForBall {
     public void applyOnCreation(Ball ball) {
     }
     /**
-     *
      * Xử lý hiệu ứng khi bóng va chạm GẠCH
      * @param collidingBall Quả bóng VỪA va chạm
      * @param allBalls TẤT CẢ các quả bóng trên sân
+     * @param allBricks TẤT CẢ các viên gạch trên sân (CHO BÓNG NỔ)
+     * @param pendingBalls Danh sách chờ (ĐỂ SỬA LỖI ITEMSADN)
      */
-    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls) {
+    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         // (Lớp con sẽ override)
     }
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)

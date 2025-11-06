@@ -5,11 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import game.abstraction.Bricks;
-import game.ball.Ball;
-import game.ball.ItemsAbsorbentBall;
-import game.ball.ItemsADNBall;
-import game.ball.ItemsForBall;
-import game.ball.NormalBall;
+import game.ball.*;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
@@ -31,6 +27,7 @@ public class GameManager {
     private PowerupManager powerupManager;
     private final List<ItemsForBall> availableItems;
     private List<FallingItem> fallingItems;
+    private List<Ball> pendingBallsToAdd;
 
     /// Game statistics
     private final App app;
@@ -45,6 +42,27 @@ public class GameManager {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
         this.app = app;
+        this.availableItems = new ArrayList<>();
+        this.powerupManager = new PowerupManager();
+        this.fallingItems = new ArrayList<>();
+        this.pendingBallsToAdd = new ArrayList<>();
+        loadAvailableItems();
+    }
+
+    // Calculate delta time for particle update
+    private double calculateDeltaTime() {
+        long currentTime = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = currentTime;
+        }
+        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
+        lastUpdateTime = currentTime;
+
+        //
+        if (dt < 0.001 || dt > 0.05) {
+            dt = 0.016;
+        }
+        return dt;
     }
 
     // Check collisions
@@ -113,18 +131,24 @@ public class GameManager {
             }
             // Xóa nếu rơi ra khỏi màn hình
             else if (item.getY() > this.heightScreen) {
-                itemIt.remove();                if (balls.isEmpty()) {
+                itemIt.remove();                
+                
+            }
+
+
+                if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
+                    GameContext.getInstance().nextLevel();
+                    reset();
+                }
+            }
+
+        if (balls.isEmpty()) {
                     GameContext.getInstance().resetLevel();
                     gameOver = true;
                     app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
                 }
-            }
-
-            if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
-                GameContext.getInstance().nextLevel();
-                reset();
-            }
-        }
+        balls.addAll(pendingBallsToAdd);
+        pendingBallsToAdd.clear();
     }
 
 
@@ -139,6 +163,7 @@ public class GameManager {
         // clear particles when reset game
         ParticleManager.getInstance().clear();
         this.powerupManager = new PowerupManager();
+        this.pendingBallsToAdd = new ArrayList<>();
         gameOver = false;
         gamePaused = false;
         ParticleManager.setLastUpdateTime();
@@ -225,6 +250,15 @@ public class GameManager {
     private void loadAvailableItems() {
         availableItems.add(new ItemsAbsorbentBall());
         availableItems.add(new ItemsADNBall());
+        availableItems.add(new ItemsExplosiveBall());
+    }
+
+    public static String getSkin() {
+        return skin;
+    }
+
+    public static void setSkin(String skin) {
+        skin = skin;
     }
 
     public static String getSkin() {

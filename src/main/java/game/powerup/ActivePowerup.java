@@ -1,6 +1,8 @@
 package game.powerup;
 
 import java.util.List;
+
+import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.ball.ItemsForBall;
 
@@ -36,8 +38,8 @@ public class ActivePowerup {
     // --- Các hàm ủy quyền (Delegate) ---
     // Gọi các hàm xử lý của "loại" vật phẩm
 
-    public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls) {
-        itemType.onBrickCollision(collidingBall, allBalls);
+    public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+        itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
 
     public void applyOnPaddleCollision(Ball ball) {

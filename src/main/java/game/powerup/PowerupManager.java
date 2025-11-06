@@ -3,6 +3,8 @@ package game.powerup; // (Chung package với lớp trên)
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.ball.ItemsForBall;
 
@@ -55,12 +57,11 @@ public class PowerupManager {
      * Được gọi TỪ GameManager khi có va chạm bóng-gạch.
      * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
      */
-    public void handleBrickCollision(Ball collidingBall, List<Ball> allBalls) {
+    public void handleBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         for (ActivePowerup powerup : activePowerups) {
-            powerup.applyOnBrickCollision(collidingBall, allBalls);
+            powerup.applyOnBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
         }
     }
-
     /**
      * Được gọi TỪ GameManager khi có va chạm bóng-thanh chắn.
      * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
