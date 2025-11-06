@@ -6,10 +6,13 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
+import game.ball.ItemsAbsorbentBall;
+import game.ball.ItemsForBall;
 import game.ball.NormalBall;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
+import game.powerup.PowerupManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,6 +27,8 @@ public class GameManager {
     private Paddle paddle;
     private List<Ball> balls;
     private List<Bricks> bricks;
+    private PowerupManager powerupManager;
+    private List<ItemsForBall> availableItems;
 
     /// Game statistics
     private final App app;
@@ -47,6 +52,9 @@ public class GameManager {
         this.heightScreen = heightScreen;
         // bricks = BrickLoader.loadBricks("/vnu/edu/vn/game/bricks/level1.txt");
         this.app = app;
+        this.availableItems = new ArrayList<>();
+        this.powerupManager = new PowerupManager();
+        loadAvailableItems();
     }
 
     // Calculate delta time for particle update
@@ -69,7 +77,10 @@ public class GameManager {
     private void checkCollision() {
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
-
+            if (ball.collides(paddle)) {
+                // Gọi manager xử lý
+                powerupManager.handlePaddleCollision(ball);
+            }
             ball.collides(ball);
             ball.collides(paddle);
 
@@ -80,12 +91,26 @@ public class GameManager {
                     brick.hit(dame);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
+                    powerupManager.handleBrickCollision(ball, this.balls);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
                         AssetManager.playSound("brick_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
-
+                        for (ItemsForBall itemPrototype : availableItems) {
+                            double dropChance = itemPrototype.getPercent();
+                            if (Math.random() < (dropChance / 100.0)) {
+                                //
+                                // Bạn cần tạo một đối tượng "FallingItem"
+                                // và thêm nó vào một danh sách, ví dụ:
+                                //
+                                // FallingItem newItem = new FallingItem(brick.getX(), brick.getY(), itemPrototype);
+                                // this.fallingItems.add(newItem);
+                                //
+                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
+                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
+                            }
+                        }
                         // Break particle
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
@@ -117,12 +142,10 @@ public class GameManager {
         for (int i = 0; i < 3; i++) {
             balls.add(new NormalBall(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
-
         bricks = BrickLoader.loadBricks();
-
         // clear particles when reset game
         ParticleManager.getInstance().clear();
-
+        this.powerupManager = new PowerupManager();
         gameOver = false;
         gamePaused = false;
         lastUpdateTime = 0;// reset particle time for particle updates
@@ -189,6 +212,7 @@ public class GameManager {
         double deltaTime = calculateDeltaTime();
         ParticleManager.getInstance().update(deltaTime);
         // update particles
+        powerupManager.update(deltaTime);
     }
 
     public void render(GraphicsContext gc) {
@@ -237,8 +261,10 @@ public class GameManager {
             shootBall();
         }
     }
-
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
+    }
+    private void loadAvailableItems() {
+        availableItems.add(new ItemsAbsorbentBall()); // Ví dụ vật phẩm bóng lửa
     }
 }

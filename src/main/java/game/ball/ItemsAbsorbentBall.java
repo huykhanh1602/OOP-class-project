@@ -1,21 +1,25 @@
 package game.ball;
 
-import game.abstraction.Bricks;
-
-import java.util.Iterator;
+import java.util.List;
 
 public class ItemsAbsorbentBall extends ItemsForBall {
     public ItemsAbsorbentBall() {
         super("Bóng Hấp Thụ","Mỗi khi quả bóng bất kì va chạm gạch," +
-                "tất cả cách quả bóng khác sẽ được tăng nhẹ về tốc độ, sức tấn công, độ lớn",10,0.3);
+                "tất cả các quả bóng khác sẽ được tăng nhẹ về tốc độ, sức tấn công, độ lớn",10,0.3);
     }
     @Override
-    public void onBrickCollision(Ball ball) {
-        double currentSpeed = ball.getSpeedball();
-        double currentDamege = ball.getDamege();
-        double currentSize = ball.getRadius();
-        ball.setSpeedball(currentSpeed * 1.1);
-        ball.setDamege(currentDamege * 1.1);
-        ball.setRadius(currentSize * 1.1);
+    public void onBrickCollision(Ball collidingBall,List<Ball> allBalls) {
+        // Lặp qua TẤT CẢ các quả bóng
+        for (Ball ball : allBalls) {
+            // Bỏ qua quả bóng vừa mới va chạm
+            double currentSpeed = ball.getSpeedball();
+            double currentDamege = ball.getDamege();
+            double currentSize = ball.getRadius();
+
+            // Tăng chỉ số cho TẤT CẢ CÁC BÓNG KHÁC
+            ball.setSpeedball(currentSpeed * 1.1);
+            ball.setDamege(currentDamege * 1.1);
+            ball.setRadius(currentSize * 1.1);
+        }
     }
 }

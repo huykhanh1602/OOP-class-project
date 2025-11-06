@@ -1,6 +1,7 @@
 package game.ball;
 import game.abstraction.Bricks;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Lớp trừu tượng cho các nâng cấp TỨC THỜI/KẾT HỢP áp dụng trực tiếp lên một quả bóng.
@@ -50,8 +51,14 @@ public abstract class ItemsForBall {
     // Phương thức áp dụng hiệu ứng khi nâng cấp được mua/gắn vào bóng
     public void applyOnCreation(Ball ball) {
     }
-    // Phương thức xử lý hiệu ứng khi bóng va chạm với GẠCH (Brick)
-    public void onBrickCollision(Ball ball) {
+    /**
+     *
+     * Xử lý hiệu ứng khi bóng va chạm GẠCH
+     * @param collidingBall Quả bóng VỪA va chạm
+     * @param allBalls TẤT CẢ các quả bóng trên sân
+     */
+    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls) {
+        // (Lớp con sẽ override)
     }
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
     public void onPaddleCollision(Ball ball) {
