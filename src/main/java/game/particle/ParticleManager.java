@@ -22,25 +22,8 @@ public class ParticleManager {
 
     private List<Particle> particles = new ArrayList<>();
 
-    // Calculate delta time for particle update
-    private double calculateDeltaTime() {
-        long currentTime = System.nanoTime();
-        if (lastUpdateTime == 0) {
-            lastUpdateTime = currentTime;
-        }
-        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
-        lastUpdateTime = currentTime;
 
-        // Clamp giá trị dt để tránh outlier
-        if (dt < 0.001 || dt > 0.05) {
-            dt = 0.016; // khoảng 60 FPS
-        }
-        return dt;
-    }
-
-
-    public void update() {
-        double deltaTime = calculateDeltaTime();
+    public void update(double deltaTime) {
         Iterator<Particle> iterator = particles.iterator();
 
         while (iterator.hasNext()) {
