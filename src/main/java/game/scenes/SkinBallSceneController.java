@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.Constant;
+import game.GameContext;
 import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.fxml.FXML;
@@ -41,12 +42,14 @@ public class SkinBallSceneController extends GameScene{
     public void next() {
         currentIndex++;
         if (currentIndex >= skins.length) currentIndex = 0;
+        GameContext.getInstance().setNameBall(skins[currentIndex]);
         updateSkinUI();
     }
 
     public void prev() {
         currentIndex--;
         if (currentIndex < 0) currentIndex = skins.length - 1;
+        GameContext.getInstance().setNameBall(skins[currentIndex]);
         updateSkinUI();
     }
 
@@ -65,9 +68,5 @@ public class SkinBallSceneController extends GameScene{
                 throw new AssertionError();
         }
         name.setText(nameBall);
-    }
-
-    public String getBallName() {
-        return skins[currentIndex];
     }
 }

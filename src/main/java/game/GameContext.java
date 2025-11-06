@@ -16,6 +16,7 @@ public class GameContext {
     private double soundVolume = 0.8;
     private double backgroundMusic = 0.8;
     private double masterVolume = 0.8;
+    private String nameBall = Constant.SLIME_BALL;
 
     private int highScore = 0;
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
@@ -100,6 +101,14 @@ public class GameContext {
 
     public void setMasterVolume(double masterVolume) {
         this.masterVolume = masterVolume;
+    }
+
+    public String getNameBall() {
+        return nameBall;
+    }
+
+    public void setNameBall(String nameBall) {
+        this.nameBall = nameBall;
     }
     
 }
