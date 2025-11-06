@@ -25,13 +25,6 @@ public abstract class Ball {
     private double Maxcollision;
     private boolean isClone = false;
 
-    private double friction = 0.2; // Ma sát
-
-    // private double fixBug = 5; // colliding distance
-
-    // private int boundaryWidth = 600*3/4;
-    // private int boundaryHeight = 600*5/6;
-    
     /// Aiming Arc
     private double aimAngle = 30 ;
     private boolean aimIncrease = true;

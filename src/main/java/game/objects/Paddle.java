@@ -99,6 +99,6 @@ public class Paddle {
     public Rectangle2D getBounds() {
         // (Hãy thay đổi các biến 'x', 'y', 'widthPaddle', 'heightPaddle'
         // cho khớp với tên biến trong lớp Paddle của bạn)
-        return new Rectangle2D(this.x, this.y, this.widthPaddle, this.heightPaddle);
+        return new Rectangle2D(this.x, this.y, this.width, this.height);
     }
 }

@@ -49,22 +49,6 @@ public class GameManager {
         loadAvailableItems();
     }
 
-    // Calculate delta time for particle update
-    private double calculateDeltaTime() {
-        long currentTime = System.nanoTime();
-        if (lastUpdateTime == 0) {
-            lastUpdateTime = currentTime;
-        }
-        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
-        lastUpdateTime = currentTime;
-
-        //
-        if (dt < 0.001 || dt > 0.05) {
-            dt = 0.016;
-        }
-        return dt;
-    }
-
     // Check collisions
     private void checkCollision() {
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
@@ -154,10 +138,10 @@ public class GameManager {
 
     public void reset() {
         this.fallingItems = new ArrayList<>();
-        paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
+        paddle = new Paddle();
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 3; i++) {
-            balls.add(new NormalBall(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
+            balls.add(new NormalBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
         bricks = BrickLoader.loadBricks();
         // clear particles when reset game
@@ -251,14 +235,6 @@ public class GameManager {
         availableItems.add(new ItemsAbsorbentBall());
         availableItems.add(new ItemsADNBall());
         availableItems.add(new ItemsExplosiveBall());
-    }
-
-    public static String getSkin() {
-        return skin;
-    }
-
-    public static void setSkin(String skin) {
-        skin = skin;
     }
 
     public static String getSkin() {
