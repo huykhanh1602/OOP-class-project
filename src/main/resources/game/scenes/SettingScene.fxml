@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -35,10 +36,12 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="47.0" layoutY="35.0" mnemonicParsing="false" onAction="#returnHomeScene" styleClass="label-container" stylesheets="@../fonts/GameStyle.css" text="||" textFill="WHITE">
-               <font>
-                  <Font size="31.0" />
-               </font>
+            <Button layoutX="47.0" layoutY="36.0" mnemonicParsing="false" onAction="#returnToHome" prefHeight="63.0" prefWidth="150.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Home">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass>
             </Button>
          </children>
         </AnchorPane>

@@ -1,14 +1,13 @@
 package game.scenes;
 
-import java.awt.Image;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import game.AssetManager;
 import game.abstraction.GameScene;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Binding;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -76,5 +75,15 @@ public class HomeSceneController extends GameScene {
             // Đảm bảo animation luôn bắt đầu từ đầu
             resizeTimeline.playFromStart(); 
         }
+    }
+
+    @FXML
+    public void changeSkin() {
+        AssetManager.playSound("click");
+        if (app != null) {
+            app.switchToSkinScene();
+        } else {
+            System.out.println("error setting scene");
+        }    
     }
 }

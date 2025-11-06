@@ -13,24 +13,25 @@ import java.util.Random;
 
 public class AssetManager {
     // level
-    private static Map<String, String> level = new HashMap<>();
+    private final static Map<String, String> level = new HashMap<>();
 
     // images
-    private static Map<String, Image> images = new HashMap<>();
+    private final static Map<String, Image> images = new HashMap<>();
 
     // sounds
-    private static Map<String, ArrayList<AudioClip>> sounds = new HashMap<>();
+    private final static Map<String, ArrayList<AudioClip>> sounds = new HashMap<>();
 
     // music
-    private static Map<String, Map<String, Media>> musics = new HashMap<>();
+    private final static Map<String, Map<String, Media>> musics = new HashMap<>();
 
-    private static Random random = new Random();
+    private final static Random random = new Random();
 
 
     public static void loadAssets() {
         try {
             imageInput("icon", Constant.ICON_PATH);
-            imageInput("ball", Constant.BALL_PATH);
+            imageInput("slime_ball", Constant.SLIME_BALL);
+            imageInput("eod_ball", Constant.EYEOFDRAGON_BALL);
             imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
             imageInput("diretion", Constant.DIRETION);
 

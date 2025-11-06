@@ -10,15 +10,13 @@ import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 
 ///  Manager
 
 public class GameManager {
-    private int widthScreen, heightScreen;
+    private final int widthScreen, heightScreen;
 
     /// Ball, Paddle, Brick,...
     private Paddle paddle;
@@ -29,9 +27,10 @@ public class GameManager {
     private final App app;
     private boolean gameOver;
     private boolean gamePaused = false;
-    private int currentLevel;
 
     private boolean isAiming = false;
+
+    private static String skin ="";
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -69,7 +68,7 @@ public class GameManager {
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-                if (balls.size() == 0) {
+                if (balls.isEmpty()) {
                     GameContext.getInstance().resetLevel();
                     gameOver = true;
                     app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
@@ -85,8 +84,6 @@ public class GameManager {
 
 
     public void reset() {
-        this.currentLevel = GameContext.getInstance().getCurrentLevel();
-
         paddle = new Paddle();
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 3; i++) {
@@ -118,7 +115,7 @@ public class GameManager {
     }
 
     public void update() {
-
+        
         if (gamePaused == true) {
             return;
         }
@@ -169,5 +166,13 @@ public class GameManager {
 
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
+    }
+
+    public static String getSkin() {
+        return skin;
+    }
+
+    public static void setSkin(String skin) {
+        skin = skin;
     }
 }

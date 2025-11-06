@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="rootContainer" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.SkinBallSceneController">
+   <children>
+      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="1280.0" prefWidth="720.0" style="-fx-background-color: gray;">
+         <children>
+            <Label fx:id="name" alignment="CENTER" contentDisplay="CENTER" layoutY="320.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Label" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                  <font>
+                     <Font size="22.0" />
+                  </font>
+            </Label>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutY="350.0" style="-fx-font-family: Minecraft;" stylesheets="@../fonts/GameStyle.css" text="Label" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" />
+            <Button layoutX="60.0" layoutY="49.0" mnemonicParsing="false" onAction="#returnToHome" prefHeight="63.0" prefWidth="150.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Home">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass>
+            </Button>
+            <Button fx:id="buttonPrev" layoutX="206.0" layoutY="335.0" mnemonicParsing="false" onAction="#prev" prefHeight="50.0" prefWidth="100.0" style="-fx-font-size: 27;" stylesheets="@../fonts/GameStyle.css" text="&lt;" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="button-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass></Button>
+            <Button fx:id="buttonNext" layoutX="980.0" layoutY="335.0" mnemonicParsing="false" onAction="#next" prefHeight="50.0" prefWidth="100.0" style="-fx-font-size: 27;" stylesheets="@../fonts/GameStyle.css" text="&gt;" textFill="WHITE">
+               <styleClass>
+                  <String fx:value="button-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+               </styleClass>
+               <font>
+                  <Font size="27.0" />
+               </font></Button>
+            <ImageView fx:id="ballView" fitHeight="100.0" fitWidth="100.0" layoutX="590.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

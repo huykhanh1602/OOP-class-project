@@ -51,3 +51,29 @@
     -fx-background-position: center; /* Đặt ảnh vào giữa Label */
     -fx-padding: 10px 10px 10px 40px;
 }
+
+/* triangle.css */
+
+/* chung cho button chứa SVGPath */
+.button.triangle-button {
+    -fx-background-color: rgba(0, 0, 0, 0.8); /* button trong suốt, dùng graphic */
+    -fx-padding: 6;                     /* khoảng cách quanh graphic */
+    -fx-cursor: hand;
+}
+
+
+.button-container {
+    /* Tạo màu nền cho khối */
+    -fx-background-color: rgba(0, 0, 0, 1); /* Màu đen mờ 50% */
+
+    /* Bo tròn các góc để trông mềm mại hơn */
+    -fx-background-radius: 12px; /* Bán kính bo góc là 10px */
+
+    /* Tạo đường viền */
+    -fx-border-color: #FFFFFF; /* Đường viền màu trắng */
+    -fx-border-width: 3px; /* Độ dày đường viền là 2px */
+    -fx-border-radius: 8px; /* Bo tròn góc của đường viền */
+
+    /* Tạo khoảng đệm để chữ không bị dính sát vào viền */
+    -fx-padding: 10px 20px 10px 20px; /* Trên Phải Dưới Trái */
+}

@@ -1,17 +1,16 @@
 package game.ball;
 
-import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
-import game.Constant;
+import game.GameManager;
 import game.abstraction.Bricks;
 import game.objects.Paddle;
+import game.scenes.SkinBallSceneController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 ///  Ball movement
 
@@ -31,7 +30,7 @@ public class Ball {
     private final double ainMax = 150 ;
     private boolean isPlayerAiming;
 
-    private double friction = 0.1; // Ma sát
+    private final double friction = 0.1; // Ma sát
 
     Image ballImage;
     Image diretion;
@@ -43,7 +42,8 @@ public class Ball {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
-        ballImage = AssetManager.getImage("ball");
+        System.out.println(GameManager.getSkin());
+        ballImage = new Image(getClass().getResource(GameManager.getSkin()).toExternalForm());
         diretion = AssetManager.getImage("diretion");
 
     }

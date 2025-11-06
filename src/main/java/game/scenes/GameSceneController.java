@@ -1,7 +1,6 @@
 package game.scenes;
 
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import game.App;
@@ -18,9 +17,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 public class GameSceneController extends GameScene {
 

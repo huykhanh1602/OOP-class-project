@@ -1,7 +1,5 @@
 package game.abstraction;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public abstract class GameObject {
     public double x;
     public double y;

@@ -7,6 +7,7 @@ import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
 import game.scenes.SettingSceneController;
+import game.scenes.SkinBallSceneController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +30,7 @@ public class App extends Application {
 
         this.primaryStage = stage;
 
-        switchToHomeScene();
+        switchToGameOverScene(6);
 
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
@@ -106,6 +107,12 @@ public class App extends Application {
             controller.setup(this);
             controller.setScore(finalScore); // Logic riêng của GameOverScene
             //playBackgroundMusic("game_over_music");
+        });
+    }
+
+    public void switchToSkinScene() {
+        switchScene(Constant.SKIN_BALL_SCENE, (SkinBallSceneController controller) -> {
+            controller.setup(this);
         });
     }
 

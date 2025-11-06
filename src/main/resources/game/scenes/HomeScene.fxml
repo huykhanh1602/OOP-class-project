@@ -44,6 +44,12 @@
                   <String fx:value="game-button" />
                     </styleClass>
                 </Button>
+            <Button layoutX="1165.0" layoutY="651.0" mnemonicParsing="false" onAction="#changeSkin" stylesheets="@../fonts/GameStyle.css" text="Skin Ball">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+               </styleClass>
+            </Button>
             </children>
         </AnchorPane>
     </children>

@@ -15,6 +15,7 @@ public class SettingSceneController extends GameScene {
     public Slider musicVolume;
     public Slider masterVolume;
 
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
         soundVolume.setValue(GameContext.getInstance().getSoundVolume());

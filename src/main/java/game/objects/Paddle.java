@@ -1,6 +1,5 @@
 package game.objects;
 
-import static game.Constant.BRICK_WIDTH;
 import static game.Constant.HEIGHT_SCREEN;
 import game.AssetManager;
 import game.Constant;
@@ -15,9 +14,9 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
-    private int width = 1000;
-    private int height = Constant.BRICK_HEIGHT;
-    private double speed = 5; // SPEED PADDLE
+    private final int width = 100;
+    private final int height = Constant.BRICK_HEIGHT;
+    private final double speed = 5; // SPEED PADDLE
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT

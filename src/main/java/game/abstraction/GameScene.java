@@ -1,6 +1,5 @@
 package game.abstraction;
 
-import java.awt.Desktop;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,6 +27,8 @@ public abstract class GameScene implements Initializable {
     protected AnchorPane gamePane;
 
     private Binding<Number> scale;
+
+    protected int currentIndex = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,7 +83,7 @@ public abstract class GameScene implements Initializable {
     }
 
     @FXML
-    protected void returnHomeScene(ActionEvent e) {
+    protected void returnToHome(ActionEvent e) {
         AssetManager.playSound("click");
         if (app != null) {
             app.switchToHomeScene();
