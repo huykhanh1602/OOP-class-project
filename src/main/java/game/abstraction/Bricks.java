@@ -37,7 +37,7 @@ public abstract class Bricks extends GameObject {
     }
 
     // Decrease durability
-    public void hit(int damage) {
+    public void hit(double damage) {
         if (destroyable == false) {
             return;
         }

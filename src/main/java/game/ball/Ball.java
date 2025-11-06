@@ -14,13 +14,23 @@ import javafx.scene.paint.Color;
 
 ///  Ball movement
 
-public class Ball {
+public abstract class Ball {
     /// ELEMENT BALL
     private double x, y;
-    private static double radius = 10; // Size ball
+    private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
     private double speedball = 5; // Ball speed
     public boolean isRunning = false;
+    private double damege;
+    private double Maxcollision;
+    private boolean isClone = false;
+
+    private double friction = 0.2; // Ma sát
+
+    // private double fixBug = 5; // colliding distance
+
+    // private int boundaryWidth = 600*3/4;
+    // private int boundaryHeight = 600*5/6;
     
     /// Aiming Arc
     private double aimAngle = 30 ;
@@ -272,7 +282,12 @@ public class Ball {
     public double getDx() {
         return dx;
     }
-
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+    public void setDy(double dy) {
+        this.dy = dy;
+    }
     public double getDy() {
         return dy;
     }
@@ -285,8 +300,8 @@ public class Ball {
         return speedball;
     }
 
-    public static void setRadius(double radius) {
-        Ball.radius = radius;
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     public void setSpeedball(double speedball) {
@@ -299,6 +314,31 @@ public class Ball {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    public double getDamege() {
+        return damege;
+    }
+    public void setDamege(double damge) {
+        this.damege = damge;
+    }
+    public double getMaxcollision() {
+        return Maxcollision;
+    }
+    public void setMaxcollision(double maxcollision) {
+        Maxcollision = maxcollision;
+    }
+    /**
+     * Đánh dấu quả bóng này là một bản sao (clone).
+     */
+    public void setIsClone(boolean isClone) {
+        this.isClone = isClone;
+    }
+    /**
+     * @return true nếu quả bóng này là bản sao.
+     */
+    public boolean isClone() {
+        return this.isClone;
     }
 
     public boolean isPlayerAiming() {

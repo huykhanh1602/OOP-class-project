@@ -6,13 +6,19 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
+import game.ball.ItemsAbsorbentBall;
+import game.ball.ItemsADNBall;
+import game.ball.ItemsForBall;
+import game.ball.NormalBall;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
+import game.powerup.PowerupManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-
+import javafx.scene.paint.Color;
+import game.powerup.FallingItem;
 ///  Manager
 
 public class GameManager {
@@ -22,6 +28,9 @@ public class GameManager {
     private Paddle paddle;
     private List<Ball> balls;
     private List<Bricks> bricks;
+    private PowerupManager powerupManager;
+    private final List<ItemsForBall> availableItems;
+    private List<FallingItem> fallingItems;
 
     /// Game statistics
     private final App app;
@@ -42,33 +51,69 @@ public class GameManager {
     private void checkCollision() {
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
-
             ball.collides(ball);
-            ball.collides(paddle);
-
+            if (ball.getRect().intersects(paddle.getBounds())) {
+                // Bây giờ mới gọi hàm void để xử lý nảy
+                ball.collides(paddle);
+                // Và gọi powerup
+                powerupManager.handlePaddleCollision(ball);
+            }
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
-
+                double dame = ball.getDamege();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
+                    brick.hit(dame);
+                    ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
+                    powerupManager.handleBrickCollision(ball, this.balls);
                     AssetManager.playSound("brick_break");
                     brick.hit(10);
                     if (brick.isBroken()) {
+                        System.out.println("break brick");
                         AssetManager.playSound("ball_collide");
-                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6, brick.getColor());
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
+
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
+
+                        for (ItemsForBall itemPrototype : availableItems) {
+                            double dropChance = itemPrototype.getPercent();
+                            if (Math.random() < (dropChance / 100.0)) {
+                                FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
+                                this.fallingItems.add(newItem);
+                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
+                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
+                            }
+                        }
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
+                                brick.getColor());
                     }
-                        break;
+                if(ball.getMaxcollision() <= 0) {
+                    BALL.remove();
+                }
+                    break; // tránh va chạm nhiều brick 1 frame
                 }
             }
 
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-                if (balls.isEmpty()) {
+            }
+        }
+        Iterator<FallingItem> itemIt = fallingItems.iterator();
+        while (itemIt.hasNext()) {
+            FallingItem item = itemIt.next();
+            if (paddle.getBounds().intersects(item.getBounds())) {
+                // KÍCH HOẠT POWERUP
+                powerupManager.addPowerup(item.getItemType());
+                // Xóa vật phẩm khỏi danh sách
+                itemIt.remove();
+                AssetManager.playSound("powerup_pickup"); // (Thêm âm thanh nếu muốn)
+            }
+            // Xóa nếu rơi ra khỏi màn hình
+            else if (item.getY() > this.heightScreen) {
+                itemIt.remove();                if (balls.isEmpty()) {
                     GameContext.getInstance().resetLevel();
                     gameOver = true;
                     app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
@@ -84,15 +129,16 @@ public class GameManager {
 
 
     public void reset() {
-        paddle = new Paddle();
+        this.fallingItems = new ArrayList<>();
+        paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 3; i++) {
-            balls.add(new Ball(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
+            balls.add(new NormalBall(paddle.getX() + paddle.getWidthPaddle() / 2, paddle.getY() - paddle.getHeightPaddle()));
         }
-
         bricks = BrickLoader.loadBricks();
-
+        // clear particles when reset game
         ParticleManager.getInstance().clear();
+        this.powerupManager = new PowerupManager();
         gameOver = false;
         gamePaused = false;
         ParticleManager.setLastUpdateTime();
@@ -115,7 +161,14 @@ public class GameManager {
     }
 
     public void update() {
-        
+        for(Ball ball : balls){
+            if(ball.getRadius() >= 40){
+                ball.setRadius(40);
+            }
+            if(ball.getSpeedball() >= 20){
+                ball.setSpeedball(20);
+            }
+        }
         if (gamePaused == true) {
             return;
         }
@@ -143,6 +196,9 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
+        for (FallingItem item : fallingItems) {
+            item.render(gc);
+        }
         ParticleManager.getInstance().render(gc);
     }
 
@@ -163,9 +219,12 @@ public class GameManager {
             shootBall();
         }
     }
-
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
+    }
+    private void loadAvailableItems() {
+        availableItems.add(new ItemsAbsorbentBall());
+        availableItems.add(new ItemsADNBall());
     }
 
     public static String getSkin() {

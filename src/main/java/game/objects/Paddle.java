@@ -2,6 +2,7 @@ package game.objects;
 
 import static game.Constant.HEIGHT_SCREEN;
 import game.AssetManager;
+import javafx.geometry.Rectangle2D;
 import game.Constant;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -93,5 +94,11 @@ public class Paddle {
 
     public boolean getMoveRight() {
         return moveRight;
+    }
+
+    public Rectangle2D getBounds() {
+        // (Hãy thay đổi các biến 'x', 'y', 'widthPaddle', 'heightPaddle'
+        // cho khớp với tên biến trong lớp Paddle của bạn)
+        return new Rectangle2D(this.x, this.y, this.widthPaddle, this.heightPaddle);
     }
 }
