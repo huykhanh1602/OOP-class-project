@@ -116,7 +116,7 @@ public class GameManager {
                                 brick.getColor());
                     }
                 if(ball.getMaxcollision() <= 0) {
-                    ball.isRunning = false;
+                    BALL.remove();
                 }
                     break; // tránh va chạm nhiều brick 1 frame
                 }
@@ -125,7 +125,6 @@ public class GameManager {
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
-
             }
         }
         Iterator<FallingItem> itemIt = fallingItems.iterator();
@@ -179,7 +178,14 @@ public class GameManager {
     }
 
     public void update() {
-
+        for(Ball ball : balls){
+            if(ball.getRadius() >= 40){
+                ball.setRadius(40);
+            }
+            if(ball.getSpeedball() >= 20){
+                ball.setSpeedball(20);
+            }
+        }
         if (gamePaused == true) {
             return;
         }

@@ -14,10 +14,11 @@ public abstract class Ball {
     private double x, y;
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 5;
+    private double speedball = 4;
     public boolean isRunning = false;
     private double damege;
     private double Maxcollision;
+    private boolean isClone = false;
 
     private double friction = 0.2; // Ma sát
 
@@ -287,5 +288,17 @@ public abstract class Ball {
     }
     public void setMaxcollision(double maxcollision) {
         Maxcollision = maxcollision;
+    }
+    /**
+     * Đánh dấu quả bóng này là một bản sao (clone).
+     */
+    public void setIsClone(boolean isClone) {
+        this.isClone = isClone;
+    }
+    /**
+     * @return true nếu quả bóng này là bản sao.
+     */
+    public boolean isClone() {
+        return this.isClone;
     }
 }

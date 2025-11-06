@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 public class ItemsADNBall extends ItemsForBall {
-    private static final int SHATTER_BALL_COUNT = 1;
+    private static final int SHATTER_BALL_COUNT = 2;
     private static final Random random = new Random();
     // 1. THÊM CÁC HẰNG SỐ CÒN THIẾU
     // Bạn có thể tùy chỉnh các giá trị này
-    private static final double SHATTER_SPEED = 4.0;
+    private static final double SHATTER_SPEED = 7;
     private static final double SHATTER_RADIUS = 7.0;
     private static final double SHATTER_DAMAGE = 1.0;
 
     public ItemsADNBall() {
-        super("Bóng ADN", "Va chạm gạch sẽ tạo ra 3 bóng con", 10, 10);
+        super("Bóng ADN", "Va chạm gạch có 50% sẽ tạo ra 2 bóng con trong", 10, 20);
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls) {
-
-        // 3. SỬA LOGIC SPAWN BÓNG
+        if (collidingBall.isClone() || Math.random() <= 0.50) {
+            return;
+        }
         // Tạo ra các bóng con
         List<Ball> newBalls = this.shatter(collidingBall);
-
         // Thêm chúng trực tiếp vào danh sách bóng chính của GameManager
         allBalls.addAll(newBalls);
     }
@@ -48,7 +48,7 @@ public class ItemsADNBall extends ItemsForBall {
             // --- Thiết lập chỉ số cho bóng con ---
             newBall.setRadius(SHATTER_RADIUS);
             newBall.setSpeedball(SHATTER_SPEED);
-            newBall.setMaxcollision(1);
+            newBall.setMaxcollision(5);
             // Dùng tên hàm 'setDamege' từ file Ball.java
             newBall.setDamege(SHATTER_DAMAGE);
             // --- Hết ---
@@ -57,7 +57,7 @@ public class ItemsADNBall extends ItemsForBall {
             newBall.setDx(vx);
             newBall.setDy(vy);
             newBall.setRunning(true);
-
+            newBall.setIsClone(true);
             newBalls.add(newBall);
         }
         return newBalls;
