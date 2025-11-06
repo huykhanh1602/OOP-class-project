@@ -13,7 +13,7 @@ public class ItemsExplosiveBall extends ItemsForBall {
 
     public ItemsExplosiveBall() {
         // (Bạn cần thêm Color vào constructor của ItemsForBall.java nếu muốn)
-        super("Bóng Nổ", "Khi va chạm gạch, tạo ra 1 vụ nổ gây 10 sát thương", 15, 5);
+        super("Bóng Nổ", "Khi va chạm gạch, tạo ra 1 vụ nổ gây 10 sát thương", 15, 100);
     }
 
     /**

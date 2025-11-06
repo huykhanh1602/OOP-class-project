@@ -15,11 +15,11 @@ public class ItemsADNBall extends ItemsForBall {
     private static final double SHATTER_DAMAGE = 1.0;
 
     public ItemsADNBall() {
-        super("Bóng ADN", "Va chạm gạch sẽ tạo ra 2 bóng con trong", 10, 20);
+        super("Bóng ADN", "Va chạm gạch có tỉ lệ 80% sẽ tạo ra 2 bóng con trong", 10, 20);
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        if (collidingBall.isClone()) {
+        if (collidingBall.isClone() || Math.random() <= 0.8) {
             return;
         }
         // Tạo ra các bóng con
