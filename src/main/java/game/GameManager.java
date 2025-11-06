@@ -67,7 +67,7 @@ public class GameManager {
                     brick.hit(dame);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
-                    powerupManager.handleBrickCollision(ball, this.balls);
+                    powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
                     AssetManager.playSound("brick_break");
                     brick.hit(10);
                     if (brick.isBroken()) {

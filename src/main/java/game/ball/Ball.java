@@ -3,6 +3,7 @@ package game.ball;
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
+import game.Constant;
 import game.GameManager;
 import game.abstraction.Bricks;
 import game.objects.Paddle;
@@ -45,8 +46,7 @@ public abstract class Ball {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
-        System.out.println(GameManager.getSkin());
-        ballImage = new Image(getClass().getResource(GameManager.getSkin()).toExternalForm());
+        ballImage = new Image(getClass().getResource(Constant.SLIME_BALL).toExternalForm());
         diretion = AssetManager.getImage("diretion");
 
     }
