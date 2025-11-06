@@ -1,0 +1,65 @@
+package game.ball;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+public class ItemsADNBall extends ItemsForBall {
+    private static final int SHATTER_BALL_COUNT = 1;
+    private static final Random random = new Random();
+    // 1. THÊM CÁC HẰNG SỐ CÒN THIẾU
+    // Bạn có thể tùy chỉnh các giá trị này
+    private static final double SHATTER_SPEED = 4.0;
+    private static final double SHATTER_RADIUS = 7.0;
+    private static final double SHATTER_DAMAGE = 1.0;
+
+    public ItemsADNBall() {
+        super("Bóng ADN", "Va chạm gạch sẽ tạo ra 3 bóng con", 10, 10);
+    }
+    @Override
+    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls) {
+
+        // 3. SỬA LOGIC SPAWN BÓNG
+        // Tạo ra các bóng con
+        List<Ball> newBalls = this.shatter(collidingBall);
+
+        // Thêm chúng trực tiếp vào danh sách bóng chính của GameManager
+        allBalls.addAll(newBalls);
+    }
+
+    /**
+     * 4. SỬA TÊN HÀM/BIẾN TRONG SHATTER
+     * (Hàm này giờ là private vì chỉ lớp này cần)
+     */
+    private List<Ball> shatter(Ball currentBall) {
+        List<Ball> newBalls = new ArrayList<>();
+
+        for (int i = 0; i < SHATTER_BALL_COUNT; i++) {
+            // Tạo bóng mới tại vị trí bóng cha
+            NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
+
+            // Tạo góc ngẫu nhiên (tránh bay thẳng xuống)
+            double randomAngleDegrees = random.nextDouble() * (165 - 15) + 15; // 15 đến 165 độ
+            double angleRadians = Math.toRadians(randomAngleDegrees);
+
+            // Dùng các hằng số đã định nghĩa
+            double vx = SHATTER_SPEED * Math.cos(angleRadians);
+            double vy = -SHATTER_SPEED * Math.sin(angleRadians); // Dấu âm để bay lên
+
+            // --- Thiết lập chỉ số cho bóng con ---
+            newBall.setRadius(SHATTER_RADIUS);
+            newBall.setSpeedball(SHATTER_SPEED);
+            newBall.setMaxcollision(1);
+            // Dùng tên hàm 'setDamege' từ file Ball.java
+            newBall.setDamege(SHATTER_DAMAGE);
+            // --- Hết ---
+
+            // Thiết lập vận tốc và trạng thái chạy
+            newBall.setDx(vx);
+            newBall.setDy(vy);
+            newBall.setRunning(true);
+
+            newBalls.add(newBall);
+        }
+        return newBalls;
+    }
+}

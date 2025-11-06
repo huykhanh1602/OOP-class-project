@@ -3,6 +3,7 @@ package game.objects;
 import static game.Constant.WIDTH_SCREEN;
 
 import game.AssetManager;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -96,5 +97,11 @@ public class Paddle {
 
     public boolean getMoveRight() {
         return moveRight;
+    }
+
+    public Rectangle2D getBounds() {
+        // (Hãy thay đổi các biến 'x', 'y', 'widthPaddle', 'heightPaddle'
+        // cho khớp với tên biến trong lớp Paddle của bạn)
+        return new Rectangle2D(this.x, this.y, this.widthPaddle, this.heightPaddle);
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.ball.ItemsAbsorbentBall;
+import game.ball.ItemsADNBall;
 import game.ball.ItemsForBall;
 import game.ball.NormalBall;
 import game.bricks.BrickLoader;
@@ -17,7 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-
+import game.powerup.FallingItem;
 ///  Manager
 
 public class GameManager {
@@ -28,13 +29,13 @@ public class GameManager {
     private List<Ball> balls;
     private List<Bricks> bricks;
     private PowerupManager powerupManager;
-    private List<ItemsForBall> availableItems;
+    private final List<ItemsForBall> availableItems;
+    private List<FallingItem> fallingItems;
 
     /// Game statistics
     private final App app;
     private boolean gameOver;
     private boolean gamePaused = false;
-    private int currentLevel;
 
     /// Aiming Arc
     private boolean isAiming = false;
@@ -54,6 +55,7 @@ public class GameManager {
         this.app = app;
         this.availableItems = new ArrayList<>();
         this.powerupManager = new PowerupManager();
+        this.fallingItems = new ArrayList<>();
         loadAvailableItems();
     }
 
@@ -77,13 +79,13 @@ public class GameManager {
     private void checkCollision() {
         for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
-            if (ball.collides(paddle)) {
-                // Gọi manager xử lý
+            ball.collides(ball);
+            if (ball.getRect().intersects(paddle.getBounds())) {
+                // Bây giờ mới gọi hàm void để xử lý nảy
+                ball.collides(paddle);
+                // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
-            ball.collides(ball);
-            ball.collides(paddle);
-
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamege();
@@ -97,24 +99,19 @@ public class GameManager {
                         AssetManager.playSound("brick_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
+
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
+
                         for (ItemsForBall itemPrototype : availableItems) {
                             double dropChance = itemPrototype.getPercent();
                             if (Math.random() < (dropChance / 100.0)) {
-                                //
-                                // Bạn cần tạo một đối tượng "FallingItem"
-                                // và thêm nó vào một danh sách, ví dụ:
-                                //
-                                // FallingItem newItem = new FallingItem(brick.getX(), brick.getY(), itemPrototype);
-                                // this.fallingItems.add(newItem);
-                                //
+                                FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
+                                this.fallingItems.add(newItem);
                                 System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
                                 break; // Chỉ rơi 1 vật phẩm mỗi gạch
                             }
                         }
-                        // Break particle
-                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
-
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
                                 brick.getColor());
                     }
@@ -131,12 +128,27 @@ public class GameManager {
 
             }
         }
+        Iterator<FallingItem> itemIt = fallingItems.iterator();
+        while (itemIt.hasNext()) {
+            FallingItem item = itemIt.next();
+            if (paddle.getBounds().intersects(item.getBounds())) {
+                // KÍCH HOẠT POWERUP
+                powerupManager.addPowerup(item.getItemType());
+                // Xóa vật phẩm khỏi danh sách
+                itemIt.remove();
+                AssetManager.playSound("powerup_pickup"); // (Thêm âm thanh nếu muốn)
+            }
+            // Xóa nếu rơi ra khỏi màn hình
+            else if (item.getY() > this.heightScreen) {
+                itemIt.remove();
+            }
+        }
     }
 
     // Khởi tạo lại game
     public void reset() {
-        this.currentLevel = GameContext.getInstance().getCurrentLevel();
-
+        int currentLevel = GameContext.getInstance().getCurrentLevel();
+        this.fallingItems = new ArrayList<>();
         paddle = new Paddle(widthScreen / 4, heightScreen * 7 / 8 - 30);
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 3; i++) {
@@ -210,6 +222,9 @@ public class GameManager {
         checkCollision();
 
         double deltaTime = calculateDeltaTime();
+        for (FallingItem item : fallingItems) {
+            item.update(deltaTime);
+        }
         ParticleManager.getInstance().update(deltaTime);
         // update particles
         powerupManager.update(deltaTime);
@@ -241,8 +256,10 @@ public class GameManager {
         for (Bricks brick : bricks) {
             brick.render(gc);
         }
+        for (FallingItem item : fallingItems) {
+            item.render(gc);
+        }
         ParticleManager.getInstance().render(gc);
-
     }
 
     /// HANDLE KEY EVENT
@@ -265,6 +282,7 @@ public class GameManager {
         return GameContext.getInstance().getCurrentScore();
     }
     private void loadAvailableItems() {
-        availableItems.add(new ItemsAbsorbentBall()); // Ví dụ vật phẩm bóng lửa
+        availableItems.add(new ItemsAbsorbentBall());
+        availableItems.add(new ItemsADNBall());
     }
 }

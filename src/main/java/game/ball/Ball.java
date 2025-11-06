@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 public abstract class Ball {
     /// ELEMENT BALL
     private double x, y;
-    private static double radius = 15; // Size ball
+    private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
     private double speedball = 5;
     public boolean isRunning = false;
@@ -242,7 +242,12 @@ public abstract class Ball {
     public double getDx() {
         return dx;
     }
-
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+    public void setDy(double dy) {
+        this.dy = dy;
+    }
     public double getDy() {
         return dy;
     }
@@ -255,8 +260,8 @@ public abstract class Ball {
         return speedball;
     }
 
-    public static void setRadius(double radius) {
-        Ball.radius = radius;
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 
     public void setSpeedball(double speedball) {

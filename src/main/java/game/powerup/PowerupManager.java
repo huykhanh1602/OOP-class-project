@@ -51,7 +51,6 @@ public class PowerupManager {
             }
         }
     }
-
     /**
      * Được gọi TỪ GameManager khi có va chạm bóng-gạch.
      * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
