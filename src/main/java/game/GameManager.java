@@ -75,9 +75,10 @@ public class GameManager {
 
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
-                double dame = ball.getDamge();
+                double dame = ball.getDamege();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     brick.hit(dame);
+                    ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
@@ -92,7 +93,9 @@ public class GameManager {
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
                                 brick.getColor());
                     }
-
+                if(ball.getMaxcollision() <= 0) {
+                    ball.isRunning = false;
+                }
                     break; // tránh va chạm nhiều brick 1 frame
                 }
             }

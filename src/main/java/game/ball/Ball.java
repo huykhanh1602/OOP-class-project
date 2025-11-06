@@ -271,7 +271,7 @@ public abstract class Ball {
         return isRunning;
     }
 
-    public double getDamge() {
+    public double getDamege() {
         return damege;
     }
     public void setDamege(double damge) {
