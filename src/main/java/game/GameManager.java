@@ -191,7 +191,28 @@ public class GameManager {
             ball.setPlayerAiming(isAiming);
         }
         checkCollision();
-        ParticleManager.getInstance().update();
+        // Vòng lặp này sẽ xóa tất cả gạch vỡ (bao gồm cả gạch vỡ do nổ)
+        Iterator<Bricks> cleanupIt = bricks.iterator();
+        while (cleanupIt.hasNext()) {
+            Bricks brick = cleanupIt.next();
+            if (brick.isBroken()) {
+                // Chỉ xóa, không cộng điểm hay thả item ở đây
+                // (Vì checkCollision đã xử lý việc đó cho gạch chính)
+                cleanupIt.remove();
+            }
+        }
+        if (bricks.isEmpty() == true) {
+            gameOver = true;
+            app.levelWon();
+            return;
+        }
+        double deltaTime = calculateDeltaTime();
+        for (FallingItem item : fallingItems) {
+            item.update(deltaTime);
+        }
+        ParticleManager.getInstance().update(deltaTime);
+        // update particles
+        powerupManager.update(deltaTime);
     }
 
     public void render(GraphicsContext gc) {
