@@ -5,11 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import game.abstraction.Bricks;
-import game.ball.Ball;
-import game.ball.ItemsAbsorbentBall;
-import game.ball.ItemsADNBall;
-import game.ball.ItemsForBall;
-import game.ball.NormalBall;
+import game.ball.*;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
@@ -31,6 +27,7 @@ public class GameManager {
     private PowerupManager powerupManager;
     private final List<ItemsForBall> availableItems;
     private List<FallingItem> fallingItems;
+    private List<Ball> pendingBallsToAdd;
 
     /// Game statistics
     private final App app;
@@ -56,6 +53,7 @@ public class GameManager {
         this.availableItems = new ArrayList<>();
         this.powerupManager = new PowerupManager();
         this.fallingItems = new ArrayList<>();
+        this.pendingBallsToAdd = new ArrayList<>();
         loadAvailableItems();
     }
 
@@ -93,7 +91,7 @@ public class GameManager {
                     brick.hit(dame);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
-                    powerupManager.handleBrickCollision(ball, this.balls);
+                    powerupManager.handleBrickCollision(ball, this.balls, this.bricks, this.pendingBallsToAdd);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
                         AssetManager.playSound("brick_break");
@@ -142,6 +140,8 @@ public class GameManager {
                 itemIt.remove();
             }
         }
+        balls.addAll(pendingBallsToAdd);
+        pendingBallsToAdd.clear();
     }
 
     // Khởi tạo lại game
@@ -157,6 +157,7 @@ public class GameManager {
         // clear particles when reset game
         ParticleManager.getInstance().clear();
         this.powerupManager = new PowerupManager();
+        this.pendingBallsToAdd = new ArrayList<>();
         gameOver = false;
         gamePaused = false;
         lastUpdateTime = 0;// reset particle time for particle updates
@@ -290,5 +291,6 @@ public class GameManager {
     private void loadAvailableItems() {
         availableItems.add(new ItemsAbsorbentBall());
         availableItems.add(new ItemsADNBall());
+        availableItems.add(new ItemsExplosiveBall());
     }
 }
