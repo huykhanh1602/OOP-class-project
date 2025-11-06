@@ -13,9 +13,8 @@ public class ItemsExplosiveBall extends ItemsForBall {
 
     public ItemsExplosiveBall() {
         // (Bạn cần thêm Color vào constructor của ItemsForBall.java nếu muốn)
-        super("Bóng Nổ", "Khi va chạm gạch, tạo ra 1 vụ nổ gây 10 sát thương", 15, 100);
+        super("Bóng Nổ", "Khi va chạm gạch, tạo ra 1 vụ nổ gây 10 sát thương", 15, 50);
     }
-
     /**
      * CHÚ Ý: Đây là chữ ký hàm MỚI (new signature).
      * Nó cần 'allBricks' để gây sát thương và 'pendingBalls' để sửa lỗi.
@@ -29,7 +28,7 @@ public class ItemsExplosiveBall extends ItemsForBall {
         double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
 
         // 2. Tạo hiệu ứng hình ảnh (để "vẽ 1 vùng" như bạn muốn)
-        // (Giả sử bạn có hàm createExplosionEffect trong ParticleManager)
+
         ParticleManager.getInstance().createBrickBreakEffect(explosionX, explosionY, 20, Color.ORANGE);
         AssetManager.playSound("brick_break"); // (Dùng tạm âm thanh này)
 
