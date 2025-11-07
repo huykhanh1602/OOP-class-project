@@ -54,7 +54,11 @@ public class GameOverController extends GameScene {
                     StandardOpenOption.WRITE);
 
             if (highScoreLabel != null && !scores.isEmpty()) {
-                highScoreLabel.setText("High Score: " + scores.get(0));
+                StringBuilder sb = new StringBuilder("Highest Scores:\n");
+                for (int i = 0; i < Math.min(3, scores.size()); i++) {
+                    sb.append(i + 1).append(". ").append(scores.get(i)).append("\n");
+                }
+                highScoreLabel.setText(sb.toString().trim());
             }
         } catch (IOException e) {
             e.printStackTrace();

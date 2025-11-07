@@ -65,11 +65,19 @@
                   <String fx:value="text-label" />
                </styleClass>
             </Button>
-            <Label fx:id="highScoreLabel" layoutX="26.0" layoutY="104.0" prefHeight="140.0" prefWidth="183.0" style="-fx-background-color: green;" styleClass="text-label" stylesheets="@../fonts/GameStyle.css">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
+            <StackPane alignment="TOP_LEFT" prefHeight="222.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="highScoreLabel" prefHeight="300.0" prefWidth="300.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="text-label" />
+                        <String fx:value="label-container" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </StackPane>
          </children>
       </AnchorPane>
    </children>
