@@ -39,7 +39,7 @@ public class GameManager {
 
     private boolean isAiming = false;
 
-    private static String skin ="";
+    private static String skin;
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -157,7 +157,6 @@ public class GameManager {
             }
 
         if (balls.isEmpty()) {
-                    GameContext.getInstance().resetLevel();
                     gameOver = true;
                     app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
                 }
@@ -170,7 +169,6 @@ public class GameManager {
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
         balls = new ArrayList<Ball>();
-        System.out.println(GameContext.getInstance().getNameBall());
         for (int i = 0; i < 4; i++) {
             switch (GameContext.getInstance().getNameBall()) {
                 case Constant.SLIME_BALL:
