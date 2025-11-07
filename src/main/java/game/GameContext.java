@@ -14,9 +14,9 @@ public class GameContext {
     }
 
     private int currentDifficulty = 1;
-    private double soundVolume = 0.8;
-    private double backgroundMusic = 0.8;
-    private double masterVolume = 0.8;
+    private double soundVolume = 0;
+    private double backgroundMusic = 0;
+    private double masterVolume = 0;
     private String nameBall = Constant.SLIME_BALL;
 
     private int highScore = 0;
@@ -35,6 +35,10 @@ public class GameContext {
      */
     public void resetLevel() {
         this.currentLevel = 1;
+    }
+
+    public void resetScore() {
+        this.currentScore.set(0);
     }
 
     /**

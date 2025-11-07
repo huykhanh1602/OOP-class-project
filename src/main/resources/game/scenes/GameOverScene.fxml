@@ -65,6 +65,11 @@
                   <String fx:value="text-label" />
                </styleClass>
             </Button>
+            <Label fx:id="highScoreLabel" layoutX="26.0" layoutY="104.0" prefHeight="140.0" prefWidth="183.0" style="-fx-background-color: green;" styleClass="text-label" stylesheets="@../fonts/GameStyle.css">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>

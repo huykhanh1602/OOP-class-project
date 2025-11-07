@@ -1,5 +1,8 @@
 package game;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Constant {
     // Screen settings
     public static final int WIDTH_SCREEN = 1280;
@@ -91,5 +94,11 @@ public class Constant {
 
     // Home scene music
     public static final String HOME_BACKGROUND_MUSIC = "/game/sounds/music/Home_background_music.mp3";
+
+    // score
+    public static final Path SCORE_PATH = Paths.get(
+            System.getProperty("user.dir"),
+            "src", "main", "resources", "game", "score", "score.txt"
+    );
 
 }
