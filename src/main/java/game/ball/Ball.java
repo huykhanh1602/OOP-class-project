@@ -3,12 +3,9 @@ package game.ball;
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
-import game.Constant;
 import game.GameContext;
-import game.GameManager;
 import game.abstraction.Bricks;
 import game.objects.Paddle;
-import game.scenes.SkinBallSceneController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

@@ -2,7 +2,6 @@ package game.items;
 import game.abstraction.Bricks;
 import game.ball.Ball;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**

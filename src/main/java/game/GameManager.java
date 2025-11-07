@@ -17,7 +17,6 @@ import game.powerup.PowerupManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import game.powerup.FallingItem;
 ///  Manager
 
@@ -84,17 +83,23 @@ public class GameManager {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamage();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                    double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                    ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
-                                brick.getColor());
-
-                    //brick.hit(dame);
+                    brick.hit(dame);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
                     AssetManager.playSound("brick_break");
-                    for (ItemsForBall itemPrototype : availableItems) {
+
+                    if (brick.isBroken()) {
+                        System.out.println("break brick");
+                        AssetManager.playSound("ball_collide");
+                        BRICK.remove();
+                        GameContext.getInstance().addScore(brick.getPoint());
+
+                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
+                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
+                                brick.getColor());
+                        for (ItemsForBall itemPrototype : availableItems) {
                             double dropChance = itemPrototype.getPercent();
                             if (Math.random() < (dropChance / 100.0)) {
                                 FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
@@ -103,25 +108,6 @@ public class GameManager {
                                 break; // Chỉ rơi 1 vật phẩm mỗi gạch
                             }
                         }
-                    if (brick.isBroken()) {
-                        System.out.println("break brick");
-                        AssetManager.playSound("ball_collide");
-                        BRICK.remove();
-                        GameContext.getInstance().addScore(brick.getPoint());
-
-                        // double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                        // double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                        // ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
-                        //         brick.getColor());
-                        // for (ItemsForBall itemPrototype : availableItems) {
-                        //     double dropChance = itemPrototype.getPercent();
-                        //     if (Math.random() < (dropChance / 100.0)) {
-                        //         FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
-                        //         this.fallingItems.add(newItem);
-                        //         System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                        //         break; // Chỉ rơi 1 vật phẩm mỗi gạch
-                        //     }
-                        // }
                     }
                 if(ball.getMaxcollision() <= 0) {
                     //BALL.remove();
