@@ -1,6 +1,7 @@
-package game.ball; // (Đặt nó cùng package với ItemsForBall)
+package game.items; // (Đặt nó cùng package với ItemsForBall)
 
 import game.abstraction.Bricks;
+import game.ball.Ball;
 import game.particle.ParticleManager; // (Chúng ta sẽ dùng manager này để "vẽ" vụ nổ)
 import game.AssetManager;
 import javafx.scene.paint.Color;

@@ -47,8 +47,7 @@ public abstract class Ball {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
-        System.out.println(GameContext.getInstance().getNameBall());
-        ballImage = new Image(getClass().getResource(GameContext.getInstance().getNameBall()).toExternalForm());
+        ballImage = GameContext.getInstance().getImage();
         diretion = AssetManager.getImage("diretion");
 
     }
@@ -311,10 +310,10 @@ public abstract class Ball {
         return isRunning;
     }
 
-    public double getDamege() {
+    public double getDamage() {
         return damege;
     }
-    public void setDamege(double damge) {
+    public void setDamage(double damge) {
         this.damege = damge;
     }
     public double getMaxcollision() {

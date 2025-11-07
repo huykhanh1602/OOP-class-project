@@ -6,7 +6,7 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
-import game.ball.ItemsForBall;
+import game.items.ItemsForBall;
 
 /**
  * Đây là lớp "ListPowerup" mà bạn muốn.

@@ -1,6 +1,8 @@
-package game.ball;
+package game.items;
 
 import game.abstraction.Bricks;
+import game.ball.Ball;
+import game.ball.NormalBall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +53,8 @@ public class ItemsADNBall extends ItemsForBall {
             newBall.setRadius(SHATTER_RADIUS);
             newBall.setSpeedball(SHATTER_SPEED);
             newBall.setMaxcollision(5);
-            // Dùng tên hàm 'setDamege' từ file Ball.java
-            newBall.setDamege(SHATTER_DAMAGE);
+            // Dùng tên hàm 'setDamage' từ file Ball.java
+            newBall.setDamage(SHATTER_DAMAGE);
             // --- Hết ---
 
             // Thiết lập vận tốc và trạng thái chạy

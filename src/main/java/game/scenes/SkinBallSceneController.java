@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import game.Constant;
 import game.GameContext;
-import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

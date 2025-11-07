@@ -4,7 +4,7 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
-import game.ball.ItemsForBall;
+import game.items.ItemsForBall;
 
 /**
  * Đại diện cho một vật phẩm đang CÓ HIỆU LỰC trong game.

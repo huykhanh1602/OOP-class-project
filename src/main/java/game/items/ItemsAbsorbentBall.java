@@ -1,6 +1,7 @@
-package game.ball;
+package game.items;
 
 import game.abstraction.Bricks;
+import game.ball.Ball;
 
 import java.util.List;
 
@@ -15,12 +16,12 @@ public class ItemsAbsorbentBall extends ItemsForBall {
         for (Ball ball : allBalls) {
             // Bỏ qua quả bóng vừa mới va chạm
             double currentSpeed = ball.getSpeedball();
-            double currentDamege = ball.getDamege();
+            double currentDamege = ball.getDamage();
             double currentSize = ball.getRadius();
 
             // Tăng chỉ số cho TẤT CẢ CÁC BÓNG KHÁC
             ball.setSpeedball(currentSpeed * 1.002);
-            ball.setDamege(currentDamege * 1.004);
+            ball.setDamage(currentDamege * 1.004);
             ball.setRadius(currentSize * 1.004);
         }
     }

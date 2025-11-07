@@ -1,6 +1,7 @@
 package game;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.Image;
 
 public class GameContext {
     private static final GameContext instance = new GameContext();
@@ -109,6 +110,10 @@ public class GameContext {
 
     public void setNameBall(String nameBall) {
         this.nameBall = nameBall;
+    }
+
+    public Image getImage() {
+        return new Image(getClass().getResource(nameBall).toExternalForm());
     }
     
 }

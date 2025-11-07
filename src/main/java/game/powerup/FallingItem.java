@@ -1,6 +1,6 @@
 package game.powerup; // Bạn có thể đặt nó trong package 'powerup'
 
-import game.ball.ItemsForBall;
+import game.items.ItemsForBall;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color; // (Tạm thời dùng màu, bạn có thể dùng hình ảnh)
