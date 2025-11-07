@@ -8,6 +8,7 @@ import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
 import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
+import game.scenes.TransitionSceneController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -112,6 +113,12 @@ public class App extends Application {
 
     public void switchToSkinScene() {
         switchScene(Constant.SKIN_BALL_SCENE, (SkinBallSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToTransitionScene() {
+        switchScene(Constant.TRANSITION_SCENE, (TransitionSceneController controller) -> {
             controller.setup(this);
         });
     }

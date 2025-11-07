@@ -55,7 +55,7 @@ public abstract class GameScene implements Initializable {
         AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
-            app.switchToGameScene();
+            app.switchToTransitionScene();
         } else {
             System.out.println("Error: App reference is null");
         }
