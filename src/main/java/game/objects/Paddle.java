@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 public class Paddle {
     /// ELEMENT PADDLE
     private double x, y;
-    private final int width = 1000;
+    private final int width = 200;
     private final int height = Constant.BRICK_HEIGHT;
     private final double speed = 5; // SPEED PADDLE
 

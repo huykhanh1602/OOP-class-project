@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.Constant;
+import game.GameContext;
 import game.abstraction.Bricks;
 
 public class BrickLoader {
@@ -16,8 +17,8 @@ public class BrickLoader {
 
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
-        //String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
-        String path = "/game/map/test.txt";
+        String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
+        // String path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;
 
@@ -31,6 +32,7 @@ public class BrickLoader {
 
             for (int i = 0; i < rowS; i++) {
                 line = reader.readLine();
+                if (line.trim().isEmpty()) continue;
                 String[] values = line.split("\\s+");
                 for (int j = 0; j < colS; j++) {
                     String type = values[j];

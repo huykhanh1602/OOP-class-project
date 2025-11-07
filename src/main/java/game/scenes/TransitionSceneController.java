@@ -27,9 +27,9 @@ public class TransitionSceneController extends GameScene{
 
     @FXML
     private void loadPer() {
-        per += Math.random() * 5;
+        per += Math.random() * 10;
         load.setText("Load: " + String.valueOf(per) + "%");
-        if (per >= 95) {
+        if (per >= 100) {
             timeStart.stop();
             app.switchToGameScene();
         }
@@ -37,10 +37,11 @@ public class TransitionSceneController extends GameScene{
 
     @FXML
     private void startLoadPer() {
-    timeStart = new Timeline(
-        new KeyFrame(Duration.millis(100), e -> loadPer())
-    );
-    timeStart.setCycleCount(Animation.INDEFINITE);
-    timeStart.play();    }
+        timeStart = new Timeline(
+            new KeyFrame(Duration.millis(200), e -> loadPer())
+        );
+        timeStart.setCycleCount(Animation.INDEFINITE);
+        timeStart.play();    
+    }
     
 }

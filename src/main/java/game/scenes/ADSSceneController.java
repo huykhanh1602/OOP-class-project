@@ -38,12 +38,10 @@ public class ADSSceneController extends GameScene{
             adsvideo.getFitHeight()
         );
 
-        // 2. Thiết lập bán kính (radius) bo góc
-        double radius = 20.0; // Bán kính bo góc (pixels)
+        double radius = 20.0;
         clip.setArcWidth(radius);
         clip.setArcHeight(radius);
 
-        // 3. Áp dụng clip cho MediaView
         adsvideo.setClip(clip);
 
         adsvideo.layoutBoundsProperty().addListener((obs, oldBounds, newBounds) -> {

@@ -20,7 +20,7 @@ public class ItemsAbsorbentBall extends ItemsForBall {
             double currentSize = ball.getRadius();
 
             // Tăng chỉ số cho TẤT CẢ CÁC BÓNG KHÁC
-            ball.setSpeedball(currentSpeed * 1.002);
+            ball.setSpeedball(currentSpeed * 0.998);
             ball.setDamage(currentDamege * 1.004);
             ball.setRadius(currentSize * 1.004);
         }
