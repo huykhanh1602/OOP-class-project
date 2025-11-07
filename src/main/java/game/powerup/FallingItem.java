@@ -8,8 +8,8 @@ import javafx.scene.paint.Color; // (Tạm thời dùng màu, bạn có thể d�
 public class FallingItem {
 
     private double x, y; // Tọa độ góc trên bên trái
-    private double width = 20;
-    private double height = 20;
+    private final double width = 20;
+    private final double height = 20;
     private double fallSpeed = 150.0; // Tốc độ rơi (pixels mỗi giây)
 
     private ItemsForBall itemType; // "Loại" vật phẩm mà nó đại diện

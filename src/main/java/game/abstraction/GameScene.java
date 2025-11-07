@@ -65,7 +65,7 @@ public abstract class GameScene implements Initializable {
     protected void Setting(ActionEvent e) {
         AssetManager.playSound("click");
         if (app != null) {
-            app.switchtoSettingScene();
+            app.switchToSettingScene();
         } else {
             System.out.println("error setting scene");
         }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="rootContainer" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.ADSSceneController">
+   <children>
+      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="1280.0" prefWidth="720.0" style="-fx-background-color: lightgray;">
+         <children>
+            <AnchorPane layoutX="760.0" prefHeight="720.0" prefWidth="520.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="339.0" layoutY="156.0" style="-fx-font-style: italic;" text="ADS" />
+                  <Label layoutX="44.0" layoutY="151.0" style="-fx-font-weight: bold;" text="MU Đại Thiên Sứ H5">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="47.0" layoutY="189.0" text="by culi lái xe bò">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="44.0" layoutY="252.0" mnemonicParsing="false" onAction="#linkWeb" prefHeight="82.0" prefWidth="444.0" styleClass="play-button" stylesheets="@../fonts/GameStyle.css" text="PLAY">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="476.0" layoutY="33.0" mnemonicParsing="false" onAction="#close" prefHeight="0.0" prefWidth="22.0" style="-fx-background-color: transparent;" text="x">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="53.0" layoutY="414.0" style="-fx-font-weight: bold;" text="Hãy tải game ngay bây giờ để có những phần quà hấp dẫn.">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="52.0" layoutY="442.0" style="-fx-font-family: Arial; -fx-font-weight: bold; -fx-font-style: italic;" text="GIFTCODE: VIP888, VIP999, BET88.">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink fx:id="link" layoutX="50.0" layoutY="343.0" onAction="#linkWeb" style="-fx-font-style: italic;" text="Get it now!!!" />
+               </children></AnchorPane>
+            <MediaView fx:id="adsvideo" fitHeight="405.0" fitWidth="720.0" layoutX="20.0" layoutY="60.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

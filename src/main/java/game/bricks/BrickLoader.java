@@ -9,7 +9,6 @@ import java.util.List;
 
 import game.Constant;
 import game.abstraction.Bricks;
-import game.GameContext;
 
 public class BrickLoader {
     private static final int colS = 20;

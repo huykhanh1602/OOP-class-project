@@ -3,6 +3,7 @@ package game;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import game.scenes.ADSSceneController;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
@@ -96,8 +97,14 @@ public class App extends Application {
         });
     }
 
-    public void switchtoSettingScene() {
+    public void switchToSettingScene() {
         switchScene(Constant.SETTING_SCENE_PATH, (SettingSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToADSScene() {
+        switchScene(Constant.ADS_SCENE, (ADSSceneController controller) -> {
             controller.setup(this);
         });
     }

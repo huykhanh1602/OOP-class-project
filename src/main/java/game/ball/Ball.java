@@ -238,7 +238,7 @@ public abstract class Ball {
         gc.setGlobalAlpha(1.0); // KHÔNG ảnh hưởng vật khác
     }
 
-        public void bounceX() {
+    public void bounceX() {
         dx = -dx;
     } // RIGHT & LEFT
 

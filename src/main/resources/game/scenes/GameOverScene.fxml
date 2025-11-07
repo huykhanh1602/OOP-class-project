@@ -3,6 +3,8 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -11,23 +13,33 @@
    <children>
       <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="1280.0" prefWidth="720.0" style="-fx-background-color: gray;">
          <children>
+            <ImageView fitHeight="223.0" fitWidth="216.0" layoutY="504.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gif/parrot-minecraft.gif" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="223.0" fitWidth="216.0" layoutX="1064.0" layoutY="504.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gif/parrot-minecraft.gif" />
+               </image>
+            </ImageView>
             <Label fx:id="scoreLabel" alignment="CENTER" layoutX="576.0" layoutY="266.0" prefHeight="85.0" prefWidth="129.0" style="-fx-font-size: 20;" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Score: 0">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="restartButton" layoutX="441.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Play Again">
-               <styleClass>
-                  <String fx:value="label-container" />
-                  <String fx:value="game-button" />
-                  <String fx:value="text-label" />
-               </styleClass>
-            </Button>
             <Button fx:id="restartButton1" layoutX="440.0" layoutY="500.0" mnemonicParsing="false" onAction="#returnToHome" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Home">
                <styleClass>
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
                   <String fx:value="game-button" />
+               </styleClass>
+            </Button>
+            <Button fx:id="restartButton" layoutX="441.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleStartButtonAction" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Play Again">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="game-button" />
+                  <String fx:value="text-label" />
                </styleClass>
             </Button>
             <Button fx:id="restartButton11" layoutX="441.0" layoutY="600.0" mnemonicParsing="false" onAction="#Quit" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Quit">
@@ -42,6 +54,17 @@
                   <Font name="System Bold" size="57.0" />
                </font>
             </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1112.0" layoutY="120.0" prefHeight="30.0" prefWidth="141.0" rotate="17.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Extra life??">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Button layoutX="1120.0" layoutY="155.0" mnemonicParsing="false" onAction="#ADS" rotate="17.0" stylesheets="@../fonts/GameStyle.css" text="Button">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+               </styleClass>
+            </Button>
          </children>
       </AnchorPane>
    </children>

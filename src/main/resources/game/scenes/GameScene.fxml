@@ -44,24 +44,19 @@
                   <Image url="@../images/creeper.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="51.0" layoutX="1093.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" rotate="21.5">
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1076.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" rotate="35.8">
                <image>
-                  <Image url="@../images/items/diamond.png" />
+                  <Image url="@../images/items/emerald.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="74.0" fitWidth="50.0" layoutX="1042.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" rotate="-25.3">
+            <ImageView fitHeight="81.0" fitWidth="80.0" layoutX="1029.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" rotate="-25.3">
                <image>
-                  <Image url="@../images/items/emarld.png" />
+                  <Image url="@../images/items/diamond.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="71.0" layoutX="1061.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="80.0" layoutX="1061.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/compass.gif" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="204.0" fitWidth="149.0" layoutX="1191.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true" rotate="-19.8">
-               <image>
-                  <Image url="@../images/torch.gif" />
+                  <Image url="@../images/gif/compass.gif" />
                </image>
             </ImageView>
          </children>

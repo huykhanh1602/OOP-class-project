@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 public class ScoreManager {
     private int score = 0;
     private int highScore = 0;
-    private final String path = "\\vnu\\edu\\vn\\game\\score\\score.txt";
+    private final String path = "/game/score/score.txt";
 
     public ScoreManager() {
         loadHighScore();
