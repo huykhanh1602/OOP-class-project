@@ -1,5 +1,7 @@
 package game.ball;
 import game.abstraction.Bricks;
+import game.objects.Paddle;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -63,5 +65,9 @@ public abstract class ItemsForBall {
     }
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
     public void onPaddleCollision(Ball ball) {
+    }
+    public void onPaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
+        // Mặc định, gọi phiên bản cũ không có tham số
+        onPaddleCollision(ball);
     }
 }

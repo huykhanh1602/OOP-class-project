@@ -74,7 +74,7 @@ public class GameManager {
                 // Bây giờ mới gọi hàm void để xử lý nảy
                 ball.collides(paddle);
                 // Và gọi powerup
-                powerupManager.handlePaddleCollision(ball);
+                powerupManager.handlePaddleCollision(ball, this.paddle, this.bricks);
             }
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
@@ -187,11 +187,11 @@ public class GameManager {
 
     public void update() {
         for(Ball ball : balls){
-            if(ball.getRadius() >= 40){
-                ball.setRadius(40);
+            if(ball.getRadius() >= 25){
+                ball.setRadius(25);
             }
-            if(ball.getSpeedball() >= 20){
-                ball.setSpeedball(20);
+            if(ball.getSpeedball() >= 15){
+                ball.setSpeedball(15);
             }
         }
         if (gamePaused == true) {

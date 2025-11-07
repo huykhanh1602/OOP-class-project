@@ -5,6 +5,7 @@ import java.util.List;
 import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.ball.ItemsForBall;
+import game.objects.Paddle;
 
 /**
  * Đại diện cho một vật phẩm đang CÓ HIỆU LỰC trong game.
@@ -41,8 +42,8 @@ public class ActivePowerup {
     public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
-
-    public void applyOnPaddleCollision(Ball ball) {
-        itemType.onPaddleCollision(ball);
+    public void applyOnPaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
+        // itemType.onPaddleCollision(ball); // <-- Dòng cũ
+        itemType.onPaddleCollision(ball, paddle, allBricks); // <-- Dòng mới
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import game.abstraction.Bricks;
 import game.ball.Ball;
 import game.ball.ItemsForBall;
+import game.objects.Paddle;
 
 /**
  * Đây là lớp "ListPowerup" mà bạn muốn.
@@ -66,9 +67,10 @@ public class PowerupManager {
      * Được gọi TỪ GameManager khi có va chạm bóng-thanh chắn.
      * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
      */
-    public void handlePaddleCollision(Ball ball) {
+    public void handlePaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
         for (ActivePowerup powerup : activePowerups) {
-            powerup.applyOnPaddleCollision(ball);
+            // powerup.applyOnPaddleCollision(ball); // <-- Dòng cũ
+            powerup.applyOnPaddleCollision(ball, paddle, allBricks); // <-- Dòng mới
         }
     }
 }
