@@ -24,6 +24,9 @@ public class ActivePowerup {
         itemType.onPaddleCollision(ball, paddle, allBricks);
     }
     public void applyOnFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        itemType.onFallingCollisoin(collidingBall, allBalls, allBricks, pendingBalls);
+        itemType.onFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);
+    }
+    public ItemsForBall getItemType() {
+        return this.itemType;
     }
 }

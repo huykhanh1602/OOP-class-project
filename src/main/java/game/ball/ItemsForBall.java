@@ -47,7 +47,7 @@ public abstract class ItemsForBall {
     // Phương thức áp dụng hiệu ứng khi nâng cấp được mua
     public void applyOnCreation(Ball ball) {
     }
-    public void onFallingCollisoin(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
+    public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
     }
     /**
      * @param collidingBall Quả bóng VỪA va chạm
@@ -66,6 +66,9 @@ public abstract class ItemsForBall {
     public List<Ball> shatter(Ball currentBall) {
         List<Ball> newBalls = new ArrayList<>();
         NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
+        newBalls.add(newBall);
         return newBalls;
+    }
+    public void onExpired(List<Ball> allBalls) {
     }
 }

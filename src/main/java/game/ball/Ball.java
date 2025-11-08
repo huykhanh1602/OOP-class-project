@@ -21,11 +21,12 @@ public abstract class Ball {
     private double x, y;
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 5; // Ball speed
+    private double speedball = 3; // Ball speed
     public boolean isRunning = false;
     private double damege;
     private double Maxcollision;
     private boolean isClone = false;
+    private boolean isSpecialPowerupBall = false;
 
     /// Aiming Arc
     private double aimAngle = 30 ;
@@ -328,7 +329,12 @@ public abstract class Ball {
     public boolean isClone() {
         return this.isClone;
     }
-
+    public boolean isSpecialPowerupBall(){
+        return isSpecialPowerupBall;
+    }
+    public void setIsSpecialPowerupBall(boolean isSpecialPowerupBall) {
+        this.isSpecialPowerupBall = isSpecialPowerupBall;
+    }
     public boolean isPlayerAiming() {
         return isPlayerAiming;
     }

@@ -1,27 +1,50 @@
 package game.ball;
-
 import game.abstraction.Bricks;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ItemsAbsorbentBallLEVER3 extends ItemsAbsorbentBallLEVER5 {
+    private static final Random random = new Random();
     public ItemsAbsorbentBallLEVER3() {
-        super("Bóng Hấp Thụ(Cấp 3)","Mỗi khi quả bóng bất kì va chạm gạch," +
-                "tất cả các quả bóng khác sẽ được tăng nhẹ về tốc độ, sức tấn công, độ lớn trong 5s",5,40);
+        super("Bóng Hấp Thụ(Cấp 3)","Hiệu lực 10s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff damege, tốc độ x 1.1 vĩnh viễn.",10,13);
+    }
+    public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
+        List<Ball> newBalls = this.shatter(collidingBall);
+        if (!newBalls.isEmpty()) {
+            Ball newBall = newBalls.get(0);
+            newBall.setIsSpecialPowerupBall(true);
+            pendingBalls.addAll(newBalls);
+        }
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        // Lặp qua TẤT CẢ các quả bóng
-        for (Ball ball : allBalls) {
-            // Bỏ qua quả bóng vừa mới va chạm
-            double currentSpeed = ball.getSpeedball();
-            double currentDamege = ball.getDamege();
-            double currentSize = ball.getRadius();
-
-            // Tăng chỉ số cho TẤT CẢ CÁC BÓNG KHÁC
-            ball.setSpeedball(currentSpeed * 1.001);
-            ball.setDamege(currentDamege * 1.002);
-            ball.setRadius(currentSize * 1.002);
+        if (collidingBall.isSpecialPowerupBall()) {
+            collidingBall.setDamege(collidingBall.getDamege()*1.1);
+            collidingBall.setSpeedball(collidingBall.getSpeedball()*1.1);
         }
+    }
+    @Override
+    public void onExpired(List<Ball> allBalls) {
+        for (Ball ball : allBalls) {
+            if (ball.isSpecialPowerupBall()) {
+                ball.setIsSpecialPowerupBall(false);
+            }
+        }
+    }
+    @Override
+    public List<Ball> shatter(Ball currentBall) {
+        List<Ball> newBalls = new ArrayList<>();
+        NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
+        double randomAngleDegrees = random.nextDouble() * (165 - 15) + 15; // 15 đến 165 độ
+        double angleRadians = Math.toRadians(randomAngleDegrees);
+        double vx =  currentBall.getSpeedball() * Math.cos(angleRadians);
+        double vy = -currentBall.getSpeedball() * Math.sin(angleRadians);
+        newBall.setDx(vx);
+        newBall.setDy(vy);
+        newBall.setRunning(true);
+        newBalls.add(newBall);
+        return newBalls;
     }
 }

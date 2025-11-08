@@ -118,7 +118,7 @@ public class GameManager {
             FallingItem item = itemIt.next();
             if (paddle.getBounds().intersects(item.getBounds())) {
                 // KÍCH HOẠT POWERUP
-                powerupManager.addPowerup(item.getItemType());
+                powerupManager.addPowerup(item.getItemType(), this.balls, this.bricks, this.pendingBallsToAdd);;
                 itemIt.remove();
                 AssetManager.playSound("powerup_pickup");
             }
@@ -209,7 +209,7 @@ public class GameManager {
         }
         ParticleManager.getInstance().update(deltaTime);
         // update particles
-        powerupManager.update(deltaTime);
+        powerupManager.update(deltaTime, this.balls);
     }
     public void render(GraphicsContext gc) {
         gc.clearRect(0, 0, widthScreen, heightScreen); 
@@ -250,6 +250,9 @@ public class GameManager {
     }
     private void loadAvailableItems() {
         availableItems.add(new ItemsAbsorbentBallLEVER1());
+        availableItems.add(new ItemsAbsorbentBallLEVER2());
+        availableItems.add(new ItemsAbsorbentBallLEVER3());
+        availableItems.add(new ItemsAbsorbentBallLEVER4());
         availableItems.add(new ItemsAbsorbentBallLEVER5());
         availableItems.add(new ItemsADNBall());
         availableItems.add(new ItemsExplosiveBall());

@@ -14,16 +14,20 @@ public class PowerupManager {
         this.activePowerups = new ArrayList<>();
     }
      //itemType Loại vật phẩm (prototype) vừa nhặt được.
-    public void addPowerup(ItemsForBall itemType) {
-        ActivePowerup newPowerup = new ActivePowerup(itemType);
-        this.activePowerups.add(newPowerup);
-    }
-    public void update(double dt) {
+     public void addPowerup(ItemsForBall itemType, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+         ActivePowerup newPowerup = new ActivePowerup(itemType);
+         this.activePowerups.add(newPowerup);
+         if (!allBalls.isEmpty()) {
+             itemType.onFallingCollision(allBalls.get(0), allBalls, allBricks, pendingBalls);
+         }
+     }
+    public void update(double dt, List<Ball> allBalls) {
         Iterator<ActivePowerup> it = activePowerups.iterator();
         while (it.hasNext()) {
             ActivePowerup powerup = it.next();
             powerup.update(dt);
             if (powerup.isExpired()) {
+                powerup.getItemType().onExpired(allBalls);
                 it.remove();
             }
         }

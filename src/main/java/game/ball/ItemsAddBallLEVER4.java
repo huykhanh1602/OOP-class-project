@@ -5,14 +5,14 @@ import game.abstraction.Bricks;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-public class ItemsADNBall extends ItemsForBall {
+public class ItemsAddBallLEVER4 extends ItemsForBall {
     private static final int SHATTER_BALL_COUNT = 2;
     private static final Random random = new Random();
     private static final double SHATTER_SPEED = 7;
     private static final double SHATTER_RADIUS = 7.0;
     private static final double SHATTER_DAMAGE = 1.0;
-    public ItemsADNBall() {
-        super("Bóng ADN", "Va chạm gạch có tỉ lệ 80% sẽ tạo ra 2 bóng con trong", 10, 10);
+    public ItemsAddBallLEVER4() {
+        super("Bóng ADN", "Hiệu lực 10s. Khi nhặt: tạo 1 bóng mới trên thanh chắn. Khi bóng va chạm gạch, nó được buff +5 damege vĩnh viễn.Va chạm gạch có tỉ lệ 80% sẽ tạo ra 2 bóng con trong", 10, 10);
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
