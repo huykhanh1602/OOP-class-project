@@ -9,9 +9,7 @@ import game.GameContext;
 import game.GameManager;
 import game.abstraction.GameScene;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class GameSceneController extends GameScene {
-
     @FXML
     private Canvas gameCanvas;
 
@@ -32,27 +29,18 @@ public class GameSceneController extends GameScene {
     private AnimationTimer gameLoop;
 
     @FXML
-    private ImageView creeperImage;
-    private boolean isSpawn = false;
+    private ImageView portalLeftImageView;
 
+    @FXML
+    private ImageView portalRightImageView;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
-        DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
-
-        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
-        // cropping)
-        Binding<Number> scale = Bindings.min(widthScale, heightScale);
-
-        // Apply the scale to the gamePane
-        gamePane.scaleXProperty().bind(scale);
-        gamePane.scaleYProperty().bind(scale);
-
+        super.initialize(url, rb);
+        
         // Get the GraphicsContext from the Canvas
         gc = gameCanvas.getGraphicsContext2D();
         setupInputHandlers();
-        creeperImage.setVisible(isSpawn);
         createGameLoop();
     }
 
@@ -61,6 +49,17 @@ public class GameSceneController extends GameScene {
         this.app = app;
         this.gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
 
+        gameManager.createPortals(
+        portalLeftImageView.getLayoutX(),
+        portalLeftImageView.getLayoutY(),
+        portalLeftImageView.getFitWidth(),
+        portalLeftImageView.getFitHeight(),
+
+        portalRightImageView.getLayoutX(),
+        portalRightImageView.getLayoutY(),
+        portalRightImageView.getFitWidth(),
+        portalRightImageView.getFitHeight()
+    );
         resetGame();
     }
 

@@ -7,6 +7,7 @@ import game.App;
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
+import game.objects.Portal;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
@@ -14,6 +15,7 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.event.ActionEvent; // Import to handle events
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -49,6 +51,7 @@ public abstract class GameScene implements Initializable {
     public Binding<Number> getScale() {
         return scale;
     }
+
 
     public void setup(App app) {
         this.app = app;

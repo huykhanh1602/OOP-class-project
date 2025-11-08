@@ -7,11 +7,9 @@ import java.util.List;
 import game.abstraction.Bricks;
 import game.ball.*;
 import game.bricks.BrickLoader;
-import game.items.ItemsADNBall;
-import game.items.ItemsAbsorbentBall;
-import game.items.ItemsExplosiveBall;
-import game.items.ItemsForBall;
+import game.items.*;
 import game.objects.Paddle;
+import game.objects.Portal;
 import game.particle.ParticleManager;
 import game.powerup.PowerupManager;
 import javafx.scene.canvas.GraphicsContext;
@@ -34,12 +32,20 @@ public class GameManager {
 
     /// Game statistics
     private final App app;
-    private boolean gameOver;
     private boolean gamePaused = false;
 
     private boolean isAiming = false;
 
-    private static String skin;
+    private Portal portalLeft;
+    private Portal portalRight;
+
+    public void createPortals(double x1, double y1, double w1, double h1,
+                            double x2, double y2, double w2, double h2) {
+        portalLeft = new Portal(x1, y1, w1, h1);
+        portalRight = new Portal(x2, y2, w2, h2);
+        portalLeft.link(portalRight);
+        portalRight.link(portalLeft);
+    }
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -79,6 +85,14 @@ public class GameManager {
                 // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
+            
+            if (portalLeft.checkCollision(ball)) {
+                portalLeft.teleport(ball);
+            }
+            if (portalRight.checkCollision(ball)) {
+                portalRight.teleport(ball);
+            }
+            
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamage();
@@ -131,16 +145,11 @@ public class GameManager {
                 itemIt.remove();                
                 
             }
-                // if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
-                //     GameContext.getInstance().nextLevel();
-                //     reset();
-                // }
-            }
+        }
 
         if (balls.isEmpty()) {
-                    gameOver = true;
-                    app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
-                }
+            app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
+        }
         balls.addAll(pendingBallsToAdd);
         pendingBallsToAdd.clear();
     }
@@ -150,13 +159,14 @@ public class GameManager {
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
         balls = new ArrayList<Ball>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             switch (GameContext.getInstance().getNameBall()) {
                 case Constant.SLIME_BALL:
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                     break;
                 case Constant.EYEOFDRAGON_BALL:
                     balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
+                    break;
                 default :
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
             }
@@ -166,7 +176,6 @@ public class GameManager {
         ParticleManager.getInstance().clear();
         this.powerupManager = new PowerupManager();
         this.pendingBallsToAdd = new ArrayList<>();
-        gameOver = false;
         gamePaused = false;
         ParticleManager.setLastUpdateTime();
     }
@@ -188,35 +197,26 @@ public class GameManager {
     }
 
     public void update() {
-        for(Ball ball : balls){
-            if(ball.getRadius() >= 40){
-                ball.setRadius(40);
-            }
-            if(ball.getSpeedball() >= 20){
-                ball.setSpeedball(20);
-            }
-        }
+        checkCollision();
         if (gamePaused == true) {
             return;
         }
-        if (gameOver == true) {
-            return;
-        }
         paddle.update();
+        
         for (Ball ball : balls) {
             ball.update(paddle);
             ball.setPlayerAiming(isAiming);
+
+            portalLeft.updateCooldown(ball);
+            portalRight.updateCooldown(ball);
         }
-
-        checkCollision();
-
         for (Bricks brick : bricks) {
             brick.update();
         }
 
-        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {            
-            gameOver = true;
-            return;
+        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) { 
+            GameContext.getInstance().nextLevel();    
+            reset();
         }
         double deltaTime = calculateDeltaTime();
         for (FallingItem item : fallingItems) {
@@ -264,17 +264,10 @@ public class GameManager {
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
     }
+    
     private void loadAvailableItems() {
         availableItems.add(new ItemsAbsorbentBall());
         availableItems.add(new ItemsADNBall());
         availableItems.add(new ItemsExplosiveBall());
-    }
-
-    public static String getSkin() {
-        return skin;
-    }
-
-    public static void setSkin(String skin) {
-        skin = skin;
     }
 }

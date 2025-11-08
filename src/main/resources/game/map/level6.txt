@@ -1,0 +1,9 @@
+0 0 0 0 0 0 0 s s s s s s 0 0 0 0 0 0 0
+0 0 0 0 s s s i i i s s s 0 0 0 0 0 0 0
+0 0 0 s i g g g g g g g i s 0 0 0 0 0 0
+0 0 s i g d d d d d d g i s 0 0 0 0 0 0
+0 0 s i g d b b b d g i s 0 0 0 0 0 0 0
+0 0 0 s i g g g g g g i s 0 0 0 0 0 0 0
+0 0 0 0 s i i i i i s 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 s s s s s 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

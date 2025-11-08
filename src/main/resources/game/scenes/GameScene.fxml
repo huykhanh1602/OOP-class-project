@@ -19,18 +19,17 @@
                   <Image url="@../images/game_background.png" />
                </image>
             </ImageView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="10.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
-            <Canvas fx:id="gameCanvas" height="680.0" layoutX="10.0" layoutY="20.0" width="1000.0" />
-            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1061.0" layoutY="484.0" prefHeight="127.0" prefWidth="188.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="680.0" layoutX="36.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
+            <Label fx:id="scoreLabel" contentDisplay="TOP" layoutX="1061.0" layoutY="442.0" prefHeight="127.0" prefWidth="188.0" stylesheets="@../fonts/GameStyle.css" text="Score:">
                <styleClass>
                   <String fx:value="score-label" />
-                  <String fx:value="coin-label-container" />
+                  <String fx:value="score-label-container" />
                </styleClass>
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1072.0" layoutY="160.0" prefHeight="109.0" prefWidth="166.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
+            <Label fx:id="scoreLabel1" contentDisplay="TOP" layoutX="1080.0" layoutY="57.0" prefHeight="109.0" prefWidth="166.0" stylesheets="@../fonts/GameStyle.css" text="Coin:">
                <font>
                   <Font size="19.0" />
                </font>
@@ -39,26 +38,32 @@
                   <String fx:value="label-container" />
                </styleClass>
             </Label>
-            <ImageView fx:id="creeperImage" fitHeight="183.0" fitWidth="174.0" layoutX="1084.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/creeper.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1076.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" rotate="35.8">
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1084.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" rotate="35.8">
                <image>
                   <Image url="@../images/items/emerald.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="81.0" fitWidth="80.0" layoutX="1029.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" rotate="-25.3">
+            <ImageView fitHeight="81.0" fitWidth="80.0" layoutX="1037.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" rotate="-25.3">
                <image>
                   <Image url="@../images/items/diamond.gif" />
                </image>
             </ImageView>
-            <ImageView fitHeight="69.0" fitWidth="80.0" layoutX="1061.0" layoutY="248.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="69.0" fitWidth="80.0" layoutX="1041.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/gif/compass.gif" />
                </image>
             </ImageView>
+            <ImageView fx:id="portalLeftImageView" fitHeight="150.0" fitWidth="200.0" layoutY="184.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gif/portal.gif" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="portalRightImageView" fitHeight="150.0" fitWidth="200.0" layoutX="985.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/gif/portal.gif" />
+               </image>
+            </ImageView>
+            <Canvas fx:id="gameCanvas" height="680.0" layoutX="36.0" layoutY="20.0" width="1000.0" />
          </children>
       </AnchorPane>
    </children>

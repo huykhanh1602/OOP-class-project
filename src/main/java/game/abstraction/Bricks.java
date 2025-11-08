@@ -70,7 +70,7 @@ public abstract class Bricks extends GameObject {
     }
 
     public Rectangle2D getRectBrick() { // Return the rectangle for collision detection
-        return new Rectangle2D(x - Constant.BRICK_WIDTH / 2.0f, y - Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        return new Rectangle2D(x - Constant.BRICK_WIDTH / 2.0f + 10, y - Constant.BRICK_HEIGHT / 2.0f + 10, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
     }
 
     public void render(GraphicsContext gc) {
@@ -79,8 +79,8 @@ public abstract class Bricks extends GameObject {
         }
         gc.save();
         gc.translate(x, y);
-        // gc.scale(scale, scale);
-        // gc.drawImage(AssetManager.getImage(type), - Constant.BRICK_WIDTH / 2.0f, - Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        gc.scale(scale, scale);
+        gc.drawImage(AssetManager.getImage(type), - Constant.BRICK_WIDTH / 2.0f, - Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         stage = (int) Math.floor((durability * 10) / originalDurability);
         switch (stage) {
             case 8:
@@ -121,7 +121,7 @@ public abstract class Bricks extends GameObject {
                 break;
         }
         gc.setFill(Color.RED);
-        gc.strokeRect(-Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        // gc.strokeRect(-Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         gc.restore();
     }
 

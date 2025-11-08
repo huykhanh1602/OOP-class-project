@@ -6,7 +6,7 @@ public class Constant {
     public static final int HEIGHT_SCREEN = 720;
 
     // game settings
-    public static final int MAX_LEVEL = 5;
+    public static final int MAX_LEVEL = 10;
     public static final long LEVEL_TRANSITION_DELAY = 3_000_000_000L; // in milliseconds
 
     // paddle settings
@@ -28,6 +28,12 @@ public class Constant {
     public static final String LEVEL_3 = "/game/map/level3.txt";
     public static final String LEVEL_4 = "/game/map/level4.txt";
     public static final String LEVEL_5 = "/game/map/level5.txt";
+    public static final String LEVEL_6 = "/game/map/level6.txt";
+    public static final String LEVEL_7 = "/game/map/level7.txt";
+    public static final String LEVEL_8 = "/game/map/level8.txt";
+    public static final String LEVEL_9 = "/game/map/level9.txt";
+    public static final String LEVEL_10 = "/game/map/level10.txt";
+
     public static final String TEST = "/game/map/test.txt";
 
     // element

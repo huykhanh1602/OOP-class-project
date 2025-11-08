@@ -28,7 +28,7 @@ public class TransitionSceneController extends GameScene{
     @FXML
     private void loadPer() {
         per += Math.random() * 10;
-        load.setText("Load: " + String.valueOf(per) + "%");
+        load.setText("Load: \n%" + per);
         if (per >= 100) {
             timeStart.stop();
             app.switchToGameScene();
