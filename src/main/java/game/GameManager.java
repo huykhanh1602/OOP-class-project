@@ -48,7 +48,6 @@ public class GameManager {
         this.pendingBallsToAdd = new ArrayList<>();
         loadAvailableItems();
     }
-
     private static  double lastUpdateTime = 0;
     public static double calculateDeltaTime() {
         long currentTime = System.nanoTime();
@@ -57,8 +56,6 @@ public class GameManager {
         }
         double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
         lastUpdateTime = currentTime;
-
-        // Clamp giá trị dt để tránh outlier
         if (dt < 0.001 || dt > 0.05) {
             dt = 0.016; // khoảng 60 FPS
         }
@@ -71,9 +68,7 @@ public class GameManager {
             Ball ball = BALL.next();
             ball.collides(ball);
             if (ball.getRect().intersects(paddle.getBounds())) {
-                // Bây giờ mới gọi hàm void để xử lý nảy
                 ball.collides(paddle);
-                // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball, this.paddle, this.bricks);
             }
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
@@ -101,7 +96,7 @@ public class GameManager {
                                 FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
                                 this.fallingItems.add(newItem);
                                 System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
+                                break;
                             }
                         }
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
@@ -110,10 +105,9 @@ public class GameManager {
                 if(ball.getMaxcollision() <= 0) {
                     BALL.remove();
                 }
-                    break; // tránh va chạm nhiều brick 1 frame
+                    break;
                 }
             }
-
             /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
@@ -125,17 +119,12 @@ public class GameManager {
             if (paddle.getBounds().intersects(item.getBounds())) {
                 // KÍCH HOẠT POWERUP
                 powerupManager.addPowerup(item.getItemType());
-                // Xóa vật phẩm khỏi danh sách
                 itemIt.remove();
-                AssetManager.playSound("powerup_pickup"); // (Thêm âm thanh nếu muốn)
+                AssetManager.playSound("powerup_pickup");
             }
-            // Xóa nếu rơi ra khỏi màn hình
             else if (item.getY() > this.heightScreen) {
-                itemIt.remove();                
-                
+                itemIt.remove();
             }
-
-
                 if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
                     GameContext.getInstance().nextLevel();
                     reset();
@@ -150,8 +139,6 @@ public class GameManager {
         balls.addAll(pendingBallsToAdd);
         pendingBallsToAdd.clear();
     }
-
-
     public void reset() {
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
@@ -160,7 +147,6 @@ public class GameManager {
             balls.add(new NormalBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
         bricks = BrickLoader.loadBricks();
-        // clear particles when reset game
         ParticleManager.getInstance().clear();
         this.powerupManager = new PowerupManager();
         this.pendingBallsToAdd = new ArrayList<>();
@@ -184,7 +170,6 @@ public class GameManager {
             }
         }
     }
-
     public void update() {
         for(Ball ball : balls){
             if(ball.getRadius() >= 25){
@@ -207,13 +192,10 @@ public class GameManager {
             ball.setPlayerAiming(isAiming);
         }
         checkCollision();
-        // Vòng lặp này sẽ xóa tất cả gạch vỡ (bao gồm cả gạch vỡ do nổ)
         Iterator<Bricks> cleanupIt = bricks.iterator();
         while (cleanupIt.hasNext()) {
             Bricks brick = cleanupIt.next();
             if (brick.isBroken()) {
-                // Chỉ xóa, không cộng điểm hay thả item ở đây
-                // (Vì checkCollision đã xử lý việc đó cho gạch chính)
                 cleanupIt.remove();
             }
         }
@@ -229,7 +211,6 @@ public class GameManager {
         // update particles
         powerupManager.update(deltaTime);
     }
-
     public void render(GraphicsContext gc) {
         gc.clearRect(0, 0, widthScreen, heightScreen); 
         paddle.render(gc);
@@ -268,15 +249,14 @@ public class GameManager {
         return GameContext.getInstance().getCurrentScore();
     }
     private void loadAvailableItems() {
-        availableItems.add(new ItemsAbsorbentBall());
+        availableItems.add(new ItemsAbsorbentBallLEVER1());
+        availableItems.add(new ItemsAbsorbentBallLEVER5());
         availableItems.add(new ItemsADNBall());
         availableItems.add(new ItemsExplosiveBall());
     }
-
     public static String getSkin() {
         return skin;
     }
-
     public static void setSkin(String skin) {
         skin = skin;
     }

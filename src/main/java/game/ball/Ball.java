@@ -105,7 +105,6 @@ public abstract class Ball {
             y = 20;
         }
     }
-
     public void collides(Bricks brick) {
         double brickCenterX = brick.getX() + brick.getWidth()/2.0f;
         double brickCenterY = brick.getY() + brick.getHeight()/2.0f;
@@ -323,15 +322,9 @@ public abstract class Ball {
     public void setMaxcollision(double maxcollision) {
         Maxcollision = maxcollision;
     }
-    /**
-     * Đánh dấu quả bóng này là một bản sao (clone).
-     */
     public void setIsClone(boolean isClone) {
         this.isClone = isClone;
     }
-    /**
-     * @return true nếu quả bóng này là bản sao.
-     */
     public boolean isClone() {
         return this.isClone;
     }
