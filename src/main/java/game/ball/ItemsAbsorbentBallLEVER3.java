@@ -8,7 +8,7 @@ import java.util.Random;
 public class ItemsAbsorbentBallLEVER3 extends ItemsAbsorbentBallLEVER5 {
     private static final Random random = new Random();
     public ItemsAbsorbentBallLEVER3() {
-        super("Bóng Hấp Thụ(Cấp 3)","Hiệu lực 8s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff damege, tốc độ x 1.1 vĩnh viễn.",8,8);
+        super("Bóng Hấp Thụ(Cấp 3)","Hiệu lực 8s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff damege, tốc độ x 1.1",8,6);
     }
     public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
         List<Ball> newBalls = this.shatter(collidingBall);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ItemsAbsorbentBallLEVER2 extends ItemsAbsorbentBallLEVER5 {
     public ItemsAbsorbentBallLEVER2() {
-        super("Bóng Hấp Thụ(Cấp 2)","Hiệu lực 7s. Khi nhặt: khi bóng va chạm gạch, nó được buff 1 damege vĩnh viễn.",7,11);
+        super("Bóng Hấp Thụ(Cấp 2)","Hiệu lực 7s. Khi nhặt: khi bóng va chạm gạch, nó được buff 1 damege",7,9);
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {

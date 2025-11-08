@@ -259,7 +259,11 @@ public class GameManager {
         availableItems.add(new ItemsCloneBallLEVER3());
         availableItems.add(new ItemsCloneBallLEVER4());
         availableItems.add(new ItemsCloneBallLEVER5());
-        availableItems.add(new ItemsExplosiveBall());
+        availableItems.add(new ItemsExplosiveBallLEVER1());
+        availableItems.add(new ItemsExplosiveBallLEVER2());
+        availableItems.add(new ItemsExplosiveBallLEVER3());
+        availableItems.add(new ItemsExplosiveBallLEVER4());
+        availableItems.add(new ItemsExplosiveBallLEVER5());
     }
     public static String getSkin() {
         return skin;

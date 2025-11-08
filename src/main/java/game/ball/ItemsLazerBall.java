@@ -92,8 +92,5 @@ public class ItemsLazerBall extends ItemsForBall {
 
     @Override
     public void onPaddleCollision(Ball ball) {
-        // PHIÊN BẢN CŨ NÀY SẼ KHÔNG HOẠT ĐỘNG
-        // vì nó không có tham số "paddle" và "allBricks".
-        // Bạn cần làm theo hướng dẫn bên dưới.
     }
 }

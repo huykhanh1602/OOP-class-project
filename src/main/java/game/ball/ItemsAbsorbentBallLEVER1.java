@@ -9,8 +9,8 @@ public class ItemsAbsorbentBallLEVER1 extends ItemsAbsorbentBallLEVER5 {
     private static final Random random = new Random();
     public ItemsAbsorbentBallLEVER1() {
         super("Bóng Hấp Thụ(Cấp 1)",
-                "Hiệu lực 6s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff +5 damege vĩnh viễn.",
-                6, 15);
+                "Hiệu lực 6s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff +5 damege",
+                6, 13);
     }
     @Override
     public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
