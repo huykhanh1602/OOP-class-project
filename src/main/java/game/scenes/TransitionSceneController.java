@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class TransitionSceneController extends GameScene{
-    private int per = 0;
+    private int per = 90;
     @FXML
     private Label load;
     private Timeline timeStart;    

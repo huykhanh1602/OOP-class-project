@@ -72,6 +72,7 @@ public class Constant {
     public static final String SKIN_BALL_SCENE = "/game/scenes/SkinBallScene.fxml";
     public static final String TRANSITION_SCENE = "/game/scenes/TransitionScene.fxml";
     public static final String ADS_SCENE = "/game/scenes/ADSScene.fxml";
+    public static final String START_SCENE = "/game/scenes/StartScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path

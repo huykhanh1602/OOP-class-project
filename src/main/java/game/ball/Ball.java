@@ -103,8 +103,8 @@ public abstract class Ball {
     }
 
     public void collides(Bricks brick) {
-        double brickCenterX = brick.getX() + brick.getWidth()/2.0f;
-        double brickCenterY = brick.getY() + brick.getHeight()/2.0f;
+        double brickCenterX = brick.getX();
+        double brickCenterY = brick.getY();
 
         double closestX = Math.abs(x - brickCenterX);
         double closestY = Math.abs(y - brickCenterY);

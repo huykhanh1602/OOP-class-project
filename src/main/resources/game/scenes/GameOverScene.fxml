@@ -54,17 +54,22 @@
                   <Font name="System Bold" size="57.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1112.0" layoutY="120.0" prefHeight="30.0" prefWidth="141.0" rotate="17.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Extra life??">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1123.0" layoutY="198.0" prefHeight="30.0" prefWidth="141.0" rotate="17.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Extra life??">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Button layoutX="1120.0" layoutY="155.0" mnemonicParsing="false" onAction="#ADS" rotate="17.0" stylesheets="@../fonts/GameStyle.css" text="Button">
+            <Button layoutX="1131.0" layoutY="233.0" mnemonicParsing="false" onAction="#ADS" rotate="17.0" stylesheets="@../fonts/GameStyle.css" text="Button">
                <styleClass>
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
                </styleClass>
             </Button>
+            <ImageView fitHeight="64.0" fitWidth="164.0" layoutX="1000.0" layoutY="221.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/16bit-80s.gif" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

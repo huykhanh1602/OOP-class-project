@@ -32,7 +32,7 @@ public class App extends Application {
 
         this.primaryStage = stage;
 
-        switchToHomeScene();
+        switchToGameScene();
 
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);

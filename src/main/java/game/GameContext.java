@@ -16,7 +16,7 @@ public class GameContext {
     private int currentDifficulty = 1;
     private double soundVolume = 0.8;
     private double backgroundMusic = 0.8;
-    private double masterVolume = 0.8;
+    private double masterVolume = 0.2;
     private String nameBall = Constant.SLIME_BALL;
 
     private int highScore = 0;

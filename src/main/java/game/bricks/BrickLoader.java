@@ -18,7 +18,7 @@ public class BrickLoader {
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
         String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
-        // String path = "/game/map/test.txt";
+        path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;
 

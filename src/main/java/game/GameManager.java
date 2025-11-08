@@ -83,34 +83,19 @@ public class GameManager {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamage();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
-                    ball.setMaxcollision(ball.getMaxcollision()-1);
                     ball.collides(brick);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
-                    AssetManager.playSound("brick_break");
-                    // double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                    // double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                    // ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
-                    //             brick.getColor());
-                    // for (ItemsForBall itemPrototype : availableItems) {
-                    //         double dropChance = itemPrototype.getPercent();
-                    //         if (Math.random() < (dropChance / 100.0)) {
-                    //             FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
-                    //             this.fallingItems.add(newItem);
-                    //             System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                    //             break; // Chỉ rơi 1 vật phẩm mỗi gạch
-                    //         }
-                    //    }
                     brick.hit(dame);
+                    if (brick.isDestroyable()) {brick.hitAnimation(); ball.setMaxcollision(ball.getMaxcollision()-1);}
                     if (brick.isBroken()) {
-                        System.out.println("break brick");
                         AssetManager.playSound("ball_collide");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
 
-                        double brickCenterX = brick.getX() + brick.getWidth() / 2;
-                        double brickCenterY = brick.getY() + brick.getHeight() / 2;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
-                                brick.getColor());
+                        double brickCenterX = brick.getX();
+                        double brickCenterY = brick.getY() ;
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 
+                        6, brick.getColor());
                         for (ItemsForBall itemPrototype : availableItems) {
                             double dropChance = itemPrototype.getPercent();
                             if (Math.random() < (dropChance / 100.0)) {
@@ -122,13 +107,11 @@ public class GameManager {
                         }
                     }
                 if(ball.getMaxcollision() <= 0) {
-                    //BALL.remove();
+                    BALL.remove();
                 }
                     break; // tránh va chạm nhiều brick 1 frame
                 }
             }
-
-            /// Game over
             if (ball.getY() > heightScreen) {
                 BALL.remove();
             }
@@ -148,12 +131,10 @@ public class GameManager {
                 itemIt.remove();                
                 
             }
-
-
-                if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
-                    GameContext.getInstance().nextLevel();
-                    reset();
-                }
+                // if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
+                //     GameContext.getInstance().nextLevel();
+                //     reset();
+                // }
             }
 
         if (balls.isEmpty()) {
@@ -218,7 +199,6 @@ public class GameManager {
         if (gamePaused == true) {
             return;
         }
-        // check game over
         if (gameOver == true) {
             return;
         }
@@ -227,18 +207,14 @@ public class GameManager {
             ball.update(paddle);
             ball.setPlayerAiming(isAiming);
         }
+
         checkCollision();
-        // Vòng lặp này sẽ xóa tất cả gạch vỡ (bao gồm cả gạch vỡ do nổ)
-        Iterator<Bricks> cleanupIt = bricks.iterator();
-        while (cleanupIt.hasNext()) {
-            Bricks brick = cleanupIt.next();
-            if (brick.isBroken()) {
-                // Chỉ xóa, không cộng điểm hay thả item ở đây
-                // (Vì checkCollision đã xử lý việc đó cho gạch chính)
-                cleanupIt.remove();
-            }
+
+        for (Bricks brick : bricks) {
+            brick.update();
         }
-        if (bricks.isEmpty() == true) {
+
+        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {            
             gameOver = true;
             return;
         }
