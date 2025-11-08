@@ -58,7 +58,7 @@
                   <Image url="@../images/gif/portal.gif" />
                </image>
             </ImageView>
-            <ImageView fx:id="portalRightImageView" fitHeight="150.0" fitWidth="200.0" layoutX="985.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="portalRightImageView" fitHeight="150.0" fitWidth="200.0" layoutX="976.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/gif/portal.gif" />
                </image>

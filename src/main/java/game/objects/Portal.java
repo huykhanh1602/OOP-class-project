@@ -21,7 +21,7 @@ public class Portal {
     }
 
     public boolean checkCollision(Ball ball) {
-        return ball.getRect().intersects(new Rectangle2D(x + width / 4, y + height / 3.5, width /2, height / 3.5));
+        return ball.getRect().intersects(new Rectangle2D(x + width / 3, y + height / 3, width / 3, height / 3));
     }
 
     public void teleport(Ball ball) {
