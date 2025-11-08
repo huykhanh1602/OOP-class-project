@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ItemsAbsorbentBallLEVER5 extends ItemsForBall {
     public ItemsAbsorbentBallLEVER5() {
-        super("Bóng Hấp Thụ(Cấp 5)","Hiệu lực 10s. Khi nhặt: tạo 1 bóng mới trên thanh chắn. Với mỗi quả bóng"+
-                " va chạm sẽ tăng damege, tốc độ, size cho mọi quả bóng",10,5);
+        super("Bóng Hấp Thụ(Cấp 5)","Hiệu lực 10s. Khi nhặt: tạo 1 bóng mới trên sân. Với mỗi quả bóng"+
+                " va chạm sẽ tăng damege, tốc độ, size cho mọi quả bóng",10,3);
     }
     public ItemsAbsorbentBallLEVER5(String name, String description, double timeuse, double percent) {
         super(name, description, timeuse, percent);
@@ -23,6 +23,7 @@ public class ItemsAbsorbentBallLEVER5 extends ItemsForBall {
             ball.setRadius(currentSize * 1.004);
         }
     }
+    @Override
     public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
         List<Ball> newBalls = this.shatter(collidingBall);
         pendingBalls.addAll(newBalls);
