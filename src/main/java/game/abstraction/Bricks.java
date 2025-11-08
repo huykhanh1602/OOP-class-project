@@ -1,7 +1,6 @@
 package game.abstraction;
 
 import game.Constant;
-import game.objects.GameObject;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -80,8 +79,8 @@ public abstract class Bricks extends GameObject {
         }
         gc.save();
         gc.translate(x, y);
-        gc.scale(scale, scale);
-        gc.drawImage(AssetManager.getImage(type), - Constant.BRICK_WIDTH / 2.0f, - Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        // gc.scale(scale, scale);
+        // gc.drawImage(AssetManager.getImage(type), - Constant.BRICK_WIDTH / 2.0f, - Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         stage = (int) Math.floor((durability * 10) / originalDurability);
         switch (stage) {
             case 8:
@@ -121,6 +120,8 @@ public abstract class Bricks extends GameObject {
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
         }
+        gc.setFill(Color.RED);
+        gc.strokeRect(-Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         gc.restore();
     }
 

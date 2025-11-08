@@ -3,8 +3,10 @@ package game.ball;
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
+import game.Constant;
 import game.GameContext;
 import game.abstraction.Bricks;
+import game.abstraction.GameObject;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,14 +15,13 @@ import javafx.scene.paint.Color;
 
 ///  Ball movement
 
-public abstract class Ball {
+public abstract class Ball extends GameObject {
     /// ELEMENT BALL
-    private double x, y;
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 5; // Ball speed
+    private double speedball = 1; // Ball speed
     public boolean isRunning = false;
-    private double damege;
+    private double damage;
     private double Maxcollision;
     private boolean isClone = false;
 
@@ -103,38 +104,28 @@ public abstract class Ball {
     }
 
     public void collides(Bricks brick) {
-        double brickCenterX = brick.getX();
-        double brickCenterY = brick.getY();
+        double closestX = clamp(x, brick.getX() - Constant.BRICK_WIDTH / 2.0f, brick.getX() + Constant.BRICK_WIDTH / 2.0f);
+        double closestY = clamp(y, brick.getY() - Constant.BRICK_HEIGHT / 2.0f, brick.getY() + Constant.BRICK_HEIGHT / 2.0f);
 
-        double closestX = Math.abs(x - brickCenterX);
-        double closestY = Math.abs(y - brickCenterY);
+        double deltaX = x - closestX;
+        double deltaY = y - closestY;
 
-        if (closestX == closestY) {
-            bounceX();
-            bounceY();
-            if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 2;
+        double distanceSq = deltaX * deltaX + deltaY * deltaY;
+        double radiusSq = radius * radius;
+
+        if (distanceSq <= radiusSq) {
+            double distance = Math.sqrt(distanceSq);
+            double separation = radius - distance; 
+            double normalX = (distance > 0) ? deltaX / distance : 0;
+            double normalY = (distance > 0) ? deltaY / distance : 0;
+
+            x += normalX * separation;
+            y += normalY * separation;
+
+            if (Math.abs(normalX) > Math.abs(normalY)) {
+                bounceX();
             } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 2;
-            }
-            if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
-            } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
-            }
-        } else if (closestX < closestY) {
-            bounceY();
-            if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
-            } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
-            }
-        } else {
-            bounceX();
-            if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 7;
-            } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 7;
+                bounceY();
             }
         }
     }
@@ -156,8 +147,7 @@ public abstract class Ball {
     }
 
     public void update(Paddle paddle) {
-        if (dx > speedball) dx = speedball;
-        if (dx < -speedball) dx = -speedball;
+        normalizeVelocity();
         if (isRunning) {
             x += dx;
             y += dy;
@@ -255,21 +245,17 @@ public abstract class Ball {
     }
 
     private void normalizeVelocity() {
+        if (dx > speedball) dx = speedball;
+        if (dx < -speedball) dx = -speedball;
+        if (dy > speedball) dy = speedball;
+        if (dy < -speedball) dy = -speedball;
         double length = sqrt(dx * dx + dy * dy);
         if (length != 0) {
             dx = dx / length * speedball;
             dy = dy / length * speedball;
         }
     }  
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
+    
     public double getDx() {
         return dx;
     }
@@ -308,10 +294,10 @@ public abstract class Ball {
     }
 
     public double getDamage() {
-        return damege;
+        return damage;
     }
-    public void setDamage(double damge) {
-        this.damege = damge;
+    public void setDamage(double damage) {
+        this.damage = damage;
     }
     public double getMaxcollision() {
         return Maxcollision;

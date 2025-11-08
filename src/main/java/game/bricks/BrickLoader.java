@@ -12,13 +12,10 @@ import game.GameContext;
 import game.abstraction.Bricks;
 
 public class BrickLoader {
-    private static final int colS = 20;
-    private static final int rowS = 10;
-
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
         String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
-        path = "/game/map/test.txt";
+        //path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;
 
@@ -30,11 +27,11 @@ public class BrickLoader {
 
             reader = new BufferedReader(new InputStreamReader(is));
 
-            for (int i = 0; i < rowS; i++) {
+            for (int i = 0; i < Constant.BRICK_ROWS; i++) {
                 line = reader.readLine();
                 if (line.trim().isEmpty()) continue;
                 String[] values = line.split("\\s+");
-                for (int j = 0; j < colS; j++) {
+                for (int j = 0; j < Constant.BRICK_COLUMNS; j++) {
                     String type = values[j];
                     Bricks brick = createBricks(type, j * Constant.BRICK_WIDTH, i * Constant.BRICK_HEIGHT);
                     if (brick != null) {

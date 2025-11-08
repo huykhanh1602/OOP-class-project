@@ -9,10 +9,6 @@ public class Constant {
     public static final int MAX_LEVEL = 5;
     public static final long LEVEL_TRANSITION_DELAY = 3_000_000_000L; // in milliseconds
 
-    // Collision settings
-    // public static final int WALL_WIDTH = 10;
-    // public static final int WALL_HEIGHT = 10;
-
     // paddle settings
     // public static int PADDLE_SPEED = 10;
     // public static int PADDLE_WIDTH = 100;
@@ -21,8 +17,7 @@ public class Constant {
     // // ball settings
     // public static int BALL_RADIUS = 10;
     // public static int INITIAL_BALL_SPEED = 5;
-    // public static final int BRICK_ROWS = 10;
-    // public static final int BRICK_COLUMNS = 20;
+
     public static final String SLIME_BALL = "/game/images/ball/slime_ball.png";
     public static final String EYEOFDRAGON_BALL = "/game/images/ball/eyeofdragon_ball.png";
     public static final String DIRETION = "/game/images/spear.png";
@@ -50,6 +45,8 @@ public class Constant {
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
+    public static final int BRICK_ROWS = 10;
+    public static final int BRICK_COLUMNS = 20;
 
     public static final String STONE_BRICK_IMAGE = "/game/images/bricks/stone_brick.png";
     public static final String IRON_BRICK_IMAGE = "/game/images/bricks/iron_brick.png";

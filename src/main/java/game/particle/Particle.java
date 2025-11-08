@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Random;
 
-import game.objects.GameObject;
+import game.abstraction.GameObject;
 
 public class Particle extends GameObject {
 
