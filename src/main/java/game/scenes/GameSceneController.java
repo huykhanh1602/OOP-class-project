@@ -4,10 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
-import game.Constant;
 import game.GameContext;
-import game.GameManager;
 import game.abstraction.GameScene;
+import game.manager.GameManager;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -24,6 +23,7 @@ public class GameSceneController extends GameScene {
     private Label scoreLabel;
 
     private GraphicsContext gc;
+
     private GameManager gameManager;
 
     private AnimationTimer gameLoop;
@@ -70,7 +70,8 @@ public class GameSceneController extends GameScene {
             public void handle(long now) {
                 if (gameManager != null) {
                     updatePositionPortal();
-                    gameManager.update();
+                    double deltatime = calculateDeltaTime();
+                    gameManager.update(deltatime);
                     scoreLabel.setText("Score:\n" + gameManager.getScore());
                     gameManager.render(gc);
                 } else {
@@ -78,6 +79,23 @@ public class GameSceneController extends GameScene {
                 }
             }
         };
+    }
+
+    private double lastUpdateTime = 0;
+
+    private double calculateDeltaTime() {
+        long currentTime = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = currentTime;
+        }
+        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
+        lastUpdateTime = currentTime;
+
+        // Clamp giá trị dt để tránh outlier
+        if (dt < 0.001 || dt > 0.05) {
+            dt = 0.016; // khoảng 60 FPS
+        }
+        return dt;
     }
 
     private void startGameLoop() {
@@ -96,7 +114,7 @@ public class GameSceneController extends GameScene {
     @FXML
     public void resetGame() {
         if (gameManager != null) {
-            gameManager.reset();
+            gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
         }
 
         if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {
@@ -125,20 +143,8 @@ public class GameSceneController extends GameScene {
         if (portalRightImageView.getLayoutY() < 0) diretionR = 1;
         portalLeftImageView.setLayoutY(portalLeftImageView.getLayoutY() + diretionL);
         portalRightImageView.setLayoutY(portalRightImageView.getLayoutY() + diretionR);
-        gameManager.createPortals(
-            portalLeftImageView.getLayoutX(),
-            portalLeftImageView.getLayoutY(),
-            portalLeftImageView.getFitWidth(),
-            portalLeftImageView.getFitHeight(),
-
-            portalRightImageView.getLayoutX(),
-            portalRightImageView.getLayoutY(),
-            portalRightImageView.getFitWidth(),
-            portalRightImageView.getFitHeight()
-        );
         num = 0;
         }
         num++;
-        
     }
 }

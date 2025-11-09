@@ -4,6 +4,7 @@ package game.scenes;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import game.GameContext;
 import game.abstraction.GameScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -23,6 +24,7 @@ public class TransitionSceneController extends GameScene{
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
         startLoadPer();
+        GameContext.getInstance().resetCurrentScore();
     }
 
     @FXML

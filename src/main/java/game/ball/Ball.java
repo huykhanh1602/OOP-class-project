@@ -158,7 +158,7 @@ public abstract class Ball extends GameObject {
         }
     }
 
-    public void update(Paddle paddle) {
+    public void update(double deltaTime, Paddle paddle) {
         angle();
         normalizeVelocity();
         limit();

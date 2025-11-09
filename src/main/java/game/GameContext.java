@@ -1,7 +1,6 @@
 package game;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
 
 public class GameContext {
     private static final GameContext instance = new GameContext();
@@ -112,4 +111,7 @@ public class GameContext {
         this.nameBall = nameBall;
     }
     
+    public void resetCurrentScore() {
+        currentScore = new SimpleIntegerProperty(0);
+    }
 }
