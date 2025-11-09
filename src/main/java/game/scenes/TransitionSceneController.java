@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class TransitionSceneController extends GameScene{
-    private int per = 90;
+    private int per = 0;
     @FXML
     private Label load;
     private Timeline timeStart;    
@@ -28,7 +28,7 @@ public class TransitionSceneController extends GameScene{
     @FXML
     private void loadPer() {
         per += Math.random() * 10;
-        load.setText("Load: \n%" + per);
+        load.setText("Load: " + per + "%");
         if (per >= 100) {
             timeStart.stop();
             app.switchToGameScene();

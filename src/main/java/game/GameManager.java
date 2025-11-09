@@ -176,13 +176,18 @@ public class GameManager {
         balls = new ArrayList<Ball>();
         for (int i = 0; i < 10; i++) {
             switch (GameContext.getInstance().getNameBall()) {
-                case Constant.SLIME_BALL:
+                case "slime_ball":
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                     break;
-                case Constant.EYEOFDRAGON_BALL:
+                case "eod_ball":
                     balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2,
                             paddle.getY() - paddle.getHeight()));
                     break;
+                case "fire_ball":
+                    balls.add(new FireBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
+                    break;
+                case "snow_ball":
+                    balls.add(new SnowBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                 default:
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
             }

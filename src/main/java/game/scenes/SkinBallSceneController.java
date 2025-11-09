@@ -3,6 +3,7 @@ package game.scenes;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import game.AssetManager;
 import game.Constant;
 import game.GameContext;
 import game.abstraction.GameScene;
@@ -27,8 +28,10 @@ public class SkinBallSceneController extends GameScene{
     private String nameBall;
 
     private final String[] skins = {
-        Constant.SLIME_BALL,
-        Constant.EYEOFDRAGON_BALL
+        "slime_ball",
+        "eod_ball",
+        "fire_ball",
+        "snow_ball",
     };
 
     @FXML
@@ -54,7 +57,7 @@ public class SkinBallSceneController extends GameScene{
 
     private void updateSkinUI() {
         ballView.setImage(
-            new Image(getClass().getResource(skins[currentIndex]).toExternalForm())
+            AssetManager.getImage(skins[currentIndex])
         );
         switch (currentIndex) {
             case 0:

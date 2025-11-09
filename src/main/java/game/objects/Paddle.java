@@ -23,7 +23,7 @@ public class Paddle extends GameObject {
     Image paddleImage;
 
     public Paddle() {
-        this.width = 1000;
+        this.width = Constant.BRICK_WIDTH * 6;
         this.height = Constant.BRICK_HEIGHT;
         this.x = 1000/2 - width/2;
         this.y = HEIGHT_SCREEN - 75 - height;
