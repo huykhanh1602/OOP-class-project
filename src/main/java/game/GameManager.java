@@ -76,7 +76,7 @@ public class GameManager {
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     brick.hit(dame);
                     ball.collides(brick,ball);
-                    ball.setMaxcollision(ball.getMaxcollision()-1);
+                    // ball.setMaxcollision(ball.getMaxcollision()-1);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
                     AssetManager.playSound("brick_break");
                     if (brick.isBroken()) {
@@ -132,7 +132,7 @@ public class GameManager {
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
         balls = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             balls.add(new NormalBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
         bricks = BrickLoader.loadBricks();

@@ -13,11 +13,12 @@ import game.GameContext;
 
 public class BrickLoader {
     private static final int colS = 20;
-    private static final int rowS = 8;
+    private static final int rowS = 10;
 
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
         String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
+        path = Constant.TEST;
         BufferedReader reader = null;
         String line;
 

@@ -56,7 +56,7 @@ public abstract class Bricks extends GameObject {
         if (durability == 0) {
             return;
         }
-        gc.drawImage(AssetManager.getImage(type), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
+        // gc.drawImage(AssetManager.getImage(type), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
         stage = (int) Math.floor((durability * 10) / originalDurability);
         switch (stage) {
             case 8:
@@ -96,8 +96,8 @@ public abstract class Bricks extends GameObject {
                         Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
                 break;
         }
-        // gc.setStroke(Color.BLACK);
-        // gc.strokeRect(x, y, width, height);
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(x, y, width, height);
 
     }
 
