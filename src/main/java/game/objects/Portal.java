@@ -21,13 +21,13 @@ public class Portal {
     }
 
     public boolean checkCollision(Ball ball) {
-        return ball.getRect().intersects(new Rectangle2D(x + width / 3, y + height / 3, width / 3, height / 3));
+        return ball.getRect().intersects(new Rectangle2D(x, y, width / 2, height / 2));
     }
 
     public void teleport(Ball ball) {
         if (linkedPortal == null || cooldown.contains(ball)) return;
-        ball.setX(linkedPortal.x + linkedPortal.width/2 + width / 4);
-        ball.setY(linkedPortal.y + linkedPortal.height/2 + height / 3.5);
+        ball.setX(linkedPortal.x + linkedPortal.width *2/3);
+        ball.setY(linkedPortal.y + linkedPortal.height*2/3);
         cooldown.add(ball);
         linkedPortal.cooldown.add(ball);
     }

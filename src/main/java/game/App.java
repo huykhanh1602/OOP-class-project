@@ -53,7 +53,6 @@ public class App extends Application {
             this.currentGameController.stopGameLoop();
             this.currentGameController = null;
         }
-
         try {
             // load FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -74,7 +73,7 @@ public class App extends Application {
             }
 
             primaryStage.setScene(scene);
-
+            backgroundMusicPlayer.setVolume(GameContext.getInstance().getBackgroundMusic());
         } catch (IOException e) {
             throw new RuntimeException("Cant load: " + fxmlPath, e);
         }
