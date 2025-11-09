@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ItemsAbsorbentBallLEVER1 extends ItemsAbsorbentBallLEVER5 {
+public class ItemsAbsorbentBallLEVER1 extends ItemsForBall {
     private static final Random random = new Random();
     public ItemsAbsorbentBallLEVER1() {
         super("Bóng Hấp Thụ(Cấp 1)",
                 "Hiệu lực 6s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff +5 damege",
                 6, 13);
+    }
+    public ItemsAbsorbentBallLEVER1(String name, String description, double timeuse, double percent) {
+        super(name, description, timeuse, percent);
     }
     @Override
     public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){

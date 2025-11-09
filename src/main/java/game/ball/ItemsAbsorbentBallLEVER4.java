@@ -4,7 +4,7 @@ import game.abstraction.Bricks;
 
 import java.util.List;
 
-public class ItemsAbsorbentBallLEVER4 extends ItemsAbsorbentBallLEVER5 {
+public class ItemsAbsorbentBallLEVER4 extends ItemsForBall {
     public ItemsAbsorbentBallLEVER4() {
         super("Bóng Hấp Thụ(Cấp 4)","Hiệu lực 9s. Khi nhặt: khi bóng va chạm gạch, nó được buff damege,size x 1.01",9,3);
     }

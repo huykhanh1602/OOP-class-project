@@ -61,11 +61,11 @@ public abstract class ItemsForBall {
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
     }
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
-    public void onPaddleCollision(Ball ball) {
-    }
     public void onPaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
-        onPaddleCollision(ball);
     }
+    public void onPaddleCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls, Paddle paddle) {
+    }
+
     public List<Ball> shatter(Ball currentBall) {
         List<Ball> newBalls = new ArrayList<>();
         NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());

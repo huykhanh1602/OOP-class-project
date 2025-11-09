@@ -10,6 +10,7 @@ import game.ball.ItemsForBall;
 import game.objects.Paddle;
 public class PowerupManager {
     private List<ActivePowerup> activePowerups;
+    private List<ItemsForBall> availableItems;
     public PowerupManager() {
         this.activePowerups = new ArrayList<>();
     }
@@ -37,14 +38,16 @@ public class PowerupManager {
             powerup.applyOnBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
         }
     }
-    public void handlePaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
+    public void handlePaddleCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls, Paddle paddle) {
         for (ActivePowerup powerup : activePowerups) {
-            powerup.applyOnPaddleCollision(ball, paddle, allBricks);
+            powerup.applyOnPaddleCollision(collidingBall, allBalls, allBricks, pendingBalls,paddle);
         }
     }
     public void handleFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         for (ActivePowerup powerup : activePowerups) {
             powerup.applyOnFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);
         }
+    }
+    public void handlePaddleCollision(Ball ball, Paddle paddle, List<Bricks> bricks) {
     }
 }

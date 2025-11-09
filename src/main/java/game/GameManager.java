@@ -10,6 +10,7 @@ import game.ball.*;
 import game.bricks.BrickLoader;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
+import game.powerup.AvailableItems;
 import game.powerup.PowerupManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -26,7 +27,7 @@ public class GameManager {
     private List<Ball> balls;
     private List<Bricks> bricks;
     private PowerupManager powerupManager;
-    private final List<ItemsForBall> availableItems;
+    private List<ItemsForBall> availableItems;
     private List<FallingItem> fallingItems;
     private List<Ball> pendingBallsToAdd;
 
@@ -41,11 +42,10 @@ public class GameManager {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
         this.app = app;
-        this.availableItems = new ArrayList<>();
+        this.availableItems = AvailableItems.getAvailableItems();
         this.powerupManager = new PowerupManager();
         this.fallingItems = new ArrayList<>();
         this.pendingBallsToAdd = new ArrayList<>();
-        loadAvailableItems();
     }
     private static  double lastUpdateTime = 0;
     public static double calculateDeltaTime() {
@@ -68,7 +68,7 @@ public class GameManager {
             ball.collides(ball);
             if (ball.getRect().intersects(paddle.getBounds())) {
                 ball.collides(paddle);
-                powerupManager.handlePaddleCollision(ball, this.paddle, this.bricks);
+                powerupManager.handlePaddleCollision(ball, this.balls, this.bricks, this.pendingBallsToAdd, this.paddle);
             }
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
@@ -79,25 +79,16 @@ public class GameManager {
                     ball.collides(brick);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
                     AssetManager.playSound("brick_break");
-                    brick.hit(10);
                     if (brick.isBroken()) {
                         System.out.println("break brick");
                         AssetManager.playSound("ball_collide");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
-
                         double brickCenterX = brick.getX() + brick.getWidth() / 2;
                         double brickCenterY = brick.getY() + brick.getHeight() / 2;
-
-                        for (ItemsForBall itemPrototype : availableItems) {
-                            double dropChance = itemPrototype.getPercent();
-                            Random random = new Random();
-                            if (Math.random() < (dropChance / 100.0) && random.nextDouble() <= 0.9) {
-                                FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
-                                this.fallingItems.add(newItem);
-                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                                break;
-                            }
+                        FallingItem newItem = FallingItem.createRandomItem( brickCenterX, brickCenterY);
+                        if (newItem != null) {
+                            this.fallingItems.add(newItem);
                         }
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 6,
                                 brick.getColor());
@@ -117,25 +108,23 @@ public class GameManager {
         while (itemIt.hasNext()) {
             FallingItem item = itemIt.next();
             if (paddle.getBounds().intersects(item.getBounds())) {
-                // KÍCH HOẠT POWERUP
-                powerupManager.addPowerup(item.getItemType(), this.balls, this.bricks, this.pendingBallsToAdd);;
+                powerupManager.addPowerup(item.getItemType(), this.balls, this.bricks, this.pendingBallsToAdd);
+                ;
                 itemIt.remove();
                 AssetManager.playSound("powerup_pickup");
-            }
-            else if (item.getY() > this.heightScreen) {
+            } else if (item.getY() > this.heightScreen) {
                 itemIt.remove();
             }
-                if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
-                    GameContext.getInstance().nextLevel();
-                    reset();
-                }
-            }
-
+        }
+        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
+            GameContext.getInstance().nextLevel();
+            reset();
+        }
         if (balls.isEmpty()) {
-                    GameContext.getInstance().resetLevel();
-                    gameOver = true;
-                    app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
-                }
+            GameContext.getInstance().resetLevel();
+            gameOver = true;
+            app.switchToGameOverScene(GameContext.getInstance().getCurrentScore());
+        }
         balls.addAll(pendingBallsToAdd);
         pendingBallsToAdd.clear();
     }
@@ -243,23 +232,6 @@ public class GameManager {
     }
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
-    }
-    private void loadAvailableItems() {
-        availableItems.add(new ItemsAbsorbentBallLEVER1());
-        availableItems.add(new ItemsAbsorbentBallLEVER2());
-        availableItems.add(new ItemsAbsorbentBallLEVER3());
-        availableItems.add(new ItemsAbsorbentBallLEVER4());
-        availableItems.add(new ItemsAbsorbentBallLEVER5());
-        availableItems.add(new ItemsCloneBallLEVER1());
-        availableItems.add(new ItemsCloneBallLEVER2());
-        availableItems.add(new ItemsCloneBallLEVER3());
-        availableItems.add(new ItemsCloneBallLEVER4());
-        availableItems.add(new ItemsCloneBallLEVER5());
-        availableItems.add(new ItemsExplosiveBallLEVER1());
-        availableItems.add(new ItemsExplosiveBallLEVER2());
-        availableItems.add(new ItemsExplosiveBallLEVER3());
-        availableItems.add(new ItemsExplosiveBallLEVER4());
-        availableItems.add(new ItemsExplosiveBallLEVER5());
     }
     public static String getSkin() {
         String skin = "";
