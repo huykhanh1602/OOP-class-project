@@ -6,7 +6,7 @@ import java.util.Random;
 public class ItemsCloneBallLEVER4 extends ItemsForBall {
     private static final Random random = new Random();
     public ItemsCloneBallLEVER4() {
-        super("Bóng Nhân Bản(Cấp 4)", "Hiệu lực 9s. Khi nhặt: khi bóng va chạm gạch, nó có tỉ lệ 80% sẽ tạo ra 2 bóng con yếu gấp đôi", 9, 3);
+        super("Bóng Nhân Bản(Cấp 4)", "Hiệu lực 9s. Khi nhặt: khi bóng va chạm gạch, nó có tỉ lệ 80% sẽ tạo ra 2 bóng con yếu gấp đôi", 9, 100);
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {

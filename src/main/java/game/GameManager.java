@@ -157,11 +157,17 @@ public class GameManager {
     }
     public void update() {
         for(Ball ball : balls){
-            if(ball.getRadius() >= 25){
-                ball.setRadius(25);
+            if(ball.getRadius() >= 30){
+                ball.setRadius(30);
             }
-            if(ball.getSpeedball() >= 15){
-                ball.setSpeedball(15);
+            if(ball.getSpeedball() >= 20){
+                ball.setSpeedball(20);
+            }
+            if(ball.getSpeedball() <= 4){
+                ball.setSpeedball(4);
+            }
+            if(ball.getRadius() <= 6){
+                ball.setRadius(6);
             }
         }
         if (gamePaused == true) {

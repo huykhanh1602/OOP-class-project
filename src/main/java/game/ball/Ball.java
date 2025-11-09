@@ -53,7 +53,6 @@ public abstract class Ball {
         diretion = AssetManager.getImage("diretion");
 
     }
-
     public void collides(Paddle paddle) { 
         double ballCenterX = x;
         double ballCenterY = y;
@@ -107,38 +106,33 @@ public abstract class Ball {
         }
     }
     public void collides(Bricks brick) {
-        double brickCenterX = brick.getX() + brick.getWidth()/2.0f;
-        double brickCenterY = brick.getY() + brick.getHeight()/2.0f;
-
-        double closestX = Math.abs(x - brickCenterX);
-        double closestY = Math.abs(y - brickCenterY);
-
-        if (closestX == closestY) {
-            bounceX();
-            bounceY();
-            if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 2;
+        //điểm gần nhất gạch gần tâm bóng
+        double closestX = clamp(this.x, brick.getX(), brick.getX() + brick.getWidth());
+        double closestY = clamp(this.y, brick.getY(), brick.getY() + brick.getHeight());
+        //khoảng cách giữa tâm và điểm đó
+        double distanceX = this.x - closestX;
+        double distanceY = this.y - closestY;
+        //bình phương khoảng cách
+        double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+        //nếu khoảng cách bé hơn bán kính
+        double distance = Math.sqrt(distanceSquared);
+        if (distance < this.radius) {
+            //tính đúng khoảng cách cần đẩy ra
+            double penetration = this.radius - distance;
+            if (distance == 0) {
+                this.y -= penetration;
             } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 2;
+                this.x += (distanceX / distance) * penetration;
+                this.y += (distanceY / distance) * penetration;
             }
-            if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
+            //tính độ lún sâu
+            double overlapX = (this.radius + brick.getWidth() / 2) - Math.abs(this.x - (brick.getX() + brick.getWidth() / 2));
+            double overlapY = (this.radius + brick.getHeight() / 2) - Math.abs(this.y - (brick.getY() + brick.getHeight() / 2));
+            //so sánh ko sẽ bị đẩy cả 2 gây va chạm liên tục
+            if (overlapX < overlapY) {
+                bounceX();
             } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
-            }
-        } else if (closestX < closestY) {
-            bounceY();
-            if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
-            } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
-            }
-        } else {
-            bounceX();
-            if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 7;
-            } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 7;
+                bounceY();
             }
         }
     }
@@ -147,7 +141,6 @@ public abstract class Ball {
     private double clamp(double value, double min, double max) {
         return Math.max(min, Math.min(max, value));
     }
-
     public void launchBall() {
         if (!isRunning) {
             isRunning = true;
@@ -251,7 +244,7 @@ public abstract class Ball {
     } // UP & DOWN
 
     public Rectangle2D getRect() {
-        return new Rectangle2D(x, y, radius * 2, radius * 2);
+        return new Rectangle2D(x-radius, y-radius, radius * 2, radius * 2);
     }
 
     public boolean intersects(Rectangle2D rect) { // Return attribute for collision detection

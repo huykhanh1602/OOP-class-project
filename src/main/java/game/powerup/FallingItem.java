@@ -50,7 +50,7 @@ public class FallingItem {
         this.fallSpeed = fallSpeed;
     }
     //chọn bất kì 1 vật phẩm trong list rồi xem nó có tỉ lệ ra ko, nếu có thì chỉ tạo ra 1 vật phẩm duy nhất,
-    // nếu ko thì có tỉ lệ 50% lại chọn 1 vật phẩm bất kì tiếp
+    // nếu ko thì có tỉ lệ 90% lại chọn 1 vật phẩm bất kì tiếp
     public static FallingItem createRandomItem(double brickCenterX, double brickCenterY) {
         List<ItemsForBall> allItems = AvailableItems.getAvailableItems();
         if (allItems.isEmpty()) {
@@ -65,7 +65,7 @@ public class FallingItem {
             if (random.nextDouble() < (dropChance / 100.0)) {
                 return new FallingItem(brickCenterX, brickCenterY, itemPrototype);
             }
-            if (random.nextDouble() <= 0.5) {
+            if (random.nextDouble() <= 0.9) {
                 continue;
             } else {
                 break;
