@@ -7,7 +7,6 @@ import game.App;
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
-import game.objects.Portal;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
@@ -52,7 +51,6 @@ public abstract class GameScene implements Initializable {
         return scale;
     }
 
-
     public void setup(App app) {
         this.app = app;
     }
@@ -62,8 +60,7 @@ public abstract class GameScene implements Initializable {
         AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
-            GameContext.getInstance().resetLevel();
-            app.switchToTransitionScene();
+            app.startNewGame();
         } else {
             System.out.println("Error: App reference is null");
         }

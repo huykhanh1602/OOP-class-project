@@ -40,6 +40,22 @@ public class App extends Application {
         AssetManager.playSound("run_game");
     }
 
+    public void startNewGame() {
+        GameContext.getInstance().resetLevel();
+        // ScoreManager.getInstance().resetScore();
+        // CoinManager.getInstance().resetCoins();
+        switchToTransitionScene();
+    }
+
+    public void nextLevel() {
+        GameContext.getInstance().nextLevel();
+        switchToGameScene();
+    }
+
+    public void gameOver(int finalScore) {
+        switchToGameOverScene(finalScore);
+    }
+
     /**
      * Changes the current scene to the one specified by fxmlPath.
      * 
