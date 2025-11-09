@@ -26,7 +26,6 @@ public class AssetManager {
 
     private final static Random random = new Random();
 
-
     public static void loadAssets() {
         try {
             imageInput("icon", Constant.ICON_PATH);
@@ -41,6 +40,7 @@ public class AssetManager {
             imageInput("DIAMOND_BRICK", Constant.DIAMOND_BRICK_IMAGE);
             imageInput("NETHERITE_BRICK", Constant.NETHERITE_BRICK_IMAGE);
             imageInput("BED_ROCK", Constant.BED_ROCK_IMAGE);
+            imageInput("CHEST", Constant.CHEST_IMAGE);
 
             // load destroy stage images
             for (int i = 1; i <= 9; i++) {

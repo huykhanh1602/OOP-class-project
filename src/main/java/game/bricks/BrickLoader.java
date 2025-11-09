@@ -15,7 +15,7 @@ public class BrickLoader {
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
         String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
-        //path = "/game/map/test.txt";
+        // path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;
 
@@ -29,7 +29,8 @@ public class BrickLoader {
 
             for (int i = 0; i < Constant.BRICK_ROWS; i++) {
                 line = reader.readLine();
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty())
+                    continue;
                 String[] values = line.split("\\s+");
                 for (int j = 0; j < Constant.BRICK_COLUMNS; j++) {
                     String type = values[j];
@@ -79,6 +80,8 @@ public class BrickLoader {
                 return new NetheriteBrick(x, y);
             case "b":
                 return new Bedrock(x, y);
+            case "c":
+                return new Chest(x, y);
             default:
                 return null;
         }

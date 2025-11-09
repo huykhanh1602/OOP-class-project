@@ -32,7 +32,7 @@ public class App extends Application {
 
         this.primaryStage = stage;
 
-        switchToGameScene();
+        switchToHomeScene();
 
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
@@ -114,7 +114,7 @@ public class App extends Application {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
             controller.setScore(finalScore); // Logic riêng của GameOverScene
-            //playBackgroundMusic("game_over_music");
+            // playBackgroundMusic("game_over_music");
         });
     }
 

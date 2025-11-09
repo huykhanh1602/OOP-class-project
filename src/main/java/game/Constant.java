@@ -40,13 +40,12 @@ public class Constant {
     public static final String HEART = "game/images/element/heart.png";
     public static final String COIN = "game/images/element/coin.png";
 
-    //power up
+    // power up
     public static final String DIAMOND = "game/images/items/diamond.png";
     public static final String EMARLD = "game/images/items/emarld.png";
     public static final String EXPPOTION = "game/images/items/expPotion.png";
     public static final String EYEOFDRAGON = "game/images/items/eyeOfDragon.png";
     public static final String GOLDEN_APPLE = "game/images/items/golden_apple.png";
-
 
     // brick settings
     public static final int BRICK_WIDTH = 50;
@@ -60,6 +59,7 @@ public class Constant {
     public static final String DIAMOND_BRICK_IMAGE = "/game/images/bricks/diamond_brick.png";
     public static final String NETHERITE_BRICK_IMAGE = "/game/images/bricks/netherite_brick.png";
     public static final String BED_ROCK_IMAGE = "/game/images/bricks/bedrock.png";
+    public static final String CHEST_IMAGE = "/game/images/bricks/chest.png";
 
     public static final int STONE_DURABILITY = 10;
     public static final int IRON_DURABILITY = 20;
@@ -67,6 +67,7 @@ public class Constant {
     public static final int DIAMOND_DURABILITY = 40;
     public static final int NETHERITE_DURABILITY = 50;
     public static final int BEDROCK_DURABILITY = -1;
+    public static final int CHEST_DURABILITY = 1;
     // scene path
     public static final String GAME_OVER_SCENE_PATH = "/game/scenes/GameOverScene.fxml";
     public static final String GAME_SCENE_PATH = "/game/scenes/GameScene.fxml";
