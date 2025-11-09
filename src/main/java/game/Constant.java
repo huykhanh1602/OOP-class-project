@@ -63,6 +63,7 @@ public class Constant {
     public static final String NETHERITE_BRICK_IMAGE = "/game/images/bricks/netherite_brick.png";
     public static final String BED_ROCK_IMAGE = "/game/images/bricks/bedrock.png";
     public static final String CHEST_IMAGE = "/game/images/bricks/chest.png";
+    public static final String PORTAL_IMAGE = "/game/images/portal.gif";
 
     public static final int STONE_DURABILITY = 10;
     public static final int IRON_DURABILITY = 20;

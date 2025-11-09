@@ -25,13 +25,14 @@ public class CollisionSystem {
                 // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
-            
-            // if (gw.getPortalLeft().checkCollision(ball)) {
-            //     gw.getPortalLeft().teleport(ball);
-            // }
-            // if (gw.getPortalRight().checkCollision(ball)) {
-            //     gw.getPortalRight().teleport(ball);
-            // }
+            if (GameContext.getInstance().getCurrentLevel() > 2) {
+                if (gw.getPortalLeft().checkCollision(ball)) {
+                    gw.getPortalLeft().teleport(ball);
+                }
+                if (gw.getPortalRight().checkCollision(ball)) {
+                    gw.getPortalRight().teleport(ball);
+                }
+            }
             
             for (Iterator<Bricks> BRICK = gw.getBricks().iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();

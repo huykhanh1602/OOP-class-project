@@ -34,6 +34,10 @@ public class GameManager {
         gw.getBalls().forEach(b -> b.update(deltaTime, gw.getPaddle()));
         gw.getBalls().forEach(b -> b.setPlayerAiming(gw.isIsAiming()));
         gw.getBricks().forEach(br -> br.update());
+        if (GameContext.getInstance().getCurrentLevel() > 2) {
+            gw.getPortalLeft().update();
+            gw.getPortalRight().update();
+        }
 
         // 3. Xử lý va chạm
         collisionSystem.checkCollisions(powerupManager, gw);

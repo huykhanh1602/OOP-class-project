@@ -53,16 +53,6 @@
                   <Image url="@../images/gif/compass.gif" />
                </image>
             </ImageView>
-            <ImageView fx:id="portalLeftImageView" fitHeight="150.0" fitWidth="200.0" layoutY="184.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/gif/portal.gif" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="portalRightImageView" fitHeight="150.0" fitWidth="200.0" layoutX="976.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/gif/portal.gif" />
-               </image>
-            </ImageView>
             <Canvas fx:id="gameCanvas" height="680.0" layoutX="36.0" layoutY="20.0" width="1000.0" />
          </children>
       </AnchorPane>

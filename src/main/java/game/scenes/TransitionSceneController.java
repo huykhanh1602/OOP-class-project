@@ -40,7 +40,7 @@ public class TransitionSceneController extends GameScene{
     @FXML
     private void startLoadPer() {
         timeStart = new Timeline(
-            new KeyFrame(Duration.millis(200), e -> loadPer())
+            new KeyFrame(Duration.millis(100), e -> loadPer())
         );
         timeStart.setCycleCount(Animation.INDEFINITE);
         timeStart.play();    
