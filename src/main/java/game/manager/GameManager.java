@@ -33,6 +33,7 @@ public class GameManager {
         gw.getPaddle().update(deltaTime);
         gw.getBalls().forEach(b -> b.update(deltaTime, gw.getPaddle()));
         gw.getBalls().forEach(b -> b.setPlayerAiming(gw.isIsAiming()));
+        gw.getBricks().forEach(br -> br.update());
 
         // 3. Xử lý va chạm
         collisionSystem.checkCollisions(powerupManager, gw);
@@ -53,7 +54,7 @@ public class GameManager {
     private void checkGameRules() {
         if (gw.getBricks().stream().allMatch(brick -> !brick.isDestroyable())) {
             GameContext.getInstance().nextLevel();
-            app.switchToGameScene();
+            reset();
         }
         if (gw.getBalls().isEmpty()) {
             app.switchToGameOverScene(getScore());
@@ -92,5 +93,9 @@ public class GameManager {
 
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
+    }
+
+    public void reset() {
+        this.gw = new GameWorld();
     }
 }
