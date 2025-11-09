@@ -33,6 +33,8 @@ public abstract class Ball extends GameObject {
     private final double ainMax = 150 ;
     private boolean isPlayerAiming;
 
+    private String type = "slime_ball";
+
     private final double friction = 0.1; // Ma sát
 
     Image ballImage;
@@ -45,7 +47,7 @@ public abstract class Ball extends GameObject {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
-        ballImage = GameContext.getInstance().getImage();
+        ballImage = AssetManager.getImage(type);
         diretion = AssetManager.getImage("diretion");
 
     }
@@ -345,5 +347,13 @@ public abstract class Ball extends GameObject {
 
     public void setPlayerAiming(boolean isPlayerAiming) {
         this.isPlayerAiming = isPlayerAiming;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

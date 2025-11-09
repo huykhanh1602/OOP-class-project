@@ -17,7 +17,7 @@ public class GameContext {
     private double soundVolume = 0.8;
     private double backgroundMusic = 0.8;
     private double masterVolume = 0.2;
-    private String nameBall = Constant.SLIME_BALL;
+    private String nameBall = "slime_ball";
 
     private int highScore = 0;
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
@@ -110,10 +110,6 @@ public class GameContext {
 
     public void setNameBall(String nameBall) {
         this.nameBall = nameBall;
-    }
-
-    public Image getImage() {
-        return new Image(getClass().getResource(nameBall).toExternalForm());
     }
     
 }

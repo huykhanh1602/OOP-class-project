@@ -20,6 +20,9 @@ public class Constant {
 
     public static final String SLIME_BALL = "/game/images/ball/slime_ball.png";
     public static final String EYEOFDRAGON_BALL = "/game/images/ball/eyeofdragon_ball.png";
+    public static final String FIRE_BALL = "/game/images/ball/fire_ball.png";
+    public static final String SNOW_BALL = "/game/images/ball/snow_ball.png";
+    public static final String CLAY_BALL = "/game/images/ball/clay_ball.png";
     public static final String DIRETION = "/game/images/spear.png";
 
     // level
