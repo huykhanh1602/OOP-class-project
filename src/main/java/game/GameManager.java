@@ -75,8 +75,8 @@ public class GameManager {
                 double dame = ball.getDamege();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     brick.hit(dame);
+                    ball.collides(brick,ball);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
-                    ball.collides(brick);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
                     AssetManager.playSound("brick_break");
                     if (brick.isBroken()) {

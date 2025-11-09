@@ -27,6 +27,7 @@ public abstract class Ball {
     private double Maxcollision;
     private boolean isClone = false;
     private boolean isSpecialPowerupBall = false;
+    private boolean iscollision = false;
 
     /// Aiming Arc
     private double aimAngle = 30 ;
@@ -101,11 +102,15 @@ public abstract class Ball {
             x = 1000 - radius;
         }
         if (y < 20 - radius) {
+            if(!ball.iscollision){
+                ball.iscollision = true;
+            }
             dy = Math.abs(dy);
-            y = 20;
+            y = 20 + radius;
         }
+        else ball.iscollision = false;
     }
-    public void collides(Bricks brick) {
+    public void collides(Bricks brick,Ball ball) {
         //điểm gần nhất gạch gần tâm bóng
         double closestX = clamp(this.x, brick.getX(), brick.getX() + brick.getWidth());
         double closestY = clamp(this.y, brick.getY(), brick.getY() + brick.getHeight());
@@ -117,6 +122,9 @@ public abstract class Ball {
         //nếu khoảng cách bé hơn bán kính
         double distance = Math.sqrt(distanceSquared);
         if (distance < this.radius) {
+            //tính độ lún sâu
+            double overlapX = (this.radius + brick.getWidth() / 2) - Math.abs(this.x - (brick.getX() + brick.getWidth() / 2));
+            double overlapY = (this.radius + brick.getHeight() / 2) - Math.abs(this.y - (brick.getY() + brick.getHeight() / 2));
             //tính đúng khoảng cách cần đẩy ra
             double penetration = this.radius - distance;
             if (distance == 0) {
@@ -125,15 +133,15 @@ public abstract class Ball {
                 this.x += (distanceX / distance) * penetration;
                 this.y += (distanceY / distance) * penetration;
             }
-            //tính độ lún sâu
-            double overlapX = (this.radius + brick.getWidth() / 2) - Math.abs(this.x - (brick.getX() + brick.getWidth() / 2));
-            double overlapY = (this.radius + brick.getHeight() / 2) - Math.abs(this.y - (brick.getY() + brick.getHeight() / 2));
             //so sánh ko sẽ bị đẩy cả 2 gây va chạm liên tục
-            if (overlapX < overlapY) {
+            if(ball.iscollision) {
                 bounceX();
-            } else {
-                bounceY();
             }
+               else if (overlapX < overlapY) {
+                    bounceX();
+                    } else {
+                    bounceY();
+                    }
         }
     }
 
@@ -331,7 +339,12 @@ public abstract class Ball {
     public boolean isPlayerAiming() {
         return isPlayerAiming;
     }
-
+    public boolean iscollision(){
+        return iscollision;
+    }
+    public void setIscollision(boolean iscollision) {
+        this.iscollision = iscollision;
+    }
     public void setPlayerAiming(boolean isPlayerAiming) {
         this.isPlayerAiming = isPlayerAiming;
     }
