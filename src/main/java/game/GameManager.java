@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import game.abstraction.Bricks;
 import game.ball.*;
@@ -35,8 +36,6 @@ public class GameManager {
     private boolean gamePaused = false;
 
     private boolean isAiming = false;
-
-    private static String skin ="";
 
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
@@ -92,7 +91,8 @@ public class GameManager {
 
                         for (ItemsForBall itemPrototype : availableItems) {
                             double dropChance = itemPrototype.getPercent();
-                            if (Math.random() < (dropChance / 100.0)) {
+                            Random random = new Random();
+                            if (Math.random() < (dropChance / 100.0) && random.nextDouble() <= 0.9) {
                                 FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
                                 this.fallingItems.add(newItem);
                                 System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
@@ -142,7 +142,7 @@ public class GameManager {
     public void reset() {
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
-        balls = new ArrayList<Ball>();
+        balls = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             balls.add(new NormalBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
         }
@@ -158,17 +158,13 @@ public class GameManager {
     private void shootBall() {
         if (balls.isEmpty())
             return;
-
-        if (!balls.isEmpty()) {
-            for(Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
-                Ball ball = BALL.next();
-                if(!ball.isRunning) {
+            for (Ball ball : balls) {
+                if (!ball.isRunning) {
                     ball.launchBall();
                     ball.setRunning(true);
                     break;
                 }
             }
-        }
     }
     public void update() {
         for(Ball ball : balls){
@@ -266,6 +262,7 @@ public class GameManager {
         availableItems.add(new ItemsExplosiveBallLEVER5());
     }
     public static String getSkin() {
+        String skin = "";
         return skin;
     }
     public static void setSkin(String skin) {

@@ -28,10 +28,10 @@ public class ItemsCloneBallLEVER4 extends ItemsForBall {
             double vx =Math.cos(angleRadians);
             double vy = -Math.sin(angleRadians);
 
-            newBall.setRadius(currentBall.getRadius()/2);
-            newBall.setMaxcollision(currentBall.getMaxcollision()/2);
-            newBall.setDamege(currentBall.getDamege()/2);
-            newBall.setSpeedball(currentBall.getSpeedball()/2);
+            newBall.setRadius(1/Math.sqrt(currentBall.getRadius()));
+            newBall.setMaxcollision(1/Math.sqrt(currentBall.getMaxcollision()));
+            newBall.setDamege(1/Math.sqrt(currentBall.getDamege()));
+            newBall.setSpeedball(1/Math.sqrt(currentBall.getSpeedball()));
             newBall.setDx(vx);
             newBall.setDy(vy);
             newBall.setRunning(true);

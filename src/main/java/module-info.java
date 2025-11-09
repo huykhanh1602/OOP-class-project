@@ -7,7 +7,6 @@ module vnu.edu.vn {
     requires java.sql;
     requires javafx.graphics;
     requires javafx.base;
-    requires vnu.edu.vn;
 
     opens game.scenes to javafx.fxml;
     opens game to javafx.fxml;

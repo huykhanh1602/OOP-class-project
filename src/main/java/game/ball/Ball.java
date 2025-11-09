@@ -21,7 +21,7 @@ public abstract class Ball {
     private double x, y;
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 1.5; // Ball speed
+    private double speedball = 5; // Ball speed
     public boolean isRunning = false;
     private double damege;
     private double Maxcollision;

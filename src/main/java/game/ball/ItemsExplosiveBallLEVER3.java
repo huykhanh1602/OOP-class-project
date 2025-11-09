@@ -19,8 +19,7 @@ public class ItemsExplosiveBallLEVER3 extends ItemsForBall {
         double explosionX = collidingBall.getX();
         double explosionY = collidingBall.getY();
         double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
-        //Tạo hiệu ứng hình ảnh (để "vẽ 1 vùng" như bạn muốn)
-        ParticleManager.getInstance().createBrickBreakEffect(explosionX, explosionY, 20, Color.ORANGE);
+
         AssetManager.playSound("brick_break");
         for (Bricks brick : allBricks) {
             if (brick.isBroken()) continue;
