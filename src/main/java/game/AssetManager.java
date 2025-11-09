@@ -88,25 +88,26 @@ public class AssetManager {
         }
     }
 
+    // Manage playing sound effects
     public static void playSound(String key) {
         List<AudioClip> soundList = sounds.get(key);
 
-        // Kiểm tra xem gói âm thanh có tồn tại và có âm thanh không
+        // Check if the sound pack exists and is not empty
         if (soundList == null || soundList.isEmpty()) {
             System.err.println("Sound pack not found or empty: " + key);
             return;
         }
 
-        // Chọn ngẫu nhiên một AudioClip từ List
+        // Choose a random AudioClip from the List
         int index = random.nextInt(soundList.size());
         AudioClip clipToPlay = soundList.get(index);
         clipToPlay.setVolume(GameContext.getInstance().getSoundVolume());
 
-        // Phát âm thanh
+        // Play the sound
         clipToPlay.play();
     }
 
-    // helper methods to load assets
+    // Helper methods to load assets
     public static void imageInput(String key, String path) {
         try (InputStream inputStream = AssetManager.class.getResourceAsStream(path)) {
             if (inputStream == null) {

@@ -39,8 +39,11 @@ public class GameManager {
     private Portal portalLeft;
     private Portal portalRight;
 
+    // Delta time calculation for particle update
+    private static double lastUpdateTime = 0;
+
     public void createPortals(double x1, double y1, double w1, double h1,
-                            double x2, double y2, double w2, double h2) {
+            double x2, double y2, double w2, double h2) {
         portalLeft = new Portal(x1, y1, w1, h1);
         portalRight = new Portal(x2, y2, w2, h2);
         portalLeft.link(portalRight);
@@ -58,7 +61,6 @@ public class GameManager {
         loadAvailableItems();
     }
 
-    private static  double lastUpdateTime = 0;
     public static double calculateDeltaTime() {
         long currentTime = System.nanoTime();
         if (lastUpdateTime == 0) {
@@ -85,44 +87,58 @@ public class GameManager {
                 // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
-            
+
             if (portalLeft.checkCollision(ball)) {
                 portalLeft.teleport(ball);
             }
             if (portalRight.checkCollision(ball)) {
                 portalRight.teleport(ball);
             }
-            
+
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamage();
+
+                // check collision
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     ball.collides(brick);
                     powerupManager.handleBrickCollision(ball, this.balls, bricks, pendingBallsToAdd);
+
+                    // brick take damage
                     brick.hit(dame);
-                    if (brick.isDestroyable()) {brick.hitAnimation(); ball.setMaxcollision(ball.getMaxcollision()-1);}
+                    if (brick.isDestroyable()) {
+                        brick.hitAnimation();
+                        ball.setMaxcollision(ball.getMaxcollision() - 1);
+                    }
+
+                    // check if brick is broken
                     if (brick.isBroken()) {
-                        AssetManager.playSound("ball_collide");
+                        // remove brick
                         BRICK.remove();
+
+                        // update score
                         GameContext.getInstance().addScore(brick.getPoint());
 
+                        // create break particle effect
                         double brickCenterX = brick.getX();
-                        double brickCenterY = brick.getY() ;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 
-                        6, brick.getColor());
-                        for (ItemsForBall itemPrototype : availableItems) {
-                            double dropChance = itemPrototype.getPercent();
-                            if (Math.random() < (dropChance / 100.0)) {
-                                FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
-                                this.fallingItems.add(newItem);
-                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
-                            }
-                        }
+                        double brickCenterY = brick.getY();
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
+                                6, brick.getColor());
+
+                        // for (ItemsForBall itemPrototype : availableItems) {
+                        // double dropChance = itemPrototype.getPercent();
+                        // if (Math.random() < (dropChance / 100.0)) {
+                        // FallingItem newItem = new FallingItem(brickCenterX, brickCenterY,
+                        // itemPrototype);
+                        // this.fallingItems.add(newItem);
+                        // System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
+                        // break; // Chỉ rơi 1 vật phẩm mỗi gạch
+                        // }
+                        // }
                     }
-                if(ball.getMaxcollision() <= 0) {
-                    BALL.remove();
-                }
+                    if (ball.getMaxcollision() <= 0) {
+                        BALL.remove();
+                    }
                     break; // tránh va chạm nhiều brick 1 frame
                 }
             }
@@ -142,8 +158,8 @@ public class GameManager {
             }
             // Xóa nếu rơi ra khỏi màn hình
             else if (item.getY() > this.heightScreen) {
-                itemIt.remove();                
-                
+                itemIt.remove();
+
             }
         }
 
@@ -153,7 +169,6 @@ public class GameManager {
         balls.addAll(pendingBallsToAdd);
         pendingBallsToAdd.clear();
     }
-
 
     public void reset() {
         this.fallingItems = new ArrayList<>();
@@ -165,9 +180,10 @@ public class GameManager {
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                     break;
                 case Constant.EYEOFDRAGON_BALL:
-                    balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
+                    balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2,
+                            paddle.getY() - paddle.getHeight()));
                     break;
-                default :
+                default:
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
             }
         }
@@ -185,9 +201,9 @@ public class GameManager {
             return;
 
         if (!balls.isEmpty()) {
-            for(Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
+            for (Iterator<Ball> BALL = balls.iterator(); BALL.hasNext();) {
                 Ball ball = BALL.next();
-                if(!ball.isRunning) {
+                if (!ball.isRunning) {
                     ball.launchBall();
                     ball.setRunning(true);
                     break;
@@ -202,7 +218,7 @@ public class GameManager {
             return;
         }
         paddle.update();
-        
+
         for (Ball ball : balls) {
             ball.update(paddle);
             ball.setPlayerAiming(isAiming);
@@ -214,8 +230,8 @@ public class GameManager {
             brick.update();
         }
 
-        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) { 
-            GameContext.getInstance().nextLevel();    
+        if (bricks.stream().allMatch(brick -> !brick.isDestroyable())) {
+            GameContext.getInstance().nextLevel();
             reset();
         }
         double deltaTime = calculateDeltaTime();
@@ -228,7 +244,7 @@ public class GameManager {
     }
 
     public void render(GraphicsContext gc) {
-        gc.clearRect(0, 0, widthScreen, heightScreen); 
+        gc.clearRect(0, 0, widthScreen, heightScreen);
         paddle.render(gc);
 
         for (Ball ball : balls) {
@@ -243,7 +259,6 @@ public class GameManager {
         }
         ParticleManager.getInstance().render(gc);
     }
-
 
     /// HANDLE KEY EVENT
     public void handleKeyPress(KeyEvent key) {
@@ -261,10 +276,11 @@ public class GameManager {
             shootBall();
         }
     }
+
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
     }
-    
+
     private void loadAvailableItems() {
         availableItems.add(new ItemsAbsorbentBall());
         availableItems.add(new ItemsADNBall());
