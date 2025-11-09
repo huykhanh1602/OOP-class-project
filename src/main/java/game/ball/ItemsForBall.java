@@ -1,6 +1,9 @@
 package game.ball;
+import game.AssetManager;
 import game.abstraction.Bricks;
 import game.objects.Paddle;
+import game.particle.ParticleManager;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -70,5 +73,21 @@ public abstract class ItemsForBall {
         return newBalls;
     }
     public void onExpired(List<Ball> allBalls) {
+    }
+    public void RenderExplosive(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls,double RADIUS_MULTIPLIER, double EXPLOSION_DAMAGE){
+        double explosionX = collidingBall.getX();
+        double explosionY = collidingBall.getY();
+        double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
+        for (Bricks brick : allBricks) {
+            if (brick.isBroken()) continue;
+            double closestX = Math.max(brick.getX(), Math.min(explosionX, brick.getX() + brick.getWidth()));
+            double closestY = Math.max(brick.getY(), Math.min(explosionY, brick.getY() + brick.getHeight()));
+            double distanceX = explosionX - closestX;
+            double distanceY = explosionY - closestY;
+            double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+            if (distanceSquared < (explosionRadius * explosionRadius)) {
+                brick.hit(EXPLOSION_DAMAGE);
+            }
+        }
     }
 }
