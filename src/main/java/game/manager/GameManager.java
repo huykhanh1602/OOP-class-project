@@ -57,11 +57,12 @@ public class GameManager {
 
     private void checkGameRules() {
         if (gw.getBricks().stream().allMatch(brick -> !brick.isDestroyable())) {
-            GameContext.getInstance().nextLevel();
-            reset();
+            app.nextLevel();
+            return;
         }
         if (gw.getBalls().isEmpty()) {
-            app.switchToGameOverScene(getScore());
+            app.gameOver(getScore());
+
         }
     }
 
