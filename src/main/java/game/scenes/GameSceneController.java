@@ -6,8 +6,10 @@ import java.util.ResourceBundle;
 import game.App;
 import game.GameContext;
 import game.abstraction.GameScene;
-import game.coin.CoinManager;
+import game.manager.CoinManager;
 import game.manager.GameManager;
+import game.manager.ScoreManager;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
