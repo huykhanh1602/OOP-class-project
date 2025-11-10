@@ -39,8 +39,8 @@ public class GameWorld {
     private Portal portalRight;
 
     public void reset() {
-        if (GameContext.getInstance().getCurrentLevel() > 2) {
-        portalLeft = new Portal(0, 250);
+        if (GameContext.getInstance().getCurrentLevel() > GameContext.getInstance().getLevelSpawnPortal()) {
+            portalLeft = new Portal(0, 250);
             portalRight = new Portal(1000 - 65, 200);
             portalLeft.link(portalRight);
             portalRight.link(portalLeft);

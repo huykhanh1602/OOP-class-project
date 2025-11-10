@@ -1,6 +1,7 @@
 package game.manager;
 
 import java.util.Iterator;
+import java.util.List;
 
 import game.powerup.PowerupManager;
 import game.App;
@@ -17,6 +18,7 @@ public class GameManager {
     private GameWorld gw;
     private GameRenderer renderer;
     private CollisionSystem collisionSystem;
+    private UpdateManager updateManager;
     private PowerupManager powerupManager; // Đã có sẵn
 
     public GameManager(int width, int height, App app) {
@@ -25,19 +27,13 @@ public class GameManager {
         this.renderer = new GameRenderer(width, height);
         this.collisionSystem = new CollisionSystem();
         this.powerupManager = new PowerupManager();
+        this.updateManager = new UpdateManager();
     }
 
     public void update(double deltaTime) {
 
         // 2. Cập nhật trạng thái các thực thể (di chuyển)
-        gw.getPaddle().update(deltaTime);
-        gw.getBalls().forEach(b -> b.update(deltaTime, gw.getPaddle()));
-        gw.getBalls().forEach(b -> b.setPlayerAiming(gw.isIsAiming()));
-        gw.getBricks().forEach(br -> br.update());
-        if (GameContext.getInstance().getCurrentLevel() > 2) {
-            gw.getPortalLeft().update();
-            gw.getPortalRight().update();
-        }
+        updateManager.update(gw);
 
         // 3. Xử lý va chạm
         collisionSystem.checkCollisions(powerupManager, gw);
@@ -98,6 +94,10 @@ public class GameManager {
 
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
+    }
+
+    public int getBalls() {
+        return gw.getBalls().size(); 
     }
 
     public void reset() {

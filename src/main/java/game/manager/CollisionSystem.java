@@ -25,13 +25,14 @@ public class CollisionSystem {
                 // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
-            if (GameContext.getInstance().getCurrentLevel() > 2) {
+            if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
                 if (gw.getPortalLeft().checkCollision(ball)) {
                     gw.getPortalLeft().teleport(ball);
                 }
                 if (gw.getPortalRight().checkCollision(ball)) {
                     gw.getPortalRight().teleport(ball);
                 }
+                AssetManager.playSound("portal");
             }
             
             for (Iterator<Bricks> BRICK = gw.getBricks().iterator(); BRICK.hasNext();) {
@@ -39,11 +40,12 @@ public class CollisionSystem {
                 double dame = ball.getDamage();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     ball.collides(brick);
+                    AssetManager.playSound("ball_collide");
                     powerupManager.handleBrickCollision(ball, gw.getBalls(), gw.getBricks(), gw.getPendingBallsToAdd());
                     brick.hit(dame);
                     if (brick.isDestroyable()) {brick.hitAnimation(); ball.setMaxcollision(ball.getMaxcollision()-1);}
                     if (brick.isBroken()) {
-                        AssetManager.playSound("ball_collide");
+                        AssetManager.playSound("ball_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
 

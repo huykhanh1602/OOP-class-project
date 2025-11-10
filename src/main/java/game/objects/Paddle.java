@@ -30,7 +30,7 @@ public class Paddle extends GameObject {
     }
 
     /// MOVEMENT
-    public void update(double deltaTime) {
+    public void update() {
         if (moveLeft && x > 0)
             x -= speed;
         if (moveRight && x < 1000 - width)

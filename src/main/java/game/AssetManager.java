@@ -45,6 +45,8 @@ public class AssetManager {
             imageInput("CHEST", Constant.CHEST_IMAGE);
             imageInput("PORTAL", Constant.PORTAL_IMAGE);
 
+            imageInput("heart", Constant.HEART);
+
             // load destroy stage images
             for (int i = 1; i <= 9; i++) {
                 String key = "destroy_stage_" + i;
@@ -60,7 +62,7 @@ public class AssetManager {
         sounds.put("ball_collide", new ArrayList<>());
         sounds.put("brick_break", new ArrayList<>());
         sounds.put("click", new ArrayList<>());
-        sounds.put("run_game", new ArrayList<>());
+        sounds.put("portal", new ArrayList<>());
         try {
             for (int i = 1; i <= 5; i++) {
                 String key = "ball_collide_" + i;
@@ -75,7 +77,7 @@ public class AssetManager {
             }
 
             soundInput("click", "click_sound", Constant.BASE_SOUND + "click.wav");
-            soundInput("run_game", "run_game_sound", Constant.BASE_SOUND + "run_game.wav");
+            soundInput("portal", "portal_sound", Constant.BASE_SOUND + "portal.wav");
 
         } catch (Exception e) {
             System.err.println("Error loading sounds: " + e.getMessage());

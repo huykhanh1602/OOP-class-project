@@ -21,6 +21,8 @@ public class GameSceneController extends GameScene {
 
     @FXML
     private Label scoreLabel;
+    @FXML
+    private Label numBall;
 
     private GraphicsContext gc;
 
@@ -48,7 +50,7 @@ public class GameSceneController extends GameScene {
 
     private void bindLabel() {
         var scoreProperty = GameContext.getInstance().getCurrentScore();
-        scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
+        scoreLabel.textProperty().bind(Bindings.format("Score: %d", scoreProperty));
     }
 
     // Set up input handlers for key presses and releases
@@ -65,7 +67,8 @@ public class GameSceneController extends GameScene {
                 if (gameManager != null) {
                     double deltatime = calculateDeltaTime();
                     gameManager.update(deltatime);
-                    scoreLabel.setText("Score:\n" + gameManager.getScore());
+                    scoreLabel.setText("Score: " + gameManager.getScore());
+                    numBall.setText("x" + gameManager.getBalls());
                     gameManager.render(gc);
                 } else {
                     System.out.println("GameManager is not initialized!");

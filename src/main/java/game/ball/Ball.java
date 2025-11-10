@@ -132,13 +132,16 @@ public abstract class Ball extends GameObject {
             } else {
                 y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
             }
+            x += dx;
         } else {
             bounceX();
             if (brickCenterX > x) {
                 x = brickCenterX - brick.getWidth()/2.0f - radius - 7;
+                y += dy;
             } else {
                 x = brickCenterX + brick.getHeight()/2.0f + radius + 7;
             }
+            y += dy;
         } 
     }
 
@@ -158,7 +161,7 @@ public abstract class Ball extends GameObject {
         }
     }
 
-    public void update(double deltaTime, Paddle paddle) {
+    public void update(Paddle paddle) {
         angle();
         normalizeVelocity();
         limit();

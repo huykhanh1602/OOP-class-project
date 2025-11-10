@@ -1,5 +1,6 @@
 package game.manager;
 
+import game.AssetManager;
 import game.GameContext;
 import game.abstraction.Bricks;
 import game.ball.Ball;
@@ -18,7 +19,7 @@ public class GameRenderer {
     public void render(GraphicsContext gc, GameWorld gw) {
         gc.clearRect(0, 0, widthScreen, heightScreen); 
         gw.getPaddle().render(gc);
-        if (GameContext.getInstance().getCurrentLevel() > 2) {
+        if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
             gw.getPortalLeft().render(gc);
             gw.getPortalRight().render(gc);
         }
@@ -34,5 +35,6 @@ public class GameRenderer {
             item.render(gc);
         }
         ParticleManager.getInstance().render(gc);
+
     }
 }
