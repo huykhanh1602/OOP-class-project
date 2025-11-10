@@ -66,6 +66,12 @@ public class SkinBallSceneController extends GameScene{
             case 1:
                 nameBall = "EYE OF DRAGON BALL";
                 break;
+            case 2:
+                nameBall = "FIRE BALL";
+                break;
+            case 3:
+                nameBall = "SNOW BALL";
+                break;
             default:
                 throw new AssertionError();
         }

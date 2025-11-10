@@ -10,8 +10,8 @@ import game.items.ItemsForBall;
 import game.particle.ParticleManager;
 import game.powerup.FallingItem;
 import game.powerup.PowerupManager;
-import game.score.ScoreManager;
-import game.coin.CoinManager;
+import game.manager.ScoreManager;
+import game.manager.CoinManager;
 
 public class CollisionSystem {
 

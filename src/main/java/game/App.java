@@ -13,6 +13,7 @@ import game.scenes.TransitionSceneController;
 
 import game.manager.CoinManager;
 import game.manager.ScoreManager;
+import game.scenes.MerchantController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -144,6 +145,12 @@ public class App extends Application {
 
     public void switchToTransitionScene() {
         switchScene(Constant.TRANSITION_SCENE, (TransitionSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToMerchant() {
+        switchScene(Constant.MERCHANT_SCENE, (MerchantController controller) -> {
             controller.setup(this);
         });
     }
