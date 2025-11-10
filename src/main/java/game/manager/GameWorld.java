@@ -15,7 +15,6 @@ import game.items.ItemsForBall;
 import game.objects.Paddle;
 import game.objects.Portal;
 import game.powerup.FallingItem;
-import game.powerup.PowerupManager;
 
 //Khởi tạo Game
 

@@ -1,9 +1,7 @@
 package game.manager;
 
 import java.util.Iterator;
-import java.util.List;
 
-import game.powerup.PowerupManager;
 import game.App;
 import game.GameContext;
 import game.abstraction.Ball;
