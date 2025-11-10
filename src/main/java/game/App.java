@@ -11,6 +11,9 @@ import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
 import game.scenes.TransitionSceneController;
 
+import game.manager.CoinManager;
+import game.manager.ScoreManager;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,8 +45,8 @@ public class App extends Application {
 
     public void startNewGame() {
         GameContext.getInstance().resetLevel();
-        // ScoreManager.getInstance().resetScore();
-        // CoinManager.getInstance().resetCoins();
+        ScoreManager.getInstance().resetScore();
+        CoinManager.getInstance().resetCoin();
         switchToTransitionScene();
         playBackgroundMusic("Game_Background");
     }
