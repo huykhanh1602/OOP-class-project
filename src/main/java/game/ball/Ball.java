@@ -26,11 +26,11 @@ public abstract class Ball extends GameObject {
     private boolean isClone = false;
 
     /// Aiming Arc
-    private double aimAngle = 30 ;
+    private double aimAngle = 30;
     private boolean aimIncrease = true;
     private final double aimSpeed = 1;
-    private final double ainMin = 30 ;
-    private final double ainMax = 150 ;
+    private final double ainMin = 30;
+    private final double ainMax = 150;
     private boolean isPlayerAiming;
 
     private String type = "slime_ball";
@@ -52,7 +52,7 @@ public abstract class Ball extends GameObject {
 
     }
 
-    public void collides(Paddle paddle) { 
+    public void collides(Paddle paddle) {
         double ballCenterX = x;
         double ballCenterY = y;
 
@@ -92,14 +92,17 @@ public abstract class Ball extends GameObject {
 
     public void collides(Ball ball) { // wall collision
         if (x < 10 + radius) {
+            AssetManager.playSound("ball_collide");
             dx = Math.abs(dx);
             x = 10 + radius;
         }
         if (x > 1000 - radius) {
-            dx = - Math.abs(dx);
+            AssetManager.playSound("ball_collide");
+            dx = -Math.abs(dx);
             x = 1000 - radius;
         }
         if (y < 20 - radius) {
+            AssetManager.playSound("ball_collide");
             dy = Math.abs(dy);
             y = 20;
         }
@@ -116,33 +119,33 @@ public abstract class Ball extends GameObject {
             bounceX();
             bounceY();
             if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 2;
+                x = brickCenterX - brick.getWidth() / 2.0f - radius - 2;
             } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 2;
+                x = brickCenterX + brick.getHeight() / 2.0f + radius + 2;
             }
             if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
+                y = brickCenterY - brick.getHeight() / 2.0f - radius - 7;
             } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
+                y = brickCenterY + brick.getHeight() / 2.0f + radius + 7;
             }
         } else if (closestX < closestY) {
             bounceY();
             if (brickCenterY > y) {
-                y = brickCenterY - brick.getHeight()/2.0f - radius - 7;
+                y = brickCenterY - brick.getHeight() / 2.0f - radius - 7;
             } else {
-                y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
+                y = brickCenterY + brick.getHeight() / 2.0f + radius + 7;
             }
             x += dx;
         } else {
             bounceX();
             if (brickCenterX > x) {
-                x = brickCenterX - brick.getWidth()/2.0f - radius - 7;
+                x = brickCenterX - brick.getWidth() / 2.0f - radius - 7;
                 y += dy;
             } else {
-                x = brickCenterX + brick.getHeight()/2.0f + radius + 7;
+                x = brickCenterX + brick.getHeight() / 2.0f + radius + 7;
             }
             y += dy;
-        } 
+        }
     }
 
     // Hàm clamp để giới hạn giá trị trong khoảng min-max
@@ -156,8 +159,8 @@ public abstract class Ball extends GameObject {
             double rad = Math.toRadians(aimAngle);
             double vx = Math.cos(rad);
             double vy = -Math.sin(rad);
-            this.dx = vx*speedball;
-            this.dy = vy*speedball;
+            this.dx = vx * speedball;
+            this.dy = vy * speedball;
         }
     }
 
@@ -193,7 +196,7 @@ public abstract class Ball extends GameObject {
                 gc.save();
                 gc.translate(startX, startY);
                 gc.rotate(-(aimAngle + 90));
-                gc.drawImage(diretion, -w/2 + w * scale / 2, 0, w * scale, h * scale);
+                gc.drawImage(diretion, -w / 2 + w * scale / 2, 0, w * scale, h * scale);
                 gc.restore();
 
             } catch (Exception e) {
@@ -203,7 +206,7 @@ public abstract class Ball extends GameObject {
             }
         }
         if (ballImage != null) {
-            gc.drawImage( ballImage, x - radius, y - radius, radius * 2, radius * 2);
+            gc.drawImage(ballImage, x - radius, y - radius, radius * 2, radius * 2);
         } else {
             gc.setFill(Color.RED);
             gc.fillOval(x - radius, y - radius, radius * 2, radius * 2);
@@ -222,14 +225,14 @@ public abstract class Ball extends GameObject {
             int index = (trailIndex + i) % TRAIL_SIZE;
             double alpha = (double) i / TRAIL_SIZE; // mờ dần
 
-            gc.setGlobalAlpha(alpha * Math.min(1, Math.sqrt(dx*dx + dy*dy) / 15)); // độ mờ vệt
-            gc.drawImage(ballImage, trail[index][0]-radius, trail[index][1]-radius, radius*2, radius*2);
+            gc.setGlobalAlpha(alpha * Math.min(1, Math.sqrt(dx * dx + dy * dy) / 15)); // độ mờ vệt
+            gc.drawImage(ballImage, trail[index][0] - radius, trail[index][1] - radius, radius * 2, radius * 2);
         }
         gc.setGlobalAlpha(1.0); // KHÔNG ảnh hưởng vật khác
     }
 
     private void angle() {
-                if (isPlayerAiming) {
+        if (isPlayerAiming) {
             if (aimIncrease) {
                 aimAngle += aimSpeed;
             } else {
@@ -249,10 +252,12 @@ public abstract class Ball extends GameObject {
     }
 
     public void bounceX() {
+        AssetManager.playSound("ball_collide");
         dx = -dx;
     } // RIGHT & LEFT
 
     public void bounceY() {
+        AssetManager.playSound("ball_collide");
         dy = -dy;
     } // UP & DOWN
 
@@ -270,27 +275,37 @@ public abstract class Ball extends GameObject {
             dx = dx / length * speedball;
             dy = dy / length * speedball;
         }
-    }  
+    }
 
     private void limit() {
-        if (dx > speedball) dx = speedball;
-        if (dx < -speedball) dx = -speedball;
-        if (dy > speedball) dy = speedball;
-        if (dy < -speedball) dy = -speedball;
-        if (radius > 40) radius = 40;
-        if (speedball < 0.1) speedball = 0.1;
-        if (speedball > 20) speedball = 20;
+        if (dx > speedball)
+            dx = speedball;
+        if (dx < -speedball)
+            dx = -speedball;
+        if (dy > speedball)
+            dy = speedball;
+        if (dy < -speedball)
+            dy = -speedball;
+        if (radius > 40)
+            radius = 40;
+        if (speedball < 0.1)
+            speedball = 0.1;
+        if (speedball > 20)
+            speedball = 20;
     }
-    
+
     public double getDx() {
         return dx;
     }
+
     public void setDx(double dx) {
         this.dx = dx;
     }
+
     public void setDy(double dy) {
         this.dy = dy;
     }
+
     public double getDy() {
         return dy;
     }
@@ -322,21 +337,26 @@ public abstract class Ball extends GameObject {
     public double getDamage() {
         return damage;
     }
+
     public void setDamage(double damage) {
         this.damage = damage;
     }
+
     public double getMaxcollision() {
         return Maxcollision;
     }
+
     public void setMaxcollision(double maxcollision) {
         Maxcollision = maxcollision;
     }
+
     /**
      * Đánh dấu quả bóng này là một bản sao (clone).
      */
     public void setIsClone(boolean isClone) {
         this.isClone = isClone;
     }
+
     /**
      * @return true nếu quả bóng này là bản sao.
      */
