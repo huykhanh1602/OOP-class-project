@@ -64,14 +64,14 @@ public class Constant {
     public static final String DIAMOND_BRICK_IMAGE = "/game/images/bricks/diamond_brick.png";
     public static final String NETHERITE_BRICK_IMAGE = "/game/images/bricks/netherite_brick.png";
     public static final String BED_ROCK_IMAGE = "/game/images/bricks/bedrock.png";
-    public static final String CHEST_IMAGE = "/game/images/bricks/chest.png";
+    public static final String CHEST_IMAGE = "/game/images/bricks/chest.gif";
     public static final String PORTAL_IMAGE = "/game/images/portal.gif";
 
-    public static final int STONE_DURABILITY = 10;
-    public static final int IRON_DURABILITY = 20;
-    public static final int GOLD_DURABILITY = 30;
-    public static final int DIAMOND_DURABILITY = 40;
-    public static final int NETHERITE_DURABILITY = 50;
+    public static final int STONE_DURABILITY = 5;
+    public static final int IRON_DURABILITY = 10;
+    public static final int GOLD_DURABILITY = 15;
+    public static final int DIAMOND_DURABILITY = 20;
+    public static final int NETHERITE_DURABILITY = 30;
     public static final int BEDROCK_DURABILITY = -1;
     public static final int CHEST_DURABILITY = 1;
     // scene path

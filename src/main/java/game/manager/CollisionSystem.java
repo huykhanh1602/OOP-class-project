@@ -10,6 +10,7 @@ import game.items.ItemsForBall;
 import game.particle.ParticleManager;
 import game.powerup.FallingItem;
 import game.powerup.PowerupManager;
+import game.score.ScoreManager;
 
 public class CollisionSystem {
 
@@ -56,14 +57,8 @@ public class CollisionSystem {
                         double brickCenterY = brick.getY();
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
                                 6, brick.getColor());
-                        for (ItemsForBall itemPrototype : gw.getAvailableItems()) {
-                            double dropChance = itemPrototype.getPercent();
-                            if (Math.random() < (dropChance / 100.0)) {
-                                FallingItem newItem = new FallingItem(brickCenterX, brickCenterY, itemPrototype);
-                                gw.getFallingItems().add(newItem);
-                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
-                            }
+                        if (brick.getType() == "CHEST") {
+                            ScoreManager.getInstance().addCoins(5);
                         }
                     }
                     if (ball.getMaxcollision() <= 0) {

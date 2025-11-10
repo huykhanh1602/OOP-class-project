@@ -252,12 +252,12 @@ public abstract class Ball extends GameObject {
     }
 
     public void bounceX() {
-        AssetManager.playSound("ball_collide");
+        AssetManager.playSound("brick_break");
         dx = -dx;
     } // RIGHT & LEFT
 
     public void bounceY() {
-        AssetManager.playSound("ball_collide");
+        AssetManager.playSound("brick_break");
         dy = -dy;
     } // UP & DOWN
 
