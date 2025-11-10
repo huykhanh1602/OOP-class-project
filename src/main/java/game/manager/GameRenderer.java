@@ -2,8 +2,8 @@ package game.manager;
 
 import game.AssetManager;
 import game.GameContext;
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
 import game.particle.ParticleManager;
 import game.powerup.FallingItem;
 import javafx.scene.canvas.GraphicsContext;

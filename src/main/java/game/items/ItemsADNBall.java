@@ -1,7 +1,7 @@
 package game.items;
 
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
 import game.ball.NormalBall;
 
 import java.util.ArrayList;

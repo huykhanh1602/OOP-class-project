@@ -87,7 +87,9 @@ public class Constant {
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path
-    public static final String PADDLE_IMAGE_PATH = "/game/images/nem_chua_green.png";
+    public static final String RIGHT_PADDLE_PATH = "/game/images/rightPaddle.png";
+    public static final String LEFT_PADDLE_PATH = "/game/images/leftPaddle.png";
+    public static final String MID_PADDLE_PATH = "/game/images/midPaddle.png";
 
     // images path
     public static final String DESTROY_STAGE = "/game/images/destroyStage/destroy_stage_";

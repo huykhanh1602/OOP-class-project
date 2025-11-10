@@ -43,7 +43,13 @@ public class Paddle extends GameObject {
         try {
             int i = 0;
             while (i != width/Constant.BRICK_WIDTH) {
-            paddleImage = AssetManager.getImage("STONE_BRICK");
+            if (i == 0) {
+                paddleImage = AssetManager.getImage("left_paddle");
+            } else if (i == width/Constant.BRICK_WIDTH - 1) {
+                paddleImage = AssetManager.getImage("right_paddle");
+            } else {
+                paddleImage = AssetManager.getImage("mid_paddle");
+            }
             gc.drawImage(paddleImage, x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
             i++;
             }

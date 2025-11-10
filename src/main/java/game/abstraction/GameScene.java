@@ -7,7 +7,7 @@ import game.App;
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
-import game.score.ScoreManager;
+import game.manager.ScoreManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;

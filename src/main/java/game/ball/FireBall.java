@@ -1,6 +1,6 @@
 package game.ball;
 
-import game.Constant;
+import game.abstraction.Ball;
 
 public class FireBall extends Ball {
     public FireBall(double x, double y) {

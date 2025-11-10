@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
 import game.items.ItemsForBall;
 
 /**
