@@ -52,7 +52,7 @@
 
 .coin-label {
     -fx-font-family: "Minecraft"; /* Font chữ */
-    -fx-text-fill: #ffd700;
+    -fx-font-weight: bold;
 }
 
 .score-label-container {
