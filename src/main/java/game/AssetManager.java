@@ -43,6 +43,7 @@ public class AssetManager {
             imageInput("NETHERITE_BRICK", Constant.NETHERITE_BRICK_IMAGE);
             imageInput("BED_ROCK", Constant.BED_ROCK_IMAGE);
             imageInput("CHEST", Constant.CHEST_IMAGE);
+            imageInput("PORTAL", Constant.PORTAL_IMAGE);
 
             // load destroy stage images
             for (int i = 1; i <= 9; i++) {

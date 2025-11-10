@@ -28,12 +28,6 @@ public class GameSceneController extends GameScene {
 
     private AnimationTimer gameLoop;
 
-    @FXML
-    private ImageView portalLeftImageView;
-
-    @FXML
-    private ImageView portalRightImageView;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
@@ -69,7 +63,6 @@ public class GameSceneController extends GameScene {
             @Override
             public void handle(long now) {
                 if (gameManager != null) {
-                    updatePositionPortal();
                     double deltatime = calculateDeltaTime();
                     gameManager.update(deltatime);
                     scoreLabel.setText("Score:\n" + gameManager.getScore());
@@ -130,21 +123,5 @@ public class GameSceneController extends GameScene {
             createGameLoop();
             startGameLoop();
         }
-    }
-
-    private int num = 6;
-    private double diretionL = 1;
-    private double diretionR = -1;
-    public void updatePositionPortal() {
-        if (num == 6) {
-        if (portalLeftImageView.getLayoutY() > 500) diretionL = -1;
-        if (portalLeftImageView.getLayoutY() < 0) diretionL = 1;
-        if (portalRightImageView.getLayoutY() > 500) diretionR = -1;
-        if (portalRightImageView.getLayoutY() < 0) diretionR = 1;
-        portalLeftImageView.setLayoutY(portalLeftImageView.getLayoutY() + diretionL);
-        portalRightImageView.setLayoutY(portalRightImageView.getLayoutY() + diretionR);
-        num = 0;
-        }
-        num++;
     }
 }

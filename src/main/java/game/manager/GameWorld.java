@@ -35,18 +35,16 @@ public class GameWorld {
         reset();
     }
 
-    // private Portal portalLeft;
-    // private Portal portalRight;
-
-    // public void createPortals(double x1, double y1, double w1, double h1,
-    //                         double x2, double y2, double w2, double h2) {
-    //     portalLeft = new Portal(x1, y1, w1, h1);
-    //     portalRight = new Portal(x2, y2, w2, h2);
-    //     portalLeft.link(portalRight);
-    //     portalRight.link(portalLeft);
-    // }
+    private Portal portalLeft;
+    private Portal portalRight;
 
     public void reset() {
+        if (GameContext.getInstance().getCurrentLevel() > 2) {
+        portalLeft = new Portal(0, 250);
+            portalRight = new Portal(1000 - 65, 200);
+            portalLeft.link(portalRight);
+            portalRight.link(portalLeft);
+        }
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
         balls = new ArrayList<Ball>();
@@ -100,13 +98,13 @@ public class GameWorld {
         return pendingBallsToAdd;
     }
 
-    // public Portal getPortalLeft() {
-    //     return portalLeft;
-    // }
+    public Portal getPortalLeft() {
+        return portalLeft;
+    }
 
-    // public Portal getPortalRight() {
-    //     return portalRight;
-    // }
+    public Portal getPortalRight() {
+        return portalRight;
+    }
 
     public boolean isIsAiming() {
         return isAiming;
