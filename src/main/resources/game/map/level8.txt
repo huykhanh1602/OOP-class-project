@@ -1,10 +1,8 @@
-0 0 0 0 0 0 0 g g 0 0 g g 0 0 0 0 0 0
-0 0 0 0 0 0 0 g g 0 0 g g 0 0 0 0 0 0
-0 0 0 0 0 s s s s s s s s s s 0 0 0 0
-0 0 0 0 s g d d d d d d d d g s 0 0 0
-0 0 0 s g d b d d d d d b d g s 0 0 0
-0 0 s g d d d d d d d d d d g s 0 0 0
-0 0 0 s s s i i i i i i s s s 0 0 0 0
-0 0 0 0 0 0 0 s s s s s 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 n 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 n 0
+0 n n 0 0 0 0 0 0 0 0 0 0 0 0 0 0 n n 0
+0 n g 0 0 0 0 b b 0 0 b b 0 0 0 0 g n 0
+0 n g 0 0 0 0 b c 0 0 c b 0 0 0 0 g n 0
+0 n g 0 0 0 0 b c 0 0 c b 0 0 0 0 g n 0
+0 n g 0 0 0 0 b b 0 0 b b 0 0 0 0 g n 0
+0 n n 0 0 0 0 0 0 0 0 0 0 0 0 0 0 n n 0
+b b 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 b b
