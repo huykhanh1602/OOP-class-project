@@ -46,8 +46,9 @@
                 </Button>
             <Button layoutX="1165.0" layoutY="651.0" mnemonicParsing="false" onAction="#changeSkin" stylesheets="@../fonts/GameStyle.css" text="Skin Ball">
                <styleClass>
-                  <String fx:value="label-container" />
                   <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+                  <String fx:value="label-container" />
                </styleClass>
             </Button>
             </children>

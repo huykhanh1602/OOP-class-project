@@ -4,6 +4,7 @@ import static game.Constant.HEIGHT_SCREEN;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import game.Constant;
+import game.abstraction.GameObject;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -12,11 +13,8 @@ import javafx.scene.paint.Color;
 
 /// Just Paddle
 
-public class Paddle {
+public class Paddle extends GameObject {
     /// ELEMENT PADDLE
-    private double x, y;
-    private final int width = 100;
-    private final int height = Constant.BRICK_HEIGHT;
     private final double speed = 5; // SPEED PADDLE
 
     private boolean moveLeft = false;
@@ -25,6 +23,8 @@ public class Paddle {
     Image paddleImage;
 
     public Paddle() {
+        this.width = Constant.BRICK_WIDTH * 6;
+        this.height = Constant.BRICK_HEIGHT;
         this.x = 1000/2 - width/2;
         this.y = HEIGHT_SCREEN - 75 - height;
     }
@@ -43,7 +43,13 @@ public class Paddle {
         try {
             int i = 0;
             while (i != width/Constant.BRICK_WIDTH) {
-            paddleImage = AssetManager.getImage("STONE_BRICK");
+            if (i == 0) {
+                paddleImage = AssetManager.getImage("left_paddle");
+            } else if (i == width/Constant.BRICK_WIDTH - 1) {
+                paddleImage = AssetManager.getImage("right_paddle");
+            } else {
+                paddleImage = AssetManager.getImage("mid_paddle");
+            }
             gc.drawImage(paddleImage, x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
             i++;
             }
@@ -66,22 +72,6 @@ public class Paddle {
             moveLeft = false;
         if (key.getCode() == KeyCode.RIGHT || key.getCode() == KeyCode.D)
             moveRight = false;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
     public double getSpeed() {

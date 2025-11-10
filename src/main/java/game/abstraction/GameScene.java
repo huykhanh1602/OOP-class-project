@@ -6,13 +6,16 @@ import java.util.ResourceBundle;
 import game.App;
 import game.AssetManager;
 import game.Constant;
+import game.GameContext;
+import game.manager.ScoreManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.event.ActionEvent; // Import to handle events
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -33,12 +36,15 @@ public abstract class GameScene implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Create binding for width scale and height scale
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
-        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without cropping)
-        scale = Bindings.min(widthScale, heightScale);
+        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
+        // cropping)
+        Binding<Number> scale = Bindings.min(widthScale, heightScale);
+
+        // Apply the scale to the gamePane
+        gamePane.scaleXProperty().bind(scale);
         gamePane.scaleYProperty().bind(scale);
     }
 
@@ -52,10 +58,11 @@ public abstract class GameScene implements Initializable {
 
     @FXML
     protected void handleStartButtonAction(ActionEvent e) {
+        GameContext.getInstance().resetScore();
         AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
-            app.switchToGameScene();
+            app.startNewGame();
         } else {
             System.out.println("Error: App reference is null");
         }
@@ -65,7 +72,7 @@ public abstract class GameScene implements Initializable {
     protected void Setting(ActionEvent e) {
         AssetManager.playSound("click");
         if (app != null) {
-            app.switchtoSettingScene();
+            app.switchToSettingScene();
         } else {
             System.out.println("error setting scene");
         }
@@ -86,6 +93,7 @@ public abstract class GameScene implements Initializable {
     protected void returnToHome(ActionEvent e) {
         AssetManager.playSound("click");
         if (app != null) {
+            GameContext.getInstance().resetLevel();
             app.switchToHomeScene();
         }
     }

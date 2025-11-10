@@ -3,11 +3,16 @@ package game;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import game.scenes.ADSSceneController;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
 import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
+import game.scenes.TransitionSceneController;
+
+import game.manager.CoinManager;
+import game.manager.ScoreManager;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,13 +35,29 @@ public class App extends Application {
 
         this.primaryStage = stage;
 
-        switchToGameOverScene(6);
+        switchToHomeScene();
 
         stage.setTitle(Constant.GAME_NAME);
         stage.setMaximized(true);
         stage.show();
-
         AssetManager.playSound("run_game");
+    }
+
+    public void startNewGame() {
+        GameContext.getInstance().resetLevel();
+        ScoreManager.getInstance().resetScore();
+        CoinManager.getInstance().resetCoin();
+        switchToTransitionScene();
+        playBackgroundMusic("Game_Background");
+    }
+
+    public void nextLevel() {
+        GameContext.getInstance().nextLevel();
+        switchToGameScene();
+    }
+
+    public void gameOver(int finalScore) {
+        switchToGameOverScene(finalScore);
     }
 
     /**
@@ -51,7 +72,6 @@ public class App extends Application {
             this.currentGameController.stopGameLoop();
             this.currentGameController = null;
         }
-
         try {
             // load FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -72,7 +92,7 @@ public class App extends Application {
             }
 
             primaryStage.setScene(scene);
-
+            backgroundMusicPlayer.setVolume(GameContext.getInstance().getBackgroundMusic());
         } catch (IOException e) {
             throw new RuntimeException("Cant load: " + fxmlPath, e);
         }
@@ -82,7 +102,7 @@ public class App extends Application {
     public void switchToHomeScene() {
         switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
             controller.setup(this);
-            playBackgroundMusic("home_background_music");
+            playBackgroundMusic("Home_Background");
         });
     }
 
@@ -91,12 +111,17 @@ public class App extends Application {
         switchScene(Constant.GAME_SCENE_PATH, (GameSceneController controller) -> {
             this.currentGameController = controller;
             controller.setup(this);
-            // playBackgroundMusic("game_background_music");
         });
     }
 
-    public void switchtoSettingScene() {
+    public void switchToSettingScene() {
         switchScene(Constant.SETTING_SCENE_PATH, (SettingSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToADSScene() {
+        switchScene(Constant.ADS_SCENE, (ADSSceneController controller) -> {
             controller.setup(this);
         });
     }
@@ -106,12 +131,24 @@ public class App extends Application {
         switchScene(Constant.GAME_OVER_SCENE_PATH, (GameOverController controller) -> {
             controller.setup(this);
             controller.setScore(finalScore); // Logic riêng của GameOverScene
-            //playBackgroundMusic("game_over_music");
+            // playBackgroundMusic("game_over_music");
         });
     }
 
     public void switchToSkinScene() {
         switchScene(Constant.SKIN_BALL_SCENE, (SkinBallSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToTransitionScene() {
+        switchScene(Constant.TRANSITION_SCENE, (TransitionSceneController controller) -> {
+            controller.setup(this);
+        });
+    }
+
+    public void switchToMerchantScene() {
+        switchScene(Constant.MERCHANT_SCENE, (game.scenes.MerchantController controller) -> {
             controller.setup(this);
         });
     }
@@ -130,7 +167,7 @@ public class App extends Application {
         }
 
         // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
-        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
+        Media backgroundMusic = AssetManager.getMusic(musicKey);
 
         if (backgroundMusic != null) {
             backgroundMusicPlayer = new MediaPlayer(backgroundMusic);

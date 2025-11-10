@@ -15,14 +15,16 @@ public class GameContext {
     private int currentDifficulty = 1;
     private double soundVolume = 0.8;
     private double backgroundMusic = 0.8;
-    private double masterVolume = 0.8;
-    private String nameBall = Constant.SLIME_BALL;
+    private double masterVolume = 0.2;
+    private String nameBall = "slime_ball";
+
+    private int levelSpawnPortal = 2;
 
     private int highScore = 0;
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
 
     // Game level management
-    private int currentLevel = 1;
+    private int currentLevel = 0;
     private final int maxLevel = Constant.MAX_LEVEL;
 
     public int getCurrentLevel() {
@@ -34,6 +36,10 @@ public class GameContext {
      */
     public void resetLevel() {
         this.currentLevel = 1;
+    }
+
+    public void resetScore() {
+        this.currentScore.set(0);
     }
 
     /**
@@ -111,4 +117,11 @@ public class GameContext {
         this.nameBall = nameBall;
     }
     
+    public void resetCurrentScore() {
+        currentScore = new SimpleIntegerProperty(0);
+    }
+
+    public int getLevelSpawnPortal() {
+        return levelSpawnPortal;
+    }
 }

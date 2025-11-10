@@ -1,7 +1,6 @@
 package game.abstraction;
 
 import game.Constant;
-import game.objects.GameObject;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,8 +18,12 @@ public abstract class Bricks extends GameObject {
 
     protected int stage = 10;
 
+    private double scale = 1.0;
+    private double scaleSpeed = 0;
+
     public Bricks(String type, double x, double y, int originalDurability, int amount, Color color) {
-        super(x, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        super(x + Constant.BRICK_WIDTH / 2.0f, y + Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_WIDTH,
+                Constant.BRICK_HEIGHT);
         this.type = type;
         this.originalDurability = originalDurability;
         this.durability = originalDurability;
@@ -31,9 +34,27 @@ public abstract class Bricks extends GameObject {
         }
     }
 
+    public void hitAnimation() {
+        scaleSpeed = -0.05; // bắt đầu thu nhỏ
+    }
+
     // ERASE BRICK
     public boolean isBroken() { // Check if brick is broken
         return durability == 0;
+    }
+
+    public void update() {
+        if (scaleSpeed != 0) {
+            scale += scaleSpeed;
+
+            if (scale <= 0.75) {
+                scaleSpeed = Math.abs(scaleSpeed); // đổi hướng → nở lại
+            }
+            if (scale >= 1.0) {
+                scale = 1.0;
+                scaleSpeed = 0;
+            }
+        }
     }
 
     // Decrease durability
@@ -42,63 +63,36 @@ public abstract class Bricks extends GameObject {
             return;
         }
         if (durability > damage) {
-        durability -= damage;
+            durability -= damage;
         } else {
             durability = 0;
         }
     }
 
     public Rectangle2D getRectBrick() { // Return the rectangle for collision detection
-        return new Rectangle2D(x, y, width, height);
+        return new Rectangle2D(x - Constant.BRICK_WIDTH / 2.0f + 10, y - Constant.BRICK_HEIGHT / 2.0f + 10,
+                Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
     }
 
     public void render(GraphicsContext gc) {
         if (durability == 0) {
             return;
         }
-        gc.drawImage(AssetManager.getImage(type), x, y, Constant.BRICK_HEIGHT, Constant.BRICK_WIDTH);
-        stage = (int) Math.floor((durability * 10) / originalDurability);
-        switch (stage) {
-            case 8:
-                gc.drawImage(AssetManager.getImage("destroy_stage_1"), x, y, Constant.BRICK_HEIGHT,
-                        Constant.BRICK_HEIGHT);
-                break;
-            case 7:
-                gc.drawImage(AssetManager.getImage("destroy_stage_2"), x, y, Constant.BRICK_HEIGHT,
-                        Constant.BRICK_HEIGHT);
-                break;
-            case 6:
-                gc.drawImage(AssetManager.getImage("destroy_stage_3"), x, y, Constant.BRICK_HEIGHT,
-                        Constant.BRICK_HEIGHT);
-                break;
-            case 5:
-                gc.drawImage(AssetManager.getImage("destroy_stage_4"), x, y, Constant.BRICK_HEIGHT,
-                        Constant.BRICK_HEIGHT);
-                break;
-            case 4:
-                gc.drawImage(AssetManager.getImage("destroy_stage_5"), x, y,
-                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
-                break;
-            case 3:
-                gc.drawImage(AssetManager.getImage("destroy_stage_6"), x, y,
-                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
-                break;
-            case 2:
-                gc.drawImage(AssetManager.getImage("destroy_stage_7"), x, y,
-                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
-                break;
-            case 1:
-                gc.drawImage(AssetManager.getImage("destroy_stage_8"), x, y,
-                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
-                break;
-            case 0:
-                gc.drawImage(AssetManager.getImage("destroy_stage_9"), x, y,
-                        Constant.BRICK_HEIGHT, Constant.BRICK_HEIGHT);
-                break;
-        }
-        // gc.setStroke(Color.BLACK);
-        // gc.strokeRect(x, y, width, height);
+        gc.save();
+        gc.translate(x, y);
+        gc.scale(scale, scale);
+        gc.drawImage(AssetManager.getImage(type), -Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f,
+                Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        stage = 9 - ((int) Math.floor((durability * 10) / originalDurability));
 
+        gc.drawImage(AssetManager.getImage("destroy_stage_" + stage), -Constant.BRICK_WIDTH / 2.0f,
+                -Constant.BRICK_HEIGHT / 2.0f, Constant.BRICK_HEIGHT,
+                Constant.BRICK_HEIGHT);
+
+        gc.setFill(Color.RED);
+        // gc.strokeRect(-Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f,
+        // Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
+        gc.restore();
     }
 
     // getters and setters
@@ -124,5 +118,9 @@ public abstract class Bricks extends GameObject {
 
     public boolean isDestroyable() {
         return destroyable;
+    }
+
+    public String getType() {
+        return type;
     }
 }
