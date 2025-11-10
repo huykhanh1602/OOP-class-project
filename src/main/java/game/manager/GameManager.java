@@ -53,7 +53,7 @@ public class GameManager {
 
     private void checkGameRules() {
         if (gw.getBricks().stream().allMatch(brick -> !brick.isDestroyable())) {
-            app.nextLevel();
+            app.switchToMerchantScene();
             return;
         }
         if (gw.getBalls().isEmpty()) {
@@ -97,7 +97,7 @@ public class GameManager {
     }
 
     public int getBalls() {
-        return gw.getBalls().size(); 
+        return gw.getBalls().size();
     }
 
     public void reset() {
