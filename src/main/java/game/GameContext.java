@@ -36,6 +36,10 @@ public class GameContext {
         this.currentLevel = 1;
     }
 
+    public void resetScore() {
+        this.currentScore.set(0);
+    }
+
     /**
      * increase to next level
      * reset to level 1 if exceed max level

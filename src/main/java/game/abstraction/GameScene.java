@@ -7,11 +7,12 @@ import game.App;
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
+import game.score.ScoreManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.event.ActionEvent; // Import to handle events
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -57,6 +58,7 @@ public abstract class GameScene implements Initializable {
 
     @FXML
     protected void handleStartButtonAction(ActionEvent e) {
+        GameContext.getInstance().resetScore();
         AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
