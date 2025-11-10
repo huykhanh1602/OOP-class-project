@@ -33,11 +33,8 @@ public class GameManager {
     private final App app;
     private boolean gameOver;
     private boolean gamePaused = false;
-
     private boolean isAiming = false;
-
     private static String skin ="";
-
     public GameManager(int widthScreen, int heightScreen, App app) {
         this.widthScreen = widthScreen;
         this.heightScreen = heightScreen;
