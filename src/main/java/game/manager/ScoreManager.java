@@ -1,4 +1,4 @@
-package game.score;
+package game.manager;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,8 +20,6 @@ public class ScoreManager {
         return instance;
     }
 
-
-
     public ScoreManager() {
         loadHighScore();
     }
@@ -34,7 +32,7 @@ public class ScoreManager {
         }
     }
 
-    static void resetScore() {
+    public void resetScore() {
         score = 0;
     }
 

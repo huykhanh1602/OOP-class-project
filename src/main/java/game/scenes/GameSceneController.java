@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import game.App;
 import game.GameContext;
 import game.abstraction.GameScene;
+import game.coin.CoinManager;
 import game.manager.GameManager;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.Bindings;
@@ -22,6 +23,8 @@ public class GameSceneController extends GameScene {
     @FXML
     private Label scoreLabel;
     @FXML
+    private Label coinLabel;
+    @FXML
     private Label numBall;
 
     private GraphicsContext gc;
@@ -33,7 +36,7 @@ public class GameSceneController extends GameScene {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url, rb);
-        
+
         // Get the GraphicsContext from the Canvas
         gc = gameCanvas.getGraphicsContext2D();
         setupInputHandlers();
@@ -46,11 +49,6 @@ public class GameSceneController extends GameScene {
         this.gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
 
         resetGame();
-    }
-
-    private void bindLabel() {
-        var scoreProperty = GameContext.getInstance().getCurrentScore();
-        scoreLabel.textProperty().bind(Bindings.format("Score: %d", scoreProperty));
     }
 
     // Set up input handlers for key presses and releases
@@ -68,6 +66,7 @@ public class GameSceneController extends GameScene {
                     double deltatime = calculateDeltaTime();
                     gameManager.update(deltatime);
                     scoreLabel.setText("Score: " + gameManager.getScore());
+                    coinLabel.setText("Coin: " + CoinManager.getInstance().getCoin());
                     numBall.setText("x" + gameManager.getBalls());
                     gameManager.render(gc);
                 } else {

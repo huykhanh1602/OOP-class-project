@@ -11,6 +11,9 @@ import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
 import game.scenes.TransitionSceneController;
 
+import game.manager.CoinManager;
+import game.manager.ScoreManager;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,9 +45,10 @@ public class App extends Application {
 
     public void startNewGame() {
         GameContext.getInstance().resetLevel();
-        // ScoreManager.getInstance().resetScore();
-        // CoinManager.getInstance().resetCoins();
+        ScoreManager.getInstance().resetScore();
+        CoinManager.getInstance().resetCoin();
         switchToTransitionScene();
+        playBackgroundMusic("Game_Background");
     }
 
     public void nextLevel() {
@@ -98,7 +102,7 @@ public class App extends Application {
     public void switchToHomeScene() {
         switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
             controller.setup(this);
-            playBackgroundMusic("home_background_music");
+            playBackgroundMusic("Home_Background");
         });
     }
 
@@ -158,7 +162,7 @@ public class App extends Application {
         }
 
         // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
-        Media backgroundMusic = AssetManager.getMusic("Home_Background", musicKey);
+        Media backgroundMusic = AssetManager.getMusic(musicKey);
 
         if (backgroundMusic != null) {
             backgroundMusicPlayer = new MediaPlayer(backgroundMusic);

@@ -10,10 +10,13 @@ import game.items.ItemsForBall;
 import game.particle.ParticleManager;
 import game.powerup.FallingItem;
 import game.powerup.PowerupManager;
+import game.score.ScoreManager;
+import game.coin.CoinManager;
 
 public class CollisionSystem {
 
-    public CollisionSystem() {}
+    public CollisionSystem() {
+    }
 
     public void checkCollisions(PowerupManager powerupManager, GameWorld gw) {
         for (Iterator<Ball> BALL = gw.getBalls().iterator(); BALL.hasNext();) {
@@ -34,38 +37,34 @@ public class CollisionSystem {
                 }
                 AssetManager.playSound("portal");
             }
-            
+
             for (Iterator<Bricks> BRICK = gw.getBricks().iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
                 double dame = ball.getDamage();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     ball.collides(brick);
-                    AssetManager.playSound("ball_collide");
                     powerupManager.handleBrickCollision(ball, gw.getBalls(), gw.getBricks(), gw.getPendingBallsToAdd());
                     brick.hit(dame);
-                    if (brick.isDestroyable()) {brick.hitAnimation(); ball.setMaxcollision(ball.getMaxcollision()-1);}
+                    if (brick.isDestroyable()) {
+                        brick.hitAnimation();
+                        ball.setMaxcollision(ball.getMaxcollision() - 1);
+                    }
                     if (brick.isBroken()) {
-                        AssetManager.playSound("ball_break");
+                        AssetManager.playSound("brick_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
 
                         double brickCenterX = brick.getX();
-                        double brickCenterY = brick.getY() ;
-                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY, 
-                        6, brick.getColor());
-                        for (ItemsForBall itemPrototype : gw.getAvailableItems()) {
-                            double dropChance = itemPrototype.getPercent();
-                            if (Math.random() < (dropChance / 100.0)) {
-                                FallingItem newItem = new FallingItem(brickCenterX,brickCenterY, itemPrototype);
-                                gw.getFallingItems().add(newItem);
-                                System.out.println("Vật phẩm đã rơi: " + itemPrototype.getName());
-                                break; // Chỉ rơi 1 vật phẩm mỗi gạch
-                            }
+                        double brickCenterY = brick.getY();
+                        ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
+                                6, brick.getColor());
+                        if (brick.getType() == "CHEST") {
+                            CoinManager.getInstance().addCoin(5);
                         }
                     }
-                if(ball.getMaxcollision() <= 0) {
-                    BALL.remove();
-                }
+                    if (ball.getMaxcollision() <= 0) {
+                        BALL.remove();
+                    }
                     break; // tránh va chạm nhiều brick 1 frame
                 }
             }
@@ -75,5 +74,5 @@ public class CollisionSystem {
             }
         }
     }
-    
+
 }
