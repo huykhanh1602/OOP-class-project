@@ -1,4 +1,4 @@
-package game.coin;
+package game.manager;
 
 public class CoinManager {
     private static int coin = 0;
@@ -9,11 +9,11 @@ public class CoinManager {
         return instance;
     }
 
-    public static void addCoin(int amount) {
+    public void addCoin(int amount) {
         coin += amount;
     }
 
-    public static void resetCoin() {
+    public void resetCoin() {
         coin = 0;
     }
 
