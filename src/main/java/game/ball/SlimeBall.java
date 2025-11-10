@@ -1,6 +1,6 @@
 package game.ball;
 
-import game.Constant;
+import game.abstraction.Ball;
 
 public class SlimeBall extends Ball {
     public SlimeBall(double x, double y) {

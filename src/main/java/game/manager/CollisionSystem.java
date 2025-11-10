@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 import game.AssetManager;
 import game.GameContext;
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
 import game.items.ItemsForBall;
 import game.particle.ParticleManager;
 import game.powerup.FallingItem;

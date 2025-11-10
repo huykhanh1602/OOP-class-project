@@ -1,12 +1,10 @@
-package game.ball;
+package game.abstraction;
 
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
-import game.abstraction.Bricks;
-import game.abstraction.GameObject;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;

@@ -107,7 +107,7 @@ public class App extends Application {
         switchScene(Constant.GAME_SCENE_PATH, (GameSceneController controller) -> {
             this.currentGameController = controller;
             controller.setup(this);
-            playBackgroundMusic("game_background_music");
+            // playBackgroundMusic("game_background_music");
         });
     }
 

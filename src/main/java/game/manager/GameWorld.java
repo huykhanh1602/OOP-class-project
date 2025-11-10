@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.GameContext;
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
 import game.ball.EyeOfDragonBall;
 import game.ball.FireBall;
 import game.ball.SlimeBall;

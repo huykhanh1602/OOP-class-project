@@ -5,7 +5,7 @@ import java.util.Set;
 
 import game.AssetManager;
 import game.Constant;
-import game.ball.Ball;
+import game.abstraction.Ball;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

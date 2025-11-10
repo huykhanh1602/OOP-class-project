@@ -6,7 +6,7 @@ import java.util.List;
 import game.powerup.PowerupManager;
 import game.App;
 import game.GameContext;
-import game.ball.Ball;
+import game.abstraction.Ball;
 import game.particle.ParticleManager;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
