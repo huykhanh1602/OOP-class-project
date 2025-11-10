@@ -147,6 +147,12 @@ public class App extends Application {
         });
     }
 
+    public void switchToMerchantScene() {
+        switchScene(Constant.MERCHANT_SCENE, (game.scenes.MerchantController controller) -> {
+            controller.setup(this);
+        });
+    }
+
     /**
      * play the background music.
      * 
