@@ -11,6 +11,7 @@ import game.particle.ParticleManager;
 import game.powerup.FallingItem;
 import game.powerup.PowerupManager;
 import game.score.ScoreManager;
+import game.coin.CoinManager;
 
 public class CollisionSystem {
 
@@ -58,7 +59,7 @@ public class CollisionSystem {
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
                                 6, brick.getColor());
                         if (brick.getType() == "CHEST") {
-                            ScoreManager.getInstance().addCoins(5);
+                            CoinManager.getInstance().addCoin(5);
                         }
                     }
                     if (ball.getMaxcollision() <= 0) {
