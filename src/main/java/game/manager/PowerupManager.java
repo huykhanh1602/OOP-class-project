@@ -1,4 +1,4 @@
-package game.powerup; // (Chung package với lớp trên)
+package game.manager; // (Chung package với lớp trên)
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,6 +7,7 @@ import java.util.List;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
 import game.items.ItemsForBall;
+import game.powerup.ActivePowerup;
 
 /**
  * Đây là lớp "ListPowerup" mà bạn muốn.
