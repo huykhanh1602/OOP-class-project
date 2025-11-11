@@ -93,6 +93,7 @@ public class App extends Application {
             }
 
             primaryStage.setScene(scene);
+            if (backgroundMusicPlayer != null)
             backgroundMusicPlayer.setVolume(GameContext.getInstance().getBackgroundMusic());
         } catch (IOException e) {
             throw new RuntimeException("Cant load: " + fxmlPath, e);

@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class AssetManager {
-    // level
-    private final static Map<String, String> level = new HashMap<>();
-
     // images
     private final static Map<String, Image> images = new HashMap<>();
 
@@ -150,9 +147,5 @@ public class AssetManager {
     public static Media getMusic(String category) {
         int index = random.nextInt(musics.get(category).size());
         return musics.get(category).get(index);
-    }
-
-    public static String getLevel(String key) {
-        return level.get(key);
     }
 }
