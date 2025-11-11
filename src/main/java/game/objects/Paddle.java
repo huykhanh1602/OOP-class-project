@@ -5,7 +5,6 @@ import game.Constant;
 import game.abstraction.GameObject;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -17,8 +16,6 @@ public class Paddle extends GameObject {
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
 
-    Image paddleImage;
-
     public Paddle() {
         this.width = Constant.BRICK_WIDTH * 6;
         this.height = Constant.BRICK_HEIGHT;
@@ -26,9 +23,6 @@ public class Paddle extends GameObject {
         this.y = Constant.CANVAS_HEIGHT - 75 - height;
     }
 
-    public Paddle(Image paddleImage) {
-        this.paddleImage = paddleImage;
-    }
 
     /// MOVEMENT
     public void update() {

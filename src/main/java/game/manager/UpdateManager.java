@@ -1,5 +1,7 @@
 package game.manager;
 
+import game.abstraction.Ball;
+
 public class UpdateManager {
     public void update(GameWorld gw) {
         gw.getPaddle().update();
@@ -9,6 +11,11 @@ public class UpdateManager {
         if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
             gw.getPortalLeft().update();
             gw.getPortalRight().update();
+
+            for(Ball ball : gw.getBalls()) {
+            gw.getPortalLeft().updateCooldown(ball);
+            gw.getPortalRight().updateCooldown(ball);
+        }
         }
     }
 }

@@ -24,7 +24,7 @@ public class GameContext {
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
 
     // Game level management
-    private int currentLevel = 0;
+    private int currentLevel = 1;
     private final int maxLevel = Constant.MAX_LEVEL;
 
     public int getCurrentLevel() {
@@ -35,7 +35,7 @@ public class GameContext {
      * start a new game from level 1
      */
     public void resetLevel() {
-        this.currentLevel = 1;
+        this.currentLevel = 3;
     }
 
     public void resetScore() {

@@ -14,7 +14,7 @@ public class Portal {
     private double x, y, width, height;
     private Portal linkedPortal;
     private Set<Ball> cooldown = new HashSet<>();
-    private double diretion = 1;
+    private double diretion = Math.random();
 
     private Image portalImage = AssetManager.getImage("PORTAL");
 
@@ -39,7 +39,6 @@ public class Portal {
         ball.setY(linkedPortal.y + linkedPortal.height / 2);
         cooldown.add(ball);
         linkedPortal.cooldown.add(ball);
-        updateCooldown(ball);
     }
 
     public void updateCooldown(Ball ball) {
@@ -50,8 +49,9 @@ public class Portal {
         this.linkedPortal = other;
     }
 
+
     public void update() {
-        if (y > 550 || y < 0) diretion *= -1;
+        if (y > 450 || y < 0) diretion *= -1;
         y += diretion;
     }
 
