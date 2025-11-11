@@ -69,6 +69,8 @@ public class AssetManager {
         sounds.put("brick_break", new ArrayList<>());
         sounds.put("click", new ArrayList<>());
         sounds.put("portal", new ArrayList<>());
+        sounds.put("buy", new ArrayList<>());
+        sounds.put("cantbuy", new ArrayList<>());
         try {
             for (int i = 1; i <= 5; i++) {
                 String key = "ball_collide_" + i;
@@ -80,6 +82,18 @@ public class AssetManager {
                 String key = "brick_break_" + i;
                 String path = Constant.BRICK_BREAK + i + ".wav";
                 soundInput("brick_break", key, path);
+            }
+
+            for (int i = 1; i <= 4; i++) {
+                String key = "buy_" + i;
+                String path = Constant.BUY_SOUND + key + ".wav";
+                soundInput("buy", key, path);
+            }
+
+            for (int i = 1; i <= 4; i++) {
+                String key = "no_" + i;
+                String path = Constant.BUY_SOUND + key + ".wav";
+                soundInput("cantbuy", key, path);
             }
 
             soundInput("click", "click_sound", Constant.BASE_SOUND + "click.wav");

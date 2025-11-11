@@ -28,7 +28,7 @@ public final class GameWorld {
     private List<Ball> pendingBallsToAdd;
     private boolean isAiming = false;
 
-    private boolean isPause = false; 
+    private boolean isPause = false;
 
     public boolean isPause() {
         return isPause;
@@ -62,14 +62,15 @@ public final class GameWorld {
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                     break;
                 case "eod_ball":
-                    balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
+                    balls.add(new EyeOfDragonBall(paddle.getX() + paddle.getWidth() / 2,
+                            paddle.getY() - paddle.getHeight()));
                     break;
                 case "fire_ball":
                     balls.add(new FireBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
                     break;
                 case "snow_ball":
                     balls.add(new SnowBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
-                default :
+                default:
                     balls.add(new SlimeBall(paddle.getX() + paddle.getWidth() / 2, paddle.getY() - paddle.getHeight()));
             }
         }
@@ -120,5 +121,9 @@ public final class GameWorld {
 
     public void setIsAiming(boolean isAiming) {
         this.isAiming = isAiming;
+    }
+
+    public Paddle getPaddleObject() {
+        return paddle;
     }
 }

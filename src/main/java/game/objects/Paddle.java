@@ -1,5 +1,7 @@
 package game.objects;
 
+import java.nio.channels.Channel;
+
 import game.AssetManager;
 import game.Constant;
 import game.abstraction.GameObject;
@@ -12,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public class Paddle extends GameObject {
     /// ELEMENT PADDLE
-    private final double speed = 5; // SPEED PADDLE
+    private final double speed = 3; // SPEED PADDLE
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
@@ -83,5 +85,9 @@ public class Paddle extends GameObject {
 
     public Rectangle2D getBounds() {
         return new Rectangle2D(this.x, this.y, this.width, this.height);
+    }
+
+    public void increaseWidth(double amount) {
+        this.width = width + Constant.BRICK_WIDTH * amount;
     }
 }

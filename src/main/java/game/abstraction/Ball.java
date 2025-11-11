@@ -87,9 +87,9 @@ public abstract class Ball extends GameObject {
             }
         }
     }
-    
+
     // wall collision
-    public void collides(Ball ball) { 
+    public void collides(Ball ball) {
         if (x < 10 + radius) {
             AssetManager.playSound("ball_collide");
             dx = Math.abs(dx);
@@ -254,20 +254,20 @@ public abstract class Ball extends GameObject {
     public void bounceX() {
         AssetManager.playSound("brick_break");
         dx = -dx;
-    } 
+    }
 
     // UP & DOWN
     public void bounceY() {
         AssetManager.playSound("brick_break");
         dy = -dy;
-    } 
+    }
 
     public Rectangle2D getRect() {
         return new Rectangle2D(x, y, radius * 2, radius * 2);
     }
 
     // Return attribute for collision detection
-    public boolean intersects(Rectangle2D rect) { 
+    public boolean intersects(Rectangle2D rect) {
         return rect.intersects(getRect());
     }
 

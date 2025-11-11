@@ -22,8 +22,10 @@ public class GameSceneController extends GameScene {
 
     @FXML
     private Label scoreLabel;
+
     @FXML
     private Label coinLabel;
+
     @FXML
     private Label numBall;
 
@@ -150,5 +152,5 @@ public class GameSceneController extends GameScene {
 
         gameManager.getGw().setPause(false);
     }
-    
+
 }

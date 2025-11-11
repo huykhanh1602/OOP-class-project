@@ -21,4 +21,12 @@ public class CoinManager {
         return coin;
     }
 
+    public void deductCoins(int amount) {
+        if (amount <= coin) {
+            coin -= amount;
+        } else {
+            System.out.println("Not enough coins!");
+        }
+    }
+
 }
