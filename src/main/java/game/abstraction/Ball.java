@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 
 public abstract class Ball extends GameObject {
     /// ELEMENT BALL
-    private double radius = 10; // Size ball
+    private double radius = 20; // Size ball
     private double dx, dy; // Vector speed
     private double speedball = 4; // Ball speed
     public boolean isRunning = false;

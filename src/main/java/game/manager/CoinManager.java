@@ -14,7 +14,7 @@ public class CoinManager {
     }
 
     public void resetCoin() {
-        coin = 0;
+        coin = 100;
     }
 
     public int getCoin() {
