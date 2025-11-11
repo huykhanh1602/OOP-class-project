@@ -7,6 +7,7 @@ import game.powerup.FallingItem;
 
 public class UpdateManager {
     public void update(GameWorld gw, PowerupManager powerupManager, double deltaTime) {
+        if (gw.isPause()) return;
         gw.getPaddle().update();
         gw.getBalls().forEach(b -> b.update(gw.getPaddle()));
         gw.getBalls().forEach(b -> b.setPlayerAiming(gw.isIsAiming()));

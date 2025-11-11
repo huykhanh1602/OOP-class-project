@@ -53,12 +53,15 @@ public class GameManager {
         if (key.getCode() == KeyCode.SPACE && !gw.isIsAiming()) {
             this.gw.setIsAiming(true);
         }
+
+        if (key.getCode() == KeyCode.ESCAPE) {
+            gw.setPause(true);
+        }
     }
 
     public void handleKeyRelease(KeyEvent key) {
         gw.getPaddle().handleKeyReleased(key);
         if (key.getCode() == KeyCode.SPACE && gw.isIsAiming()) {
-            this.gw.setIsAiming(false);
             shootBall();
         }
     }
@@ -87,4 +90,9 @@ public class GameManager {
     public void reset() {
         this.gw = new GameWorld();
     }
+
+    public GameWorld getGw() {
+        return gw;
+    }
+    
 }

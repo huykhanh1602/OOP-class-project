@@ -27,6 +27,17 @@ public final class GameWorld {
     private List<FallingItem> fallingItems;
     private List<Ball> pendingBallsToAdd;
     private boolean isAiming = false;
+
+    private boolean isPause = false; 
+
+    public boolean isPause() {
+        return isPause;
+    }
+
+    public void setPause(boolean isPause) {
+        this.isPause = isPause;
+    }
+
     public GameWorld() {
         this.availableItems = new ArrayList<>();
         reset();
