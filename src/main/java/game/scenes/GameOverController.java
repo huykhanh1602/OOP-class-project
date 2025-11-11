@@ -1,15 +1,14 @@
 package game.scenes;
 
-import game.abstraction.GameScene;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import static game.Constant.SCORE_PATH;
+import game.abstraction.GameScene;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class GameOverController extends GameScene {
     @FXML
@@ -28,7 +27,7 @@ public class GameOverController extends GameScene {
                     line = line.trim();
                     if (!line.isEmpty()) {
                         try {
-                            scores.add(Integer.parseInt(line));
+                            scores.add(Integer.valueOf(line));
                         } catch (NumberFormatException ignore) {
                             // skip invalid line
                         }
