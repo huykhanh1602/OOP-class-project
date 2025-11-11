@@ -4,13 +4,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.AssetManager;
-import game.Constant;
 import game.GameContext;
 import game.abstraction.GameScene;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class SkinBallSceneController extends GameScene{
