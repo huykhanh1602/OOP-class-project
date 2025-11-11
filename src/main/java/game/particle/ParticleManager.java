@@ -1,10 +1,11 @@
 package game.particle;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class ParticleManager {
     // Singleton Pattern
@@ -13,6 +14,14 @@ public class ParticleManager {
     /// Time tracking for particle updates
     private static long lastUpdateTime = 0;
 
+    public static long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public static void setLastUpdateTime(long lastUpdateTime) {
+        ParticleManager.lastUpdateTime = lastUpdateTime;
+    }
+
     private ParticleManager() {
     }
 
@@ -20,7 +29,7 @@ public class ParticleManager {
         return instance;
     }
 
-    private List<Particle> particles = new ArrayList<>();
+    private final List<Particle> particles = new ArrayList<>();
 
 
     public void update(double deltaTime) {
