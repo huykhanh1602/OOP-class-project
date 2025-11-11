@@ -50,11 +50,16 @@ public class Constant {
     public static final String COIN = "game/images/element/coin.png";
 
     // power up
-    public static final String DIAMOND = "game/images/items/diamond.gif";
-    public static final String EMARLD = "game/images/items/emarld.gif";
-    public static final String EXPPOTION = "game/images/items/expPotion.gif";
-    public static final String EYEOFDRAGON = "game/images/items/eyeOfDragon.gif";
-    public static final String GOLDEN_APPLE = "game/images/items/golden_apple.gif";
+    public static final String DIAMOND = "/game/images/items/diamond.gif";
+    public static final String EMERALD = "/game/images/items/emerald.gif";
+    public static final String EXPPOTION = "/game/images/items/experience_bottle.gif";
+    public static final String GOLDEN_APPLE = "/game/images/items/golden_apple.gif";
+    public static final String CHORUS = "/game/images/items/chorus.gif";
+    public static final String BLAZE = "/game/images/items/blaze.gif";
+    public static final String STAR = "/game/images/items/star.gif";
+    public static final String NAUTILUS = "/game/images/items/nautilus.gif";
+    // public static final String EYEOFDRAGON =
+    // "/game/images/items/eyeOfDragon.gif";
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;
@@ -100,6 +105,7 @@ public class Constant {
     public static final String BALL_COLLIDE = "/game/sounds/sfx/ball/ball_collide_";
     public static final String BRICK_BREAK = "/game/sounds/sfx/brick/brick_break_";
     public static final String BASE_SOUND = "/game/sounds/sfx/";
+    public static final String BUY_SOUND = "/game/sounds/sfx/merchant/";
 
     // game info
     public static final String GAME_NAME = "Raumania: rise of kingdoms";

@@ -9,9 +9,12 @@ import game.manager.CoinManager;
 import game.manager.GameManager;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class GameSceneController extends GameScene {
     @FXML
@@ -19,8 +22,10 @@ public class GameSceneController extends GameScene {
 
     @FXML
     private Label scoreLabel;
+
     @FXML
     private Label coinLabel;
+
     @FXML
     private Label numBall;
 
@@ -38,6 +43,8 @@ public class GameSceneController extends GameScene {
         gc = gameCanvas.getGraphicsContext2D();
         setupInputHandlers();
         createGameLoop();
+        pauseMenu.setVisible(false);
+        pauseMenu.setManaged(false);
     }
 
     @Override
@@ -122,4 +129,28 @@ public class GameSceneController extends GameScene {
             startGameLoop();
         }
     }
+
+    @FXML
+    private Group pauseMenu; // Phải khớp với fx:id trong FXML
+
+    /**
+     * Phương thức này được gọi khi một phím được nhấn
+     * trên thành phần mà sự kiện onKeyPressed được gán.
+     */
+    @FXML
+    private void handleKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            pauseMenu.setVisible(true);
+            pauseMenu.setManaged(true);
+        }
+    }
+
+    @FXML
+    private void stopPause() {
+        pauseMenu.setVisible(false);
+        pauseMenu.setManaged(false);
+
+        gameManager.getGw().setPause(false);
+    }
+
 }

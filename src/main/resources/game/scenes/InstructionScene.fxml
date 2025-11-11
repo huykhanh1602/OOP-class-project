@@ -28,6 +28,7 @@
                   <String fx:value="game-button" />
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
+                  <String fx:value="movingup-label" />
                </styleClass>
             </Button>
          </children>

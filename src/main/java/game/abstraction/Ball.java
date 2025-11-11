@@ -14,9 +14,9 @@ import javafx.scene.paint.Color;
 
 public abstract class Ball extends GameObject {
     /// ELEMENT BALL
-    private double radius = 10; // Size ball
+    private double radius = 20; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 1; // Ball speed
+    private double speedball = 4; // Ball speed
     public boolean isRunning = false;
     private double damage;
     private double Maxcollision;
@@ -25,11 +25,11 @@ public abstract class Ball extends GameObject {
     /// Aiming Arc
     private double aimAngle = 30;
     private boolean aimIncrease = true;
-    private final double aimSpeed = 1;
+    private final double aimSpeed = 1.2;
     private final double ainMin = 30;
     private final double ainMax = 150;
     private boolean isPlayerAiming;
-
+    private boolean isSpecialPowerupBall = false;
     private String type = "slime_ball";
 
     private final double friction = 0.1;
@@ -87,9 +87,9 @@ public abstract class Ball extends GameObject {
             }
         }
     }
-    
+
     // wall collision
-    public void collides(Ball ball) { 
+    public void collides(Ball ball) {
         if (x < 10 + radius) {
             AssetManager.playSound("ball_collide");
             dx = Math.abs(dx);
@@ -254,20 +254,20 @@ public abstract class Ball extends GameObject {
     public void bounceX() {
         AssetManager.playSound("brick_break");
         dx = -dx;
-    } 
+    }
 
     // UP & DOWN
     public void bounceY() {
         AssetManager.playSound("brick_break");
         dy = -dy;
-    } 
+    }
 
     public Rectangle2D getRect() {
         return new Rectangle2D(x, y, radius * 2, radius * 2);
     }
 
     // Return attribute for collision detection
-    public boolean intersects(Rectangle2D rect) { 
+    public boolean intersects(Rectangle2D rect) {
         return rect.intersects(getRect());
     }
 
@@ -380,5 +380,13 @@ public abstract class Ball extends GameObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isSpecialPowerupBall() {
+        return this.isSpecialPowerupBall;
+    }
+
+    public void setIsSpecialPowerupBall(boolean isSpecial) {
+        this.isSpecialPowerupBall = isSpecial;
     }
 }

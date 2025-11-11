@@ -1,8 +1,11 @@
 package game.objects;
 
+import java.nio.channels.Channel;
+
 import game.AssetManager;
 import game.Constant;
 import game.abstraction.GameObject;
+import game.powerup.merchant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -11,13 +14,13 @@ import javafx.scene.paint.Color;
 
 public class Paddle extends GameObject {
     /// ELEMENT PADDLE
-    private final double speed = 5; // SPEED PADDLE
+    private final double speed = 3; // SPEED PADDLE
 
     private boolean moveLeft = false;
     private boolean moveRight = false; // MOVEMENT
 
     public Paddle() {
-        this.width = Constant.BRICK_WIDTH * 6;
+        this.width = Constant.BRICK_WIDTH * 3 + Constant.BRICK_WIDTH * merchant.paddleSize;
         this.height = Constant.BRICK_HEIGHT;
         this.x = Constant.CANVAS_WIDTH / 2 - width / 2;
         this.y = Constant.CANVAS_HEIGHT - 75 - height;

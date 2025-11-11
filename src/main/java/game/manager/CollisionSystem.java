@@ -6,7 +6,11 @@ import game.AssetManager;
 import game.GameContext;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
+
+import game.items.ItemsForBall;
 import game.particle.ParticleManager;
+import game.powerup.AvailableItems;
+import game.powerup.FallingItem;
 
 public class CollisionSystem {
 
@@ -19,7 +23,8 @@ public class CollisionSystem {
             ball.collides(ball);
             if (ball.getRect().intersects(gw.getPaddle().getBounds())) {
                 ball.collides(gw.getPaddle());
-                powerupManager.handlePaddleCollision(ball);
+                powerupManager.handlePaddleCollision(ball, gw.getBalls(), gw.getBricks(), gw.getPendingBallsToAdd(),
+                        gw.getPaddle());
             }
             if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
                 if (gw.getPortalLeft().checkCollision(ball)) {
@@ -54,6 +59,12 @@ public class CollisionSystem {
                         if ("CHEST".equals(brick.getType())) {
                             CoinManager.getInstance().addCoin(5);
                         }
+                        ItemsForBall itemType = AvailableItems.getRandomItem();
+
+                        if (itemType != null) {
+                            FallingItem newItem = new FallingItem(brickCenterX, brickCenterY, itemType);
+                            gw.getFallingItems().add(newItem);
+                        }
                     }
                     if (ball.getMaxcollision() <= 0) {
                         BALL.remove();
@@ -65,6 +76,13 @@ public class CollisionSystem {
                 BALL.remove();
             }
         }
+        Iterator<FallingItem> itemIt = gw.getFallingItems().iterator();
+        while (itemIt.hasNext()) {
+            FallingItem item = itemIt.next();
+            if (gw.getPaddle().getBounds().intersects(item.getBounds())) {
+                powerupManager.addPowerup(item.getItemType(), gw.getBalls(), gw.getBricks(), gw.getPendingBallsToAdd());
+                itemIt.remove();
+            }
+        }
     }
-
 }

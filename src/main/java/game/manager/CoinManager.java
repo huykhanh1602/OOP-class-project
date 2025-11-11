@@ -14,11 +14,19 @@ public class CoinManager {
     }
 
     public void resetCoin() {
-        coin = 0;
+        coin = 100;
     }
 
     public int getCoin() {
         return coin;
+    }
+
+    public void deductCoins(int amount) {
+        if (amount <= coin) {
+            coin -= amount;
+        } else {
+            System.out.println("Not enough coins!");
+        }
     }
 
 }
