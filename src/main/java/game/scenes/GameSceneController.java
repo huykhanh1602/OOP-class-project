@@ -4,50 +4,44 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
-import game.Constant;
 import game.GameContext;
-import game.GameManager;
 import game.abstraction.GameScene;
+import game.manager.CoinManager;
+import game.manager.GameManager;
+import game.manager.ScoreManager;
+
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.ImageView;
 
 public class GameSceneController extends GameScene {
-
     @FXML
     private Canvas gameCanvas;
 
     @FXML
     private Label scoreLabel;
+    @FXML
+    private Label coinLabel;
+    @FXML
+    private Label numBall;
 
     private GraphicsContext gc;
+
     private GameManager gameManager;
 
     private AnimationTimer gameLoop;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
-        DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
-
-        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
-        // cropping)
-        Binding<Number> scale = Bindings.min(widthScale, heightScale);
-
-        // Apply the scale to the gamePane
-        gamePane.scaleXProperty().bind(scale);
-        gamePane.scaleYProperty().bind(scale);
+        super.initialize(url, rb);
 
         // Get the GraphicsContext from the Canvas
         gc = gameCanvas.getGraphicsContext2D();
         setupInputHandlers();
-
         createGameLoop();
     }
 
@@ -59,11 +53,6 @@ public class GameSceneController extends GameScene {
         resetGame();
     }
 
-    private void bindLabel() {
-        var scoreProperty = GameContext.getInstance().currentScore;
-        scoreLabel.textProperty().bind(Bindings.format("Score:\n%d", scoreProperty));
-    }
-
     // Set up input handlers for key presses and releases
     private void setupInputHandlers() {
         gameCanvas.setFocusTraversable(true);
@@ -71,14 +60,16 @@ public class GameSceneController extends GameScene {
         gameCanvas.setOnKeyReleased(e -> gameManager.handleKeyRelease(e));
     }
 
-    // Create the game loop using AnimationTimer
     private void createGameLoop() {
         this.gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 if (gameManager != null) {
-                    gameManager.update();
-                    scoreLabel.setText("Score:\n" + gameManager.getScore());
+                    double deltatime = calculateDeltaTime();
+                    gameManager.update(deltatime);
+                    scoreLabel.setText("Score: " + gameManager.getScore());
+                    coinLabel.setText("Coin: " + CoinManager.getInstance().getCoin());
+                    numBall.setText("x" + gameManager.getBalls());
                     gameManager.render(gc);
                 } else {
                     System.out.println("GameManager is not initialized!");
@@ -87,14 +78,29 @@ public class GameSceneController extends GameScene {
         };
     }
 
-    // Start the game loop
+    private double lastUpdateTime = 0;
+
+    private double calculateDeltaTime() {
+        long currentTime = System.nanoTime();
+        if (lastUpdateTime == 0) {
+            lastUpdateTime = currentTime;
+        }
+        double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
+        lastUpdateTime = currentTime;
+
+        // Clamp giá trị dt để tránh outlier
+        if (dt < 0.001 || dt > 0.05) {
+            dt = 0.016; // khoảng 60 FPS
+        }
+        return dt;
+    }
+
     private void startGameLoop() {
         if (gameLoop != null) {
             gameLoop.start();
         }
     }
 
-    // Stop the game loop
     public void stopGameLoop() {
         if (gameLoop != null) {
             gameLoop.stop();
@@ -105,7 +111,14 @@ public class GameSceneController extends GameScene {
     @FXML
     public void resetGame() {
         if (gameManager != null) {
-            gameManager.reset();
+            gameManager = new GameManager((int) gameCanvas.getWidth(), (int) gameCanvas.getHeight(), app);
+        }
+
+        if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {
+            startGameLoop();
+        } else if (gameLoop == null) {
+            createGameLoop();
+            startGameLoop();
         }
 
         if (gameLoop != null && !gameLoop.toString().contains("RUNNING")) {

@@ -18,7 +18,7 @@
                     </image>
                 </ImageView>
                 
-                <ImageView fitHeight="222.0" fitWidth="676.0" layoutX="321.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="nameGame" fitHeight="220.0" fitWidth="670.0" layoutX="321.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../images/logo.png" />
                     </image>
@@ -37,13 +37,20 @@
                   <String fx:value="game-button" />
                </styleClass>
                 </Button>
-                <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleInstructionButton" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Instruction">
+                <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" onAction="#Setting" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
                     <styleClass>
                         <String fx:value="text-label" />
                         <String fx:value="label-container" />
                   <String fx:value="game-button" />
                     </styleClass>
                 </Button>
+            <Button layoutX="1165.0" layoutY="651.0" mnemonicParsing="false" onAction="#changeSkin" stylesheets="@../fonts/GameStyle.css" text="Skin Ball">
+               <styleClass>
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
+                  <String fx:value="label-container" />
+               </styleClass>
+            </Button>
             </children>
         </AnchorPane>
     </children>

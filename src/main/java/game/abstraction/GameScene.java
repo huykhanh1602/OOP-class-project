@@ -4,14 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
+import game.AssetManager;
 import game.Constant;
+import game.GameContext;
+import game.manager.ScoreManager;
 import javafx.application.Platform;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.event.ActionEvent; // Import to handle events
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -25,10 +29,13 @@ public abstract class GameScene implements Initializable {
     @FXML
     protected AnchorPane gamePane;
 
+    private Binding<Number> scale;
+
+    protected int currentIndex = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Create binding for width scale and height scale
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
@@ -41,13 +48,18 @@ public abstract class GameScene implements Initializable {
         gamePane.scaleYProperty().bind(scale);
     }
 
+    public Binding<Number> getScale() {
+        return scale;
+    }
+
     public void setup(App app) {
         this.app = app;
     }
 
-    // event handlers
     @FXML
     protected void handleStartButtonAction(ActionEvent e) {
+        GameContext.getInstance().resetScore();
+        AssetManager.playSound("click");
         System.out.println("Start button pressed");
         if (app != null) {
             app.startNewGame();
@@ -57,7 +69,18 @@ public abstract class GameScene implements Initializable {
     }
 
     @FXML
+    protected void Setting(ActionEvent e) {
+        AssetManager.playSound("click");
+        if (app != null) {
+            app.switchToSettingScene();
+        } else {
+            System.out.println("error setting scene");
+        }
+    }
+
+    @FXML
     protected void Quit(ActionEvent e) {
+        AssetManager.playSound("click");
         System.out.println("quit button pressed");
         if (app != null) {
             Platform.exit();
@@ -78,11 +101,10 @@ public abstract class GameScene implements Initializable {
 
     @FXML
     protected void returnToHome(ActionEvent e) {
-        System.out.println("Return to home button pressed");
+        AssetManager.playSound("click");
         if (app != null) {
+            GameContext.getInstance().resetLevel();
             app.switchToHomeScene();
-        } else {
-            System.out.println("Error: App reference is null");
         }
     }
 }

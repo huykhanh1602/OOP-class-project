@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.Random;
 
-import game.objects.GameObject;
+import game.abstraction.GameObject;
 
 public class Particle extends GameObject {
 
@@ -15,7 +15,7 @@ public class Particle extends GameObject {
     private Color color;
 
     // Đơn vị: pixels / giây^2 (pixels per second squared)
-    private static final double GRAVITY = 98.0;
+    private static final double GRAVITY = 500.0;
 
     public Particle(double x, double y, Color color) {
         super(x, y, 5, 5);
@@ -56,9 +56,6 @@ public class Particle extends GameObject {
 
     public boolean isAlive() {
         if (lifeSpan <= 0) {
-            // System.out.println(
-            // "Particle life " + (System.nanoTime() - creationTime) /
-            // 1_000_000_000.0 + " seconds");
         }
         return lifeSpan > 0;
     }

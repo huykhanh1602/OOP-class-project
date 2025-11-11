@@ -1,12 +1,24 @@
 package game.abstraction;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public abstract class GameObject {
-    public double x;
-    public double y;
-    public double width;
-    public double height;
+    protected double x;
+    protected double y;
+    protected double width;
+    protected double height;
+
+    public GameObject() {}
+
+    public GameObject(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public GameObject(double x, double y, double width, double height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+    }
 
     public double getX() {
         return x;
@@ -39,10 +51,4 @@ public abstract class GameObject {
     public void setHeight(double height) {
         this.height = height;
     }
-
-    public GameObject(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
 }

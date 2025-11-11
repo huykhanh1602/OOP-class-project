@@ -10,6 +10,9 @@ public class ParticleManager {
     // Singleton Pattern
     private static final ParticleManager instance = new ParticleManager();
 
+    /// Time tracking for particle updates
+    private static long lastUpdateTime = 0;
+
     private ParticleManager() {
     }
 
@@ -18,6 +21,7 @@ public class ParticleManager {
     }
 
     private List<Particle> particles = new ArrayList<>();
+
 
     public void update(double deltaTime) {
         Iterator<Particle> iterator = particles.iterator();
@@ -45,5 +49,9 @@ public class ParticleManager {
 
     public void clear() {
         particles.clear();
+    }
+
+    public static void setLastUpdateTime() {
+        lastUpdateTime = 0;
     }
 }
