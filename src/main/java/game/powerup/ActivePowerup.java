@@ -1,52 +1,49 @@
 package game.powerup;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
+import game.ball.NormalBall;
 import game.items.ItemsForBall;
+import game.objects.Paddle;
 
-/**
- * Represents a power-up that is currently ACTIVE in the game.
- * Contains the item type (prototype) and a countdown timer.
- */
 public class ActivePowerup {
-
-    private ItemsForBall itemType; 
-    private double timeLeft;       
+    private ItemsForBall itemType;
+    private double timeLeft;
 
     public ActivePowerup(ItemsForBall itemType) {
         this.itemType = itemType;
         this.timeLeft = itemType.getTimeuse();
     }
 
-    /**
-     * Updates the remaining time of the power-up.
-     * @param dt Delta time (time between frames) in seconds.
-     */
     public void update(double dt) {
         this.timeLeft -= dt;
     }
 
-    /**
-     * @return true if this power-up has expired.
-     */
     public boolean isExpired() {
         return this.timeLeft <= 0;
     }
 
-    // ---  (Delegate) ---
-
-    public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+    public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks,
+            List<Ball> pendingBalls) {
         itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
 
-    public void applyOnPaddleCollision(Ball ball) {
-        itemType.onPaddleCollision(ball);
+    public void applyOnPaddleCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks,
+            List<Ball> pendingBalls, Paddle paddle) {
+        itemType.onPaddleCollision(collidingBall, allBalls, allBricks, pendingBalls, paddle);
+    }
+
+    public void applyOnFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks,
+            List<Ball> pendingBalls) {
+        itemType.onFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
 
     public ItemsForBall getItemType() {
-        return itemType;
+        return this.itemType;
     }
 
     public void setItemType(ItemsForBall itemType) {

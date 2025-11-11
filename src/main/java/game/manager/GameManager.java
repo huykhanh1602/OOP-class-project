@@ -26,23 +26,14 @@ public class GameManager {
     }
 
     public void update(double deltaTime) {
-
-        // 2. Update the state of entities (movement)
-        updateManager.update(gw);
-
-        // 3. Handle collisions
+        updateManager.update(gw, powerupManager, deltaTime);
         collisionSystem.checkCollisions(powerupManager, gw);
-
-        // 4. Update other systems
-        powerupManager.update(deltaTime);
-        ParticleManager.getInstance().update(deltaTime);
-
-        // 5. Check win/lose conditions
+        gw.getBalls().addAll(gw.getPendingBallsToAdd());
+        gw.getPendingBallsToAdd().clear();
         checkGameRules();
     }
 
     public void render(GraphicsContext gc) {
-        // Delegate rendering entirely to the renderer
         renderer.render(gc, gw);
     }
 
