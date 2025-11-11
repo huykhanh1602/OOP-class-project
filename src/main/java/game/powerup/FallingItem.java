@@ -10,9 +10,9 @@ public class FallingItem {
     private double x, y; // Tọa độ góc trên bên trái
     private final double width = 20;
     private final double height = 20;
-    private double fallSpeed = 150.0; // Tốc độ rơi (pixels mỗi giây)
+    private final double fallSpeed = 150.0; // Tốc độ rơi (pixels mỗi giây)
 
-    private ItemsForBall itemType; // "Loại" vật phẩm mà nó đại diện
+    private final ItemsForBall itemType; // "Loại" vật phẩm mà nó đại diện
     private boolean isRemoved = false; // Đánh dấu để xóa
 
     public FallingItem(double x, double y, ItemsForBall itemType) {
@@ -34,8 +34,6 @@ public class FallingItem {
      * Vẽ vật phẩm ra màn hình
      */
     public void render(GraphicsContext gc) {
-        // TODO: Bạn có thể vẽ một hình ảnh dựa trên itemType.getName()
-        // Tạm thời, chúng ta vẽ một hình vuông màu vàng
         gc.setFill(Color.YELLOW);
         gc.fillRect(x, y, width, height);
     }
