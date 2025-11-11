@@ -4,8 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static game.Constant.SCORE_PATH;
 
@@ -57,7 +62,7 @@ public class ScoreManager {
             } else {
                 highScore = 0;
             }
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             highScore = 0;
             System.out.println("Error loading high score");
         }
@@ -80,7 +85,7 @@ public class ScoreManager {
                     line = line.trim();
                     if (!line.isEmpty()) {
                         try {
-                            scores.add(Integer.parseInt(line));
+                            scores.add(Integer.valueOf(line));
                         } catch (NumberFormatException ignore) {
                             // skip invalid line
                         }
