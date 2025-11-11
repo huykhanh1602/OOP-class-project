@@ -87,11 +87,10 @@ public class ADSSceneController extends GameScene{
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 System.out.println("Thử 1: Mở bằng Trình duyệt Mặc định...");
                 Desktop.getDesktop().browse(uri);
-                return;
             } else {
                 throw new UnsupportedOperationException("Desktop API không được hỗ trợ hoặc không thể browse.");
             }
-        } catch (Exception e) {
+        } catch (IOException | UnsupportedOperationException e) {
             System.err.println("Lỗi Thử 1: Mở mặc định thất bại. " + e.getMessage());
 
             try {
@@ -105,7 +104,6 @@ public class ADSSceneController extends GameScene{
                 }
 
                 Runtime.getRuntime().exec(chromePath);
-                return;
 
             } catch (IOException chromeException) {
                 try {
@@ -118,12 +116,19 @@ public class ADSSceneController extends GameScene{
                         edgePath = "open -a \"Microsoft Edge\" " + url;
                     }
                     Runtime.getRuntime().exec(edgePath);
-                    return;
                 } catch (IOException edgeException) {
                     
                     throw new Exception("Không thể mở trình duyệt: " + url, edgeException);
                 }
             }
         }
+    }
+
+    public Hyperlink getLink() {
+        return link;
+    }
+
+    public void setLink(Hyperlink link) {
+        this.link = link;
     }
 }
