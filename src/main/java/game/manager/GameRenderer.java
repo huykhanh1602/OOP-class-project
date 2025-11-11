@@ -1,7 +1,5 @@
 package game.manager;
 
-import game.AssetManager;
-import game.GameContext;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
 import game.particle.ParticleManager;
