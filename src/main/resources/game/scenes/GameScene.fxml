@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +14,7 @@
 
 <StackPane fx:id="rootContainer" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.GameSceneController">
    <children>
-      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0">
+      <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" onKeyPressed="#handleKeyPress" prefHeight="720.0" prefWidth="1280.0">
          <children>
             <Group>
                <children>
@@ -172,6 +174,37 @@
                   <Image url="@../images/ads/khuyen_cao.jpg" />
                </image>
             </ImageView>
+            <Group fx:id="pauseMenu">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0000005c" height="720.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="403.0" layoutY="154.0" prefHeight="389.0" prefWidth="426.0" styleClass="label-container" stylesheets="@../fonts/GameStyle.css" textAlignment="JUSTIFY" />
+                  <Label layoutX="545.0" layoutY="194.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="PAUSE">
+                     <font>
+                        <Font size="41.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="554.0" layoutY="380.0" mnemonicParsing="false" onAction="#Quit" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Home">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="game-button" />
+                        <String fx:value="text-label" />
+                        <String fx:value="label-container" />
+                     </styleClass>
+                  </Button>
+                  <Button layoutX="539.0" layoutY="282.0" mnemonicParsing="false" onAction="#stopPause" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Resume">
+                     <styleClass>
+                        <String fx:value="game-button" />
+                        <String fx:value="text-label" />
+                        <String fx:value="label-container" />
+                     </styleClass>
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Group>
          </children>
       </AnchorPane>
    </children>

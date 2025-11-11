@@ -25,7 +25,7 @@ public abstract class Ball extends GameObject {
     /// Aiming Arc
     private double aimAngle = 30;
     private boolean aimIncrease = true;
-    private final double aimSpeed = 2;
+    private final double aimSpeed = 1.2;
     private final double ainMin = 30;
     private final double ainMax = 150;
     private boolean isPlayerAiming;
