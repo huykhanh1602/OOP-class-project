@@ -25,11 +25,11 @@ public abstract class Ball extends GameObject {
     /// Aiming Arc
     private double aimAngle = 30;
     private boolean aimIncrease = true;
-    private final double aimSpeed = 1;
+    private final double aimSpeed = 2;
     private final double ainMin = 30;
     private final double ainMax = 150;
     private boolean isPlayerAiming;
-
+    private boolean isSpecialPowerupBall = false;
     private String type = "slime_ball";
 
     private final double friction = 0.1; // Ma sát
@@ -376,5 +376,13 @@ public abstract class Ball extends GameObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isSpecialPowerupBall() {
+        return this.isSpecialPowerupBall;
+    }
+
+    public void setIsSpecialPowerupBall(boolean isSpecial) {
+        this.isSpecialPowerupBall = isSpecial;
     }
 }

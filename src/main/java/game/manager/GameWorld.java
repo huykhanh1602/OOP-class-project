@@ -26,9 +26,7 @@ public class GameWorld {
     private final List<ItemsForBall> availableItems;
     private List<FallingItem> fallingItems;
     private List<Ball> pendingBallsToAdd;
-
     private boolean isAiming = false;
-
     public GameWorld() {
         this.availableItems = new ArrayList<>();
         reset();

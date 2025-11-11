@@ -1,14 +1,25 @@
 package game.items;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
-
+import game.ball.NormalBall;
+import game.objects.Paddle;
+import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Lớp trừu tượng cho các nâng cấp TỨC THỜI/KẾT HỢP áp dụng trực tiếp lên một quả bóng.
  * Áp dụng khi nhặt vật phẩm rơi ra khi mà brick bị vỡ
  */
 public abstract class ItemsForBall {
+    private String itemName = "diamond";
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     /**
      * @param name tên của loại Vật phẩm này
      * @param description mô tả chức năng của bóng
@@ -43,26 +54,46 @@ public abstract class ItemsForBall {
     public void setPercent(double percent) {
         this.percent = percent;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-
-    // Phương thức áp dụng hiệu ứng khi nâng cấp được mua/gắn vào bóng
+    // Phương thức áp dụng hiệu ứng khi nâng cấp được mua
     public void applyOnCreation(Ball ball) {
     }
+    public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
+    }
     /**
-     * Xử lý hiệu ứng khi bóng va chạm GẠCH
      * @param collidingBall Quả bóng VỪA va chạm
      * @param allBalls TẤT CẢ các quả bóng trên sân
      * @param allBricks TẤT CẢ các viên gạch trên sân (CHO BÓNG NỔ)
      * @param pendingBalls Danh sách chờ (ĐỂ SỬA LỖI ITEMSADN)
      */
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        // (Lớp con sẽ override)
     }
+    public void onPaddleCollision(Ball collidingBall) {}
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
-    public void onPaddleCollision(Ball ball) {
+
+    public List<Ball> shatter(Ball currentBall) {
+        List<Ball> newBalls = new ArrayList<>();
+        NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
+        newBalls.add(newBall);
+        return newBalls;
+    }
+
+    public void RenderExplosive(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls,double RADIUS_MULTIPLIER, double EXPLOSION_DAMAGE){
+        double explosionX = collidingBall.getX();
+        double explosionY = collidingBall.getY();
+        double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
+        for (Bricks brick : allBricks) {
+            if (brick.isBroken()) continue;
+            double closestX = Math.max(brick.getX(), Math.min(explosionX, brick.getX() + brick.getWidth()));
+            double closestY = Math.max(brick.getY(), Math.min(explosionY, brick.getY() + brick.getHeight()));
+            double distanceX = explosionX - closestX;
+            double distanceY = explosionY - closestY;
+            double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
+            if (distanceSquared < (explosionRadius * explosionRadius)) {
+                brick.hit(EXPLOSION_DAMAGE);
+            }
+        }
+    }
+
+    public void onExpired(List<Ball> allBalls) {
     }
 }
