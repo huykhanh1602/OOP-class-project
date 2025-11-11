@@ -57,6 +57,7 @@ public class Constant {
     public static final String CHORUS = "/game/images/items/chorus.gif";
     public static final String BLAZE = "/game/images/items/blaze.gif";
     public static final String STAR = "/game/images/items/star.gif";
+    public static final String NAUTILUS = "/game/images/items/nautilus.gif";
     // public static final String EYEOFDRAGON =
     // "/game/images/items/eyeOfDragon.gif";
     // brick settings

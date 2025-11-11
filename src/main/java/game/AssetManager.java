@@ -49,6 +49,7 @@ public class AssetManager {
             imageInput("golden_apple", Constant.GOLDEN_APPLE);
             imageInput("blaze", Constant.BLAZE);
             imageInput("star", Constant.STAR);
+            imageInput("nautilus", Constant.NAUTILUS);
 
             imageInput("heart", Constant.HEART);
 

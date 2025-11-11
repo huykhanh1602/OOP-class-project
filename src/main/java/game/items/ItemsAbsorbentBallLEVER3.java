@@ -9,7 +9,7 @@ public class ItemsAbsorbentBallLEVER3 extends ItemsForBall {
     public ItemsAbsorbentBallLEVER3() {
         super("Bóng Hấp Thụ(Cấp 5)", "Hiệu lực 10s. Khi nhặt: tạo 1 bóng mới trên sân. Với mỗi quả bóng" +
                 " va chạm sẽ tăng damege, tốc độ, size cho mọi quả bóng", 10, 10);
-        setItemName("emerald");
+        setItemName("expPotion");
     }
 
     @Override

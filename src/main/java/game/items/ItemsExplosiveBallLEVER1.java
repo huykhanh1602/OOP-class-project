@@ -17,6 +17,7 @@ public class ItemsExplosiveBallLEVER1 extends ItemsForBall {
     public ItemsExplosiveBallLEVER1() {
         super("Bóng Nổ(Cấp 1)", "Hiệu lực 6s. Khi nhặt:tạo 1 bóng mới trên sân. Khi bóng đó va chạm gạch, nó tạo ra 1" +
                 " vụ nổ có bán kính nổ gấp 3 bán kính bóng và gây 10 sát thương", 6, 25);
+        setItemName("blaze");
     }
 
     @Override

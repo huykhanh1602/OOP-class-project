@@ -16,7 +16,7 @@ public class ItemsCloneBallLEVER4 extends ItemsForBall {
         super("Bóng Nhân Bản(Cấp 4)",
                 "Hiệu lực 9s. Khi nhặt: khi bóng va chạm gạch, nó có tỉ lệ 80% sẽ tạo ra 2 bóng con yếu gấp đôi", 9,
                 10);
-        setItemName("star");
+        setItemName("nautilus");
     }
 
     @Override
