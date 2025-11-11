@@ -43,6 +43,10 @@ public class AssetManager {
             imageInput("PORTAL", Constant.PORTAL_IMAGE);
 
             imageInput("diamond", Constant.DIAMOND);
+            imageInput("emerald", Constant.EMARLD);
+            imageInput("exp_potion", Constant.EXPPOTION);
+            imageInput("golden_apple", Constant.GOLDEN_APPLE);
+            imageInput("dragon_eye", Constant.EYEOFDRAGON);
 
             imageInput("heart", Constant.HEART);
 

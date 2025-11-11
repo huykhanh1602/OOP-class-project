@@ -10,6 +10,7 @@ public class ItemsCloneBallLEVER2 extends ItemsForBall {
     private static final Random random = new Random();
     public ItemsCloneBallLEVER2() {
         super("Bóng Nhân Bản(Cấp 2)", "Khi nhặt:Tạo 3 bóng mới trên sân", 10, 20);
+        setItemName("exp_potion");
     }
     @Override
     public List<Ball> shatter(Ball currentBall) {
