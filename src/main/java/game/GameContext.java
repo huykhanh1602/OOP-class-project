@@ -35,7 +35,7 @@ public class GameContext {
      * start a new game from level 1
      */
     public void resetLevel() {
-        this.currentLevel = 3;
+        this.currentLevel = 1;
     }
 
     public void resetScore() {
@@ -49,6 +49,7 @@ public class GameContext {
     public void nextLevel() {
         this.currentLevel++;
         if (this.currentLevel > maxLevel) {
+            currentDifficulty++;
             this.currentLevel = 1;
         }
     }
@@ -116,7 +117,7 @@ public class GameContext {
     public void setNameBall(String nameBall) {
         this.nameBall = nameBall;
     }
-    
+
     public void resetCurrentScore() {
         currentScore = new SimpleIntegerProperty(0);
     }
