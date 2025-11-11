@@ -6,7 +6,6 @@ import game.AssetManager;
 import game.GameContext;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
-
 import game.particle.ParticleManager;
 
 public class CollisionSystem {
@@ -19,9 +18,7 @@ public class CollisionSystem {
             Ball ball = BALL.next();
             ball.collides(ball);
             if (ball.getRect().intersects(gw.getPaddle().getBounds())) {
-                // Bây giờ mới gọi hàm void để xử lý nảy
                 ball.collides(gw.getPaddle());
-                // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
             if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
@@ -54,17 +51,16 @@ public class CollisionSystem {
                         double brickCenterY = brick.getY();
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
                                 8, brick.getColor());
-                        if (brick.getType() == "CHEST") {
+                        if ("CHEST".equals(brick.getType())) {
                             CoinManager.getInstance().addCoin(5);
                         }
                     }
                     if (ball.getMaxcollision() <= 0) {
                         BALL.remove();
                     }
-                    break; // tránh va chạm nhiều brick 1 frame
+                    break; // avoid multiple brick collisions in one frame
                 }
             }
-            // TODO: fix ratio
             if (ball.getY() > 1000) {
                 BALL.remove();
             }

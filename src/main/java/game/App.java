@@ -3,18 +3,16 @@ package game;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import game.manager.CoinManager;
+import game.manager.ScoreManager;
 import game.scenes.ADSSceneController;
 import game.scenes.GameOverController;
 import game.scenes.GameSceneController;
 import game.scenes.HomeSceneController;
+import game.scenes.InstructionController;
 import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
 import game.scenes.TransitionSceneController;
-import game.scenes.InstructionController;
-
-import game.manager.CoinManager;
-import game.manager.ScoreManager;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -167,14 +165,12 @@ public class App extends Application {
      * @param musicKey the key of the music to play
      */
     public void playBackgroundMusic(String musicKey) {
-        // Dừng nhạc hiện tại trước
         stopBackgroundMusic();
 
         if (musicKey == null || musicKey.isEmpty()) {
-            return; // Không phát gì nếu key là null hoặc rỗng
+            return;
         }
 
-        // THAY ĐỔI: Giả định AssetManager.getMusic(key) là đủ
         Media backgroundMusic = AssetManager.getMusic(musicKey);
 
         if (backgroundMusic != null) {

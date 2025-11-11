@@ -32,7 +32,7 @@ public abstract class Ball extends GameObject {
 
     private String type = "slime_ball";
 
-    private final double friction = 0.1; // Ma sát
+    private final double friction = 0.1;
 
     Image ballImage;
     Image diretion;
@@ -87,8 +87,9 @@ public abstract class Ball extends GameObject {
             }
         }
     }
-
-    public void collides(Ball ball) { // wall collision
+    
+    // wall collision
+    public void collides(Ball ball) { 
         if (x < 10 + radius) {
             AssetManager.playSound("ball_collide");
             dx = Math.abs(dx);
@@ -226,7 +227,7 @@ public abstract class Ball extends GameObject {
             gc.setGlobalAlpha(alpha * Math.min(1, Math.sqrt(dx * dx + dy * dy) / 15)); // độ mờ vệt
             gc.drawImage(ballImage, trail[index][0] - radius, trail[index][1] - radius, radius * 2, radius * 2);
         }
-        gc.setGlobalAlpha(1.0); // KHÔNG ảnh hưởng vật khác
+        gc.setGlobalAlpha(1.0);
     }
 
     private void angle() {
@@ -249,21 +250,24 @@ public abstract class Ball extends GameObject {
         }
     }
 
+    // RIGHT & LEFT
     public void bounceX() {
         AssetManager.playSound("brick_break");
         dx = -dx;
-    } // RIGHT & LEFT
+    } 
 
+    // UP & DOWN
     public void bounceY() {
         AssetManager.playSound("brick_break");
         dy = -dy;
-    } // UP & DOWN
+    } 
 
     public Rectangle2D getRect() {
         return new Rectangle2D(x, y, radius * 2, radius * 2);
     }
 
-    public boolean intersects(Rectangle2D rect) { // Return attribute for collision detection
+    // Return attribute for collision detection
+    public boolean intersects(Rectangle2D rect) { 
         return rect.intersects(getRect());
     }
 
@@ -349,14 +353,14 @@ public abstract class Ball extends GameObject {
     }
 
     /**
-     * Đánh dấu quả bóng này là một bản sao (clone).
+     * Marks this ball as a clone.
      */
     public void setIsClone(boolean isClone) {
         this.isClone = isClone;
     }
 
     /**
-     * @return true nếu quả bóng này là bản sao.
+     * @return true if this ball is a clone, false otherwise.
      */
     public boolean isClone() {
         return this.isClone;

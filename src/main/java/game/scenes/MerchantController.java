@@ -1,11 +1,9 @@
 package game.scenes;
 
 import game.AssetManager;
-import game.GameContext;
 import game.abstraction.GameScene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MerchantController extends GameScene {

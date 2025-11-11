@@ -1,17 +1,15 @@
 package game.items;
 
-import game.abstraction.Ball;
-import game.abstraction.Bricks;
-import game.ball.NormalBall;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import game.abstraction.Ball;
+import game.abstraction.Bricks;
+import game.ball.NormalBall;
 public class ItemsADNBall extends ItemsForBall {
     private static final int SHATTER_BALL_COUNT = 2;
     private static final Random random = new Random();
-    // 1. THÊM CÁC HẰNG SỐ CÒN THIẾU
-    // Bạn có thể tùy chỉnh các giá trị này
     private static final double SHATTER_SPEED = 7;
     private static final double SHATTER_RADIUS = 7.0;
     private static final double SHATTER_DAMAGE = 1.0;
@@ -24,40 +22,39 @@ public class ItemsADNBall extends ItemsForBall {
         if (collidingBall.isClone() || Math.random() <= 0.8) {
             return;
         }
-        // Tạo ra các bóng con
+        // Create new balls
         List<Ball> newBalls = this.shatter(collidingBall);
-        // Thêm chúng trực tiếp vào danh sách bóng chính của GameManager
+        // Add them directly to the main ball list in GameManager
         pendingBalls.addAll(newBalls);
     }
 
     /**
-     * 4. SỬA TÊN HÀM/BIẾN TRONG SHATTER
-     * (Hàm này giờ là private vì chỉ lớp này cần)
+     * 4. Rename function/variables in shatter
+     * (This function is now private because only this class needs it)
      */
     private List<Ball> shatter(Ball currentBall) {
         List<Ball> newBalls = new ArrayList<>();
 
         for (int i = 0; i < SHATTER_BALL_COUNT; i++) {
-            // Tạo bóng mới tại vị trí bóng cha
             NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
 
-            // Tạo góc ngẫu nhiên (tránh bay thẳng xuống)
-            double randomAngleDegrees = random.nextDouble() * (165 - 15) + 15; // 15 đến 165 độ
+            // Create random angle (avoid going straight down)
+            double randomAngleDegrees = random.nextDouble() * (165 - 15) + 15; // 15 to 165 degrees
             double angleRadians = Math.toRadians(randomAngleDegrees);
 
-            // Dùng các hằng số đã định nghĩa
+            // Use defined constants
             double vx = SHATTER_SPEED * Math.cos(angleRadians);
-            double vy = -SHATTER_SPEED * Math.sin(angleRadians); // Dấu âm để bay lên
+            double vy = -SHATTER_SPEED * Math.sin(angleRadians); // Negative to go upwards
 
-            // --- Thiết lập chỉ số cho bóng con ---
+            // --- Set stats for the new ball ---
             newBall.setRadius(SHATTER_RADIUS);
             newBall.setSpeedball(SHATTER_SPEED);
             newBall.setMaxcollision(5);
-            // Dùng tên hàm 'setDamage' từ file Ball.java
+            // Use the 'setDamage' method from Ball.java
             newBall.setDamage(SHATTER_DAMAGE);
-            // --- Hết ---
+            // --- End ---
 
-            // Thiết lập vận tốc và trạng thái chạy
+            // Set velocity and running state
             newBall.setDx(vx);
             newBall.setDy(vy);
             newBall.setRunning(true);

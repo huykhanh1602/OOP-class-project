@@ -9,17 +9,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class GameManager {
-    // Sở hữu các hệ thống con
     private final App app;
     private GameWorld gw;
     private final GameRenderer renderer;
     private final CollisionSystem collisionSystem;
     private final UpdateManager updateManager;
-    private final PowerupManager powerupManager; // Đã có sẵn
+    private final PowerupManager powerupManager;
 
     public GameManager(int width, int height, App app) {
         this.app = app;
-        this.gw = new GameWorld(); // Khởi tạo dữ liệu
+        this.gw = new GameWorld();
         this.renderer = new GameRenderer(width, height);
         this.collisionSystem = new CollisionSystem();
         this.powerupManager = new PowerupManager();
@@ -28,22 +27,22 @@ public class GameManager {
 
     public void update(double deltaTime) {
 
-        // 2. Cập nhật trạng thái các thực thể (di chuyển)
+        // 2. Update the state of entities (movement)
         updateManager.update(gw);
 
-        // 3. Xử lý va chạm
+        // 3. Handle collisions
         collisionSystem.checkCollisions(powerupManager, gw);
 
-        // 4. Cập nhật các hệ thống khác
+        // 4. Update other systems
         powerupManager.update(deltaTime);
         ParticleManager.getInstance().update(deltaTime);
 
-        // 5. Kiểm tra điều kiện thắng/thua
+        // 5. Check win/lose conditions
         checkGameRules();
     }
 
     public void render(GraphicsContext gc) {
-        // Ủy quyền hoàn toàn cho renderer
+        // Delegate rendering entirely to the renderer
         renderer.render(gc, gw);
     }
 

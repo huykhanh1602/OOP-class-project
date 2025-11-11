@@ -1,56 +1,57 @@
-package game.items; // (Đặt nó cùng package với ItemsForBall)
+package game.items;
 
+import java.util.List;
+
+import game.AssetManager;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.particle.ParticleManager; // (Chúng ta sẽ dùng manager này để "vẽ" vụ nổ)
-import game.AssetManager;
+import game.particle.ParticleManager;
 import javafx.scene.paint.Color;
-import java.util.List;
 
 public class ItemsExplosiveBall extends ItemsForBall {
 
-    private static final double EXPLOSION_DAMAGE = 10;    // Sát thương vụ nổ
-    private static final double RADIUS_MULTIPLIER = 3.0; // Gấp 3 lần bán kính
+    private static final double EXPLOSION_DAMAGE = 10;    // Explosion damage
+    private static final double RADIUS_MULTIPLIER = 3.0; // 3 times the radius
 
     public ItemsExplosiveBall() {
-        // (Bạn cần thêm Color vào constructor của ItemsForBall.java nếu muốn)
-        super("Bóng Nổ", "Khi va chạm gạch, tạo ra 1 vụ nổ gây 10 sát thương", 15, 50);
+        // (You need to add Color to the constructor of ItemsForBall.java if you want)
+        super("Explosive Ball", "When colliding with bricks, creates an explosion causing 10 damage", 15, 50);
     }
     /**
-     * CHÚ Ý: Đây là chữ ký hàm MỚI (new signature).
-     * Nó cần 'allBricks' để gây sát thương và 'pendingBalls' để sửa lỗi.
+     * CAUTION: This is a new signature for the method!
+     * You need to update the abstract method in ItemsForBall.java as well.
      */
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
 
-        // 1. Lấy thông tin vụ nổ
+        // 1. Get explosion parameters
         double explosionX = collidingBall.getX();
         double explosionY = collidingBall.getY();
         double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
 
-        // 2. Tạo hiệu ứng hình ảnh (để "vẽ 1 vùng" như bạn muốn)
+        // 2. Create visual effect (to "draw an area" as you want)
 
         ParticleManager.getInstance().createBrickBreakEffect(explosionX, explosionY, 20, Color.ORANGE);
-        AssetManager.playSound("brick_break"); // (Dùng tạm âm thanh này)
+        AssetManager.playSound("brick_break"); // (Use this sound temporarily)
 
-        // 3. Lặp qua TẤT CẢ gạch để gây sát thương
+        // 3. Loop through ALL bricks to deal damage
         for (Bricks brick : allBricks) {
 
-            if (brick.isBroken()) continue; // Bỏ qua gạch đã vỡ
+            if (brick.isBroken()) continue; // Skip broken bricks
 
-            // 4. Kiểm tra va chạm (AABB vs Circle)
-            // Tìm điểm gần nhất trên hình chữ nhật so với tâm vòng tròn
+            // 4. Check collision (AABB vs Circle)
+            // Find the closest point on the rectangle to the circle's center
             double closestX = Math.max(brick.getX(), Math.min(explosionX, brick.getX() + brick.getWidth()));
             double closestY = Math.max(brick.getY(), Math.min(explosionY, brick.getY() + brick.getHeight()));
 
-            // Tính khoảng cách
+            // Calculate distance
             double distanceX = explosionX - closestX;
             double distanceY = explosionY - closestY;
             double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
 
-            // 5. Nếu gạch nằm trong bán kính nổ, gây sát thương
+            // 5. If the brick is within the explosion radius, deal damage
             if (distanceSquared < (explosionRadius * explosionRadius)) {
-                brick.hit(EXPLOSION_DAMAGE); // Gây 10 sát thương
+                brick.hit(EXPLOSION_DAMAGE); // Deal 10 damage
             }
         }
     }

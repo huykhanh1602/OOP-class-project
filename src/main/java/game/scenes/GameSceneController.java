@@ -83,9 +83,8 @@ public class GameSceneController extends GameScene {
         double dt = (currentTime - lastUpdateTime) / 1_000_000_000.0;
         lastUpdateTime = currentTime;
 
-        // Clamp giá trị dt để tránh outlier
         if (dt < 0.001 || dt > 0.05) {
-            dt = 0.016; // khoảng 60 FPS
+            dt = 0.016; // approx 60 FPS
         }
         return dt;
     }

@@ -37,8 +37,10 @@ public abstract class GameScene implements Initializable {
         DoubleBinding widthScale = rootContainer.widthProperty().divide(Constant.WIDTH_SCREEN);
         DoubleBinding heightScale = rootContainer.heightProperty().divide(Constant.HEIGHT_SCREEN);
 
-        // Take the smaller scale factor (to maintain the 16:9 aspect ratio without
-        // cropping)
+        /*
+         * Take the smaller scale factor 
+         * (to maintain the 16:9 aspect ratio without cropping)
+         */
         scale = Bindings.min(widthScale, heightScale);
 
         // Apply the scale to the gamePane

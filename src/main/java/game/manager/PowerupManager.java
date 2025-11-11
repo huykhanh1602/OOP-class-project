@@ -10,12 +10,11 @@ import game.items.ItemsForBall;
 import game.powerup.ActivePowerup;
 
 /**
- * Đây là lớp "ListPowerup" mà bạn muốn.
- * Nó quản lý TẤT CẢ các vật phẩm đang có hiệu lực trong game.
+ * This class manages all active power-ups in the game.
+ * It handles adding new power-ups, updating their timers,
  */
 public class PowerupManager {
 
-    // Đây là "SetList" của bạn, lưu tất cả các vật phẩm đang kích hoạt
     private final List<ActivePowerup> activePowerups;
 
     public PowerupManager() {
@@ -23,40 +22,37 @@ public class PowerupManager {
     }
 
     /**
-     * Được gọi khi người chơi nhặt được một vật phẩm.
-     * Thêm một vật phẩm mới vào danh sách.
-     * @param itemType Loại vật phẩm (prototype) vừa nhặt được.
+     * Called when the player picks up an item.
+     * Adds a new power-up to the list.
+     * @param itemType The type of item (prototype) just picked up.
      */
     public void addPowerup(ItemsForBall itemType) {
-        // Tạo một "thể hiện" mới của vật phẩm với bộ đếm thời gian riêng
         ActivePowerup newPowerup = new ActivePowerup(itemType);
         this.activePowerups.add(newPowerup);
 
-        // (Bạn có thể thêm code áp dụng 1 lần ngay khi nhặt ở đây nếu muốn)
-        // Ví dụ: itemType.applyOnCreation(...);
     }
 
     /**
-     * Cập nhật TẤT CẢ các vật phẩm đang kích hoạt.
-     * Giảm thời gian và xóa bỏ những vật phẩm đã hết hạn.
+     * Updates ALL active power-ups.
+     * Decreases their timers and removes expired power-ups.
      * @param dt Delta time
      */
     public void update(double dt) {
-        // Dùng Iterator để có thể xóa phần tử ngay trong lúc duyệt
+        // Use Iterator to safely remove elements while iterating
         Iterator<ActivePowerup> it = activePowerups.iterator();
         while (it.hasNext()) {
             ActivePowerup powerup = it.next();
-            powerup.update(dt); // Giảm thời gian
+            powerup.update(dt); // Decrease time
 
-            // Nếu hết hạn, xóa nó khỏi danh sách
+            // If expired, remove it from the list
             if (powerup.isExpired()) {
                 it.remove();
             }
         }
     }
     /**
-     * Được gọi TỪ GameManager khi có va chạm bóng-gạch.
-     * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
+     * Called FROM GameManager when a ball-brick collision occurs.
+     * Iterates through ALL power-ups and applies their effects.
      */
     public void handleBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         for (ActivePowerup powerup : activePowerups) {
@@ -64,8 +60,8 @@ public class PowerupManager {
         }
     }
     /**
-     * Được gọi TỪ GameManager khi có va chạm bóng-thanh chắn.
-     * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
+     * Called FROM GameManager when a ball-paddle collision occurs.
+     * Iterates through ALL power-ups and applies their effects.
      */
     public void handlePaddleCollision(Ball ball) {
         for (ActivePowerup powerup : activePowerups) {

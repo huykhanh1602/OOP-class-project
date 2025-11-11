@@ -1,21 +1,21 @@
 package game.items;
+import java.util.List;
+
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
 
-import java.util.List;
-
 /**
- * Lớp trừu tượng cho các nâng cấp TỨC THỜI/KẾT HỢP áp dụng trực tiếp lên một quả bóng.
- * Áp dụng khi nhặt vật phẩm rơi ra khi mà brick bị vỡ
+ * Abstract class for items that affect ball behavior.
+ * Applied when picking up items dropped from broken bricks
  */
 public abstract class ItemsForBall {
     /**
-     * @param name tên của loại Vật phẩm này
-     * @param description mô tả chức năng của bóng
-     * @param timeuse thời gian hiệu lực
-     * @param percent phần trăm rơi ra khi phá hủy bricks
+     * @param name Name of the ball item
+     * @param description Description of the ball's function
+     * @param timeuse Duration of effect
+     * @param percent Drop rate when breaking bricks
      */
-    private String name;
+    private final String name;
     private String description;
     private double timeuse;
     private double percent;
@@ -49,20 +49,25 @@ public abstract class ItemsForBall {
 
 
 
-    // Phương thức áp dụng hiệu ứng khi nâng cấp được mua/gắn vào bóng
+    // Method to apply effect when the upgrade is purchased/attached to the ball
     public void applyOnCreation(Ball ball) {
     }
     /**
-     * Xử lý hiệu ứng khi bóng va chạm GẠCH
-     * @param collidingBall Quả bóng VỪA va chạm
-     * @param allBalls TẤT CẢ các quả bóng trên sân
-     * @param allBricks TẤT CẢ các viên gạch trên sân (CHO BÓNG NỔ)
-     * @param pendingBalls Danh sách chờ (ĐỂ SỬA LỖI ITEMSADN)
+     * Handle effect when the ball collides with a BRICK
+     * @param collidingBall The ball that JUST collided
+     * @param allBalls ALL balls on the field
+     * @param allBricks ALL bricks on the field (FOR EXPLOSIVE BALL)
+     * @param pendingBalls Pending list (TO FIX ITEMSAND ISSUE)
      */
-    public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        // (Lớp con sẽ override)
+    public void onBrickCollision(
+        Ball collidingBall,
+        List<Ball> allBalls,
+        List<Bricks> allBricks,
+        List<Ball> pendingBalls
+    ) {
+
     }
-    // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
+    // Method to handle effect when the ball collides with the PADDLE
     public void onPaddleCollision(Ball ball) {
     }
 }

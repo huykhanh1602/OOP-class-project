@@ -1,9 +1,9 @@
 package game.bricks;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,6 @@ public class BrickLoader {
         } else {
             path = "/game/map/levelstart.txt";
         }
-        // path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;
 
@@ -46,7 +45,7 @@ public class BrickLoader {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Error loading brick layout: " + e.getMessage());
             e.printStackTrace();
 
@@ -72,23 +71,15 @@ public class BrickLoader {
     }
 
     public static Bricks createBricks(String type, double x, double y) {
-        switch (type) {
-            case "s":
-                return new StoneBrick(x, y);
-            case "i":
-                return new IronBrick(x, y);
-            case "g":
-                return new GoldBrick(x, y);
-            case "d":
-                return new DiamondBrick(x, y);
-            case "n":
-                return new NetheriteBrick(x, y);
-            case "b":
-                return new Bedrock(x, y);
-            case "c":
-                return new Chest(x, y);
-            default:
-                return null;
-        }
+        return switch (type) {
+            case "s" -> new StoneBrick(x, y);
+            case "i" -> new IronBrick(x, y);
+            case "g" -> new GoldBrick(x, y);
+            case "d" -> new DiamondBrick(x, y);
+            case "n" -> new NetheriteBrick(x, y);
+            case "b" -> new Bedrock(x, y);
+            case "c" -> new Chest(x, y);
+            default -> null;
+        };
     }
 }

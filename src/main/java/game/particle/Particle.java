@@ -1,11 +1,10 @@
 package game.particle;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-
 import java.util.Random;
 
 import game.abstraction.GameObject;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Particle extends GameObject {
 
@@ -14,7 +13,7 @@ public class Particle extends GameObject {
     private double lifeSpan; // measure in seconds
     private Color color;
 
-    // Đơn vị: pixels / giây^2 (pixels per second squared)
+    // Unit: pixels per second squared
     private static final double GRAVITY = 500.0;
 
     public Particle(double x, double y, Color color) {

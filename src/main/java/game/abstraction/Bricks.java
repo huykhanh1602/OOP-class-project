@@ -1,12 +1,10 @@
 package game.abstraction;
 
-import game.Constant;
 import game.AssetManager;
+import game.Constant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
-/// Like this name
 
 public abstract class Bricks extends GameObject {
     protected String type;
@@ -35,7 +33,7 @@ public abstract class Bricks extends GameObject {
     }
 
     public void hitAnimation() {
-        scaleSpeed = -0.05; // bắt đầu thu nhỏ
+        scaleSpeed = -0.05; // start shrinking
     }
 
     // ERASE BRICK
@@ -48,7 +46,7 @@ public abstract class Bricks extends GameObject {
             scale += scaleSpeed;
 
             if (scale <= 0.75) {
-                scaleSpeed = Math.abs(scaleSpeed); // đổi hướng → nở lại
+                scaleSpeed = Math.abs(scaleSpeed); // change direction → grow back
             }
             if (scale >= 1.0) {
                 scale = 1.0;
@@ -69,7 +67,8 @@ public abstract class Bricks extends GameObject {
         }
     }
 
-    public Rectangle2D getRectBrick() { // Return the rectangle for collision detection
+    // Return the rectangle for collision detection
+    public Rectangle2D getRectBrick() { 
         return new Rectangle2D(x - Constant.BRICK_WIDTH / 2.0f + 10, y - Constant.BRICK_HEIGHT / 2.0f + 10,
                 Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
     }
@@ -90,8 +89,6 @@ public abstract class Bricks extends GameObject {
                 Constant.BRICK_HEIGHT);
 
         gc.setFill(Color.RED);
-        // gc.strokeRect(-Constant.BRICK_WIDTH / 2.0f, -Constant.BRICK_HEIGHT / 2.0f,
-        // Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
         gc.restore();
     }
 

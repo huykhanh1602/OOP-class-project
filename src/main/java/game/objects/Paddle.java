@@ -10,8 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
-/// Just Paddle
-
 public class Paddle extends GameObject {
     /// ELEMENT PADDLE
     private final double speed = 5; // SPEED PADDLE
@@ -84,8 +82,6 @@ public class Paddle extends GameObject {
     }
 
     public Rectangle2D getBounds() {
-        // (Hãy thay đổi các biến 'x', 'y', 'widthPaddle', 'heightPaddle'
-        // cho khớp với tên biến trong lớp Paddle của bạn)
         return new Rectangle2D(this.x, this.y, this.width, this.height);
     }
 }

@@ -49,7 +49,7 @@ public class GameContext {
     public void nextLevel() {
         this.currentLevel++;
         if (this.currentLevel > maxLevel) {
-            this.currentLevel = 1; // Quay vòng
+            this.currentLevel = 1;
         }
     }
 

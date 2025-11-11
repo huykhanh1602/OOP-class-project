@@ -1,9 +1,9 @@
 package game.items;
 
+import java.util.List;
+
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
-
-import java.util.List;
 
 public class ItemsAbsorbentBall extends ItemsForBall {
     public ItemsAbsorbentBall() {
@@ -12,14 +12,12 @@ public class ItemsAbsorbentBall extends ItemsForBall {
     }
     @Override
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        // Lặp qua TẤT CẢ các quả bóng
         for (Ball ball : allBalls) {
-            // Bỏ qua quả bóng vừa mới va chạm
             double currentSpeed = ball.getSpeedball();
             double currentDamege = ball.getDamage();
             double currentSize = ball.getRadius();
 
-            // Tăng chỉ số cho TẤT CẢ CÁC BÓNG KHÁC
+            // Increase stats for all balls
             ball.setSpeedball(currentSpeed * 0.998);
             ball.setDamage(currentDamege * 1.004);
             ball.setRadius(currentSize * 1.004);

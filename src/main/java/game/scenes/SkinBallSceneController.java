@@ -58,20 +58,11 @@ public class SkinBallSceneController extends GameScene{
             AssetManager.getImage(skins[currentIndex])
         );
         switch (currentIndex) {
-            case 0:
-                nameBall = "SLIME BALL";
-                break;
-            case 1:
-                nameBall = "EYE OF DRAGON BALL";
-                break;
-            case 2:
-                nameBall = "FIRE BALL";
-                break;
-            case 3:
-                nameBall = "SNOW BALL";
-                break;
-            default:
-                throw new AssertionError();
+            case 0 -> nameBall = "SLIME BALL";
+            case 1 -> nameBall = "EYE OF DRAGON BALL";
+            case 2 -> nameBall = "FIRE BALL";
+            case 3 -> nameBall = "SNOW BALL";
+            default -> throw new AssertionError();
         }
         name.setText(nameBall);
     }

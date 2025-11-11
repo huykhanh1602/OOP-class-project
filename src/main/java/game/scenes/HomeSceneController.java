@@ -30,28 +30,27 @@ public class HomeSceneController extends GameScene {
         var baseHeightProperty = nameGame.scaleYProperty();
         var baseXProperty = nameGame.xProperty();
         var baseYProperty = nameGame.yProperty();
-        // Dừng timeline cũ nếu đang chạy
         if (resizeTimeline != null) {
             resizeTimeline.stop();
         }
 
-        // Tạo Timeline
+        // Create Timeline
         resizeTimeline = new Timeline(
-                // KeyFrame 1: Giữ nguyên kích thước ban đầu (hoặc bắt đầu từ kích thước đó)
+                // KeyFrame 1: Keep the original size (or start from that size)
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(baseWidthProperty, baseWidthProperty.get()),
                         new KeyValue(baseHeightProperty, baseHeightProperty.get()),
                         new KeyValue(baseXProperty, baseXProperty.get()),
                         new KeyValue(baseYProperty, baseYProperty.get())),
 
-                // KeyFrame 2: Thay đổi đến kích thước mới sau 1 giây
+                // KeyFrame 2: Change to the new size after 1 second
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(baseWidthProperty, baseWidthProperty.get() * 1.2),
                         new KeyValue(baseHeightProperty, baseHeightProperty.get() * 1.2),
                         new KeyValue(baseXProperty, baseXProperty.get() - baseWidthProperty.get() * 0.1),
                         new KeyValue(baseYProperty, baseYProperty.get() - baseHeightProperty.get() * 0.1)),
 
-                // KeyFrame 3: Quay trở lại kích thước ban đầu sau 2 giây (tính từ
+                // KeyFrame 3: Return to the original size after 2 seconds (from
                 // Duration.ZERO)
                 new KeyFrame(Duration.seconds(2),
                         new KeyValue(baseWidthProperty, baseWidthProperty.get()),
@@ -59,7 +58,7 @@ public class HomeSceneController extends GameScene {
                         new KeyValue(baseXProperty, baseXProperty.get()),
                         new KeyValue(baseYProperty, baseYProperty.get())));
 
-        // Đặt số lần lặp vô hạn
+        // Set infinite cycle count
         resizeTimeline.setCycleCount(Timeline.INDEFINITE);
         resizeTimeline.setAutoReverse(true);
     }
@@ -69,7 +68,7 @@ public class HomeSceneController extends GameScene {
         createResizeTimeline();
 
         if (resizeTimeline != null) {
-            // Đảm bảo animation luôn bắt đầu từ đầu
+            // Ensure the animation always starts from the beginning
             resizeTimeline.playFromStart();
         }
     }

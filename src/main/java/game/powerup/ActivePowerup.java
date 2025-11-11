@@ -7,36 +7,35 @@ import game.abstraction.Bricks;
 import game.items.ItemsForBall;
 
 /**
- * Đại diện cho một vật phẩm đang CÓ HIỆU LỰC trong game.
- * Chứa loại vật phẩm (prototype) và bộ đếm thời gian.
+ * Represents a power-up that is currently ACTIVE in the game.
+ * Contains the item type (prototype) and a countdown timer.
  */
 public class ActivePowerup {
 
-    private ItemsForBall itemType; // Loại vật phẩm (ví dụ: ItemsAbsorbentBall)
-    private double timeLeft;       // Thời gian hiệu lực còn lại (tính bằng giây)
+    private ItemsForBall itemType; 
+    private double timeLeft;       
 
     public ActivePowerup(ItemsForBall itemType) {
         this.itemType = itemType;
-        this.timeLeft = itemType.getTimeuse(); // Lấy thời gian từ prototype
+        this.timeLeft = itemType.getTimeuse();
     }
 
     /**
-     * Cập nhật bộ đếm thời gian.
-     * @param dt Delta time (thời gian giữa các khung hình)
+     * Updates the remaining time of the power-up.
+     * @param dt Delta time (time between frames) in seconds.
      */
     public void update(double dt) {
         this.timeLeft -= dt;
     }
 
     /**
-     * @return true nếu vật phẩm này đã hết thời gian hiệu lực.
+     * @return true if this power-up has expired.
      */
     public boolean isExpired() {
         return this.timeLeft <= 0;
     }
 
-    // --- Các hàm ủy quyền (Delegate) ---
-    // Gọi các hàm xử lý của "loại" vật phẩm
+    // ---  (Delegate) ---
 
     public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
@@ -44,5 +43,13 @@ public class ActivePowerup {
 
     public void applyOnPaddleCollision(Ball ball) {
         itemType.onPaddleCollision(ball);
+    }
+
+    public ItemsForBall getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemsForBall itemType) {
+        this.itemType = itemType;
     }
 }
