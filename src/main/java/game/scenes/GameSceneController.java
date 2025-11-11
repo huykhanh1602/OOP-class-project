@@ -4,19 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import game.App;
-import game.GameContext;
 import game.abstraction.GameScene;
 import game.manager.CoinManager;
 import game.manager.GameManager;
-import game.manager.ScoreManager;
-
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 
 public class GameSceneController extends GameScene {
     @FXML
