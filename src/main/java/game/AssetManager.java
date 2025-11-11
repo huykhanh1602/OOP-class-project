@@ -33,9 +33,7 @@ public class AssetManager {
             imageInput("eod_ball", Constant.EYEOFDRAGON_BALL);
             imageInput("fire_ball", Constant.FIRE_BALL);
             imageInput("snow_ball", Constant.SNOW_BALL);
-            imageInput("left_paddle", Constant.LEFT_PADDLE_PATH);
-            imageInput("right_paddle", Constant.RIGHT_PADDLE_PATH);
-            imageInput("mid_paddle", Constant.MID_PADDLE_PATH);
+            imageInput("paddle", Constant.PADDLE_PATH);
             imageInput("diretion", Constant.DIRETION);
 
             imageInput("STONE_BRICK", Constant.STONE_BRICK_IMAGE);
