@@ -12,7 +12,7 @@
 
 <StackPane fx:id="rootContainer" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.scenes.SettingSceneController">
     <children>
-        <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: black;" StackPane.alignment="CENTER">
+        <AnchorPane fx:id="gamePane" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: gray;" StackPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -48,6 +48,7 @@
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
                   <String fx:value="game-button" />
+                  <String fx:value="movingup-label" />
                </styleClass>
             </Button>
          </children>

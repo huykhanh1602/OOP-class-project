@@ -9,12 +9,11 @@ import javafx.scene.paint.Color;
 
 public class FallingItem {
     private double x, y;
-    private final double width = 20;
-    private final double height = 20;
+    private final double width = 30;
+    private final double height = 30;
     private double fallSpeed = 150.0;
     private ItemsForBall itemType;
     private boolean isRemoved = false;
-    private Image currentImage;
 
     public FallingItem(double x, double y, ItemsForBall itemType) {
         this.x = x - (width / 2);

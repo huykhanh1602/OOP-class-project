@@ -56,19 +56,26 @@
                <graphic>
                   <ImageView fitHeight="160.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/items/eyeOfDragon.gif" />
+                        <Image url="@../images/items/axe.gif" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="553.0" layoutY="310.0" mnemonicParsing="false" prefHeight="156.0" prefWidth="146.0" styleClass="item-button" stylesheets="@../fonts/GameStyle.css">
+            <Button layoutX="552.0" layoutY="317.0" mnemonicParsing="false" prefHeight="156.0" prefWidth="146.0" styleClass="item-button" stylesheets="@../fonts/GameStyle.css">
                <graphic>
-                  <ImageView fitHeight="170.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="170.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/items/power.gif" />
+                     </image>
+                  </ImageView>
                </graphic>
             </Button>
             <Button layoutX="873.0" layoutY="311.0" mnemonicParsing="false" prefHeight="156.0" prefWidth="146.0" styleClass="item-button" stylesheets="@../fonts/GameStyle.css">
                <graphic>
-                  <ImageView fitHeight="170.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="170.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/items/blaze.gif" />
+                     </image></ImageView>
                </graphic>
             </Button>
             <Button layoutX="1002.0" layoutY="30.0" mnemonicParsing="false" onAction="#nextLevel" prefHeight="64.0" prefWidth="248.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Next level">
@@ -76,8 +83,29 @@
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
                   <String fx:value="game-button" />
+                  <String fx:value="movingup-label" />
                </styleClass>
             </Button>
+            <Label layoutX="668.0" layoutY="552.0" prefHeight="103.0" prefWidth="384.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="Price: 20 coin / Each" textAlignment="CENTER" textFill="#d0ff00">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label layoutX="860.0" layoutY="246.0" prefHeight="54.0" prefWidth="248.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="+ Ball speed" textAlignment="CENTER" textFill="#d0ff00">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label layoutX="518.0" layoutY="246.0" prefHeight="54.0" prefWidth="248.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="+ Ball damage" textAlignment="CENTER" textFill="#d0ff00">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label layoutX="196.0" layoutY="246.0" prefHeight="54.0" prefWidth="248.0" styleClass="text-label" stylesheets="@../fonts/GameStyle.css" text="+ Paddle length" textAlignment="CENTER" textFill="#d0ff00">
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
