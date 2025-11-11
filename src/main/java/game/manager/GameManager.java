@@ -1,7 +1,5 @@
 package game.manager;
 
-import java.util.Iterator;
-
 import game.App;
 import game.GameContext;
 import game.abstraction.Ball;
@@ -12,12 +10,12 @@ import javafx.scene.input.KeyEvent;
 
 public class GameManager {
     // Sở hữu các hệ thống con
-    private App app;
+    private final App app;
     private GameWorld gw;
-    private GameRenderer renderer;
-    private CollisionSystem collisionSystem;
-    private UpdateManager updateManager;
-    private PowerupManager powerupManager; // Đã có sẵn
+    private final GameRenderer renderer;
+    private final CollisionSystem collisionSystem;
+    private final UpdateManager updateManager;
+    private final PowerupManager powerupManager; // Đã có sẵn
 
     public GameManager(int width, int height, App app) {
         this.app = app;
@@ -79,8 +77,7 @@ public class GameManager {
         if (gw.getBalls().isEmpty())
             return;
 
-        for (Iterator<Ball> BALL = gw.getBalls().iterator(); BALL.hasNext();) {
-            Ball ball = BALL.next();
+        for (Ball ball : gw.getBalls()) {
             if (!ball.isRunning) {
                 ball.launchBall();
                 ball.setRunning(true);
