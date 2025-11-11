@@ -18,7 +18,7 @@ public class GameContext {
     private double masterVolume = 0.2;
     private String nameBall = "slime_ball";
 
-    private int levelSpawnPortal = 2;
+    private final int levelSpawnPortal = 2;
 
     private int highScore = 0;
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
