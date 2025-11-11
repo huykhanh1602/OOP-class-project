@@ -22,7 +22,7 @@ public class AssetManager {
     private final static Map<String, ArrayList<AudioClip>> sounds = new HashMap<>();
 
     // music
-    private final static Map<String, Map<String, Media>> musics = new HashMap<>();
+    private final static Map<String, ArrayList<Media>> musics = new HashMap<>();
 
     private final static Random random = new Random();
 
@@ -33,7 +33,9 @@ public class AssetManager {
             imageInput("eod_ball", Constant.EYEOFDRAGON_BALL);
             imageInput("fire_ball", Constant.FIRE_BALL);
             imageInput("snow_ball", Constant.SNOW_BALL);
-            imageInput("paddle", Constant.PADDLE_IMAGE_PATH);
+            imageInput("left_paddle", Constant.LEFT_PADDLE_PATH);
+            imageInput("right_paddle", Constant.RIGHT_PADDLE_PATH);
+            imageInput("mid_paddle", Constant.MID_PADDLE_PATH);
             imageInput("diretion", Constant.DIRETION);
 
             imageInput("STONE_BRICK", Constant.STONE_BRICK_IMAGE);
@@ -84,10 +86,18 @@ public class AssetManager {
         }
 
         // load music
-        musics.put("Home_Background", new HashMap<>());
+        musics.put("Home_Background", new ArrayList<>());
+        musics.put("Game_Background", new ArrayList<>());
         try {
-            musics.get("Home_Background").put("home_background_music",
+            musics.get("Home_Background").add(
                     new Media(AssetManager.class.getResource(Constant.HOME_BACKGROUND_MUSIC).toString()));
+            musics.get("Game_Background").add(
+                    new Media(AssetManager.class.getResource(Constant.GAME_BACKGROUND_MUSIC + "cat.mp3").toString()));
+            musics.get("Game_Background").add(
+                    new Media(AssetManager.class.getResource(Constant.GAME_BACKGROUND_MUSIC + "chirp.mp3").toString()));
+            musics.get("Game_Background").add(
+                    new Media(AssetManager.class.getResource(Constant.GAME_BACKGROUND_MUSIC + "creator.mp3")
+                            .toString()));
         } catch (Exception e) {
             System.err.println("Error loading music: " + e.getMessage());
         }
@@ -139,8 +149,9 @@ public class AssetManager {
         return images.get(key);
     }
 
-    public static Media getMusic(String category, String key) {
-        return musics.get(category).get(key);
+    public static Media getMusic(String category) {
+        int index = random.nextInt(musics.get(category).size());
+        return musics.get(category).get(index);
     }
 
     public static String getLevel(String key) {

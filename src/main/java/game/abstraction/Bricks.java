@@ -119,4 +119,8 @@ public abstract class Bricks extends GameObject {
     public boolean isDestroyable() {
         return destroyable;
     }
+
+    public String getType() {
+        return type;
+    }
 }

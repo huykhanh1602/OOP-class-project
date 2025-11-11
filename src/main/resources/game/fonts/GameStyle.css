@@ -13,7 +13,6 @@
 .score-label {
     -fx-font-family: "Minecraft"; /* Font chữ */
     -fx-text-fill: #000000;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 5, 0.0, 0, 1);
 }
 
 .label-container {
@@ -62,4 +61,14 @@
     -fx-background-size: contain; /* Điều chỉnh kích thước ảnh cho vừa Label */
     -fx-background-position: center; /* Đặt ảnh vào giữa Label */
     -fx-padding: 10px 10px 10px 40px;
+}
+
+.item-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+}
+.item-button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: rgba(255, 209, 128, 0.4);
 }

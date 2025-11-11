@@ -5,9 +5,10 @@ import static java.lang.Math.sqrt;
 import game.AssetManager;
 import game.Constant;
 import game.GameContext;
+import game.GameManager;
 import game.abstraction.Bricks;
-import game.abstraction.GameObject;
 import game.objects.Paddle;
+import game.scenes.SkinBallSceneController;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,15 +16,17 @@ import javafx.scene.paint.Color;
 
 ///  Ball movement
 
-public abstract class Ball extends GameObject {
+public abstract class Ball {
     /// ELEMENT BALL
+    private double x, y;
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 1; // Ball speed
+    private double speedball = 3; // Ball speed
     public boolean isRunning = false;
-    private double damage;
+    private double damege;
     private double Maxcollision;
     private boolean isClone = false;
+    private boolean isSpecialPowerupBall = false;
 
     /// Aiming Arc
     private double aimAngle = 30 ;
@@ -32,8 +35,6 @@ public abstract class Ball extends GameObject {
     private final double ainMin = 30 ;
     private final double ainMax = 150 ;
     private boolean isPlayerAiming;
-
-    private String type = "slime_ball";
 
     private final double friction = 0.1; // Ma sát
 
@@ -47,7 +48,8 @@ public abstract class Ball extends GameObject {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
-        ballImage = AssetManager.getImage(type);
+        System.out.println(GameContext.getInstance().getNameBall());
+        ballImage = new Image(getClass().getResource(GameContext.getInstance().getNameBall()).toExternalForm());
         diretion = AssetManager.getImage("diretion");
 
     }
@@ -104,10 +106,9 @@ public abstract class Ball extends GameObject {
             y = 20;
         }
     }
-
     public void collides(Bricks brick) {
-        double brickCenterX = brick.getX();
-        double brickCenterY = brick.getY();
+        double brickCenterX = brick.getX() + brick.getWidth()/2.0f;
+        double brickCenterY = brick.getY() + brick.getHeight()/2.0f;
 
         double closestX = Math.abs(x - brickCenterX);
         double closestY = Math.abs(y - brickCenterY);
@@ -132,17 +133,14 @@ public abstract class Ball extends GameObject {
             } else {
                 y = brickCenterY + brick.getHeight()/2.0f + radius + 7;
             }
-            x += dx;
         } else {
             bounceX();
             if (brickCenterX > x) {
                 x = brickCenterX - brick.getWidth()/2.0f - radius - 7;
-                y += dy;
             } else {
                 x = brickCenterX + brick.getHeight()/2.0f + radius + 7;
             }
-            y += dy;
-        } 
+        }
     }
 
     // Hàm clamp để giới hạn giá trị trong khoảng min-max
@@ -162,9 +160,8 @@ public abstract class Ball extends GameObject {
     }
 
     public void update(Paddle paddle) {
-        angle();
-        normalizeVelocity();
-        limit();
+        if (dx > speedball) dx = speedball;
+        if (dx < -speedball) dx = -speedball;
         if (isRunning) {
             x += dx;
             y += dy;
@@ -173,6 +170,23 @@ public abstract class Ball extends GameObject {
         } else {
             this.x = paddle.getX() + paddle.getWidth() / 2;
             this.y = paddle.getY() - radius;
+        }
+        if (isPlayerAiming) {
+            if (aimIncrease) {
+                aimAngle += aimSpeed;
+            } else {
+                aimAngle -= aimSpeed;
+            }
+
+            if (aimAngle > ainMax) {
+                aimAngle = ainMax;
+                aimIncrease = false;
+            } else if (aimAngle < ainMin) {
+                aimAngle = ainMin;
+                aimIncrease = true;
+            }
+        } else {
+            aimAngle = 30;
         }
     }
 
@@ -228,27 +242,7 @@ public abstract class Ball extends GameObject {
         gc.setGlobalAlpha(1.0); // KHÔNG ảnh hưởng vật khác
     }
 
-    private void angle() {
-                if (isPlayerAiming) {
-            if (aimIncrease) {
-                aimAngle += aimSpeed;
-            } else {
-                aimAngle -= aimSpeed;
-            }
-
-            if (aimAngle > ainMax) {
-                aimAngle = ainMax;
-                aimIncrease = false;
-            } else if (aimAngle < ainMin) {
-                aimAngle = ainMin;
-                aimIncrease = true;
-            }
-        } else {
-            aimAngle = 30;
-        }
-    }
-
-    public void bounceX() {
+        public void bounceX() {
         dx = -dx;
     } // RIGHT & LEFT
 
@@ -272,16 +266,14 @@ public abstract class Ball extends GameObject {
         }
     }  
 
-    private void limit() {
-        if (dx > speedball) dx = speedball;
-        if (dx < -speedball) dx = -speedball;
-        if (dy > speedball) dy = speedball;
-        if (dy < -speedball) dy = -speedball;
-        if (radius > 40) radius = 40;
-        if (speedball < 0.1) speedball = 0.1;
-        if (speedball > 20) speedball = 20;
+    public double getX() {
+        return x;
     }
-    
+
+    public double getY() {
+        return y;
+    }
+
     public double getDx() {
         return dx;
     }
@@ -319,11 +311,11 @@ public abstract class Ball extends GameObject {
         return isRunning;
     }
 
-    public double getDamage() {
-        return damage;
+    public double getDamege() {
+        return damege;
     }
-    public void setDamage(double damage) {
-        this.damage = damage;
+    public void setDamege(double damge) {
+        this.damege = damge;
     }
     public double getMaxcollision() {
         return Maxcollision;
@@ -331,32 +323,23 @@ public abstract class Ball extends GameObject {
     public void setMaxcollision(double maxcollision) {
         Maxcollision = maxcollision;
     }
-    /**
-     * Đánh dấu quả bóng này là một bản sao (clone).
-     */
     public void setIsClone(boolean isClone) {
         this.isClone = isClone;
     }
-    /**
-     * @return true nếu quả bóng này là bản sao.
-     */
     public boolean isClone() {
         return this.isClone;
     }
-
+    public boolean isSpecialPowerupBall(){
+        return isSpecialPowerupBall;
+    }
+    public void setIsSpecialPowerupBall(boolean isSpecialPowerupBall) {
+        this.isSpecialPowerupBall = isSpecialPowerupBall;
+    }
     public boolean isPlayerAiming() {
         return isPlayerAiming;
     }
 
     public void setPlayerAiming(boolean isPlayerAiming) {
         this.isPlayerAiming = isPlayerAiming;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 }

@@ -1,4 +1,4 @@
-package game.powerup; // (Chung package với lớp trên)
+package game.powerup;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,69 +6,45 @@ import java.util.List;
 
 import game.abstraction.Bricks;
 import game.ball.Ball;
-import game.items.ItemsForBall;
-
-/**
- * Đây là lớp "ListPowerup" mà bạn muốn.
- * Nó quản lý TẤT CẢ các vật phẩm đang có hiệu lực trong game.
- */
+import game.ball.ItemsForBall;
+import game.objects.Paddle;
 public class PowerupManager {
-
-    // Đây là "SetList" của bạn, lưu tất cả các vật phẩm đang kích hoạt
     private List<ActivePowerup> activePowerups;
-
     public PowerupManager() {
         this.activePowerups = new ArrayList<>();
     }
-
-    /**
-     * Được gọi khi người chơi nhặt được một vật phẩm.
-     * Thêm một vật phẩm mới vào danh sách.
-     * @param itemType Loại vật phẩm (prototype) vừa nhặt được.
-     */
-    public void addPowerup(ItemsForBall itemType) {
-        // Tạo một "thể hiện" mới của vật phẩm với bộ đếm thời gian riêng
-        ActivePowerup newPowerup = new ActivePowerup(itemType);
-        this.activePowerups.add(newPowerup);
-
-        // (Bạn có thể thêm code áp dụng 1 lần ngay khi nhặt ở đây nếu muốn)
-        // Ví dụ: itemType.applyOnCreation(...);
-    }
-
-    /**
-     * Cập nhật TẤT CẢ các vật phẩm đang kích hoạt.
-     * Giảm thời gian và xóa bỏ những vật phẩm đã hết hạn.
-     * @param dt Delta time
-     */
-    public void update(double dt) {
-        // Dùng Iterator để có thể xóa phần tử ngay trong lúc duyệt
+     //itemType Loại vật phẩm (prototype) vừa nhặt được.
+     public void addPowerup(ItemsForBall itemType, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+         ActivePowerup newPowerup = new ActivePowerup(itemType);
+         this.activePowerups.add(newPowerup);
+         if (!allBalls.isEmpty()) {
+             itemType.onFallingCollision(allBalls.get(0), allBalls, allBricks, pendingBalls);
+         }
+     }
+    public void update(double dt, List<Ball> allBalls) {
         Iterator<ActivePowerup> it = activePowerups.iterator();
         while (it.hasNext()) {
             ActivePowerup powerup = it.next();
-            powerup.update(dt); // Giảm thời gian
-
-            // Nếu hết hạn, xóa nó khỏi danh sách
+            powerup.update(dt);
             if (powerup.isExpired()) {
+                powerup.getItemType().onExpired(allBalls);
                 it.remove();
             }
         }
     }
-    /**
-     * Được gọi TỪ GameManager khi có va chạm bóng-gạch.
-     * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
-     */
     public void handleBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         for (ActivePowerup powerup : activePowerups) {
             powerup.applyOnBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
         }
     }
-    /**
-     * Được gọi TỪ GameManager khi có va chạm bóng-thanh chắn.
-     * Duyệt qua TẤT CẢ vật phẩm và áp dụng hiệu ứng của chúng.
-     */
-    public void handlePaddleCollision(Ball ball) {
+    public void handlePaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
         for (ActivePowerup powerup : activePowerups) {
-            powerup.applyOnPaddleCollision(ball);
+            powerup.applyOnPaddleCollision(ball, paddle, allBricks);
+        }
+    }
+    public void handleFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
+        for (ActivePowerup powerup : activePowerups) {
+            powerup.applyOnFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);
         }
     }
 }

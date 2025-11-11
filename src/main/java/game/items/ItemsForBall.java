@@ -1,9 +1,10 @@
-package game.items;
+package game.ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
+import game.objects.Paddle;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 /**
  * Lớp trừu tượng cho các nâng cấp TỨC THỜI/KẾT HỢP áp dụng trực tiếp lên một quả bóng.
  * Áp dụng khi nhặt vật phẩm rơi ra khi mà brick bị vỡ
@@ -43,26 +44,31 @@ public abstract class ItemsForBall {
     public void setPercent(double percent) {
         this.percent = percent;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-
-    // Phương thức áp dụng hiệu ứng khi nâng cấp được mua/gắn vào bóng
+    // Phương thức áp dụng hiệu ứng khi nâng cấp được mua
     public void applyOnCreation(Ball ball) {
     }
+    public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){
+    }
     /**
-     * Xử lý hiệu ứng khi bóng va chạm GẠCH
      * @param collidingBall Quả bóng VỪA va chạm
      * @param allBalls TẤT CẢ các quả bóng trên sân
      * @param allBricks TẤT CẢ các viên gạch trên sân (CHO BÓNG NỔ)
      * @param pendingBalls Danh sách chờ (ĐỂ SỬA LỖI ITEMSADN)
      */
     public void onBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
-        // (Lớp con sẽ override)
     }
     // Phương thức xử lý hiệu ứng khi bóng va chạm với THANH CHẮN (Paddle)
     public void onPaddleCollision(Ball ball) {
+    }
+    public void onPaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
+        onPaddleCollision(ball);
+    }
+    public List<Ball> shatter(Ball currentBall) {
+        List<Ball> newBalls = new ArrayList<>();
+        NormalBall newBall = new NormalBall(currentBall.getX(), currentBall.getY());
+        newBalls.add(newBall);
+        return newBalls;
+    }
+    public void onExpired(List<Ball> allBalls) {
     }
 }

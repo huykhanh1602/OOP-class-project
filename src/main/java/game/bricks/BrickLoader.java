@@ -14,7 +14,12 @@ import game.abstraction.Bricks;
 public class BrickLoader {
     public static List<Bricks> loadBricks() {
         List<Bricks> bricks = new ArrayList<Bricks>();
-        String path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
+        String path;
+        if (GameContext.getInstance().getCurrentLevel() > 0) {
+            path = "/game/map/level" + GameContext.getInstance().getCurrentLevel() + ".txt";
+        } else {
+            path = "/game/map/levelstart.txt";
+        }
         // path = "/game/map/test.txt";
         BufferedReader reader = null;
         String line;

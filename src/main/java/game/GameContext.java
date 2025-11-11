@@ -24,7 +24,7 @@ public class GameContext {
     public SimpleIntegerProperty currentScore = new SimpleIntegerProperty(0);
 
     // Game level management
-    private int currentLevel = 1;
+    private int currentLevel = 0;
     private final int maxLevel = Constant.MAX_LEVEL;
 
     public int getCurrentLevel() {
