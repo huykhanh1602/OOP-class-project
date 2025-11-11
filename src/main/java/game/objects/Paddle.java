@@ -1,10 +1,9 @@
 package game.objects;
 
-import game.Constant;
 import game.AssetManager;
-import javafx.geometry.Rectangle2D;
 import game.Constant;
 import game.abstraction.GameObject;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -27,6 +26,10 @@ public class Paddle extends GameObject {
         this.height = Constant.BRICK_HEIGHT;
         this.x = Constant.CANVAS_WIDTH / 2 - width / 2;
         this.y = Constant.CANVAS_HEIGHT - 75 - height;
+    }
+
+    public Paddle(Image paddleImage) {
+        this.paddleImage = paddleImage;
     }
 
     /// MOVEMENT
