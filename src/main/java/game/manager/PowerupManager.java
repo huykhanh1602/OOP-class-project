@@ -16,7 +16,7 @@ import game.powerup.ActivePowerup;
 public class PowerupManager {
 
     // Đây là "SetList" của bạn, lưu tất cả các vật phẩm đang kích hoạt
-    private List<ActivePowerup> activePowerups;
+    private final List<ActivePowerup> activePowerups;
 
     public PowerupManager() {
         this.activePowerups = new ArrayList<>();
