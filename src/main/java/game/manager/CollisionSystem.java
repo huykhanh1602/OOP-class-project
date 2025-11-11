@@ -53,7 +53,7 @@ public class CollisionSystem {
                         double brickCenterX = brick.getX();
                         double brickCenterY = brick.getY();
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
-                                6, brick.getColor());
+                                8, brick.getColor());
                         if (brick.getType() == "CHEST") {
                             CoinManager.getInstance().addCoin(5);
                         }

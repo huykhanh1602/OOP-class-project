@@ -20,7 +20,7 @@ public class HomeSceneController extends GameScene {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        super.initialize(url, rb);        
+        super.initialize(url, rb);
         nameGame.setPreserveRatio(true);
         startResizeAnimation();
     }
@@ -37,30 +37,27 @@ public class HomeSceneController extends GameScene {
 
         // Tạo Timeline
         resizeTimeline = new Timeline(
-            // KeyFrame 1: Giữ nguyên kích thước ban đầu (hoặc bắt đầu từ kích thước đó)
-            new KeyFrame(Duration.ZERO, 
-                new KeyValue(baseWidthProperty, baseWidthProperty.get()), 
-                new KeyValue(baseHeightProperty, baseHeightProperty.get()),
-                new KeyValue(baseXProperty, baseXProperty.get()),
-                new KeyValue(baseYProperty, baseYProperty.get())
-            ),
-            
-            // KeyFrame 2: Thay đổi đến kích thước mới sau 1 giây
-            new KeyFrame(Duration.seconds(1), 
-                new KeyValue(baseWidthProperty, baseWidthProperty.get() * 1.2),
-                new KeyValue(baseHeightProperty, baseHeightProperty.get() * 1.2),
-                new KeyValue(baseXProperty, baseXProperty.get() - baseWidthProperty.get() * 0.1),
-                new KeyValue(baseYProperty, baseYProperty.get() - baseHeightProperty.get() * 0.1)
-            ),
-            
-            // KeyFrame 3: Quay trở lại kích thước ban đầu sau 2 giây (tính từ Duration.ZERO)
-            new KeyFrame(Duration.seconds(2), 
-                new KeyValue(baseWidthProperty, baseWidthProperty.get()),
-                new KeyValue(baseHeightProperty, baseHeightProperty.get()),
-                new KeyValue(baseXProperty, baseXProperty.get()),
-                new KeyValue(baseYProperty, baseYProperty.get())
-            )
-        );
+                // KeyFrame 1: Giữ nguyên kích thước ban đầu (hoặc bắt đầu từ kích thước đó)
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(baseWidthProperty, baseWidthProperty.get()),
+                        new KeyValue(baseHeightProperty, baseHeightProperty.get()),
+                        new KeyValue(baseXProperty, baseXProperty.get()),
+                        new KeyValue(baseYProperty, baseYProperty.get())),
+
+                // KeyFrame 2: Thay đổi đến kích thước mới sau 1 giây
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(baseWidthProperty, baseWidthProperty.get() * 1.2),
+                        new KeyValue(baseHeightProperty, baseHeightProperty.get() * 1.2),
+                        new KeyValue(baseXProperty, baseXProperty.get() - baseWidthProperty.get() * 0.1),
+                        new KeyValue(baseYProperty, baseYProperty.get() - baseHeightProperty.get() * 0.1)),
+
+                // KeyFrame 3: Quay trở lại kích thước ban đầu sau 2 giây (tính từ
+                // Duration.ZERO)
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(baseWidthProperty, baseWidthProperty.get()),
+                        new KeyValue(baseHeightProperty, baseHeightProperty.get()),
+                        new KeyValue(baseXProperty, baseXProperty.get()),
+                        new KeyValue(baseYProperty, baseYProperty.get())));
 
         // Đặt số lần lặp vô hạn
         resizeTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -69,11 +66,11 @@ public class HomeSceneController extends GameScene {
 
     @FXML
     public void startResizeAnimation() {
-        createResizeTimeline(); 
-        
+        createResizeTimeline();
+
         if (resizeTimeline != null) {
             // Đảm bảo animation luôn bắt đầu từ đầu
-            resizeTimeline.playFromStart(); 
+            resizeTimeline.playFromStart();
         }
     }
 
@@ -84,6 +81,16 @@ public class HomeSceneController extends GameScene {
             app.switchToSkinScene();
         } else {
             System.out.println("error setting scene");
-        }    
+        }
+    }
+
+    @FXML
+    public void showInstruction() {
+        AssetManager.playSound("click");
+        if (app != null) {
+            app.switchToInstructionScene();
+        } else {
+            System.out.println("error setting scene");
+        }
     }
 }

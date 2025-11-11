@@ -30,14 +30,14 @@
                   <String fx:value="game-button" />
                </styleClass>
                 </Button>
-                <Button layoutX="459.0" layoutY="520.0" mnemonicParsing="false" onAction="#Quit" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Quit">
+                <Button layoutX="456.0" layoutY="500.0" mnemonicParsing="false" onAction="#showInstruction" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Instruction">
                <styleClass>
                   <String fx:value="label-container" />
                   <String fx:value="text-label" />
                   <String fx:value="game-button" />
                </styleClass>
                 </Button>
-                <Button layoutX="459.0" layoutY="420.0" mnemonicParsing="false" onAction="#Setting" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
+                <Button layoutX="459.0" layoutY="410.0" mnemonicParsing="false" onAction="#Setting" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Setting">
                     <styleClass>
                         <String fx:value="text-label" />
                         <String fx:value="label-container" />
@@ -49,6 +49,13 @@
                   <String fx:value="text-label" />
                   <String fx:value="game-button" />
                   <String fx:value="label-container" />
+               </styleClass>
+            </Button>
+            <Button layoutX="459.0" layoutY="590.0" mnemonicParsing="false" onAction="#Quit" prefHeight="64.0" prefWidth="400.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text="Quit">
+               <styleClass>
+                  <String fx:value="label-container" />
+                  <String fx:value="text-label" />
+                  <String fx:value="game-button" />
                </styleClass>
             </Button>
             </children>

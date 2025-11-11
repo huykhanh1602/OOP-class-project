@@ -67,11 +67,11 @@ public class Constant {
     public static final String CHEST_IMAGE = "/game/images/bricks/chest.gif";
     public static final String PORTAL_IMAGE = "/game/images/portal.gif";
 
-    public static final int STONE_DURABILITY = 3;
-    public static final int IRON_DURABILITY = 6;
-    public static final int GOLD_DURABILITY = 10;
-    public static final int DIAMOND_DURABILITY = 15;
-    public static final int NETHERITE_DURABILITY = 20;
+    public static final int STONE_DURABILITY = 10;
+    public static final int IRON_DURABILITY = 15;
+    public static final int GOLD_DURABILITY = 20;
+    public static final int DIAMOND_DURABILITY = 25;
+    public static final int NETHERITE_DURABILITY = 30;
     public static final int BEDROCK_DURABILITY = -1;
     public static final int CHEST_DURABILITY = 1;
     // scene path
@@ -84,6 +84,7 @@ public class Constant {
     public static final String ADS_SCENE = "/game/scenes/ADSScene.fxml";
     public static final String START_SCENE = "/game/scenes/StartScene.fxml";
     public static final String MERCHANT_SCENE = "/game/scenes/MerchantScene.fxml";
+    public static final String INSTRUCTION_SCENE_PATH = "/game/scenes/InstructionScene.fxml";
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path

@@ -52,7 +52,6 @@ public class GameManager {
     private void checkGameRules() {
         if (gw.getBricks().stream().allMatch(brick -> !brick.isDestroyable())) {
             app.switchToMerchantScene();
-            return;
         }
         if (gw.getBalls().isEmpty()) {
             app.gameOver(getScore());

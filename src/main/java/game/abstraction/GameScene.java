@@ -93,7 +93,7 @@ public abstract class GameScene implements Initializable {
     protected void handleInstructionButton(ActionEvent e) {
         System.out.println("Instruction button pressed");
         if (app != null) {
-            app.switchToInstructionScene();
+            app.switchToGameScene();
         } else {
             System.out.println("Error: App reference is null");
         }

@@ -10,6 +10,7 @@ import game.scenes.HomeSceneController;
 import game.scenes.SettingSceneController;
 import game.scenes.SkinBallSceneController;
 import game.scenes.TransitionSceneController;
+import game.scenes.InstructionController;
 
 import game.manager.CoinManager;
 import game.manager.ScoreManager;
@@ -103,6 +104,12 @@ public class App extends Application {
         switchScene(Constant.HOME_SCENE_PATH, (HomeSceneController controller) -> {
             controller.setup(this);
             playBackgroundMusic("Home_Background");
+        });
+    }
+
+    public void switchToInstructionScene() {
+        switchScene(Constant.INSTRUCTION_SCENE_PATH, (InstructionController controller) -> {
+            controller.setup(this);
         });
     }
 
