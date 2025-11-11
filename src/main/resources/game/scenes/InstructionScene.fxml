@@ -14,10 +14,10 @@
          <children>
             <ImageView fitHeight="720.0" fitWidth="1280.0">
                <image>
-                  <Image url="@../images/instruction.jpg" />
+                  <Image url="@../images/loading_background.png" />
                </image>
             </ImageView>
-            <Label layoutX="76.0" layoutY="90.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text=" * Control&#10; - Hold SPACE to adjust the angle, then release SPACE to fire&#10; - Press A/D or LEFT/RIGHT ARROW to move the paddle left/right&#10; * Gameplay&#10; - Destroy all bricks to pass a level&#10;" textFill="WHITE">
+            <Label layoutX="76.0" layoutY="90.0" style="-fx-font-size: 32;" stylesheets="@../fonts/GameStyle.css" text=" * Control&#10; - Hold SPACE to adjust the angle, then release SPACE to fire&#10; - Press A/D or LEFT/RIGHT ARROW to move the paddle left/right&#10;&#10;&#10;" textFill="WHITE">
                <styleClass>
                   <String fx:value="text-label" />
                   <String fx:value="label-container" />
