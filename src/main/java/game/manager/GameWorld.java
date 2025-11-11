@@ -18,7 +18,7 @@ import game.powerup.FallingItem;
 
 //Khởi tạo Game
 
-public class GameWorld {
+public final class GameWorld {
     private Paddle paddle;
     private List<Ball> balls;
     private List<Bricks> bricks;
@@ -46,7 +46,7 @@ public class GameWorld {
         }
         this.fallingItems = new ArrayList<>();
         paddle = new Paddle();
-        balls = new ArrayList<Ball>();
+        balls = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             switch (GameContext.getInstance().getNameBall()) {
                 case "slime_ball":
