@@ -5,6 +5,7 @@ import java.nio.channels.Channel;
 import game.AssetManager;
 import game.Constant;
 import game.abstraction.GameObject;
+import game.powerup.merchant;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -22,7 +23,7 @@ public class Paddle extends GameObject {
     Image paddleImage;
 
     public Paddle() {
-        this.width = Constant.BRICK_WIDTH * 6;
+        this.width = Constant.BRICK_WIDTH * 3 + Constant.BRICK_WIDTH * merchant.paddleSize;
         this.height = Constant.BRICK_HEIGHT;
         this.x = Constant.CANVAS_WIDTH / 2 - width / 2;
         this.y = Constant.CANVAS_HEIGHT - 75 - height;
@@ -85,9 +86,5 @@ public class Paddle extends GameObject {
 
     public Rectangle2D getBounds() {
         return new Rectangle2D(this.x, this.y, this.width, this.height);
-    }
-
-    public void increaseWidth(double amount) {
-        this.width = width + Constant.BRICK_WIDTH * amount;
     }
 }

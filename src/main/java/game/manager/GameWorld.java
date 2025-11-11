@@ -122,8 +122,4 @@ public final class GameWorld {
     public void setIsAiming(boolean isAiming) {
         this.isAiming = isAiming;
     }
-
-    public Paddle getPaddleObject() {
-        return paddle;
-    }
 }

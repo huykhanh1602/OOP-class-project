@@ -75,8 +75,8 @@ public class MerchantController extends GameScene {
             System.out.println("Bought item 1");
             messageLabel.setText("A wise choice!");
             AssetManager.playSound("buy");
+            merchant.paddleSize += 1;
 
-            gw.getInstance().getGameWorld().getPaddleObject().increaseWidth(merchant.paddleSize);
         } else {
             System.out.println("Failed to buy item 1");
             messageLabel.setText("Not enough coins to buy that!");
@@ -92,6 +92,7 @@ public class MerchantController extends GameScene {
             System.out.println("Bought item 2");
             messageLabel.setText("I'm rich!");
             AssetManager.playSound("buy");
+            merchant.ballSpeed += 0.5;
         } else {
             System.out.println("Failed to buy item 2");
             messageLabel.setText("Nothing is free!");
@@ -107,6 +108,7 @@ public class MerchantController extends GameScene {
             System.out.println("Bought item 3");
             messageLabel.setText("Thank you for your purchase!");
             AssetManager.playSound("buy");
+            merchant.ballDamage += 5;
         } else {
             System.out.println("Failed to buy item 3");
             messageLabel.setText("Get your ass out of here!");

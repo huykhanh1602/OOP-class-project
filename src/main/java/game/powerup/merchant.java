@@ -13,9 +13,9 @@ public class merchant {
         return INSTANCE;
     }
 
-    public static int ballSpeed = 0;
-    public static int ballDamage = 0;
-    public static int paddleSize = 1;
+    public static double ballSpeed = 0;
+    public static double ballDamage = 0;
+    public static int paddleSize = 0;
 
     public enum price {
         axe(30),
