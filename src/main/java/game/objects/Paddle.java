@@ -1,6 +1,6 @@
 package game.objects;
 
-import static game.Constant.HEIGHT_SCREEN;
+import game.Constant;
 import game.AssetManager;
 import javafx.geometry.Rectangle2D;
 import game.Constant;
@@ -25,8 +25,8 @@ public class Paddle extends GameObject {
     public Paddle() {
         this.width = Constant.BRICK_WIDTH * 6;
         this.height = Constant.BRICK_HEIGHT;
-        this.x = 1000/2 - width/2;
-        this.y = HEIGHT_SCREEN - 75 - height;
+        this.x = Constant.CANVAS_WIDTH / 2 - width / 2;
+        this.y = Constant.CANVAS_HEIGHT - 75 - height;
     }
 
     /// MOVEMENT
@@ -42,16 +42,10 @@ public class Paddle extends GameObject {
 
         try {
             int i = 0;
-            while (i != width/Constant.BRICK_WIDTH) {
-            if (i == 0) {
-                paddleImage = AssetManager.getImage("left_paddle");
-            } else if (i == width/Constant.BRICK_WIDTH - 1) {
-                paddleImage = AssetManager.getImage("right_paddle");
-            } else {
-                paddleImage = AssetManager.getImage("mid_paddle");
-            }
-            gc.drawImage(paddleImage, x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH, Constant.BRICK_HEIGHT);
-            i++;
+            while (i != width / Constant.BRICK_WIDTH) {
+                gc.drawImage(AssetManager.getImage("paddle"), x + i * Constant.BRICK_WIDTH, y, Constant.BRICK_WIDTH,
+                        Constant.BRICK_HEIGHT);
+                i++;
             }
         } catch (Exception e) {
             System.out.println("Cant load paddle image");

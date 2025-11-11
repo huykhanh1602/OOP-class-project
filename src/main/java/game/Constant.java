@@ -8,6 +8,9 @@ public class Constant {
     public static final int WIDTH_SCREEN = 1280;
     public static final int HEIGHT_SCREEN = 720;
 
+    public static final int CANVAS_WIDTH = 1200;
+    public static final int CANVAS_HEIGHT = 680;
+
     // game settings
     public static final int MAX_LEVEL = 10;
     public static final long LEVEL_TRANSITION_DELAY = 3_000_000_000L; // in milliseconds
@@ -88,9 +91,7 @@ public class Constant {
     public static final String ICON_PATH = "/game/images/icon.png";
 
     // paddle image path
-    public static final String RIGHT_PADDLE_PATH = "/game/images/rightPaddle.png";
-    public static final String LEFT_PADDLE_PATH = "/game/images/leftPaddle.png";
-    public static final String MID_PADDLE_PATH = "/game/images/midPaddle.png";
+    public static final String PADDLE_PATH = "/game/images/paddle.png";
 
     // images path
     public static final String DESTROY_STAGE = "/game/images/destroyStage/destroy_stage_";
