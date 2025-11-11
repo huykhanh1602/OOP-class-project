@@ -24,8 +24,8 @@ public class ActivePowerup {
     public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
-    public void applyOnPaddleCollision(Ball collidingBall) {
-        itemType.onPaddleCollision(collidingBall);
+    public void applyOnPaddleCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls, Paddle paddle) {
+        itemType.onPaddleCollision(collidingBall, allBalls, allBricks, pendingBalls, paddle);
     }
     public void applyOnFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);

@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Lớp này chứa một "bản mẫu" (prototype) của TẤT CẢ các vật phẩm
- * có thể rơi ra trong game.
- */
 public class AvailableItems {
     private static final List<ItemsForBall> ITEM_POOL = new ArrayList<>();
     private static final Random random = new Random();
@@ -28,7 +24,6 @@ public class AvailableItems {
         if (random.nextDouble() * 100 < chance) {
             return potentialItem;
         }
-
         return null;
     }
 }

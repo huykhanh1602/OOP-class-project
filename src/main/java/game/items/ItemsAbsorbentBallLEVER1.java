@@ -13,7 +13,7 @@ import java.util.Random;
 public class ItemsAbsorbentBallLEVER1 extends ItemsForBall {
     private static final Random random = new Random();
     public ItemsAbsorbentBallLEVER1() {
-        super("Bóng Hấp Thụ(Cấp 3)","Hiệu lực 8s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff damege, tốc độ x 1.1",8,10);
+        super("Bóng Hấp Thụ(Cấp 3)","Hiệu lực 8s. Khi nhặt: tạo 1 bóng mới trên sân. Khi bóng MỚI va chạm gạch, nó được buff damege, tốc độ x 1.1",8,20);
         setItemName("diamond");
     }
     public void onFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls){

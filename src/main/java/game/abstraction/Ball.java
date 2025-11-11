@@ -17,7 +17,7 @@ public abstract class Ball extends GameObject {
     /// ELEMENT BALL
     private double radius = 10; // Size ball
     private double dx, dy; // Vector speed
-    private double speedball = 1; // Ball speed
+    private double speedball = 4; // Ball speed
     public boolean isRunning = false;
     private double damage;
     private double Maxcollision;

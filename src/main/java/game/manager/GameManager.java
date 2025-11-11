@@ -29,10 +29,10 @@ public class GameManager {
     }
 
     public void update(double deltaTime) {
-        updateManager.update(gw, deltaTime);
+        updateManager.update(gw, powerupManager, deltaTime);
         collisionSystem.checkCollisions(powerupManager, gw);
-        powerupManager.update(deltaTime, gw.getBalls());
-        ParticleManager.getInstance().update(deltaTime);
+        gw.getBalls().addAll(gw.getPendingBallsToAdd());
+        gw.getPendingBallsToAdd().clear();
         checkGameRules();
     }
 

@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 public class FallingItem {
     private double x, y;
-    private final double width = 20; // Kích thước vật phẩm
+    private final double width = 20;
     private final double height = 20;
     private double fallSpeed = 150.0;
     private ItemsForBall itemType;
