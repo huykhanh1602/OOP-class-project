@@ -29,23 +29,14 @@ public class GameManager {
     }
 
     public void update(double deltaTime) {
-
-        // 2. Cập nhật trạng thái các thực thể (di chuyển)
-        updateManager.update(gw);
-
-        // 3. Xử lý va chạm
+        updateManager.update(gw, deltaTime);
         collisionSystem.checkCollisions(powerupManager, gw);
-
-        // 4. Cập nhật các hệ thống khác
-        powerupManager.update(deltaTime);
+        powerupManager.update(deltaTime, gw.getBalls());
         ParticleManager.getInstance().update(deltaTime);
-
-        // 5. Kiểm tra điều kiện thắng/thua
         checkGameRules();
     }
 
     public void render(GraphicsContext gc) {
-        // Ủy quyền hoàn toàn cho renderer
         renderer.render(gc, gw);
     }
 

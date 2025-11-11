@@ -47,11 +47,11 @@ public class Constant {
     public static final String COIN = "game/images/element/coin.png";
 
     // power up
-    public static final String DIAMOND = "game/images/items/diamond.gif";
-    public static final String EMARLD = "game/images/items/emarld.gif";
-    public static final String EXPPOTION = "game/images/items/expPotion.gif";
-    public static final String EYEOFDRAGON = "game/images/items/eyeOfDragon.gif";
-    public static final String GOLDEN_APPLE = "game/images/items/golden_apple.gif";
+    public static final String DIAMOND = "/game/images/items/diamond.gif";
+    public static final String EMARLD = "/game/images/items/emarld.gif";
+    public static final String EXPPOTION = "/game/images/items/expPotion.gif";
+    public static final String EYEOFDRAGON = "/game/images/items/eyeOfDragon.gif";
+    public static final String GOLDEN_APPLE = "/game/images/items/golden_apple.gif";
     // brick settings
     public static final int BRICK_WIDTH = 50;
     public static final int BRICK_HEIGHT = 50;

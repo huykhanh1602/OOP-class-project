@@ -6,22 +6,21 @@ import game.AssetManager;
 import game.GameContext;
 import game.abstraction.Ball;
 import game.abstraction.Bricks;
+import game.items.ItemsForBall;
+import game.powerup.AvailableItems;
+import game.powerup.FallingItem;
 
 import game.particle.ParticleManager;
 
 public class CollisionSystem {
-
     public CollisionSystem() {
     }
-
     public void checkCollisions(PowerupManager powerupManager, GameWorld gw) {
         for (Iterator<Ball> BALL = gw.getBalls().iterator(); BALL.hasNext();) {
             Ball ball = BALL.next();
             ball.collides(ball);
             if (ball.getRect().intersects(gw.getPaddle().getBounds())) {
-                // Bây giờ mới gọi hàm void để xử lý nảy
                 ball.collides(gw.getPaddle());
-                // Và gọi powerup
                 powerupManager.handlePaddleCollision(ball);
             }
             if (gw.getPortalLeft() != null && gw.getPortalRight() != null) {
@@ -49,7 +48,13 @@ public class CollisionSystem {
                         AssetManager.playSound("brick_break");
                         BRICK.remove();
                         GameContext.getInstance().addScore(brick.getPoint());
-
+                        ItemsForBall itemType = AvailableItems.getRandomItem();
+                        if (itemType != null) {
+                            double spawnX = brick.getRectBrick().getMinX() + brick.getRectBrick().getWidth() / 2;
+                            double spawnY = brick.getRectBrick().getMinY() + brick.getRectBrick().getHeight() / 2;
+                            FallingItem newItem = new FallingItem(spawnX, spawnY, itemType);
+                            gw.getFallingItems().add(newItem);
+                        }
                         double brickCenterX = brick.getX();
                         double brickCenterY = brick.getY();
                         ParticleManager.getInstance().createBrickBreakEffect(brickCenterX, brickCenterY,
@@ -69,6 +74,13 @@ public class CollisionSystem {
                 BALL.remove();
             }
         }
+        Iterator<FallingItem> itemIt = gw.getFallingItems().iterator();
+        while (itemIt.hasNext()) {
+            FallingItem item = itemIt.next();
+            if (gw.getPaddle().getBounds().intersects(item.getBounds())) {
+                powerupManager.addPowerup(item.getItemType(), gw.getBalls(), gw.getBricks(), gw.getPendingBallsToAdd());
+                item.remove();
+            }
+        }
     }
-
 }

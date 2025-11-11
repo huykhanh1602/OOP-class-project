@@ -1,8 +1,12 @@
 package game.powerup;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
-import game.ball.Ball;
-import game.ball.ItemsForBall;
+import game.ball.NormalBall;
+import game.items.ItemsForBall;
 import game.objects.Paddle;
 public class ActivePowerup {
     private ItemsForBall itemType;
@@ -20,8 +24,8 @@ public class ActivePowerup {
     public void applyOnBrickCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onBrickCollision(collidingBall, allBalls, allBricks, pendingBalls);
     }
-    public void applyOnPaddleCollision(Ball ball, Paddle paddle, List<Bricks> allBricks) {
-        itemType.onPaddleCollision(ball, paddle, allBricks);
+    public void applyOnPaddleCollision(Ball collidingBall) {
+        itemType.onPaddleCollision(collidingBall);
     }
     public void applyOnFallingCollision(Ball collidingBall, List<Ball> allBalls, List<Bricks> allBricks, List<Ball> pendingBalls) {
         itemType.onFallingCollision(collidingBall, allBalls, allBricks, pendingBalls);

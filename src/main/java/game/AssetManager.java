@@ -47,6 +47,8 @@ public class AssetManager {
             imageInput("CHEST", Constant.CHEST_IMAGE);
             imageInput("PORTAL", Constant.PORTAL_IMAGE);
 
+            imageInput("diamond", Constant.DIAMOND);
+
             imageInput("heart", Constant.HEART);
 
             // load destroy stage images
