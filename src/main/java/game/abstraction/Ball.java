@@ -3,7 +3,6 @@ package game.abstraction;
 import static java.lang.Math.sqrt;
 
 import game.AssetManager;
-import game.Constant;
 import game.GameContext;
 import game.objects.Paddle;
 import javafx.geometry.Rectangle2D;
@@ -45,6 +44,7 @@ public abstract class Ball extends GameObject {
     public Ball(double x, double y) {
         this.x = x + radius;
         this.y = y + radius;
+        this.type = GameContext.getInstance().getNameBall();
         ballImage = AssetManager.getImage(type);
         diretion = AssetManager.getImage("diretion");
 
