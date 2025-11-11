@@ -8,9 +8,7 @@ import game.powerup.FallingItem;
 import game.abstraction.Ball;
 
 public class UpdateManager {
-    public void update(GameWorld gw, PowerupManager powerupManager, double deltaTime) {
-        if (gw.isPause())
-            return;
+    public void update(GameWorld gw) {
         gw.getPaddle().update();
         gw.getBalls().forEach(b -> b.update(gw.getPaddle()));
         gw.getBalls().forEach(b -> b.setPlayerAiming(gw.isIsAiming()));
@@ -19,8 +17,5 @@ public class UpdateManager {
             gw.getPortalLeft().update();
             gw.getPortalRight().update();
         }
-        powerupManager.update(deltaTime, gw.getBalls());
-        updateFallingItems(gw, deltaTime);
-        ParticleManager.getInstance().update(deltaTime);
     }
 }
