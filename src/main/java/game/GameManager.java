@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import game.abstraction.Ball;
 import game.abstraction.Bricks;
 import game.ball.*;
 import game.bricks.BrickLoader;
+import game.items.ItemsForBall;
+import game.manager.PowerupManager;
 import game.objects.Paddle;
 import game.particle.ParticleManager;
-import game.powerup.PowerupManager;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -46,7 +49,6 @@ public class GameManager {
         this.powerupManager = new PowerupManager();
         this.fallingItems = new ArrayList<>();
         this.pendingBallsToAdd = new ArrayList<>();
-        loadAvailableItems();
     }
     private static  double lastUpdateTime = 0;
     public static double calculateDeltaTime() {
@@ -69,11 +71,11 @@ public class GameManager {
             ball.collides(ball);
             if (ball.getRect().intersects(paddle.getBounds())) {
                 ball.collides(paddle);
-                powerupManager.handlePaddleCollision(ball, this.paddle, this.bricks);
+                powerupManager.handlePaddleCollision(ball);
             }
             for (Iterator<Bricks> BRICK = bricks.iterator(); BRICK.hasNext();) {
                 Bricks brick = BRICK.next();
-                double dame = ball.getDamege();
+                double dame = ball.getDamage();
                 if (!brick.isBroken() && ball.intersects(brick.getRectBrick())) {
                     brick.hit(dame);
                     ball.setMaxcollision(ball.getMaxcollision()-1);
@@ -247,15 +249,6 @@ public class GameManager {
     }
     public int getScore() {
         return GameContext.getInstance().getCurrentScore();
-    }
-    private void loadAvailableItems() {
-        availableItems.add(new ItemsAbsorbentBallLEVER1());
-        availableItems.add(new ItemsAbsorbentBallLEVER2());
-        availableItems.add(new ItemsAbsorbentBallLEVER3());
-        availableItems.add(new ItemsAbsorbentBallLEVER4());
-        availableItems.add(new ItemsAbsorbentBallLEVER5());
-        availableItems.add(new ItemsADNBall());
-        availableItems.add(new ItemsExplosiveBall());
     }
     public static String getSkin() {
         return skin;
