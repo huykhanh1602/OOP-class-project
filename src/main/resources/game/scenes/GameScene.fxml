@@ -183,7 +183,7 @@
                         <Font size="41.0" />
                      </font>
                   </Label>
-                  <Button layoutX="554.0" layoutY="380.0" mnemonicParsing="false" onAction="#Quit" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Home">
+                  <Button layoutX="554.0" layoutY="370.0" mnemonicParsing="false" onAction="#returnToHome" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Home">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -193,7 +193,7 @@
                         <String fx:value="label-container" />
                      </styleClass>
                   </Button>
-                  <Button layoutX="539.0" layoutY="282.0" mnemonicParsing="false" onAction="#stopPause" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Resume">
+                  <Button layoutX="540.0" layoutY="280.0" mnemonicParsing="false" onAction="#stopPause" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Resume">
                      <styleClass>
                         <String fx:value="game-button" />
                         <String fx:value="text-label" />
@@ -202,6 +202,16 @@
                      <font>
                         <Font size="28.0" />
                      </font>
+                  </Button>
+                  <Button layoutX="565.0" layoutY="460.0" mnemonicParsing="false" onAction="#Quit" style="-fx-font-size: 28;" stylesheets="@../fonts/GameStyle.css" text="Quit">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="game-button" />
+                        <String fx:value="text-label" />
+                        <String fx:value="label-container" />
+                     </styleClass>
                   </Button>
                </children>
             </Group>
