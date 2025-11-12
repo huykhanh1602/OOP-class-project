@@ -7,6 +7,7 @@ import game.abstraction.Bricks;
 import game.ball.NormalBall;
 import game.objects.Paddle;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -100,7 +101,8 @@ public abstract class ItemsForBall {
         double explosionX = collidingBall.getX();
         double explosionY = collidingBall.getY();
         double explosionRadius = collidingBall.getRadius() * RADIUS_MULTIPLIER;
-        for (Bricks brick : allBricks) {
+        for (Iterator<Bricks> it = allBricks.iterator(); it.hasNext();) {
+            Bricks brick = it.next();
             if (brick.isBroken())
                 continue;
             double closestX = Math.max(brick.getX(), Math.min(explosionX, brick.getX() + brick.getWidth()));
@@ -110,6 +112,9 @@ public abstract class ItemsForBall {
             double distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
             if (distanceSquared < (explosionRadius * explosionRadius)) {
                 brick.hit(EXPLOSION_DAMAGE);
+                if (brick.isBroken()) {
+                    it.remove();
+                }
             }
         }
     }
